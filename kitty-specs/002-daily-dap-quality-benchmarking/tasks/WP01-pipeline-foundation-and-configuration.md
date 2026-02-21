@@ -1,26 +1,29 @@
 ---
-work_package_id: "WP01"
-subtasks:
-  - "T001"
-  - "T002"
-  - "T003"
-  - "T004"
-  - "T005"
-title: "Pipeline Foundation and Configuration"
-phase: "Phase 1 - Foundation"
-lane: "planned"
+work_package_id: WP01
+title: Pipeline Foundation and Configuration
+lane: "for_review"
 dependencies: []
-assignee: ""
-agent: ""
-shell_pid: ""
-review_status: ""
-reviewed_by: ""
+base_branch: main
+base_commit: 9d3d2a1568d59c415559a214ba0862a372698696
+created_at: '2026-02-21T20:15:30.629111+00:00'
+subtasks:
+- T001
+- T002
+- T003
+- T004
+- T005
+phase: Phase 1 - Foundation
+assignee: ''
+agent: "codex"
+shell_pid: "6888"
+review_status: ''
+reviewed_by: ''
 history:
-  - timestamp: "2026-02-21T20:12:31Z"
-    lane: "planned"
-    agent: "system"
-    shell_pid: ""
-    action: "Prompt generated via /spec-kitty.tasks"
+- timestamp: '2026-02-21T20:12:31Z'
+  lane: planned
+  agent: system
+  shell_pid: ''
+  action: Prompt generated via /spec-kitty.tasks
 ---
 
 # Work Package Prompt: WP01 – Pipeline Foundation and Configuration
@@ -104,3 +107,5 @@ history:
 ## Activity Log
 
 - 2026-02-21T20:12:31Z – system – lane=planned – Prompt generated.
+- 2026-02-21T20:15:30Z – codex – shell_pid=6888 – lane=doing – Assigned agent via workflow command
+- 2026-02-21T20:29:39Z – codex – shell_pid=6888 – lane=for_review – Ready for review: foundation scaffold, config validation, ingest normalization, and tests complete
