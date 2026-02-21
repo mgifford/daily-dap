@@ -1,0 +1,21 @@
+scan:
+  url_limit: 100
+  history_lookback_days: 30
+  traffic_window_mode: daily
+
+impact:
+  prevalence_rates:
+    blindness: 0.01
+    low_vision: 0.20
+    hearing_disability: 0.05
+    mobility_disability: 0.08
+    cognitive_disability: 0.12
+  severity_weights:
+    critical: 1.0
+    serious: 0.6
+    moderate: 0.3
+    minor: 0.1
+  fallback_severity_weight: 0.2
+
+sources:
+  dap_top_pages_endpoint: "https://api.gsa.gov/analytics/dap/v1.0/report/pages.json"

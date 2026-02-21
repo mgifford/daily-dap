@@ -1,0 +1,8 @@
+[
+  {"url": "https://example.gov/a", "page_load_count": 4200},
+  {"url": "https://example.gov/b", "page_load_count": 2500},
+  {"url": "https://example.gov/c", "page_load_count": 2500},
+  {"url": "https://example.gov/missing-load"},
+  {"url": "https://example.gov/d", "page_load_count": 100},
+  {"page": "https://example.gov/e", "views": 50}
+]

@@ -1,0 +1,14 @@
+{
+  "name": "daily-dap",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dry-run": "node src/cli/run-daily-scan.js --dry-run",
+    "test": "node --test tests/unit/*.test.js",
+    "ci": "npm run test && node src/cli/run-daily-scan.js --dry-run --source-file tests/fixtures/dap-sample.json"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
