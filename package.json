@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dry-run": "node src/cli/run-daily-scan.js --dry-run",
-    "test": "node --test tests/unit/*.test.js tests/contract/*.test.js",
+    "test": "node --test tests/unit/*.test.js tests/contract/*.test.js tests/integration/*.test.js",
     "ci": "npm run test && node src/cli/run-daily-scan.js --dry-run --source-file tests/fixtures/dap-sample.json"
   },
   "dependencies": {

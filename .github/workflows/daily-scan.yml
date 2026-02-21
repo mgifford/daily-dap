@@ -1,0 +1,109 @@
+name: Daily DAP Scan
+
+on:
+  schedule:
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+    inputs:
+      run_date:
+        description: 'Optional run date (YYYY-MM-DD)'
+        required: false
+        type: string
+      url_limit:
+        description: 'Optional URL limit override'
+        required: false
+        type: string
+      traffic_window:
+        description: 'Traffic window mode (daily|rolling_7d|rolling_30d)'
+        required: false
+        default: 'daily'
+        type: choice
+        options:
+          - daily
+          - rolling_7d
+          - rolling_30d
+      dry_run:
+        description: 'Run in dry-run mode only'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-dap-scan
+  cancel-in-progress: false
+
+jobs:
+  daily-scan:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      RUN_DATE: ${{ inputs.run_date }}
+      URL_LIMIT: ${{ inputs.url_limit }}
+      TRAFFIC_WINDOW: ${{ inputs.traffic_window || 'daily' }}
+      DRY_RUN: ${{ inputs.dry_run || false }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run pipeline
+        id: pipeline
+        shell: bash
+        run: |
+          set +e
+          ARGS=(--scan-mode mock)
+          if [[ -n "$RUN_DATE" ]]; then ARGS+=(--date "$RUN_DATE"); fi
+          if [[ -n "$URL_LIMIT" ]]; then ARGS+=(--limit "$URL_LIMIT"); fi
+          if [[ -n "$TRAFFIC_WINDOW" ]]; then ARGS+=(--traffic-window "$TRAFFIC_WINDOW"); fi
+          if [[ "$DRY_RUN" == "true" ]]; then ARGS+=(--dry-run); fi
+          node src/cli/run-daily-scan.js "${ARGS[@]}"
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload diagnostics artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-dap-run-artifacts
+          path: |
+            artifacts/
+            docs/reports/daily/
+          if-no-files-found: warn
+
+      - name: Commit report snapshots
+        if: always() && steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        shell: bash
+        run: |
+          if git diff --quiet -- docs/reports; then
+            echo "No report snapshot changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/reports
+          git commit -m "chore: publish daily DAP report snapshots"
+          git push
+
+      - name: Fail workflow on pipeline error
+        if: steps.pipeline.outputs.exit_code != '0'
+        run: |
+          echo "Pipeline command exited with code ${{ steps.pipeline.outputs.exit_code }}"
+          exit 1
