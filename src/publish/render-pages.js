@@ -1,0 +1,101 @@
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function renderCategoryRows(categories = []) {
+  return categories
+    .map(
+      (category) =>
+        `<tr><td>${escapeHtml(category.name)}</td><td>${category.prevalence_rate}</td><td>${category.estimated_impacted_users}</td></tr>`
+    )
+    .join('\n');
+}
+
+function renderHistoryRows(historySeries = []) {
+  return historySeries
+    .map(
+      (entry) =>
+        `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td><td>${entry.aggregate_scores.pwa}</td></tr>`
+    )
+    .join('\n');
+}
+
+export function renderDailyReportPage(report) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily DAP Report ${escapeHtml(report.run_date)}</title>
+</head>
+<body>
+  <h1>Daily DAP Report — ${escapeHtml(report.run_date)}</h1>
+  <p>Run ID: ${escapeHtml(report.run_id)}</p>
+  <p>Status: ${escapeHtml(report.report_status)}</p>
+
+  <h2>URL Counts</h2>
+  <ul>
+    <li>Processed: ${report.url_counts.processed}</li>
+    <li>Succeeded: ${report.url_counts.succeeded}</li>
+    <li>Failed: ${report.url_counts.failed}</li>
+    <li>Excluded: ${report.url_counts.excluded}</li>
+  </ul>
+
+  <h2>Aggregate Scores</h2>
+  <ul>
+    <li>Performance: ${report.aggregate_scores.performance}</li>
+    <li>Accessibility: ${report.aggregate_scores.accessibility}</li>
+    <li>Best Practices: ${report.aggregate_scores.best_practices}</li>
+    <li>SEO: ${report.aggregate_scores.seo}</li>
+    <li>PWA: ${report.aggregate_scores.pwa}</li>
+  </ul>
+
+  <h2>Estimated Impact (${escapeHtml(report.estimated_impact.traffic_window_mode)})</h2>
+  <p>Affected share percent: ${report.estimated_impact.affected_share_percent}</p>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <thead><tr><th>Category</th><th>Prevalence</th><th>Estimated impacted users</th></tr></thead>
+    <tbody>
+      ${renderCategoryRows(report.estimated_impact.categories)}
+    </tbody>
+  </table>
+
+  <h2>History</h2>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <thead><tr><th>Date</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th><th>PWA</th></tr></thead>
+    <tbody>
+      ${renderHistoryRows(report.history_series)}
+    </tbody>
+  </table>
+</body>
+</html>`;
+}
+
+export function renderDashboardPage({ latestReport, historyIndex = [] }) {
+  const historyLinks = historyIndex
+    .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${entry.run_id})</li>`)
+    .join('\n');
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily DAP Reports</title>
+</head>
+<body>
+  <h1>Daily DAP Quality Reports</h1>
+  <p>Latest run: ${escapeHtml(latestReport?.run_date ?? 'n/a')}</p>
+  <p><a href="./daily/${escapeHtml(latestReport?.run_date ?? '')}/index.html">Open latest report</a></p>
+
+  <h2>Recent Reports</h2>
+  <ul>
+    ${historyLinks}
+  </ul>
+</body>
+</html>`;
+}
