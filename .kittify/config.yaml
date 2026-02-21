@@ -1,0 +1,8 @@
+vcs:
+  type: git
+agents:
+  available:
+  - copilot
+  selection:
+    preferred_implementer: copilot
+    preferred_reviewer: copilot

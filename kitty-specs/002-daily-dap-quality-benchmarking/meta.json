@@ -1,9 +1,10 @@
 {
   "feature_number": "002",
   "slug": "002-daily-dap-quality-benchmarking",
-  "feature_slug": "002-daily-dap-quality-benchmarking",
-  "friendly_name": "daily dap quality benchmarking",
+  "friendly_name": "Daily DAP Quality Benchmarking",
   "mission": "software-dev",
+  "source_description": "What I want is to be able to evaluate the quality of the top 1000 pages of: https://digital.gov/guides/dap/",
+  "created_at": "2026-02-21T17:09:49.175272+00:00",
   "target_branch": "main",
-  "created_at": "2026-02-21T17:09:49.175272+00:00"
+  "vcs": "git"
 }

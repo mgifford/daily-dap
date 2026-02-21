@@ -1,108 +1,130 @@
-# Implementation Plan: [FEATURE]
-*Path: [templates/plan-template.md](templates/plan-template.md)*
+# Implementation Plan: Daily DAP Quality Benchmarking
 
-
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/kitty-specs/[###-feature-name]/spec.md`
-
-**Note**: This template is filled in by the `/spec-kitty.plan` command. See `src/specify_cli/missions/software-dev/command-templates/plan.md` for the execution workflow.
-
-The planner will not begin until all planning questions have been answered—capture those answers in this document before progressing to later phases.
+**Branch**: `002-daily-dap-quality-benchmarking` | **Date**: 2026-02-21 | **Spec**: `/workspaces/daily-dap/kitty-specs/002-daily-dap-quality-benchmarking/spec.md`
+**Input**: Feature specification from `/kitty-specs/002-daily-dap-quality-benchmarking/spec.md`
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Build a daily GitHub Actions-driven benchmarking pipeline that pulls top DAP URLs plus page loads, runs ScanGov and Lighthouse scans, computes traffic-weighted quality and accessibility impact metrics, and publishes date-versioned reports to GitHub Pages with a configurable historical window (default 30 days).
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
+**Language/Version**: Node.js 20 LTS (scan orchestration + report build), static HTML/CSS/JS for published pages  
+**Primary Dependencies**: Lighthouse CLI, ScanGov tooling/CLI, YAML parser, charting library for trendlines  
+**Storage**: Versioned JSON and HTML report artifacts in repository + GitHub Actions artifacts  
+**Testing**: Node test runner for aggregation logic, contract/schema validation for report JSON, workflow smoke validation in Actions  
+**Target Platform**: GitHub Actions (scheduled + on-demand) and GitHub Pages for public delivery  
+**Project Type**: Single project pipeline + static report site  
+**Performance Goals**: Daily run completes within scheduled workflow limits for default 100 URLs; trend page load under 3 seconds for visitors  
+**Constraints**: No private backend runtime; all published results must be static and publicly viewable; config-driven scan limit and lookback  
+**Scale/Scope**: Default 100 URLs/day with option to scale toward 1000 URLs/day; retain historical trend dataset with configurable window
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+## Planning Inputs Confirmed
+
+- Stack choice: static GitHub Pages frontend + GitHub Actions schedule + Node.js orchestrator.
+- Scan set: configurable URL count with default 100.
+- Impact model: weighted severity for accessibility findings.
+- Traffic weighting window: previous calendar day default; 7-day and 30-day options configurable.
+- Publication/archive model: both Actions artifacts and committed repository snapshots.
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Constitution file `/workspaces/daily-dap/.kittify/memory/constitution.md` not found.
+- Gate result: **Skipped (no constitution defined)**.
+- Action: proceed using repository conventions and enforce spec requirements as binding constraints.
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```
-kitty-specs/[###-feature]/
-├── plan.md              # This file (/spec-kitty.plan command output)
-├── research.md          # Phase 0 output (/spec-kitty.plan command)
-├── data-model.md        # Phase 1 output (/spec-kitty.plan command)
-├── quickstart.md        # Phase 1 output (/spec-kitty.plan command)
-├── contracts/           # Phase 1 output (/spec-kitty.plan command)
-└── tasks.md             # Phase 2 output (/spec-kitty.tasks command - NOT created by /spec-kitty.plan)
+kitty-specs/002-daily-dap-quality-benchmarking/
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/
+│   └── daily-report.schema.json
+└── tasks.md
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+├── config/
+│   └── prevalence.yaml
+├── ingest/
+│   └── dap-source.js
+├── scanners/
+│   ├── lighthouse-runner.js
+│   └── scangov-runner.js
+├── aggregation/
+│   ├── score-aggregation.js
+│   └── impact-estimation.js
+├── publish/
+│   ├── build-daily-report.js
+│   ├── build-history-index.js
+│   └── archive-writer.js
+└── cli/
+  └── run-daily-scan.js
+
+docs/
+└── reports/
+  ├── index.html
+  ├── history.json
+  └── daily/
+    └── YYYY-MM-DD/
+      ├── report.json
+      └── index.html
+
+.github/
+└── workflows/
+  └── daily-scan.yml
 
 tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+├── unit/
+│   ├── impact-estimation.test.js
+│   └── score-aggregation.test.js
+└── contract/
+  └── report-schema.test.js
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: Single-project Node pipeline + static report output is selected to match GitHub Actions execution and GitHub Pages hosting constraints.
+
+## Phase 0: Research & Decisions
+
+1. Verify DAP source extraction strategy for top URLs and daily load counts.
+2. Confirm ScanGov result shape for issue-level accessibility output and severity mapping.
+3. Confirm Lighthouse execution settings for stable daily comparison and CWV status extraction.
+4. Define archive retention and lookback computation behavior for history generation.
+5. Define failure-handling policy for partial scan completion and report publication behavior.
+
+**Output artifact**: `research.md` with decision, rationale, and alternatives.
+
+## Phase 1: Design & Contracts
+
+1. Design canonical data entities and relationships for daily run, per-URL result, prevalence profile, and published snapshots.
+2. Define output contract/schema for daily report JSON consumed by GitHub Pages.
+3. Define quickstart runbook for local and CI execution, including configuration knobs.
+4. Document calculation formulas for weighted accessibility impact and affected-share percentage.
+5. Re-check constitution gate (skipped unless constitution appears before implementation).
+
+**Output artifacts**:
+
+- `/workspaces/daily-dap/kitty-specs/002-daily-dap-quality-benchmarking/data-model.md`
+- `/workspaces/daily-dap/kitty-specs/002-daily-dap-quality-benchmarking/contracts/daily-report.schema.json`
+- `/workspaces/daily-dap/kitty-specs/002-daily-dap-quality-benchmarking/quickstart.md`
+
+## Risks & Mitigations
+
+- **External data volatility**: DAP source shape may change. Mitigation: strict ingest validation and fallback failure report.
+- **Scan runtime growth**: 1000 URL scans may exceed schedule windows. Mitigation: configurable parallelism, timeout budget, and partial publish mode.
+- **Metric comparability drift**: scanner versions/settings could change. Mitigation: pin tool versions and include run metadata in report.
+- **Impact estimate misinterpretation**: prevalence-based estimates can be over-read. Mitigation: include assumptions and confidence disclaimers in report output.
 
 ## Complexity Tracking
 
-*Fill ONLY if Constitution Check has violations that must be justified*
-
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+No constitution violations to justify (constitution unavailable).

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/daily-report.schema.json",
+  "title": "Daily DAP Quality Report",
+  "type": "object",
+  "required": [
+    "run_date",
+    "run_id",
+    "url_limit",
+    "url_counts",
+    "aggregate_scores",
+    "estimated_impact",
+    "trend_window_days",
+    "history_series"
+  ],
+  "properties": {
+    "run_date": { "type": "string", "format": "date" },
+    "run_id": { "type": "string" },
+    "url_limit": { "type": "integer", "minimum": 1 },
+    "url_counts": {
+      "type": "object",
+      "required": ["processed", "succeeded", "failed", "excluded"],
+      "properties": {
+        "processed": { "type": "integer", "minimum": 0 },
+        "succeeded": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "excluded": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "aggregate_scores": {
+      "type": "object",
+      "required": ["performance", "accessibility", "best_practices", "seo", "pwa"],
+      "properties": {
+        "performance": { "type": "number", "minimum": 0, "maximum": 100 },
+        "accessibility": { "type": "number", "minimum": 0, "maximum": 100 },
+        "best_practices": { "type": "number", "minimum": 0, "maximum": 100 },
+        "seo": { "type": "number", "minimum": 0, "maximum": 100 },
+        "pwa": { "type": "number", "minimum": 0, "maximum": 100 }
+      },
+      "additionalProperties": false
+    },
+    "estimated_impact": {
+      "type": "object",
+      "required": ["traffic_window_mode", "affected_share_percent", "categories"],
+      "properties": {
+        "traffic_window_mode": {
+          "type": "string",
+          "enum": ["daily", "rolling_7d", "rolling_30d"]
+        },
+        "affected_share_percent": { "type": "number", "minimum": 0 },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "prevalence_rate", "estimated_impacted_users"],
+            "properties": {
+              "name": { "type": "string" },
+              "prevalence_rate": { "type": "number", "minimum": 0 },
+              "estimated_impacted_users": { "type": "number", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "trend_window_days": { "type": "integer", "minimum": 1 },
+    "history_series": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date", "aggregate_scores"],
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "aggregate_scores": { "$ref": "#/properties/aggregate_scores" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": true
+}

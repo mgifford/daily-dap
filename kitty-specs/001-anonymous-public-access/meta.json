@@ -1,9 +1,10 @@
 {
   "feature_number": "001",
   "slug": "001-anonymous-public-access",
-  "feature_slug": "001-anonymous-public-access",
-  "friendly_name": "anonymous public access",
+  "friendly_name": "Anonymous Public Access",
   "mission": "software-dev",
+  "source_description": "Add user authentication with email/password",
+  "created_at": "2026-02-21T16:49:32.944912+00:00",
   "target_branch": "main",
-  "created_at": "2026-02-21T16:49:32.944912+00:00"
+  "vcs": "git"
 }
