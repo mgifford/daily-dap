@@ -1,28 +1,31 @@
 ---
-work_package_id: "WP03"
-subtasks:
-  - "T011"
-  - "T012"
-  - "T013"
-  - "T014"
-  - "T015"
-  - "T016"
-title: "Aggregation, Impact, and Trends"
-phase: "Phase 3 - Metrics and Estimation"
-lane: "planned"
+work_package_id: WP03
+title: Aggregation, Impact, and Trends
+lane: "for_review"
 dependencies:
-  - "WP02"
-assignee: ""
-agent: ""
-shell_pid: ""
-review_status: ""
-reviewed_by: ""
+- WP02
+base_branch: 002-daily-dap-quality-benchmarking-WP02
+base_commit: c58813bf9e86256c45d7943f1ea1941c15029c05
+created_at: '2026-02-21T22:02:18.636125+00:00'
+subtasks:
+- T011
+- T012
+- T013
+- T014
+- T015
+- T016
+phase: Phase 3 - Metrics and Estimation
+assignee: ''
+agent: "codex"
+shell_pid: "3570"
+review_status: ''
+reviewed_by: ''
 history:
-  - timestamp: "2026-02-21T20:12:31Z"
-    lane: "planned"
-    agent: "system"
-    shell_pid: ""
-    action: "Prompt generated via /spec-kitty.tasks"
+- timestamp: '2026-02-21T20:12:31Z'
+  lane: planned
+  agent: system
+  shell_pid: ''
+  action: Prompt generated via /spec-kitty.tasks
 ---
 
 # Work Package Prompt: WP03 – Aggregation, Impact, and Trends
@@ -115,3 +118,5 @@ history:
 ## Activity Log
 
 - 2026-02-21T20:12:31Z – system – lane=planned – Prompt generated.
+- 2026-02-21T22:02:18Z – codex – shell_pid=3570 – lane=doing – Assigned agent via workflow command
+- 2026-02-21T22:39:34Z – codex – shell_pid=3570 – lane=for_review – Ready for review: implemented T011-T016 aggregation, slow-risk rollups, weighted severity impact, prevalence category estimation, and trend windows with unit tests passing (20/20).
