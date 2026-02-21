@@ -1,7 +1,7 @@
 ---
 work_package_id: WP04
 title: Reporting, Archival, and Public Pages
-lane: "for_review"
+lane: "done"
 dependencies:
 - WP03
 base_branch: 002-daily-dap-quality-benchmarking-WP03
@@ -18,8 +18,8 @@ phase: Phase 4 - Publication
 assignee: ''
 agent: "codex"
 shell_pid: "3570"
-review_status: ''
-reviewed_by: ''
+review_status: "approved"
+reviewed_by: "Mike Gifford"
 history:
 - timestamp: '2026-02-21T20:12:31Z'
   lane: planned
@@ -118,3 +118,5 @@ history:
 - 2026-02-21T20:12:31Z – system – lane=planned – Prompt generated.
 - 2026-02-21T22:48:36Z – codex – shell_pid=3570 – lane=doing – Assigned agent via workflow command
 - 2026-02-21T22:56:29Z – codex – shell_pid=3570 – lane=for_review – Ready for review: implemented report payload builder, static page rendering, history index generation, committed snapshot writer, artifact manifest checksums, and schema contract tests (23/23 passing).
+- 2026-02-21T22:58:05Z – codex – shell_pid=3570 – lane=doing – Started review via workflow command
+- 2026-02-21T22:59:30Z – codex – shell_pid=3570 – lane=done – Review passed: WP04 reporting/archival implementation and schema contracts validated; tests pass (23/23); dependency WP03 satisfied; dependent WP05 remains planned. README expanded with DAP resources and explicit ingest→scan→report workflow.
