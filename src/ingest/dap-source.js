@@ -1,9 +1,13 @@
 import fs from 'node:fs/promises';
 
 function toRecord(raw, sourceDate) {
-  const url = raw.url ?? raw.page ?? raw.page_url ?? raw.hostname;
+  const rawUrl = raw.url ?? raw.page ?? raw.page_url ?? raw.hostname ?? raw.domain;
+  const url =
+    typeof rawUrl === 'string' && !rawUrl.startsWith('http://') && !rawUrl.startsWith('https://')
+      ? `https://${rawUrl}`
+      : rawUrl;
   const pageLoadCount =
-    raw.page_load_count ?? raw.pageviews ?? raw.views ?? raw.hits ?? raw.page_loads ?? null;
+    raw.page_load_count ?? raw.pageviews ?? raw.views ?? raw.hits ?? raw.page_loads ?? raw.visits ?? null;
 
   if (!url || typeof url !== 'string') {
     return null;
