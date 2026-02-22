@@ -54,6 +54,7 @@ export function renderDailyReportPage(report) {
   <h1>Daily DAP Report — ${escapeHtml(report.run_date)}</h1>
   <p>Run ID: ${escapeHtml(report.run_id)}</p>
   <p>Status: ${escapeHtml(report.report_status)}</p>
+  <p>Source data date: ${escapeHtml(report.source_data_date ?? report.run_date)}</p>
 
   <h2>URL Counts</h2>
   <ul>
@@ -90,7 +91,7 @@ export function renderDailyReportPage(report) {
   </table>
 
   <h2>Top URLs by Traffic (Scanned)</h2>
-  <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} URLs from this run.</p>
+  <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
   <table border="1" cellpadding="6" cellspacing="0">
     <thead>
       <tr>

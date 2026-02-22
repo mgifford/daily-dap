@@ -60,6 +60,16 @@ export function buildDailyReport({
     }
   }));
 
+  const topUrls = normalizeTopUrls(urlResults);
+
+  const sourceDataDate = urlResults.reduce((latest, result) => {
+    const candidate = result?.source_date;
+    if (!candidate) {
+      return latest;
+    }
+    return !latest || candidate > latest ? candidate : latest;
+  }, null);
+
   return {
     run_date: runMetadata.run_date,
     run_id: runMetadata.run_id,
@@ -82,7 +92,8 @@ export function buildDailyReport({
       affected_share_percent: weightedImpact?.totals?.affected_share_percent ?? 0,
       categories
     },
-    top_urls: normalizeTopUrls(urlResults),
+    source_data_date: sourceDataDate,
+    top_urls: topUrls,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,

@@ -20,7 +20,7 @@ function toRecord(raw, sourceDate) {
   return {
     url,
     page_load_count: normalizedCount,
-    source_date: sourceDate
+    source_date: raw.date ?? sourceDate
   };
 }
 
@@ -45,6 +45,16 @@ export function normalizeDapRecords(rawRecords, { limit, sourceDate }) {
     }
 
     normalized.push(record);
+  }
+
+  const datedRecords = normalized.filter((record) => typeof record.source_date === 'string');
+  if (datedRecords.length > 0) {
+    const latestDate = datedRecords.reduce((latest, record) => (record.source_date > latest ? record.source_date : latest), datedRecords[0].source_date);
+    const latestOnly = normalized.filter((record) => record.source_date === latestDate);
+    if (latestOnly.length > 0) {
+      normalized.length = 0;
+      normalized.push(...latestOnly);
+    }
   }
 
   normalized.sort((a, b) => {
