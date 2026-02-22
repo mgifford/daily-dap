@@ -24,6 +24,7 @@ export function normalizeUrlScanResult({
     run_id: runId,
     url: urlRecord.url,
     page_load_count: urlRecord.page_load_count ?? null,
+    source_date: urlRecord.source_date ?? null,
     scan_status: status.scan_status,
     failure_reason: status.failure_reason,
     lighthouse_performance: lighthouseResult?.lighthouse_performance ?? null,
