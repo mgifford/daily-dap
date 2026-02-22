@@ -46,7 +46,7 @@
       }
     ]
   },
-  "source_data_date": null,
+  "source_data_date": "2024-06-23",
   "top_urls": [
     {
       "url": "https://tools.usps.com",
@@ -8344,15 +8344,15 @@
     {
       "date": "2026-02-22",
       "aggregate_scores": {
-        "performance": 81.47,
-        "accessibility": 90.95,
-        "best_practices": 86.47,
-        "seo": 88.38,
-        "pwa": 71.47
+        "performance": 80.72,
+        "accessibility": 90.19,
+        "best_practices": 85.72,
+        "seo": 87.61,
+        "pwa": 70.72
       }
     }
   ],
-  "generated_at": "2026-02-22T01:38:20.891Z",
+  "generated_at": "2026-02-22T01:41:27.218Z",
   "report_status": "success",
   "slow_risk_summary": {
     "successful_url_count": 500,
