@@ -1,28 +1,31 @@
 ---
-work_package_id: "WP04"
-subtasks:
-  - "T017"
-  - "T018"
-  - "T019"
-  - "T020"
-  - "T021"
-  - "T022"
-title: "Reporting, Archival, and Public Pages"
-phase: "Phase 4 - Publication"
-lane: "planned"
+work_package_id: WP04
+title: Reporting, Archival, and Public Pages
+lane: "done"
 dependencies:
-  - "WP03"
-assignee: ""
-agent: ""
-shell_pid: ""
-review_status: ""
-reviewed_by: ""
+- WP03
+base_branch: 002-daily-dap-quality-benchmarking-WP03
+base_commit: 0c29ea6450e877c42e7f35c31d94ed2961c7f0c4
+created_at: '2026-02-21T22:48:36.481929+00:00'
+subtasks:
+- T017
+- T018
+- T019
+- T020
+- T021
+- T022
+phase: Phase 4 - Publication
+assignee: ''
+agent: "codex"
+shell_pid: "3570"
+review_status: "approved"
+reviewed_by: "Mike Gifford"
 history:
-  - timestamp: "2026-02-21T20:12:31Z"
-    lane: "planned"
-    agent: "system"
-    shell_pid: ""
-    action: "Prompt generated via /spec-kitty.tasks"
+- timestamp: '2026-02-21T20:12:31Z'
+  lane: planned
+  agent: system
+  shell_pid: ''
+  action: Prompt generated via /spec-kitty.tasks
 ---
 
 # Work Package Prompt: WP04 – Reporting, Archival, and Public Pages
@@ -113,3 +116,7 @@ history:
 ## Activity Log
 
 - 2026-02-21T20:12:31Z – system – lane=planned – Prompt generated.
+- 2026-02-21T22:48:36Z – codex – shell_pid=3570 – lane=doing – Assigned agent via workflow command
+- 2026-02-21T22:56:29Z – codex – shell_pid=3570 – lane=for_review – Ready for review: implemented report payload builder, static page rendering, history index generation, committed snapshot writer, artifact manifest checksums, and schema contract tests (23/23 passing).
+- 2026-02-21T22:58:05Z – codex – shell_pid=3570 – lane=doing – Started review via workflow command
+- 2026-02-21T22:59:30Z – codex – shell_pid=3570 – lane=done – Review passed: WP04 reporting/archival implementation and schema contracts validated; tests pass (23/23); dependency WP03 satisfied; dependent WP05 remains planned. README expanded with DAP resources and explicit ingest→scan→report workflow.
