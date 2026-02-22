@@ -11,7 +11,7 @@ import { writeCommittedSnapshot } from '../../src/publish/archive-writer.js';
 import { buildArtifactManifest } from '../../src/publish/artifact-manifest.js';
 
 async function loadReportValidator() {
-  const schemaPath = path.resolve(process.cwd(), '../../kitty-specs/002-daily-dap-quality-benchmarking/contracts/daily-report.schema.json');
+  const schemaPath = path.resolve(process.cwd(), 'kitty-specs/002-daily-dap-quality-benchmarking/contracts/daily-report.schema.json');
   const schemaRaw = await fs.readFile(schemaPath, 'utf8');
   const schema = JSON.parse(schemaRaw);
 
