@@ -44,6 +44,7 @@ jobs:
       URL_LIMIT: ${{ inputs.url_limit }}
       TRAFFIC_WINDOW: ${{ inputs.traffic_window || 'daily' }}
       DRY_RUN: ${{ inputs.dry_run || false }}
+      DAP_API_KEY: ${{ secrets.DAP_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

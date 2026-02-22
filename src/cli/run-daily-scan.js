@@ -30,6 +30,7 @@ function parseArgs(argv) {
     scanMode: 'mock',
     mockFailUrl: [],
     outputRoot: null,
+    dapApiKey: undefined,
     concurrency: 4,
     timeoutMs: 20000,
     maxRetries: 1
@@ -67,6 +68,9 @@ function parseArgs(argv) {
         break;
       case '--output-root':
         args.outputRoot = argv[++index];
+        break;
+      case '--dap-api-key':
+        args.dapApiKey = argv[++index];
         break;
       case '--concurrency':
         args.concurrency = Number(argv[++index]);
@@ -234,6 +238,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
   const args = inputArgs;
   const repoRoot = path.resolve(args.outputRoot ?? getDefaultRepoRoot());
   const configPath = args.configPath ?? getDefaultConfigPath();
+  const dapApiKey = args.dapApiKey ?? process.env.DAP_API_KEY;
 
   let runMetadata;
 
@@ -251,11 +256,17 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       source: 'dap'
     });
 
+    const dapEndpoint = runtimeConfig.sources?.dap_top_pages_endpoint;
+    if (!args.sourceFile && dapEndpoint?.includes('api.gsa.gov') && !dapApiKey) {
+      throw new Error('DAP_API_KEY is required to fetch top pages from api.gsa.gov. Set repo secret DAP_API_KEY or pass --dap-api-key.');
+    }
+
     const normalized = await getNormalizedTopPages({
-      endpoint: runtimeConfig.sources?.dap_top_pages_endpoint,
+      endpoint: dapEndpoint,
       sourceFile: args.sourceFile,
       limit: runtimeConfig.scan.url_limit,
-      sourceDate: runMetadata.run_date
+      sourceDate: runMetadata.run_date,
+      dapApiKey
     });
 
     const warningEvents = normalized.warnings.map((warning) =>
