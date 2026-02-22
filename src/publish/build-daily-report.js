@@ -5,6 +5,32 @@ function coerceScore(value) {
   return 0;
 }
 
+function normalizeTopUrls(urlResults = []) {
+  return urlResults
+    .map((result) => ({
+      url: result.url,
+      page_load_count: result.page_load_count ?? 0,
+      scan_status: result.scan_status,
+      failure_reason: result.failure_reason ?? null,
+      findings_count: Array.isArray(result.accessibility_findings) ? result.accessibility_findings.length : 0,
+      severe_findings_count: Array.isArray(result.accessibility_findings)
+        ? result.accessibility_findings.filter((finding) => finding.severity === 'critical' || finding.severity === 'serious').length
+        : 0,
+      core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
+      lighthouse_scores:
+        result.scan_status === 'success'
+          ? {
+              performance: coerceScore(result.lighthouse_performance),
+              accessibility: coerceScore(result.lighthouse_accessibility),
+              best_practices: coerceScore(result.lighthouse_best_practices),
+              seo: coerceScore(result.lighthouse_seo),
+              pwa: coerceScore(result.lighthouse_pwa)
+            }
+          : null
+    }))
+    .sort((left, right) => right.page_load_count - left.page_load_count);
+}
+
 export function buildDailyReport({
   runMetadata,
   scoreSummary,
@@ -56,6 +82,7 @@ export function buildDailyReport({
       affected_share_percent: weightedImpact?.totals?.affected_share_percent ?? 0,
       categories
     },
+    top_urls: normalizeTopUrls(urlResults),
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,

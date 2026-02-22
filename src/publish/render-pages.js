@@ -25,6 +25,23 @@ function renderHistoryRows(historySeries = []) {
     .join('\n');
 }
 
+function renderTopUrlRows(topUrls = []) {
+  return topUrls
+    .slice(0, 100)
+    .map(
+      (entry) => `<tr>
+  <td><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+  <td>${entry.page_load_count}</td>
+  <td>${escapeHtml(entry.scan_status)}</td>
+  <td>${escapeHtml(entry.core_web_vitals_status ?? 'unknown')}</td>
+  <td>${entry.findings_count}</td>
+  <td>${entry.severe_findings_count}</td>
+  <td>${entry.failure_reason ? escapeHtml(entry.failure_reason) : ''}</td>
+</tr>`
+    )
+    .join('\n');
+}
+
 export function renderDailyReportPage(report) {
   return `<!doctype html>
 <html lang="en">
@@ -69,6 +86,25 @@ export function renderDailyReportPage(report) {
     <thead><tr><th>Date</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th><th>PWA</th></tr></thead>
     <tbody>
       ${renderHistoryRows(report.history_series)}
+    </tbody>
+  </table>
+
+  <h2>Top URLs by Traffic (Scanned)</h2>
+  <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} URLs from this run.</p>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>Traffic</th>
+        <th>Scan status</th>
+        <th>CWV</th>
+        <th>Total findings</th>
+        <th>Critical/Serious</th>
+        <th>Failure reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${renderTopUrlRows(report.top_urls)}
     </tbody>
   </table>
 </body>
