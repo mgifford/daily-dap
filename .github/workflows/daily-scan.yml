@@ -27,6 +27,14 @@ on:
         required: false
         type: boolean
         default: false
+      scan_mode:
+        description: 'Scanner mode (live or mock)'
+        required: false
+        default: 'live'
+        type: choice
+        options:
+          - live
+          - mock
 
 permissions:
   contents: write
@@ -45,6 +53,7 @@ jobs:
       TRAFFIC_WINDOW: ${{ inputs.traffic_window || 'daily' }}
       DRY_RUN: ${{ inputs.dry_run || false }}
       DAP_API_KEY: ${{ secrets.DAP_API_KEY }}
+      SCAN_MODE: ${{ inputs.scan_mode || 'live' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,7 +77,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          ARGS=(--scan-mode mock)
+          ARGS=(--scan-mode "$SCAN_MODE")
           if [[ -n "$RUN_DATE" ]]; then ARGS+=(--date "$RUN_DATE"); fi
           if [[ -n "$URL_LIMIT" ]]; then ARGS+=(--limit "$URL_LIMIT"); fi
           if [[ -n "$TRAFFIC_WINDOW" ]]; then ARGS+=(--traffic-window "$TRAFFIC_WINDOW"); fi

@@ -27,7 +27,7 @@ function parseArgs(argv) {
     urlLimit: undefined,
     trafficWindowMode: undefined,
     runDate: undefined,
-    scanMode: 'mock',
+    scanMode: 'live',
     mockFailUrl: [],
     outputRoot: null,
     dapApiKey: undefined,
@@ -177,6 +177,17 @@ function createMockScannerRunners(failNeedles = []) {
   };
 }
 
+function createLiveScannerRunners() {
+  return {
+    lighthouseRunner: {
+      executionOptions: {}
+    },
+    scanGovRunner: {
+      runImpl: async () => ({ issues: [] })
+    }
+  };
+}
+
 async function loadHistoryRecords(repoRoot, lookbackDays) {
   const historyPath = path.join(repoRoot, 'docs', 'reports', 'history.json');
   let historyPayload;
@@ -287,11 +298,12 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       return preview;
     }
 
-    if (args.scanMode !== 'mock') {
-      throw new Error(`Unsupported scan mode: ${args.scanMode}. Currently supported: mock`);
+    if (!['mock', 'live'].includes(args.scanMode)) {
+      throw new Error(`Unsupported scan mode: ${args.scanMode}. Currently supported: live, mock`);
     }
 
-    const { lighthouseRunner, scanGovRunner } = createMockScannerRunners(args.mockFailUrl);
+    const { lighthouseRunner, scanGovRunner } =
+      args.scanMode === 'mock' ? createMockScannerRunners(args.mockFailUrl) : createLiveScannerRunners();
     const scanExecution = await executeUrlScans(normalized.records, {
       runId: runMetadata.run_id,
       concurrency: args.concurrency,
@@ -328,6 +340,13 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     report.slow_risk_summary = slowRisk.summary;
     report.warning_events = warningEvents;
     report.scan_diagnostics = scanExecution.diagnostics;
+    report.scan_mode = args.scanMode;
+    if (args.scanMode === 'live') {
+      report.scanner_notes = [
+        'Lighthouse scans are live per URL.',
+        'ScanGov integration currently uses placeholder findings and will be wired to a live backend next.'
+      ];
+    }
 
     const historyIndex = buildHistoryIndex(historyContext.historyIndex.entries ?? [], report, {
       lookbackDays: runtimeConfig.scan.history_lookback_days

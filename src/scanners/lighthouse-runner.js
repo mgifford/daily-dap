@@ -1,3 +1,6 @@
+import lighthouse from 'lighthouse';
+import { launch } from 'chrome-launcher';
+
 function toScorePercent(rawScore) {
   if (rawScore === null || rawScore === undefined || Number.isNaN(Number(rawScore))) {
     return null;
@@ -47,15 +50,34 @@ function parseLighthouseResult(url, rawResult) {
   };
 }
 
+async function runLiveLighthouse(url, executionOptions = {}) {
+  const chrome = await launch({
+    chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage']
+  });
+
+  try {
+    const result = await lighthouse(url, {
+      port: chrome.port,
+      output: 'json',
+      logLevel: 'error',
+      onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo', 'pwa'],
+      ...executionOptions
+    });
+
+    return result?.lhr ?? result;
+  } finally {
+    await chrome.kill();
+  }
+}
+
 export async function runLighthouseScan(url, options = {}) {
   const { runImpl, executionOptions = {} } = options;
 
-  if (typeof runImpl !== 'function') {
-    throw new Error('runLighthouseScan requires options.runImpl function');
-  }
-
-  const raw = await runImpl(url, executionOptions);
+  const raw =
+    typeof runImpl === 'function'
+      ? await runImpl(url, executionOptions)
+      : await runLiveLighthouse(url, executionOptions);
   return parseLighthouseResult(url, raw);
 }
 
-export { parseLighthouseResult, deriveCoreWebVitalsStatus, toScorePercent };
+export { parseLighthouseResult, deriveCoreWebVitalsStatus, toScorePercent, runLiveLighthouse };
