@@ -1,51 +1,52 @@
 {
   "run_date": "2026-02-22",
-  "run_id": "run-2026-02-22-b085a33fd4",
-  "url_limit": 100,
+  "run_id": "run-2026-02-22-2c4d9392f1",
+  "url_limit": 500,
   "url_counts": {
-    "processed": 100,
-    "succeeded": 100,
+    "processed": 500,
+    "succeeded": 500,
     "failed": 0,
     "excluded": 0
   },
   "aggregate_scores": {
-    "performance": 81.47,
-    "accessibility": 90.95,
-    "best_practices": 86.47,
-    "seo": 88.38,
-    "pwa": 71.47
+    "performance": 80.72,
+    "accessibility": 90.19,
+    "best_practices": 85.72,
+    "seo": 87.61,
+    "pwa": 70.72
   },
   "estimated_impact": {
     "traffic_window_mode": "daily",
-    "affected_share_percent": 25.85,
+    "affected_share_percent": 26.4,
     "categories": [
       {
         "name": "blindness",
         "prevalence_rate": 0.01,
-        "estimated_impacted_users": 90104.93
+        "estimated_impacted_users": 106971.39
       },
       {
         "name": "low_vision",
         "prevalence_rate": 0.2,
-        "estimated_impacted_users": 1802098.5
+        "estimated_impacted_users": 2139427.83
       },
       {
         "name": "hearing_disability",
         "prevalence_rate": 0.05,
-        "estimated_impacted_users": 450524.63
+        "estimated_impacted_users": 534856.96
       },
       {
         "name": "mobility_disability",
         "prevalence_rate": 0.08,
-        "estimated_impacted_users": 720839.4
+        "estimated_impacted_users": 855771.13
       },
       {
         "name": "cognitive_disability",
         "prevalence_rate": 0.12,
-        "estimated_impacted_users": 1081259.1
+        "estimated_impacted_users": 1283656.7
       }
     ]
   },
+  "source_data_date": null,
   "top_urls": [
     {
       "url": "https://tools.usps.com",
@@ -1646,6 +1647,6406 @@
         "seo": 100,
         "pwa": 84
       }
+    },
+    {
+      "url": "https://afgsc.af.mil",
+      "page_load_count": 45998,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://defense.gov",
+      "page_load_count": 45912,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://my.navy.mil",
+      "page_load_count": 45489,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://uspto.gov",
+      "page_load_count": 45423,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://search.usa.gov",
+      "page_load_count": 44444,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://sba.gov",
+      "page_load_count": 44152,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://nia.nih.gov",
+      "page_load_count": 44084,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://cms.gov",
+      "page_load_count": 43763,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://common.usembassy.gov",
+      "page_load_count": 43199,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://cisa.gov",
+      "page_load_count": 43015,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://passportstatus.state.gov",
+      "page_load_count": 42950,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://osha.gov",
+      "page_load_count": 42083,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://home.treasury.gov",
+      "page_load_count": 40610,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://federalregister.gov",
+      "page_load_count": 40474,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://nida.nih.gov",
+      "page_load_count": 40246,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://eric.ed.gov",
+      "page_load_count": 38570,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://mhvidp-prod.myhealth.va.gov",
+      "page_load_count": 38250,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://hhs.gov",
+      "page_load_count": 37667,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://choose.va.gov",
+      "page_load_count": 37639,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://tcc.export.gov",
+      "page_load_count": 37312,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://ods.od.nih.gov",
+      "page_load_count": 35998,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://floridakeys.noaa.gov",
+      "page_load_count": 35804,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://eauth.va.gov",
+      "page_load_count": 35580,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://login.gov",
+      "page_load_count": 35095,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://sibr.nist.gov",
+      "page_load_count": 35090,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://therealcost.betobaccofree.hhs.gov",
+      "page_load_count": 34850,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://vsearch.nlm.nih.gov",
+      "page_load_count": 34534,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://wwwnc.cdc.gov",
+      "page_load_count": 34494,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://dea.gov",
+      "page_load_count": 34344,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://blm.gov",
+      "page_load_count": 34276,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://transportation.gov",
+      "page_load_count": 34214,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://its.ntia.gov",
+      "page_load_count": 33899,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://gsa.gov",
+      "page_load_count": 33313,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://ntia.doc.gov",
+      "page_load_count": 32675,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://ecfr.gov",
+      "page_load_count": 32581,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://ftc.gov",
+      "page_load_count": 32230,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://es.usps.com",
+      "page_load_count": 32036,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://mobile.weather.gov",
+      "page_load_count": 31657,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://access.trade.gov",
+      "page_load_count": 31442,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://spaceplace.nasa.gov",
+      "page_load_count": 31174,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://catalog.usmint.gov",
+      "page_load_count": 30854,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://americorps.gov",
+      "page_load_count": 30840,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://energystar.gov",
+      "page_load_count": 30722,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://mentalhealth.va.gov",
+      "page_load_count": 30544,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://dvprogram.state.gov",
+      "page_load_count": 30459,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://cpsc.gov",
+      "page_load_count": 30139,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://nlm.nih.gov",
+      "page_load_count": 29868,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://samhsa.gov",
+      "page_load_count": 29782,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://eeoc.gov",
+      "page_load_count": 29753,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://legacy.trade.gov",
+      "page_load_count": 29745,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://dailymed.nlm.nih.gov",
+      "page_load_count": 29511,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://fdc.nal.usda.gov",
+      "page_load_count": 29033,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://blast.ncbi.nlm.nih.gov",
+      "page_load_count": 28938,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://bwt.cbp.gov",
+      "page_load_count": 28671,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://consumer.ftc.gov",
+      "page_load_count": 27839,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://2014-2018.firstnet.gov",
+      "page_load_count": 27349,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://ice.gov",
+      "page_load_count": 27246,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://postcalc.usps.com",
+      "page_load_count": 26922,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://uscourts.gov",
+      "page_load_count": 26735,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://support.nlm.nih.gov",
+      "page_load_count": 26293,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://history.state.gov",
+      "page_load_count": 26169,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://militaryonesource.mil",
+      "page_load_count": 26110,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://accessdata.fda.gov",
+      "page_load_count": 25791,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://deepseacoraldata.noaa.gov",
+      "page_load_count": 25441,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://home.army.mil",
+      "page_load_count": 25253,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://nih.gov",
+      "page_load_count": 25059,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://ninds.nih.gov",
+      "page_load_count": 24807,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://nesdis.noaa.gov",
+      "page_load_count": 23748,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://classic.clinicaltrials.gov",
+      "page_load_count": 23368,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://help.usajobs.gov",
+      "page_load_count": 22667,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://niams.nih.gov",
+      "page_load_count": 22602,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://news.va.gov",
+      "page_load_count": 22171,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://ojp.gov",
+      "page_load_count": 22146,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://fisheries.noaa.gov",
+      "page_load_count": 21981,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://acf.hhs.gov",
+      "page_load_count": 21654,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://usaid.gov",
+      "page_load_count": 21639,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://help.cbp.gov",
+      "page_load_count": 21611,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://faq.ssa.gov",
+      "page_load_count": 21282,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://myplate.gov",
+      "page_load_count": 21176,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://tsdr.uspto.gov",
+      "page_load_count": 21083,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://usda.gov",
+      "page_load_count": 21018,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://stellwagen.noaa.gov",
+      "page_load_count": 21010,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://e-learning.commerce.gov",
+      "page_load_count": 20976,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://tricare.mil",
+      "page_load_count": 20951,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://exclusions.oig.hhs.gov",
+      "page_load_count": 20852,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://ipps-a.army.mil",
+      "page_load_count": 20786,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://health.gov",
+      "page_load_count": 20783,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://oceanexplorer.noaa.gov",
+      "page_load_count": 20774,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://pay.gov",
+      "page_load_count": 20762,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://vacareers.va.gov",
+      "page_load_count": 20706,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://marines.mil",
+      "page_load_count": 20637,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://nces.ed.gov",
+      "page_load_count": 20493,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://coast.noaa.gov",
+      "page_load_count": 20296,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://mx.usembassy.gov",
+      "page_load_count": 20264,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://ojjdp.ojp.gov",
+      "page_load_count": 20154,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://dataintheclassroom.noaa.gov",
+      "page_load_count": 20055,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://usmint.gov",
+      "page_load_count": 19938,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://marine.weather.gov",
+      "page_load_count": 19758,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://emailus.usps.com",
+      "page_load_count": 19695,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://dlmf.nist.gov",
+      "page_load_count": 19648,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://usembassy.gov",
+      "page_load_count": 19523,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 69,
+        "accessibility": 79,
+        "best_practices": 74,
+        "seo": 76,
+        "pwa": 59
+      }
+    },
+    {
+      "url": "https://ofac.treasury.gov",
+      "page_load_count": 19306,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://grants.gov",
+      "page_load_count": 19253,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://nvd.nist.gov",
+      "page_load_count": 18933,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://training.fema.gov",
+      "page_load_count": 18776,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://cameochemicals.noaa.gov",
+      "page_load_count": 18744,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://fire.airnow.gov",
+      "page_load_count": 18572,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://fws.gov",
+      "page_load_count": 18519,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://af.mil",
+      "page_load_count": 18473,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://jp.usembassy.gov",
+      "page_load_count": 18456,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://benefits.va.gov",
+      "page_load_count": 18326,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://passportappointment.travel.state.gov",
+      "page_load_count": 17819,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://ncei.noaa.gov",
+      "page_load_count": 17803,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://fmcsa.dot.gov",
+      "page_load_count": 17766,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 69,
+        "accessibility": 79,
+        "best_practices": 74,
+        "seo": 76,
+        "pwa": 59
+      }
+    },
+    {
+      "url": "https://occ.gov",
+      "page_load_count": 17684,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://fincen.gov",
+      "page_load_count": 17426,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://rd.usda.gov",
+      "page_load_count": 17320,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://account.ncbi.nlm.nih.gov",
+      "page_load_count": 17215,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://monitor.noaa.gov",
+      "page_load_count": 17177,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://channelislands.noaa.gov",
+      "page_load_count": 16963,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://in.usembassy.gov",
+      "page_load_count": 16782,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://farallones.noaa.gov",
+      "page_load_count": 16453,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://toolkit.climate.gov",
+      "page_load_count": 16357,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://peacecorps.gov",
+      "page_load_count": 16354,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://coralreefwatch.noaa.gov",
+      "page_load_count": 15753,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://ready.gov",
+      "page_load_count": 15602,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://pe.usps.com",
+      "page_load_count": 15446,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://osti.gov",
+      "page_load_count": 15209,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://earthobservatory.nasa.gov",
+      "page_load_count": 15204,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://nrc.gov",
+      "page_load_count": 15137,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://oig.hhs.gov",
+      "page_load_count": 15108,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://nei.nih.gov",
+      "page_load_count": 15102,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://niaaa.nih.gov",
+      "page_load_count": 15057,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://atf.gov",
+      "page_load_count": 15054,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://floodsmart.gov",
+      "page_load_count": 15030,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://dfas.mil",
+      "page_load_count": 14975,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://new.nsf.gov",
+      "page_load_count": 14960,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://hr.doc.gov",
+      "page_load_count": 14939,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://nidcd.nih.gov",
+      "page_load_count": 14914,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://gams.nist.gov",
+      "page_load_count": 14893,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://firms.modaps.eosdis.nasa.gov",
+      "page_load_count": 14868,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://mynavyhr.navy.mil",
+      "page_load_count": 14853,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://mytravel.state.gov",
+      "page_load_count": 14776,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://nssl.noaa.gov",
+      "page_load_count": 14735,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://spotthestation.nasa.gov",
+      "page_load_count": 14592,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://nccih.nih.gov",
+      "page_load_count": 14453,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://espanol.nichd.nih.gov",
+      "page_load_count": 14424,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://ecofoci.noaa.gov",
+      "page_load_count": 14399,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://nichd.nih.gov",
+      "page_load_count": 14086,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://climate.gov",
+      "page_load_count": 13970,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://fbijobs.gov",
+      "page_load_count": 13866,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://travel.dod.mil",
+      "page_load_count": 13840,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://donotcall.gov",
+      "page_load_count": 13775,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://trc.nist.gov",
+      "page_load_count": 13751,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://www2.ed.gov",
+      "page_load_count": 13673,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://oceanwatch.noaa.gov",
+      "page_load_count": 13655,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://search.cdc.gov",
+      "page_load_count": 13650,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://fdic.gov",
+      "page_load_count": 13632,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://jpl.nasa.gov",
+      "page_load_count": 13537,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://afdc.energy.gov",
+      "page_load_count": 13536,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://espanol.cdc.gov",
+      "page_load_count": 13409,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://poboxes.usps.com",
+      "page_load_count": 13301,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://uk.usembassy.gov",
+      "page_load_count": 13234,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://fsis.usda.gov",
+      "page_load_count": 13205,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://br.usembassy.gov",
+      "page_load_count": 13143,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://icoads.noaa.gov",
+      "page_load_count": 12868,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://nsf.gov",
+      "page_load_count": 12817,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://hiv.gov",
+      "page_load_count": 12770,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://amberalert.ojp.gov",
+      "page_load_count": 12693,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://history.navy.mil",
+      "page_load_count": 12608,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://navy.mil",
+      "page_load_count": 12598,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://olympiccoast.noaa.gov",
+      "page_load_count": 12291,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://coralreef.noaa.gov",
+      "page_load_count": 12180,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://newsinhealth.nih.gov",
+      "page_load_count": 12101,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://data.bls.gov",
+      "page_load_count": 11946,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://amc.af.mil",
+      "page_load_count": 11867,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://usmarshals.gov",
+      "page_load_count": 11849,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://eyes.nasa.gov",
+      "page_load_count": 11781,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://commerce.gov",
+      "page_load_count": 11728,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://widget.airnow.gov",
+      "page_load_count": 11682,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://doi.gov",
+      "page_load_count": 11402,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://accesstest.trade.gov",
+      "page_load_count": 11290,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://tsunami.noaa.gov",
+      "page_load_count": 11278,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://covid.cdc.gov",
+      "page_load_count": 11219,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://data.census.gov",
+      "page_load_count": 11079,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://ca.usembassy.gov",
+      "page_load_count": 11023,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://militarypay.defense.gov",
+      "page_load_count": 11015,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://gateway.usps.com",
+      "page_load_count": 10826,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://salud.nih.gov",
+      "page_load_count": 10818,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://identitytheft.gov",
+      "page_load_count": 10765,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://medicaid.gov",
+      "page_load_count": 10597,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://ed.gov",
+      "page_load_count": 10584,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://sites.ed.gov",
+      "page_load_count": 10575,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://jfklibrary.org",
+      "page_load_count": 10500,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://seer.cancer.gov",
+      "page_load_count": 10470,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://msc.fema.gov",
+      "page_load_count": 10323,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://abmc.gov",
+      "page_load_count": 10234,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://cordellbank.noaa.gov",
+      "page_load_count": 10185,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://step.state.gov",
+      "page_load_count": 10173,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://montereybay.noaa.gov",
+      "page_load_count": 10073,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://shadesofgreen.org",
+      "page_load_count": 9959,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://gsaauctions.gov",
+      "page_load_count": 9874,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://grants.nih.gov",
+      "page_load_count": 9871,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://ke.usembassy.gov",
+      "page_load_count": 9854,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://installations.militaryonesource.mil",
+      "page_load_count": 9833,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://cem.va.gov",
+      "page_load_count": 9792,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://ebenefits.va.gov",
+      "page_load_count": 9618,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://evus.gov",
+      "page_load_count": 9589,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://math.nist.gov",
+      "page_load_count": 9551,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://ptsd.va.gov",
+      "page_load_count": 9481,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://arcp.army.mil",
+      "page_load_count": 9371,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://sanctuaries.noaa.gov",
+      "page_load_count": 9294,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://tsaprecheckbytelos.tsa.dhs.gov",
+      "page_load_count": 9278,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://ada.gov",
+      "page_load_count": 9211,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://csrc.nist.gov",
+      "page_load_count": 9187,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://earthexplorer.usgs.gov",
+      "page_load_count": 9116,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://usbr.gov",
+      "page_load_count": 9111,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://ahrq.gov",
+      "page_load_count": 9109,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://usagm.gov",
+      "page_load_count": 9068,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://coastwatch.noaa.gov",
+      "page_load_count": 9020,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://hivinfo.nih.gov",
+      "page_load_count": 8910,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://catalog.archives.gov",
+      "page_load_count": 8908,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://2009-2017.state.gov",
+      "page_load_count": 8903,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://bea.gov",
+      "page_load_count": 8861,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://army.mil",
+      "page_load_count": 8853,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://flag.dol.gov",
+      "page_load_count": 8844,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://genome.gov",
+      "page_load_count": 8820,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://consumidor.ftc.gov",
+      "page_load_count": 8819,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://obamawhitehouse.archives.gov",
+      "page_load_count": 8790,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://emergency.cdc.gov",
+      "page_load_count": 8767,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://gulfatlas.noaa.gov",
+      "page_load_count": 8767,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://cftc.gov",
+      "page_load_count": 8756,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://edit.socmed.commerce.gov",
+      "page_load_count": 8737,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://boiefiling.fincen.gov",
+      "page_load_count": 8660,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://cuidadodesalud.gov",
+      "page_load_count": 8605,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://airc.nist.gov",
+      "page_load_count": 8591,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://nationalmuseum.af.mil",
+      "page_load_count": 8392,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://health.mil",
+      "page_load_count": 8312,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://covid.gov",
+      "page_load_count": 8292,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://marineprotectedareas.noaa.gov",
+      "page_load_count": 8148,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://armypubs.army.mil",
+      "page_load_count": 8129,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 69,
+        "accessibility": 79,
+        "best_practices": 74,
+        "seo": 76,
+        "pwa": 59
+      }
+    },
+    {
+      "url": "https://nsa.gov",
+      "page_load_count": 8029,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://regulations.gov",
+      "page_load_count": 7994,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://fairchild.af.mil",
+      "page_load_count": 7854,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://blog.ssa.gov",
+      "page_load_count": 7816,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://globaldossier.uspto.gov",
+      "page_load_count": 7806,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://mbda.commerce.gov",
+      "page_load_count": 7779,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://fatherhood.gov",
+      "page_load_count": 7686,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://nidcr.nih.gov",
+      "page_load_count": 7650,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://foodsafety.gov",
+      "page_load_count": 7641,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://co.usembassy.gov",
+      "page_load_count": 7635,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://ic3.gov",
+      "page_load_count": 7596,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://search.ssa.gov",
+      "page_load_count": 7571,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://secretservice.gov",
+      "page_load_count": 7526,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://telehealth.hhs.gov",
+      "page_load_count": 7488,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://nifc.gov",
+      "page_load_count": 7452,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://vote.gov",
+      "page_load_count": 7439,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://americansamoa.noaa.gov",
+      "page_load_count": 7438,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://wpc.ncep.noaa.gov",
+      "page_load_count": 7384,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://bep.gov",
+      "page_load_count": 7355,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://trumpwhitehouse.archives.gov",
+      "page_load_count": 7352,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://ph.usembassy.gov",
+      "page_load_count": 7227,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://era.nih.gov",
+      "page_load_count": 7137,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://fec.gov",
+      "page_load_count": 7051,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://eclkc.ohs.acf.hhs.gov",
+      "page_load_count": 6990,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://ar.usembassy.gov",
+      "page_load_count": 6982,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://rarediseases.info.nih.gov",
+      "page_load_count": 6906,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://st.state.gov",
+      "page_load_count": 6889,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://uspis.gov",
+      "page_load_count": 6834,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://plus.nasa.gov",
+      "page_load_count": 6782,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://il.water.usgs.gov",
+      "page_load_count": 6734,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://healthit.gov",
+      "page_load_count": 6725,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://reportfraud.ftc.gov",
+      "page_load_count": 6722,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://thunderbay.noaa.gov",
+      "page_load_count": 6720,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://cool.osd.mil",
+      "page_load_count": 6687,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://postalpro.usps.com",
+      "page_load_count": 6609,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://tr.usembassy.gov",
+      "page_load_count": 6598,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://halekoa.com",
+      "page_load_count": 6581,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://servicesonline.opm.gov",
+      "page_load_count": 6581,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://training.seer.cancer.gov",
+      "page_load_count": 6577,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://atsdr.cdc.gov",
+      "page_load_count": 6573,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://edit.ogc.commerce.gov",
+      "page_load_count": 6535,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 69,
+        "accessibility": 79,
+        "best_practices": 74,
+        "seo": 76,
+        "pwa": 59
+      }
+    },
+    {
+      "url": "https://careers.state.gov",
+      "page_load_count": 6465,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://studyinthestates.dhs.gov",
+      "page_load_count": 6449,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://evisaforms.state.gov",
+      "page_load_count": 6426,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://hts.usitc.gov",
+      "page_load_count": 6409,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://it.usembassy.gov",
+      "page_load_count": 6354,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://fiscaldata.treasury.gov",
+      "page_load_count": 6346,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://ams.usda.gov",
+      "page_load_count": 6278,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://magazine.medlineplus.gov",
+      "page_load_count": 6249,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://e-verify.gov",
+      "page_load_count": 6220,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://arlingtoncemetery.mil",
+      "page_load_count": 6217,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://ers.usda.gov",
+      "page_load_count": 6217,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://metoc.navy.mil",
+      "page_load_count": 6190,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://aspe.hhs.gov",
+      "page_load_count": 6181,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best_practices": 97,
+        "seo": 99,
+        "pwa": 82
+      }
+    },
+    {
+      "url": "https://vn.usembassy.gov",
+      "page_load_count": 6175,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://nationalguard.mil",
+      "page_load_count": 6144,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://scijinks.gov",
+      "page_load_count": 6130,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://grc.nasa.gov",
+      "page_load_count": 6119,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://wrh.noaa.gov",
+      "page_load_count": 5953,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://il.usembassy.gov",
+      "page_load_count": 5941,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://huduser.gov",
+      "page_load_count": 5931,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://everykidoutdoors.gov",
+      "page_load_count": 5927,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://wwwn.cdc.gov",
+      "page_load_count": 5911,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://acquisition.gov",
+      "page_load_count": 5892,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://clinicalinfo.hiv.gov",
+      "page_load_count": 5872,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://gispub.epa.gov",
+      "page_load_count": 5845,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://niehs.nih.gov",
+      "page_load_count": 5790,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://fhwa.dot.gov",
+      "page_load_count": 5786,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://worldview.earthdata.nasa.gov",
+      "page_load_count": 5781,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://eg.usembassy.gov",
+      "page_load_count": 5754,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://sbir.gov",
+      "page_load_count": 5750,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://li-public.fmcsa.dot.gov",
+      "page_load_count": 5698,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://employeeexpress.gov",
+      "page_load_count": 5679,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://glerl.noaa.gov",
+      "page_load_count": 5648,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://docline.gov",
+      "page_load_count": 5634,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://hawaiihumpbackwhale.noaa.gov",
+      "page_load_count": 5630,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://georgewbush-whitehouse.archives.gov",
+      "page_load_count": 5626,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://nal.usda.gov",
+      "page_load_count": 5610,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://ppubs.uspto.gov",
+      "page_load_count": 5583,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://nij.ojp.gov",
+      "page_load_count": 5566,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://fiscal.treasury.gov",
+      "page_load_count": 5524,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best_practices": 95,
+        "seo": 97,
+        "pwa": 80
+      }
+    },
+    {
+      "url": "https://cnrfc.noaa.gov",
+      "page_load_count": 5515,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://blogs.nasa.gov",
+      "page_load_count": 5509,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://coastalsmartgrowth.noaa.gov",
+      "page_load_count": 5491,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://childwelfare.gov",
+      "page_load_count": 5479,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 98,
+        "pwa": 81
+      }
+    },
+    {
+      "url": "https://helpwithmybank.gov",
+      "page_load_count": 5476,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://nrel.gov",
+      "page_load_count": 5469,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 72,
+        "accessibility": 82,
+        "best_practices": 77,
+        "seo": 79,
+        "pwa": 62
+      }
+    },
+    {
+      "url": "https://aoprals.state.gov",
+      "page_load_count": 5459,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 85,
+        "accessibility": 95,
+        "best_practices": 90,
+        "seo": 92,
+        "pwa": 75
+      }
+    },
+    {
+      "url": "https://dla.mil",
+      "page_load_count": 5449,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://nrcs.usda.gov",
+      "page_load_count": 5438,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://drought.gov",
+      "page_load_count": 5426,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://bia.gov",
+      "page_load_count": 5397,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://fsa.usda.gov",
+      "page_load_count": 5379,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://espanol.epa.gov",
+      "page_load_count": 5370,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://catalog.data.gov",
+      "page_load_count": 5338,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://intelligencecareers.gov",
+      "page_load_count": 5299,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://niaid.nih.gov",
+      "page_load_count": 5281,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://alzheimers.gov",
+      "page_load_count": 5273,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://hill.af.mil",
+      "page_load_count": 5271,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://arts.gov",
+      "page_load_count": 5265,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://nwrfc.noaa.gov",
+      "page_load_count": 5253,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://gsaadvantage.gov",
+      "page_load_count": 5227,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://vlm.cem.va.gov",
+      "page_load_count": 5196,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://citrb.commerce.gov",
+      "page_load_count": 5186,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://mycg.uscg.mil",
+      "page_load_count": 5155,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 76,
+        "accessibility": 86,
+        "best_practices": 81,
+        "seo": 83,
+        "pwa": 66
+      }
+    },
+    {
+      "url": "https://climate.nasa.gov",
+      "page_load_count": 5129,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 85
+      }
+    },
+    {
+      "url": "https://uscg.mil",
+      "page_load_count": 5102,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://do.usembassy.gov",
+      "page_load_count": 5091,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://search.usembassy.gov",
+      "page_load_count": 5076,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://filermanagement.edgarfiling.sec.gov",
+      "page_load_count": 5068,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://home.nps.gov",
+      "page_load_count": 5015,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://uspreventiveservicestaskforce.org",
+      "page_load_count": 4998,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://airuniversity.af.edu",
+      "page_load_count": 4976,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://www-search.uspto.gov",
+      "page_load_count": 4975,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://ecomp.dol.gov",
+      "page_load_count": 4963,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://reaganlibrary.gov",
+      "page_load_count": 4940,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://publichealth.va.gov",
+      "page_load_count": 4928,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://seasonaljobs.dol.gov",
+      "page_load_count": 4884,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 79,
+        "accessibility": 89,
+        "best_practices": 84,
+        "seo": 86,
+        "pwa": 69
+      }
+    },
+    {
+      "url": "https://farmers.gov",
+      "page_load_count": 4830,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://bd.usembassy.gov",
+      "page_load_count": 4804,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 65,
+        "accessibility": 75,
+        "best_practices": 70,
+        "seo": 72,
+        "pwa": 55
+      }
+    },
+    {
+      "url": "https://adsorption.nist.gov",
+      "page_load_count": 4800,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://ec.usembassy.gov",
+      "page_load_count": 4787,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://pk.usembassy.gov",
+      "page_load_count": 4783,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
+    },
+    {
+      "url": "https://dsbs.sba.gov",
+      "page_load_count": 4764,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://aspr.hhs.gov",
+      "page_load_count": 4749,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://usar.army.mil",
+      "page_load_count": 4729,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://historyhub.history.gov",
+      "page_load_count": 4703,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 88,
+        "accessibility": 98,
+        "best_practices": 93,
+        "seo": 95,
+        "pwa": 78
+      }
+    },
+    {
+      "url": "https://dcsa.mil",
+      "page_load_count": 4665,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://lre.nist.gov",
+      "page_load_count": 4651,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://dco.uscg.mil",
+      "page_load_count": 4563,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://research.gov",
+      "page_load_count": 4546,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://jobcorps.gov",
+      "page_load_count": 4545,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://neh.gov",
+      "page_load_count": 4528,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 78,
+        "accessibility": 88,
+        "best_practices": 83,
+        "seo": 85,
+        "pwa": 68
+      }
+    },
+    {
+      "url": "https://data.cms.gov",
+      "page_load_count": 4519,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 77,
+        "accessibility": 87,
+        "best_practices": 82,
+        "seo": 84,
+        "pwa": 67
+      }
+    },
+    {
+      "url": "https://nlrb.gov",
+      "page_load_count": 4509,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 69,
+        "accessibility": 79,
+        "best_practices": 74,
+        "seo": 76,
+        "pwa": 59
+      }
+    },
+    {
+      "url": "https://stage.fra.dot.gov",
+      "page_load_count": 4414,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://covid19treatmentguidelines.nih.gov",
+      "page_load_count": 4387,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://afpc.af.mil",
+      "page_load_count": 4385,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://tac.nist.gov",
+      "page_load_count": 4373,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 71,
+        "accessibility": 81,
+        "best_practices": 76,
+        "seo": 78,
+        "pwa": 61
+      }
+    },
+    {
+      "url": "https://smokefree.gov",
+      "page_load_count": 4337,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 73,
+        "accessibility": 83,
+        "best_practices": 78,
+        "seo": 80,
+        "pwa": 63
+      }
+    },
+    {
+      "url": "https://th.usembassy.gov",
+      "page_load_count": 4333,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://search.archives.gov",
+      "page_load_count": 4330,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 83,
+        "accessibility": 93,
+        "best_practices": 88,
+        "seo": 90,
+        "pwa": 73
+      }
+    },
+    {
+      "url": "https://voyager.jpl.nasa.gov",
+      "page_load_count": 4283,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best_practices": 99,
+        "seo": 100,
+        "pwa": 84
+      }
+    },
+    {
+      "url": "https://au.usembassy.gov",
+      "page_load_count": 4260,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 91,
+        "best_practices": 86,
+        "seo": 88,
+        "pwa": 71
+      }
+    },
+    {
+      "url": "https://vetrecs.archives.gov",
+      "page_load_count": 4244,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://ars.usda.gov",
+      "page_load_count": 4233,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 78,
+        "best_practices": 73,
+        "seo": 75,
+        "pwa": 58
+      }
+    },
+    {
+      "url": "https://first.uscis.gov",
+      "page_load_count": 4126,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 75,
+        "accessibility": 85,
+        "best_practices": 80,
+        "seo": 82,
+        "pwa": 65
+      }
+    },
+    {
+      "url": "https://2001-2009.state.gov",
+      "page_load_count": 4125,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 84,
+        "accessibility": 94,
+        "best_practices": 89,
+        "seo": 91,
+        "pwa": 74
+      }
+    },
+    {
+      "url": "https://my.americorps.gov",
+      "page_load_count": 4120,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "good",
+      "lighthouse_scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best_practices": 98,
+        "seo": 100,
+        "pwa": 83
+      }
+    },
+    {
+      "url": "https://netc.navy.mil",
+      "page_load_count": 4100,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 82,
+        "accessibility": 92,
+        "best_practices": 87,
+        "seo": 89,
+        "pwa": 72
+      }
+    },
+    {
+      "url": "https://archive.cdc.gov",
+      "page_load_count": 4084,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 70,
+        "accessibility": 80,
+        "best_practices": 75,
+        "seo": 77,
+        "pwa": 60
+      }
+    },
+    {
+      "url": "https://fisheriespermits.noaa.gov",
+      "page_load_count": 4078,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 67,
+        "accessibility": 77,
+        "best_practices": 72,
+        "seo": 74,
+        "pwa": 57
+      }
+    },
+    {
+      "url": "https://ttbonline.gov",
+      "page_load_count": 4073,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 87,
+        "accessibility": 97,
+        "best_practices": 92,
+        "seo": 94,
+        "pwa": 77
+      }
+    },
+    {
+      "url": "https://archive.revenuedata.doi.gov",
+      "page_load_count": 4067,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 66,
+        "accessibility": 76,
+        "best_practices": 71,
+        "seo": 73,
+        "pwa": 56
+      }
+    },
+    {
+      "url": "https://graphical.weather.gov",
+      "page_load_count": 4053,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://ecc.nist.gov",
+      "page_load_count": 3971,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 2,
+      "severe_findings_count": 1,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 89,
+        "accessibility": 99,
+        "best_practices": 94,
+        "seo": 96,
+        "pwa": 79
+      }
+    },
+    {
+      "url": "https://data.gov",
+      "page_load_count": 3946,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 80,
+        "accessibility": 90,
+        "best_practices": 85,
+        "seo": 87,
+        "pwa": 70
+      }
+    },
+    {
+      "url": "https://uy.usembassy.gov",
+      "page_load_count": 3917,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 74,
+        "accessibility": 84,
+        "best_practices": 79,
+        "seo": 81,
+        "pwa": 64
+      }
+    },
+    {
+      "url": "https://webb.nasa.gov",
+      "page_load_count": 3914,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 1,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "needs_improvement",
+      "lighthouse_scores": {
+        "performance": 86,
+        "accessibility": 96,
+        "best_practices": 91,
+        "seo": 93,
+        "pwa": 76
+      }
     }
   ],
   "trend_window_days": 30,
@@ -1951,19 +8352,19 @@
       }
     }
   ],
-  "generated_at": "2026-02-22T01:30:42.604Z",
+  "generated_at": "2026-02-22T01:38:20.891Z",
   "report_status": "success",
   "slow_risk_summary": {
-    "successful_url_count": 100,
+    "successful_url_count": 500,
     "slow_risk_url_count": 0,
-    "successful_page_load_count": 34850373,
+    "successful_page_load_count": 40520706,
     "slow_risk_page_load_count": 0,
     "slow_risk_traffic_share_percent": 0
   },
   "warning_events": [],
   "scan_diagnostics": {
-    "total_urls": 100,
-    "success_count": 100,
+    "total_urls": 500,
+    "success_count": 500,
     "failed_count": 0,
     "excluded_count": 0,
     "timeout_count": 0,
