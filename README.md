@@ -67,3 +67,8 @@ This workflow is represented by the CLI entrypoint and work package stack:
 - `tests/unit/` unit tests
 - `tests/contract/` schema contract validation
 - `kitty-specs/002-daily-dap-quality-benchmarking/` specification and work packages
+
+## Documentation
+
+- [ACCESSIBILITY.md](./ACCESSIBILITY.md) - Accessibility commitment, best practices, and guidelines
+- [AGENTS.md](./AGENTS.md) - AI agent instructions and project-specific rules
