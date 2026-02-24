@@ -41,24 +41,10 @@ This project integrates multiple accessibility scanning tools:
 - `src/scanners/scangov-runner.js` - ScanGov scanning
 - `src/aggregation/impact-estimation.js` - Accessibility impact metrics
 
-### 2. Secure HTML Rendering
-
-All user-controlled content in generated reports is properly escaped to prevent XSS vulnerabilities:
-
-```javascript
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-```
 
 **Location**: `src/publish/render-pages.js`
 
-### 3. Accessible Report Structure
+### 2. Accessible Report Structure
 
 Generated HTML reports follow accessibility best practices:
 
