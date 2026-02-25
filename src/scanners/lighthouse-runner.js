@@ -52,6 +52,7 @@ function parseLighthouseResult(url, rawResult) {
 
 async function runLiveLighthouse(url, executionOptions = {}) {
   const chrome = await launch({
+    chromePath: process.env.CHROME_PATH,
     chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage']
   });
 

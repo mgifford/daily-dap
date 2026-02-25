@@ -66,6 +66,13 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Export Chrome path
+        run: echo "CHROME_PATH=${{ steps.setup-chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
+
       - name: Install dependencies
         run: npm ci
 

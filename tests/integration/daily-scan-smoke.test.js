@@ -75,9 +75,41 @@ test('runDailyScan handles partial scanner failures and missing traffic records'
 
   const reportPath = path.join(outputRoot, 'docs', 'reports', 'daily', '2026-02-22', 'report.json');
   const report = JSON.parse(await fs.readFile(reportPath, 'utf8'));
+  const reportPagePath = path.join(outputRoot, 'docs', 'reports', 'daily', '2026-02-22', 'index.html');
+  const reportPage = await fs.readFile(reportPagePath, 'utf8');
 
   assert.ok(report.url_counts.failed >= 1);
   assert.ok(report.url_counts.excluded >= 1);
   assert.equal(report.report_status, 'partial');
   assert.equal(typeof report.scan_diagnostics.failure_reasons.execution_error, 'number');
+  assert.doesNotMatch(reportPage, /All scans failed with execution errors/);
+});
+
+test('runDailyScan renders scanner notice when all attempted scans fail with execution_error', async () => {
+  const outputRoot = await createTempWorkspace();
+
+  await runDailyScan({
+    dryRun: false,
+    configPath: null,
+    sourceFile: fixturePath('dap-sample.json'),
+    urlLimit: 6,
+    trafficWindowMode: 'daily',
+    runDate: '2026-02-23',
+    scanMode: 'mock',
+    mockFailUrl: ['example.gov'],
+    outputRoot,
+    concurrency: 3,
+    timeoutMs: 20000,
+    maxRetries: 0
+  });
+
+  const reportPath = path.join(outputRoot, 'docs', 'reports', 'daily', '2026-02-23', 'report.json');
+  const report = JSON.parse(await fs.readFile(reportPath, 'utf8'));
+  const reportPagePath = path.join(outputRoot, 'docs', 'reports', 'daily', '2026-02-23', 'index.html');
+  const reportPage = await fs.readFile(reportPagePath, 'utf8');
+
+  assert.equal(report.url_counts.succeeded, 0);
+  assert.ok(report.url_counts.failed >= 1);
+  assert.equal(report.scan_diagnostics.failure_reasons.execution_error, report.scan_diagnostics.failed_count);
+  assert.match(reportPage, /All scans failed with execution errors/);
 });
