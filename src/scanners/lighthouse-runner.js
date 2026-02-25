@@ -1,6 +1,24 @@
 import lighthouse from 'lighthouse';
 import { launch } from 'chrome-launcher';
 
+let lighthouseRunChain = Promise.resolve();
+
+async function runWithLighthouseLock(task) {
+  const previous = lighthouseRunChain;
+  let release;
+  lighthouseRunChain = new Promise((resolve) => {
+    release = resolve;
+  });
+
+  await previous;
+
+  try {
+    return await task();
+  } finally {
+    release();
+  }
+}
+
 function toScorePercent(rawScore) {
   if (rawScore === null || rawScore === undefined || Number.isNaN(Number(rawScore))) {
     return null;
@@ -77,8 +95,14 @@ export async function runLighthouseScan(url, options = {}) {
   const raw =
     typeof runImpl === 'function'
       ? await runImpl(url, executionOptions)
-      : await runLiveLighthouse(url, executionOptions);
+      : await runWithLighthouseLock(() => runLiveLighthouse(url, executionOptions));
   return parseLighthouseResult(url, raw);
 }
 
-export { parseLighthouseResult, deriveCoreWebVitalsStatus, toScorePercent, runLiveLighthouse };
+export {
+  parseLighthouseResult,
+  deriveCoreWebVitalsStatus,
+  toScorePercent,
+  runLiveLighthouse,
+  runWithLighthouseLock
+};
