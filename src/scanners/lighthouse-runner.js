@@ -61,7 +61,7 @@ async function runLiveLighthouse(url, executionOptions = {}) {
       port: chrome.port,
       output: 'json',
       logLevel: 'error',
-      onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo', 'pwa'],
+      onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
       ...executionOptions
     });
 
