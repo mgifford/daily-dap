@@ -59,6 +59,19 @@ function renderExecutionErrorNotice(report) {
   return `<p><strong>Scanner notice:</strong> All scans failed with execution errors, so Lighthouse scores are unavailable for this run. This usually indicates the runtime browser dependency for Lighthouse was unavailable during execution.</p>`;
 }
 
+function formatTimestamp(value) {
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    return 'unknown';
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return escapeHtml(value);
+  }
+
+  return escapeHtml(date.toISOString());
+}
+
 export function renderDailyReportPage(report) {
   return `<!doctype html>
 <html lang="en">
@@ -72,6 +85,7 @@ export function renderDailyReportPage(report) {
   <p>Run ID: ${escapeHtml(report.run_id)}</p>
   <p>Status: ${escapeHtml(report.report_status)}</p>
   <p>Source data date: ${escapeHtml(report.source_data_date ?? report.run_date)}</p>
+  <p>Report generated at: ${formatTimestamp(report.generated_at)}</p>
 
   <h2>URL Counts</h2>
   <ul>

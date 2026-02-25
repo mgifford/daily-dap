@@ -82,6 +82,7 @@ test('runDailyScan handles partial scanner failures and missing traffic records'
   assert.ok(report.url_counts.excluded >= 1);
   assert.equal(report.report_status, 'partial');
   assert.equal(typeof report.scan_diagnostics.failure_reasons.execution_error, 'number');
+  assert.match(reportPage, /Report generated at:/);
   assert.doesNotMatch(reportPage, /All scans failed with execution errors/);
 });
 
