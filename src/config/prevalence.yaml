@@ -1,5 +1,5 @@
 scan:
-  url_limit: 500
+  url_limit: 100
   history_lookback_days: 30
   traffic_window_mode: daily
 
