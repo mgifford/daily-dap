@@ -4,6 +4,7 @@ import { runScanGovScan } from './scangov-runner.js';
 import { normalizeUrlScanResult } from './result-normalizer.js';
 import { buildRunDiagnostics } from './diagnostics.js';
 import { FAILURE_REASON_CATALOG } from './status-classifier.js';
+import { logProgress } from '../lib/logging.js';
 
 class TimeoutError extends Error {
   constructor(message) {
@@ -155,7 +156,11 @@ export async function executeUrlScans(urlRecords, options = {}) {
       completedCount += 1;
       const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
       const rate = (completedCount / (Date.now() - startTime) * 1000).toFixed(2);
-      console.log(`[SCAN_PROGRESS] Completed ${completedCount}/${totalCount} URLs (${(completedCount/totalCount*100).toFixed(1)}%) | ${elapsed}s elapsed | ${rate} URLs/sec | Current: ${record.url}`);
+      logProgress('SCAN_PROGRESS', `Completed ${completedCount}/${totalCount} URLs (${(completedCount/totalCount*100).toFixed(1)}%)`, {
+        elapsed_sec: elapsed,
+        rate_per_sec: rate,
+        current_url: record.url
+      });
     }
   }
 

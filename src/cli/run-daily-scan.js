@@ -366,6 +366,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     const prevalenceImpact = estimateCategoryImpact(weightedImpact, runtimeConfig.impact.prevalence_rates);
     logProgress('AGGREGATION', 'Prevalence impact estimated');
 
+    logStageComplete('AGGREGATION');
+
     logStageStart('HISTORY_LOADING', { 
       lookbackDays: runtimeConfig.scan.history_lookback_days 
     });
@@ -381,7 +383,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       windowDays: runtimeConfig.scan.history_lookback_days
     });
 
-    logStageComplete('AGGREGATION', {
+    logStageComplete('HISTORY_LOADING', {
       historicalDataPoints: historyWindow.length
     });
 
