@@ -4,6 +4,7 @@ import { runScanGovScan } from './scangov-runner.js';
 import { normalizeUrlScanResult } from './result-normalizer.js';
 import { buildRunDiagnostics } from './diagnostics.js';
 import { FAILURE_REASON_CATALOG } from './status-classifier.js';
+import { logProgress } from '../lib/logging.js';
 
 class TimeoutError extends Error {
   constructor(message) {
@@ -132,12 +133,17 @@ export async function executeUrlScans(urlRecords, options = {}) {
 
   const results = new Array(urlRecords.length);
   let currentIndex = 0;
+  let completedCount = 0;
+  const totalCount = urlRecords.length;
+  const startTime = Date.now();
 
   async function worker() {
     while (currentIndex < urlRecords.length) {
       const index = currentIndex;
       currentIndex += 1;
-      results[index] = await executeSingleRecord(urlRecords[index], {
+      const record = urlRecords[index];
+      
+      results[index] = await executeSingleRecord(record, {
         runId,
         timeoutMs,
         maxRetries,
@@ -145,6 +151,15 @@ export async function executeUrlScans(urlRecords, options = {}) {
         excludePredicate,
         lighthouseRunner,
         scanGovRunner
+      });
+      
+      completedCount += 1;
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+      const rate = (completedCount / (Date.now() - startTime) * 1000).toFixed(2);
+      logProgress('SCAN_PROGRESS', `Completed ${completedCount}/${totalCount} URLs (${(completedCount/totalCount*100).toFixed(1)}%)`, {
+        elapsed_sec: elapsed,
+        rate_per_sec: rate,
+        current_url: record.url
       });
     }
   }

@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadPrevalenceConfig, applyRuntimeOverrides } from '../config/prevalence-loader.js';
 import { getNormalizedTopPages } from '../ingest/dap-source.js';
 import { createRunMetadata } from '../lib/run-metadata.js';
-import { createWarningEvent } from '../lib/logging.js';
+import { createWarningEvent, logProgress, logStageStart, logStageComplete } from '../lib/logging.js';
 import { executeUrlScans } from '../scanners/execution-manager.js';
 import { aggregateCategoryScores } from '../aggregation/score-aggregation.js';
 import { buildSlowRiskRollup } from '../aggregation/slow-risk.js';
@@ -254,6 +254,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
   let runMetadata;
 
   try {
+    logStageStart('INITIALIZATION', { scanMode: args.scanMode, dryRun: args.dryRun });
+    
     const baseConfig = await loadPrevalenceConfig(configPath);
     const runtimeConfig = applyRuntimeOverrides(baseConfig, {
       urlLimit: args.urlLimit,
@@ -267,10 +269,22 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       source: 'dap'
     });
 
+    logProgress('INITIALIZATION', 'Run metadata created', { 
+      runId: runMetadata.run_id, 
+      runDate: runMetadata.run_date,
+      urlLimit: runtimeConfig.scan.url_limit,
+      trafficWindow: runtimeConfig.scan.traffic_window_mode
+    });
+
     const dapEndpoint = runtimeConfig.sources?.dap_top_pages_endpoint;
     if (!args.sourceFile && dapEndpoint?.includes('api.gsa.gov') && !dapApiKey) {
       throw new Error('DAP_API_KEY is required to fetch top pages from api.gsa.gov. Set repo secret DAP_API_KEY or pass --dap-api-key.');
     }
+
+    logStageStart('INGEST', { 
+      source: args.sourceFile ? 'file' : 'api',
+      endpoint: args.sourceFile || dapEndpoint 
+    });
 
     const normalized = await getNormalizedTopPages({
       endpoint: dapEndpoint,
@@ -280,11 +294,18 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       dapApiKey
     });
 
+    logStageComplete('INGEST', {
+      recordCount: normalized.records.length,
+      warningCount: normalized.warnings.length,
+      excludedCount: normalized.excluded.length
+    });
+
     const warningEvents = normalized.warnings.map((warning) =>
       createWarningEvent(warning.code, warning.message, { url: warning.url })
     );
 
     if (args.dryRun) {
+      logProgress('DRY_RUN', 'Exiting in dry-run mode');
       const preview = {
         mode: 'dry-run',
         run_metadata: runMetadata,
@@ -302,6 +323,14 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       throw new Error(`Unsupported scan mode: ${args.scanMode}. Currently supported: live, mock`);
     }
 
+    logStageStart('SCAN', {
+      mode: args.scanMode,
+      urlCount: normalized.records.length,
+      concurrency: args.concurrency,
+      timeoutMs: args.timeoutMs,
+      maxRetries: args.maxRetries
+    });
+
     const { lighthouseRunner, scanGovRunner } =
       args.scanMode === 'mock' ? createMockScannerRunners(args.mockFailUrl) : createLiveScannerRunners();
     const scanExecution = await executeUrlScans(normalized.records, {
@@ -314,19 +343,51 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       excludePredicate: (record) => (record.page_load_count === null ? 'excluded_missing_page_load_count' : null)
     });
 
+    logStageComplete('SCAN', {
+      totalResults: scanExecution.results.length,
+      successCount: scanExecution.diagnostics.success_count,
+      failureCount: scanExecution.diagnostics.failure_count,
+      excludedCount: scanExecution.diagnostics.excluded_count
+    });
+
+    logStageStart('AGGREGATION');
+
     const scoreSummary = aggregateCategoryScores(scanExecution.results);
+    logProgress('AGGREGATION', 'Category scores aggregated');
+
     const slowRisk = buildSlowRiskRollup(scanExecution.results);
+    logProgress('AGGREGATION', 'Slow risk rollup built');
+
     const weightedImpact = estimateWeightedImpact(scanExecution.results, runtimeConfig, {
       trafficWindowMode: runtimeConfig.scan.traffic_window_mode
     });
-    const prevalenceImpact = estimateCategoryImpact(weightedImpact, runtimeConfig.impact.prevalence_rates);
+    logProgress('AGGREGATION', 'Weighted impact estimated');
 
+    const prevalenceImpact = estimateCategoryImpact(weightedImpact, runtimeConfig.impact.prevalence_rates);
+    logProgress('AGGREGATION', 'Prevalence impact estimated');
+
+    logStageComplete('AGGREGATION');
+
+    logStageStart('HISTORY_LOADING', { 
+      lookbackDays: runtimeConfig.scan.history_lookback_days 
+    });
+    
     const historyContext = await loadHistoryRecords(repoRoot, runtimeConfig.scan.history_lookback_days);
+    logProgress('HISTORY_LOADING', 'History records loaded', {
+      recordCount: historyContext.records.length
+    });
+
     const historyWindow = buildHistorySeries(historyContext.records, {
       runDate: runMetadata.run_date,
       trafficWindowMode: runtimeConfig.scan.traffic_window_mode,
       windowDays: runtimeConfig.scan.history_lookback_days
     });
+
+    logStageComplete('HISTORY_LOADING', {
+      historicalDataPoints: historyWindow.length
+    });
+
+    logStageStart('REPORT_BUILDING');
 
     const report = buildDailyReport({
       runMetadata,
@@ -348,9 +409,17 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       ];
     }
 
+    logProgress('REPORT_BUILDING', 'Daily report built');
+
     const historyIndex = buildHistoryIndex(historyContext.historyIndex.entries ?? [], report, {
       lookbackDays: runtimeConfig.scan.history_lookback_days
     });
+
+    logStageComplete('REPORT_BUILDING', {
+      historyEntries: historyIndex.entries.length
+    });
+
+    logStageStart('PUBLISHING');
 
     const snapshotPaths = await writeCommittedSnapshot({
       repoRoot,
@@ -361,6 +430,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       }
     });
 
+    logProgress('PUBLISHING', 'Snapshots written', snapshotPaths);
+
     const artifactManifest = buildArtifactManifest({
       runId: report.run_id,
       runDate: report.run_date,
@@ -370,6 +441,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
     const manifestPath = path.join(repoRoot, 'docs', 'reports', 'daily', report.run_date, 'artifact-manifest.json');
     await fs.writeFile(manifestPath, `${JSON.stringify(artifactManifest, null, 2)}\n`, 'utf8');
+
+    logProgress('PUBLISHING', 'Artifact manifest written', { path: manifestPath });
 
     const summary = {
       status: 'success',
@@ -384,6 +457,12 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     await writeArtifacts(repoRoot, runMetadata.run_date, {
       ...summary,
       diagnostics: scanExecution.diagnostics
+    });
+
+    logStageComplete('PUBLISHING');
+    logProgress('PIPELINE', 'All stages completed successfully', {
+      runId: runMetadata.run_id,
+      runDate: runMetadata.run_date
     });
 
     return summary;
