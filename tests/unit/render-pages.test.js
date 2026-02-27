@@ -32,11 +32,11 @@ test('renderDailyReportPage filters out zero-score history entries', () => {
   const html = renderDailyReportPage(report);
   
   // Should not contain the all-zero date
-  assert.ok(!html.includes('<tr><td>2026-02-25</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>'));
+  assert.ok(!html.includes('2026-02-25'), 'Should not include date with all zero scores');
   
   // Should contain non-zero dates
-  assert.ok(html.includes('<td>2026-02-26</td>'));
-  assert.ok(html.includes('<td>2026-02-27</td>'));
+  assert.ok(html.includes('2026-02-26'));
+  assert.ok(html.includes('2026-02-27'));
 });
 
 test('renderDailyReportPage reverses history order (most recent first)', () => {

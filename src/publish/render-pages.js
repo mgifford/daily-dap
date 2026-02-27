@@ -25,6 +25,10 @@ function hasNonZeroScores(entry) {
          scores.pwa !== 0;
 }
 
+function roundScore(value) {
+  return Math.round(value * 100) / 100;
+}
+
 function calculateMonthlyAverages(historySeries = []) {
   const monthlyData = {};
   
@@ -53,11 +57,11 @@ function calculateMonthlyAverages(historySeries = []) {
       date: month,
       isAverage: true,
       aggregate_scores: {
-        performance: Math.round((data.totals.performance / data.count) * 100) / 100,
-        accessibility: Math.round((data.totals.accessibility / data.count) * 100) / 100,
-        best_practices: Math.round((data.totals.best_practices / data.count) * 100) / 100,
-        seo: Math.round((data.totals.seo / data.count) * 100) / 100,
-        pwa: Math.round((data.totals.pwa / data.count) * 100) / 100
+        performance: roundScore(data.totals.performance / data.count),
+        accessibility: roundScore(data.totals.accessibility / data.count),
+        best_practices: roundScore(data.totals.best_practices / data.count),
+        seo: roundScore(data.totals.seo / data.count),
+        pwa: roundScore(data.totals.pwa / data.count)
       }
     }))
     .sort((a, b) => b.date.localeCompare(a.date));
