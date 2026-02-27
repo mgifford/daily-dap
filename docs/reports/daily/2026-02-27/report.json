@@ -1,0 +1,1387 @@
+{
+  "run_date": "2026-02-27",
+  "run_id": "run-2026-02-27-5761a4a127",
+  "url_limit": 100,
+  "url_counts": {
+    "processed": 100,
+    "succeeded": 1,
+    "failed": 99,
+    "excluded": 0
+  },
+  "aggregate_scores": {
+    "performance": 39,
+    "accessibility": 68,
+    "best_practices": 77,
+    "seo": 83,
+    "pwa": 0
+  },
+  "estimated_impact": {
+    "traffic_window_mode": "daily",
+    "affected_share_percent": 0,
+    "categories": [
+      {
+        "name": "blindness",
+        "prevalence_rate": 0.01,
+        "estimated_impacted_users": 0
+      },
+      {
+        "name": "low_vision",
+        "prevalence_rate": 0.2,
+        "estimated_impacted_users": 0
+      },
+      {
+        "name": "hearing_disability",
+        "prevalence_rate": 0.05,
+        "estimated_impacted_users": 0
+      },
+      {
+        "name": "mobility_disability",
+        "prevalence_rate": 0.08,
+        "estimated_impacted_users": 0
+      },
+      {
+        "name": "cognitive_disability",
+        "prevalence_rate": 0.12,
+        "estimated_impacted_users": 0
+      }
+    ]
+  },
+  "source_data_date": "2026-02-25",
+  "top_urls": [
+    {
+      "url": "https://tools.usps.com",
+      "page_load_count": 11067118,
+      "scan_status": "success",
+      "failure_reason": null,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "poor",
+      "lighthouse_scores": {
+        "performance": 39,
+        "accessibility": 68,
+        "best_practices": 77,
+        "seo": 83,
+        "pwa": 0
+      }
+    },
+    {
+      "url": "https://irs.gov",
+      "page_load_count": 5383840,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov",
+      "page_load_count": 5239590,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov",
+      "page_load_count": 4414447,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ncbi.nlm.nih.gov",
+      "page_load_count": 3010452,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://forecast.weather.gov",
+      "page_load_count": 2135518,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://usps.com",
+      "page_load_count": 2086617,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://secure.login.gov",
+      "page_load_count": 2048074,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://informeddelivery.usps.com",
+      "page_load_count": 1770628,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://justice.gov",
+      "page_load_count": 1468142,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ssa.gov",
+      "page_load_count": 1398785,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://va.gov",
+      "page_load_count": 1177279,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://secure.ssa.gov",
+      "page_load_count": 1126119,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://medicare.gov",
+      "page_load_count": 915968,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://cdc.gov",
+      "page_load_count": 913940,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://travel.state.gov",
+      "page_load_count": 889738,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://studentaid.gov",
+      "page_load_count": 888910,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://weather.gov",
+      "page_load_count": 806034,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://medlineplus.gov",
+      "page_load_count": 672862,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://uscis.gov",
+      "page_load_count": 628698,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://usajobs.gov",
+      "page_load_count": 571014,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://nps.gov",
+      "page_load_count": 550193,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ais.usvisa-info.com",
+      "page_load_count": 506886,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://reg.usps.com",
+      "page_load_count": 492642,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://www.va.gov",
+      "page_load_count": 478781,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://americanenglish.state.gov",
+      "page_load_count": 478675,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://www.medicare.gov",
+      "page_load_count": 471310,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://myaccount.uscis.gov",
+      "page_load_count": 460585,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://egov.uscis.gov",
+      "page_load_count": 449343,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://webbook.nist.gov",
+      "page_load_count": 432161,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://science.nasa.gov",
+      "page_load_count": 427917,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ofac.treasury.gov",
+      "page_load_count": 420837,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://tsp.gov",
+      "page_load_count": 411415,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://sec.gov",
+      "page_load_count": 407838,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://fda.gov",
+      "page_load_count": 391802,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ceac.state.gov",
+      "page_load_count": 387915,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://tsdr.uspto.gov",
+      "page_load_count": 381147,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://clinicaltrials.gov",
+      "page_load_count": 331484,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ecfr.gov",
+      "page_load_count": 318919,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://nasa.gov",
+      "page_load_count": 308165,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://catalog.data.gov",
+      "page_load_count": 298888,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://radar.weather.gov",
+      "page_load_count": 286326,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://fas.usda.gov",
+      "page_load_count": 286176,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://mynasadata.larc.nasa.gov",
+      "page_load_count": 268272,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://esta.cbp.dhs.gov",
+      "page_load_count": 256056,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://my.uscis.gov",
+      "page_load_count": 253999,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://tsa.gov",
+      "page_load_count": 251474,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://fsa.usda.gov",
+      "page_load_count": 249041,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://mx.usembassy.gov",
+      "page_load_count": 246509,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://historyhub.history.gov",
+      "page_load_count": 242985,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://healthcare.gov",
+      "page_load_count": 240188,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://noaa.gov",
+      "page_load_count": 238226,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://cms.gov",
+      "page_load_count": 232256,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://usa.gov",
+      "page_load_count": 231689,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ncei.noaa.gov",
+      "page_load_count": 228574,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://cisa.gov",
+      "page_load_count": 227244,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://bls.gov",
+      "page_load_count": 221511,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://home.treasury.gov",
+      "page_load_count": 219909,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://epa.gov",
+      "page_load_count": 215316,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://usitc.gov",
+      "page_load_count": 208257,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://pubchem.ncbi.nlm.nih.gov",
+      "page_load_count": 197626,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://catalog-prod-admin-datagov.app.cloud.gov",
+      "page_load_count": 197242,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://www.usajobs.gov",
+      "page_load_count": 197186,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://nhlbi.nih.gov",
+      "page_load_count": 194717,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://sam.gov",
+      "page_load_count": 192165,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://cbp.gov",
+      "page_load_count": 189393,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://login.gov",
+      "page_load_count": 186083,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://acquisition.gov",
+      "page_load_count": 184607,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://nsopw.gov",
+      "page_load_count": 184004,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://dea.gov",
+      "page_load_count": 180679,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://fs.usda.gov",
+      "page_load_count": 177961,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://acis.eoir.justice.gov",
+      "page_load_count": 177864,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://opm.gov",
+      "page_load_count": 176931,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://dhs.gov",
+      "page_load_count": 172612,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://nhtsa.gov",
+      "page_load_count": 171268,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://osha.gov",
+      "page_load_count": 171137,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://store.usps.com",
+      "page_load_count": 169457,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://accessdata.fda.gov",
+      "page_load_count": 168004,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://search.usa.gov",
+      "page_load_count": 163277,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://www.dol.gov",
+      "page_load_count": 157415,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://archives.gov",
+      "page_load_count": 154872,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://sandia.gov",
+      "page_load_count": 149570,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://earthquake.usgs.gov",
+      "page_load_count": 148902,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://fbi.gov",
+      "page_load_count": 146143,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://federalregister.gov",
+      "page_load_count": 145185,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://eeoc.gov",
+      "page_load_count": 144942,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://osti.gov",
+      "page_load_count": 144172,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://usgs.gov",
+      "page_load_count": 142454,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://history.state.gov",
+      "page_load_count": 139219,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://gsa.gov",
+      "page_load_count": 133647,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://about.usps.com",
+      "page_load_count": 132795,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://state.gov",
+      "page_load_count": 132324,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://army.mil",
+      "page_load_count": 130960,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://ttp.cbp.dhs.gov",
+      "page_load_count": 128529,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://cancer.gov",
+      "page_load_count": 128223,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://portal.cms.gov",
+      "page_load_count": 128212,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://i94.cbp.dhs.gov",
+      "page_load_count": 128037,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://aviationweather.gov",
+      "page_load_count": 127623,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://my.navy.mil",
+      "page_load_count": 127299,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    },
+    {
+      "url": "https://uspto.gov",
+      "page_load_count": 123265,
+      "scan_status": "failed",
+      "failure_reason": "timeout",
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lighthouse_scores": null
+    }
+  ],
+  "trend_window_days": 30,
+  "history_series": [
+    {
+      "date": "2026-01-29",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-01-30",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-01-31",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-01",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-02",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-03",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-04",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-05",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-06",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-07",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-08",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-09",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-10",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-11",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-12",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-13",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-14",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-15",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-16",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-17",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-18",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-19",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-20",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-21",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-22",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-24",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-25",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-26",
+      "aggregate_scores": {
+        "performance": 38,
+        "accessibility": 68,
+        "best_practices": 77,
+        "seo": 83,
+        "pwa": 0
+      }
+    },
+    {
+      "date": "2026-02-27",
+      "aggregate_scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
+        "pwa": 0
+      }
+    }
+  ],
+  "generated_at": "2026-02-27T09:31:15.444Z",
+  "report_status": "partial",
+  "slow_risk_summary": {
+    "successful_url_count": 1,
+    "slow_risk_url_count": 1,
+    "successful_page_load_count": 11067118,
+    "slow_risk_page_load_count": 11067118,
+    "slow_risk_traffic_share_percent": 100
+  },
+  "warning_events": [],
+  "scan_diagnostics": {
+    "total_urls": 100,
+    "success_count": 1,
+    "failed_count": 99,
+    "excluded_count": 0,
+    "timeout_count": 198,
+    "retry_count": 99,
+    "failure_reasons": {
+      "timeout": 99
+    }
+  },
+  "scan_mode": "live",
+  "scanner_notes": [
+    "Lighthouse scans are live per URL.",
+    "ScanGov integration currently uses placeholder findings and will be wired to a live backend next."
+  ]
+}
