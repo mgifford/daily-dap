@@ -110,10 +110,11 @@ async function executeSingleRecord(record, options) {
 export async function executeUrlScans(urlRecords, options = {}) {
   const {
     runId,
-    concurrency = 4,
-    timeoutMs = 45_000,
-    maxRetries = 1,
-    retryDelayMs = 0,
+    concurrency = 2,
+    timeoutMs = 90_000,
+    maxRetries = 2,
+    retryDelayMs = 2000,
+    interScanDelayMs = 1000,
     excludePredicate,
     lighthouseRunner = {},
     scanGovRunner = {}
@@ -161,6 +162,13 @@ export async function executeUrlScans(urlRecords, options = {}) {
         rate_per_sec: rate,
         current_url: record.url
       });
+      
+      // Add delay between scans to avoid rate limiting
+      // Note: currentIndex was already incremented, so this check correctly
+      // prevents delay after the last URL (when currentIndex === urlRecords.length)
+      if (interScanDelayMs > 0 && currentIndex < urlRecords.length) {
+        await delay(interScanDelayMs);
+      }
     }
   }
 
