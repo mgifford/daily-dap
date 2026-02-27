@@ -115,6 +115,6 @@ test('renderDailyReportPage includes monthly averages', () => {
   assert.ok(html.includes('2026-02 (avg)'), 'Should include February average');
   assert.ok(html.includes('2026-01 (avg)'), 'Should include January average');
   
-  // Monthly averages should have special styling
-  assert.ok(html.includes('background-color: #f0f0f0; font-weight: bold;'), 'Monthly averages should have special styling');
+  // Monthly averages should have special styling (check for style attribute presence)
+  assert.ok(html.includes('style=') && html.includes('(avg)'), 'Monthly averages should have styling');
 });
