@@ -17,21 +17,32 @@ function renderCategoryRows(categories = []) {
 }
 
 function renderEstimatedImpactSection(report) {
-  const affectedSharePercent = report.estimated_impact?.affected_share_percent ?? 0;
+  const impact = report.estimated_impact;
+  if (!impact) {
+    return '';
+  }
   
-  if (affectedSharePercent === 0) {
+  const affectedSharePercent = impact.affected_share_percent ?? 0;
+  const trafficWindowMode = impact.traffic_window_mode ?? 'daily';
+  
+  // Check if we have any real impact data (non-zero estimated users in any category)
+  const hasImpactData = (impact.categories || []).some(
+    (category) => category.estimated_impacted_users > 0
+  );
+  
+  if (!hasImpactData && affectedSharePercent === 0) {
     return `
-  <h2>Estimated Impact (${escapeHtml(report.estimated_impact.traffic_window_mode)})</h2>
+  <h2>Estimated Impact (${escapeHtml(trafficWindowMode)})</h2>
   <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>`;
   }
   
   return `
-  <h2>Estimated Impact (${escapeHtml(report.estimated_impact.traffic_window_mode)})</h2>
+  <h2>Estimated Impact (${escapeHtml(trafficWindowMode)})</h2>
   <p>Affected share percent: ${affectedSharePercent}</p>
   <table border="1" cellpadding="6" cellspacing="0">
     <thead><tr><th>Category</th><th>Prevalence</th><th>Estimated impacted users</th></tr></thead>
     <tbody>
-      ${renderCategoryRows(report.estimated_impact.categories)}
+      ${renderCategoryRows(impact.categories)}
     </tbody>
   </table>`;
 }
