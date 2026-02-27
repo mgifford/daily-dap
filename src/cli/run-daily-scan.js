@@ -31,9 +31,11 @@ function parseArgs(argv) {
     mockFailUrl: [],
     outputRoot: null,
     dapApiKey: undefined,
-    concurrency: 4,
-    timeoutMs: 20000,
-    maxRetries: 1
+    concurrency: 2,
+    timeoutMs: 90000,
+    maxRetries: 2,
+    retryDelayMs: 2000,
+    interScanDelayMs: 1000
   };
 
   for (let index = 2; index < argv.length; index += 1) {
@@ -80,6 +82,12 @@ function parseArgs(argv) {
         break;
       case '--max-retries':
         args.maxRetries = Number(argv[++index]);
+        break;
+      case '--retry-delay-ms':
+        args.retryDelayMs = Number(argv[++index]);
+        break;
+      case '--inter-scan-delay-ms':
+        args.interScanDelayMs = Number(argv[++index]);
         break;
       default:
         throw new Error(`Unknown argument: ${token}`);
@@ -328,7 +336,9 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       urlCount: normalized.records.length,
       concurrency: args.concurrency,
       timeoutMs: args.timeoutMs,
-      maxRetries: args.maxRetries
+      maxRetries: args.maxRetries,
+      retryDelayMs: args.retryDelayMs,
+      interScanDelayMs: args.interScanDelayMs
     });
 
     const { lighthouseRunner, scanGovRunner } =
@@ -338,6 +348,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       concurrency: args.concurrency,
       timeoutMs: args.timeoutMs,
       maxRetries: args.maxRetries,
+      retryDelayMs: args.retryDelayMs,
+      interScanDelayMs: args.interScanDelayMs,
       lighthouseRunner,
       scanGovRunner,
       excludePredicate: (record) => (record.page_load_count === null ? 'excluded_missing_page_load_count' : null)
