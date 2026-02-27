@@ -16,13 +16,32 @@ function renderCategoryRows(categories = []) {
     .join('\n');
 }
 
+function renderEstimatedImpactSection(report) {
+  const affectedSharePercent = report.estimated_impact?.affected_share_percent ?? 0;
+  
+  if (affectedSharePercent === 0) {
+    return `
+  <h2>Estimated Impact (${escapeHtml(report.estimated_impact.traffic_window_mode)})</h2>
+  <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>`;
+  }
+  
+  return `
+  <h2>Estimated Impact (${escapeHtml(report.estimated_impact.traffic_window_mode)})</h2>
+  <p>Affected share percent: ${affectedSharePercent}</p>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <thead><tr><th>Category</th><th>Prevalence</th><th>Estimated impacted users</th></tr></thead>
+    <tbody>
+      ${renderCategoryRows(report.estimated_impact.categories)}
+    </tbody>
+  </table>`;
+}
+
 function hasNonZeroScores(entry) {
   const scores = entry.aggregate_scores;
   return scores.performance !== 0 || 
          scores.accessibility !== 0 || 
          scores.best_practices !== 0 || 
-         scores.seo !== 0 || 
-         scores.pwa !== 0;
+         scores.seo !== 0;
 }
 
 function roundScore(value) {
@@ -39,7 +58,7 @@ function calculateMonthlyAverages(historySeries = []) {
       if (!monthlyData[monthKey]) {
         monthlyData[monthKey] = {
           count: 0,
-          totals: { performance: 0, accessibility: 0, best_practices: 0, seo: 0, pwa: 0 }
+          totals: { performance: 0, accessibility: 0, best_practices: 0, seo: 0 }
         };
       }
       
@@ -49,7 +68,6 @@ function calculateMonthlyAverages(historySeries = []) {
       data.totals.accessibility += entry.aggregate_scores.accessibility;
       data.totals.best_practices += entry.aggregate_scores.best_practices;
       data.totals.seo += entry.aggregate_scores.seo;
-      data.totals.pwa += entry.aggregate_scores.pwa;
     });
   
   return Object.entries(monthlyData)
@@ -60,8 +78,7 @@ function calculateMonthlyAverages(historySeries = []) {
         performance: roundScore(data.totals.performance / data.count),
         accessibility: roundScore(data.totals.accessibility / data.count),
         best_practices: roundScore(data.totals.best_practices / data.count),
-        seo: roundScore(data.totals.seo / data.count),
-        pwa: roundScore(data.totals.pwa / data.count)
+        seo: roundScore(data.totals.seo / data.count)
       }
     }))
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -74,12 +91,12 @@ function renderHistoryRows(historySeries = []) {
   
   const dailyRows = reversedSeries.map(
     (entry) =>
-      `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td><td>${entry.aggregate_scores.pwa}</td></tr>`
+      `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
   );
   
   const monthlyRows = monthlyAverages.map(
     (entry) =>
-      `<tr style="background-color: #f0f0f0; font-weight: bold;"><td>${escapeHtml(entry.date)} (avg)</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td><td>${entry.aggregate_scores.pwa}</td></tr>`
+      `<tr style="background-color: #f0f0f0; font-weight: bold;"><td>${escapeHtml(entry.date)} (avg)</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
   );
   
   return [...monthlyRows, ...dailyRows].join('\n');
@@ -162,21 +179,13 @@ export function renderDailyReportPage(report) {
     <li>Accessibility: ${report.aggregate_scores.accessibility}</li>
     <li>Best Practices: ${report.aggregate_scores.best_practices}</li>
     <li>SEO: ${report.aggregate_scores.seo}</li>
-    <li>PWA: ${report.aggregate_scores.pwa}</li>
   </ul>
 
-  <h2>Estimated Impact (${escapeHtml(report.estimated_impact.traffic_window_mode)})</h2>
-  <p>Affected share percent: ${report.estimated_impact.affected_share_percent}</p>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead><tr><th>Category</th><th>Prevalence</th><th>Estimated impacted users</th></tr></thead>
-    <tbody>
-      ${renderCategoryRows(report.estimated_impact.categories)}
-    </tbody>
-  </table>
+  ${renderEstimatedImpactSection(report)}
 
   <h2>History</h2>
   <table border="1" cellpadding="6" cellspacing="0">
-    <thead><tr><th>Date</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th><th>PWA</th></tr></thead>
+    <thead><tr><th>Date</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th></tr></thead>
     <tbody>
       ${renderHistoryRows(report.history_series)}
     </tbody>
@@ -184,6 +193,7 @@ export function renderDailyReportPage(report) {
 
   <h2>Top URLs by Traffic (Scanned)</h2>
   <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
+  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint)</p>
   <table border="1" cellpadding="6" cellspacing="0">
     <thead>
       <tr>
