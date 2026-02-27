@@ -4,15 +4,15 @@
   "url_limit": 100,
   "url_counts": {
     "processed": 100,
-    "succeeded": 1,
-    "failed": 99,
+    "succeeded": 6,
+    "failed": 94,
     "excluded": 0
   },
   "aggregate_scores": {
-    "performance": 39,
-    "accessibility": 68,
-    "best_practices": 77,
-    "seo": 83,
+    "performance": 61.67,
+    "accessibility": 87.83,
+    "best_practices": 92.33,
+    "seo": 88.67,
     "pwa": 0
   },
   "estimated_impact": {
@@ -57,7 +57,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 40,
         "accessibility": 68,
         "best_practices": 77,
         "seo": 83,
@@ -67,52 +67,82 @@
     {
       "url": "https://irs.gov",
       "page_load_count": 5383840,
-      "scan_status": "failed",
-      "failure_reason": "timeout",
+      "scan_status": "success",
+      "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
-      "lighthouse_scores": null
+      "core_web_vitals_status": "poor",
+      "lighthouse_scores": {
+        "performance": 56,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 100,
+        "pwa": 0
+      }
     },
     {
       "url": "https://pmc.ncbi.nlm.nih.gov",
       "page_load_count": 5239590,
-      "scan_status": "failed",
-      "failure_reason": "timeout",
+      "scan_status": "success",
+      "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
-      "lighthouse_scores": null
+      "core_web_vitals_status": "poor",
+      "lighthouse_scores": {
+        "performance": 68,
+        "accessibility": 100,
+        "best_practices": 96,
+        "seo": 92,
+        "pwa": 0
+      }
     },
     {
       "url": "https://pubmed.ncbi.nlm.nih.gov",
       "page_load_count": 4414447,
-      "scan_status": "failed",
-      "failure_reason": "timeout",
+      "scan_status": "success",
+      "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
-      "lighthouse_scores": null
+      "core_web_vitals_status": "poor",
+      "lighthouse_scores": {
+        "performance": 81,
+        "accessibility": 100,
+        "best_practices": 100,
+        "seo": 92,
+        "pwa": 0
+      }
     },
     {
       "url": "https://ncbi.nlm.nih.gov",
       "page_load_count": 3010452,
-      "scan_status": "failed",
-      "failure_reason": "timeout",
+      "scan_status": "success",
+      "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
-      "lighthouse_scores": null
+      "core_web_vitals_status": "poor",
+      "lighthouse_scores": {
+        "performance": 64,
+        "accessibility": 92,
+        "best_practices": 96,
+        "seo": 92,
+        "pwa": 0
+      }
     },
     {
       "url": "https://forecast.weather.gov",
       "page_load_count": 2135518,
-      "scan_status": "failed",
-      "failure_reason": "timeout",
+      "scan_status": "success",
+      "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
-      "lighthouse_scores": null
+      "core_web_vitals_status": "poor",
+      "lighthouse_scores": {
+        "performance": 61,
+        "accessibility": 67,
+        "best_practices": 85,
+        "seo": 73,
+        "pwa": 0
+      }
     },
     {
       "url": "https://usps.com",
@@ -1350,33 +1380,33 @@
     {
       "date": "2026-02-27",
       "aggregate_scores": {
-        "performance": 0,
-        "accessibility": 0,
-        "best_practices": 0,
-        "seo": 0,
+        "performance": 39,
+        "accessibility": 68,
+        "best_practices": 77,
+        "seo": 83,
         "pwa": 0
       }
     }
   ],
-  "generated_at": "2026-02-27T09:31:15.444Z",
+  "generated_at": "2026-02-27T13:53:31.586Z",
   "report_status": "partial",
   "slow_risk_summary": {
-    "successful_url_count": 1,
-    "slow_risk_url_count": 1,
-    "successful_page_load_count": 11067118,
-    "slow_risk_page_load_count": 11067118,
+    "successful_url_count": 6,
+    "slow_risk_url_count": 6,
+    "successful_page_load_count": 31250965,
+    "slow_risk_page_load_count": 31250965,
     "slow_risk_traffic_share_percent": 100
   },
   "warning_events": [],
   "scan_diagnostics": {
     "total_urls": 100,
-    "success_count": 1,
-    "failed_count": 99,
+    "success_count": 6,
+    "failed_count": 94,
     "excluded_count": 0,
-    "timeout_count": 198,
-    "retry_count": 99,
+    "timeout_count": 188,
+    "retry_count": 94,
     "failure_reasons": {
-      "timeout": 99
+      "timeout": 94
     }
   },
   "scan_mode": "live",
