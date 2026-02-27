@@ -51,6 +51,40 @@ This workflow is represented by the CLI entrypoint and work package stack:
 - Run current dry-run pipeline preview:
 	- `npm run dry-run -- --source-file tests/fixtures/dap-sample.json`
 
+## CLI options
+
+The `run-daily-scan.js` CLI supports the following options to control scan behavior:
+
+### Rate limiting and performance
+- `--concurrency <number>` - Number of parallel scans (default: 2)
+- `--timeout-ms <number>` - Timeout per URL scan in milliseconds (default: 90000)
+- `--max-retries <number>` - Maximum retry attempts for failed scans (default: 2)
+- `--retry-delay-ms <number>` - Delay between retry attempts in milliseconds (default: 2000)
+- `--inter-scan-delay-ms <number>` - Delay between individual URL scans in milliseconds (default: 1000)
+
+### Data sources
+- `--source-file <path>` - Load URLs from a local JSON file instead of the DAP API
+- `--dap-api-key <key>` - DAP API key (can also use DAP_API_KEY environment variable)
+- `--limit <number>` - Override URL limit from config
+- `--traffic-window <mode>` - Traffic window mode: daily, rolling_7d, or rolling_30d
+
+### Execution modes
+- `--scan-mode <mode>` - Scanner mode: live or mock (default: live)
+- `--dry-run` - Preview configuration without running scans
+- `--date <YYYY-MM-DD>` - Override run date
+
+### Example usage
+```bash
+# Run with custom rate limiting for slower networks
+node src/cli/run-daily-scan.js --concurrency 1 --timeout-ms 120000 --inter-scan-delay-ms 2000
+
+# Test with a small sample
+node src/cli/run-daily-scan.js --source-file tests/fixtures/dap-sample.json --limit 5
+
+# Dry run to preview configuration
+node src/cli/run-daily-scan.js --dry-run --limit 10
+```
+
 ## Output locations
 
 - Daily published snapshots: `docs/reports/daily/YYYY-MM-DD/`
