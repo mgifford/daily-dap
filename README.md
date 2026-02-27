@@ -57,10 +57,10 @@ The `run-daily-scan.js` CLI supports the following options to control scan behav
 
 ### Rate limiting and performance
 - `--concurrency <number>` - Number of parallel scans (default: 2)
-- `--timeout-ms <number>` - Timeout per URL scan in milliseconds (default: 90000)
+- `--timeout-ms <number>` - Timeout per URL scan in milliseconds (default: 90 seconds / 90000ms)
 - `--max-retries <number>` - Maximum retry attempts for failed scans (default: 2)
-- `--retry-delay-ms <number>` - Delay between retry attempts in milliseconds (default: 2000)
-- `--inter-scan-delay-ms <number>` - Delay between individual URL scans in milliseconds (default: 1000)
+- `--retry-delay-ms <number>` - Delay between retry attempts in milliseconds (default: 2 seconds / 2000ms)
+- `--inter-scan-delay-ms <number>` - Delay between individual URL scans in milliseconds (default: 1 second / 1000ms)
 
 ### Data sources
 - `--source-file <path>` - Load URLs from a local JSON file instead of the DAP API

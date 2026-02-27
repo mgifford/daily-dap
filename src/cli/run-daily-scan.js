@@ -32,7 +32,7 @@ function parseArgs(argv) {
     outputRoot: null,
     dapApiKey: undefined,
     concurrency: 2,
-    timeoutMs: 90000,
+    timeoutMs: 90_000,
     maxRetries: 2,
     retryDelayMs: 2000,
     interScanDelayMs: 1000

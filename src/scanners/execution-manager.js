@@ -164,6 +164,8 @@ export async function executeUrlScans(urlRecords, options = {}) {
       });
       
       // Add delay between scans to avoid rate limiting
+      // Note: currentIndex was already incremented, so this check correctly
+      // prevents delay after the last URL (when currentIndex === urlRecords.length)
       if (interScanDelayMs > 0 && currentIndex < urlRecords.length) {
         await delay(interScanDelayMs);
       }
