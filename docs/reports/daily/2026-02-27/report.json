@@ -9,10 +9,10 @@
     "excluded": 0
   },
   "aggregate_scores": {
-    "performance": 50.19,
-    "accessibility": 92.9,
-    "best_practices": 84.91,
-    "seo": 90,
+    "performance": 47.78,
+    "accessibility": 92.91,
+    "best_practices": 84.71,
+    "seo": 89.85,
     "pwa": 0
   },
   "estimated_impact": {
@@ -57,7 +57,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 38,
         "accessibility": 68,
         "best_practices": 77,
         "seo": 83,
@@ -71,9 +71,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 71,
+        "performance": 69,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 92,
@@ -89,7 +89,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 86,
+        "performance": 82,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -105,7 +105,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 57,
+        "performance": 45,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -121,7 +121,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 44,
         "accessibility": 92,
         "best_practices": 96,
         "seo": 92,
@@ -137,7 +137,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 57,
+        "performance": 63,
         "accessibility": 68,
         "best_practices": 54,
         "seo": 85,
@@ -153,7 +153,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 65,
+        "performance": 63,
         "accessibility": 67,
         "best_practices": 85,
         "seo": 73,
@@ -169,7 +169,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 92,
+        "performance": 87,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -185,7 +185,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 29,
+        "performance": 37,
         "accessibility": 71,
         "best_practices": 54,
         "seo": 92,
@@ -201,9 +201,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 22,
         "accessibility": 97,
-        "best_practices": 77,
+        "best_practices": 73,
         "seo": 100,
         "pwa": 0
       }
@@ -217,7 +217,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 63,
+        "performance": 47,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 85,
@@ -233,7 +233,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 36,
+        "performance": 44,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -249,7 +249,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 60,
         "accessibility": 90,
         "best_practices": 73,
         "seo": 85,
@@ -263,9 +263,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "good",
       "lighthouse_scores": {
-        "performance": 65,
+        "performance": 88,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 85,
@@ -281,7 +281,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 5,
+        "performance": 6,
         "accessibility": 87,
         "best_practices": 54,
         "seo": 92,
@@ -313,7 +313,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 68,
+        "performance": 66,
         "accessibility": 67,
         "best_practices": 85,
         "seo": 73,
@@ -329,7 +329,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 64,
+        "performance": 61,
         "accessibility": 95,
         "best_practices": 96,
         "seo": 92,
@@ -345,7 +345,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 90,
+        "performance": 89,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 91,
@@ -361,7 +361,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 16,
+        "performance": 20,
         "accessibility": 96,
         "best_practices": 73,
         "seo": 85,
@@ -375,9 +375,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 79,
+        "performance": 69,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -393,7 +393,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 49,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -409,7 +409,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 54,
+        "performance": 50,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -425,7 +425,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 30,
+        "performance": 27,
         "accessibility": 97,
         "best_practices": 54,
         "seo": 92,
@@ -441,9 +441,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 46,
         "accessibility": 95,
-        "best_practices": 96,
+        "best_practices": 77,
         "seo": 100,
         "pwa": 0
       }
@@ -457,7 +457,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 50,
+        "performance": 45,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 100,
@@ -473,7 +473,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 41,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -489,9 +489,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 44,
+        "performance": 37,
         "accessibility": 100,
-        "best_practices": 100,
+        "best_practices": 96,
         "seo": 100,
         "pwa": 0
       }
@@ -505,7 +505,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 43,
         "accessibility": 95,
         "best_practices": 100,
         "seo": 100,
@@ -521,7 +521,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 44,
+        "performance": 42,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -551,9 +551,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 82,
+        "performance": 80,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 40,
@@ -569,7 +569,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 31,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 100,
@@ -585,7 +585,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 43,
         "accessibility": 88,
         "best_practices": 92,
         "seo": 83,
@@ -599,12 +599,12 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 0,
-        "accessibility": 0,
-        "best_practices": 0,
-        "seo": 0,
+        "performance": 51,
+        "accessibility": 97,
+        "best_practices": 100,
+        "seo": 77,
         "pwa": 0
       }
     },
@@ -617,7 +617,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 32,
+        "performance": 28,
         "accessibility": 89,
         "best_practices": 54,
         "seo": 75,
@@ -633,7 +633,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 49,
         "accessibility": 91,
         "best_practices": 96,
         "seo": 100,
@@ -649,7 +649,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 74,
+        "performance": 73,
         "accessibility": 94,
         "best_practices": 46,
         "seo": 91,
@@ -665,7 +665,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 62,
         "accessibility": 73,
         "best_practices": 100,
         "seo": 83,
@@ -681,7 +681,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 30,
+        "performance": 29,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 92,
@@ -697,9 +697,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 62,
         "accessibility": 79,
-        "best_practices": 96,
+        "best_practices": 100,
         "seo": 82,
         "pwa": 0
       }
@@ -713,8 +713,8 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 28,
-        "accessibility": 99,
+        "performance": 30,
+        "accessibility": 95,
         "best_practices": 100,
         "seo": 83,
         "pwa": 0
@@ -729,7 +729,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 57,
+        "performance": 56,
         "accessibility": 77,
         "best_practices": 100,
         "seo": 82,
@@ -745,7 +745,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 38,
+        "performance": 35,
         "accessibility": 97,
         "best_practices": 96,
         "seo": 100,
@@ -761,7 +761,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 58,
+        "performance": 41,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 85,
@@ -777,7 +777,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 44,
+        "performance": 37,
         "accessibility": 87,
         "best_practices": 100,
         "seo": 85,
@@ -793,9 +793,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 42,
         "accessibility": 100,
-        "best_practices": 69,
+        "best_practices": 73,
         "seo": 92,
         "pwa": 0
       }
@@ -809,7 +809,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 31,
+        "performance": 38,
         "accessibility": 96,
         "best_practices": 92,
         "seo": 100,
@@ -825,7 +825,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 45,
         "accessibility": 89,
         "best_practices": 77,
         "seo": 100,
@@ -841,7 +841,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 49,
         "accessibility": 85,
         "best_practices": 92,
         "seo": 73,
@@ -857,7 +857,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 44,
         "accessibility": 98,
         "best_practices": 92,
         "seo": 92,
@@ -873,7 +873,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 67,
         "accessibility": 99,
         "best_practices": 92,
         "seo": 83,
@@ -889,7 +889,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 35,
+        "performance": 13,
         "accessibility": 99,
         "best_practices": 73,
         "seo": 92,
@@ -905,10 +905,10 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 42,
+        "performance": 39,
         "accessibility": 97,
         "best_practices": 96,
-        "seo": 77,
+        "seo": 85,
         "pwa": 0
       }
     },
@@ -938,7 +938,7 @@
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
         "performance": 51,
-        "accessibility": 100,
+        "accessibility": 98,
         "best_practices": 100,
         "seo": 100,
         "pwa": 0
@@ -953,7 +953,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 50,
+        "performance": 47,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 100,
@@ -969,7 +969,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 75,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -985,7 +985,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 33,
+        "performance": 31,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 92,
@@ -1001,7 +1001,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 34,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -1015,9 +1015,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 80,
+        "performance": 77,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -1033,7 +1033,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 37,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 83,
@@ -1049,7 +1049,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 37,
         "accessibility": 99,
         "best_practices": 100,
         "seo": 83,
@@ -1065,7 +1065,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 34,
+        "performance": 33,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 92,
@@ -1081,7 +1081,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 52,
         "accessibility": 87,
         "best_practices": 65,
         "seo": 100,
@@ -1113,9 +1113,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 46,
         "accessibility": 99,
-        "best_practices": 96,
+        "best_practices": 92,
         "seo": 92,
         "pwa": 0
       }
@@ -1145,7 +1145,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 71,
+        "performance": 53,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 83,
@@ -1161,7 +1161,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 52,
+        "performance": 57,
         "accessibility": 79,
         "best_practices": 100,
         "seo": 82,
@@ -1177,7 +1177,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 88,
+        "performance": 78,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -1193,7 +1193,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 37,
         "accessibility": 85,
         "best_practices": 50,
         "seo": 100,
@@ -1209,7 +1209,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 44,
+        "performance": 51,
         "accessibility": 84,
         "best_practices": 88,
         "seo": 92,
@@ -1241,7 +1241,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 37,
         "accessibility": 98,
         "best_practices": 81,
         "seo": 83,
@@ -1257,7 +1257,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 34,
+        "performance": 32,
         "accessibility": 93,
         "best_practices": 54,
         "seo": 100,
@@ -1273,7 +1273,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 47,
         "accessibility": 93,
         "best_practices": 73,
         "seo": 92,
@@ -1305,7 +1305,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 31,
+        "performance": 29,
         "accessibility": 97,
         "best_practices": 54,
         "seo": 92,
@@ -1321,7 +1321,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 54,
         "accessibility": 100,
         "best_practices": 88,
         "seo": 92,
@@ -1335,9 +1335,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 50,
+        "performance": 77,
         "accessibility": 79,
         "best_practices": 100,
         "seo": 83,
@@ -1353,7 +1353,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 37,
+        "performance": 33,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 77,
@@ -1367,9 +1367,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 77,
+        "performance": 84,
         "accessibility": 96,
         "best_practices": 96,
         "seo": 100,
@@ -1385,7 +1385,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 33,
+        "performance": 34,
         "accessibility": 94,
         "best_practices": 69,
         "seo": 100,
@@ -1401,7 +1401,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 46,
         "accessibility": 79,
         "best_practices": 77,
         "seo": 54,
@@ -1433,7 +1433,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 55,
         "accessibility": 96,
         "best_practices": 96,
         "seo": 85,
@@ -1449,7 +1449,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 50,
         "accessibility": 87,
         "best_practices": 100,
         "seo": 100,
@@ -1465,7 +1465,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 52,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 92,
@@ -1481,7 +1481,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 37,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 92,
@@ -1497,7 +1497,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 38,
+        "performance": 36,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 100,
@@ -1511,9 +1511,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 85,
+        "performance": 73,
         "accessibility": 97,
         "best_practices": 100,
         "seo": 92,
@@ -1529,7 +1529,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 51,
         "accessibility": 98,
         "best_practices": 96,
         "seo": 92,
@@ -1545,7 +1545,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 74,
+        "performance": 75,
         "accessibility": 92,
         "best_practices": 100,
         "seo": 100,
@@ -1561,7 +1561,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 53,
+        "performance": 40,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 92,
@@ -1577,7 +1577,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 29,
+        "performance": 28,
         "accessibility": 100,
         "best_practices": 69,
         "seo": 82,
@@ -1593,7 +1593,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 30,
+        "performance": 29,
         "accessibility": 100,
         "best_practices": 54,
         "seo": 77,
@@ -1609,7 +1609,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 36,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 82,
@@ -1625,7 +1625,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 30,
+        "performance": 32,
         "accessibility": 88,
         "best_practices": 54,
         "seo": 92,
@@ -1639,12 +1639,12 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "unknown",
       "lighthouse_scores": {
-        "performance": 59,
-        "accessibility": 90,
-        "best_practices": 96,
-        "seo": 100,
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
         "pwa": 0
       }
     }
@@ -1954,22 +1954,22 @@
     {
       "date": "2026-02-27",
       "aggregate_scores": {
-        "performance": 47.7,
-        "accessibility": 92.72,
-        "best_practices": 83.78,
-        "seo": 90.01,
+        "performance": 50.19,
+        "accessibility": 92.9,
+        "best_practices": 84.91,
+        "seo": 90,
         "pwa": 0
       }
     }
   ],
-  "generated_at": "2026-02-27T18:58:17.127Z",
+  "generated_at": "2026-02-27T19:38:45.628Z",
   "report_status": "success",
   "slow_risk_summary": {
     "successful_url_count": 100,
-    "slow_risk_url_count": 88,
+    "slow_risk_url_count": 90,
     "successful_page_load_count": 66615644,
-    "slow_risk_page_load_count": 51809858,
-    "slow_risk_traffic_share_percent": 77.77
+    "slow_risk_page_load_count": 57464460,
+    "slow_risk_traffic_share_percent": 86.26
   },
   "warning_events": [],
   "scan_diagnostics": {
