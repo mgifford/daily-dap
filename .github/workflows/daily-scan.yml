@@ -84,7 +84,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          ARGS=(--scan-mode "$SCAN_MODE")
+          ARGS=(--scan-mode "$SCAN_MODE" --timeout-ms 60000)
           if [[ -n "$RUN_DATE" ]]; then ARGS+=(--date "$RUN_DATE"); fi
           if [[ -n "$URL_LIMIT" ]]; then ARGS+=(--limit "$URL_LIMIT"); fi
           if [[ -n "$TRAFFIC_WINDOW" ]]; then ARGS+=(--traffic-window "$TRAFFIC_WINDOW"); fi

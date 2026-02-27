@@ -23,6 +23,9 @@
   - `node src/cli/run-daily-scan.js --source-file tests/fixtures/dap-sample.json --scan-mode mock`
 - Run a specific date:
   - `node src/cli/run-daily-scan.js --date 2026-02-21 --scan-mode mock --source-file tests/fixtures/dap-sample.json`
+- Live scan with custom timeout:
+  - `node src/cli/run-daily-scan.js --scan-mode live --timeout-ms 60000 --limit 10`
+
 
 ## Failure handling
 
@@ -57,3 +60,4 @@ When a run fails:
 - Scanner execution failures are expected to produce partial reports rather than silent drops.
 - Missing page-load counts are retained for diagnostics and excluded from weighted traffic math.
 - Avoid empty snapshot commits: workflow already checks for docs changes before committing.
+- **Lighthouse scan timeouts:** If most scans fail with timeout errors, increase the timeout value using `--timeout-ms` (default: 20000ms). Lighthouse scans typically require 45-60 seconds in production environments. The GitHub Actions workflow uses 60 seconds (`--timeout-ms 60000`).
