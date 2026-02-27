@@ -23,7 +23,7 @@ function getWindowDays(options) {
     return fromMode;
   }
 
-  return 30;
+  return 31;
 }
 
 export function buildHistorySeries(historyRecords = [], options = {}) {

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildHistorySeries } from '../../src/aggregation/history-series.js';
 
-test('buildHistorySeries defaults to 30 day window and fills missing days', () => {
+test('buildHistorySeries defaults to 31 day window and fills missing days', () => {
   const result = buildHistorySeries(
     [
       { run_date: '2026-02-20', aggregate_scores: { performance: 80 } },
@@ -11,10 +11,10 @@ test('buildHistorySeries defaults to 30 day window and fills missing days', () =
     { runDate: '2026-02-20' }
   );
 
-  assert.equal(result.window_days, 30);
-  assert.equal(result.start_date, '2026-01-22');
+  assert.equal(result.window_days, 31);
+  assert.equal(result.start_date, '2026-01-21');
   assert.equal(result.end_date, '2026-02-20');
-  assert.equal(result.history_series.length, 30);
+  assert.equal(result.history_series.length, 31);
 
   const feb19 = result.history_series.find((item) => item.run_date === '2026-02-19');
   assert.equal(feb19.missing, true);

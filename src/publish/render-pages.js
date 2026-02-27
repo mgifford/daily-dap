@@ -16,13 +16,69 @@ function renderCategoryRows(categories = []) {
     .join('\n');
 }
 
+function hasNonZeroScores(entry) {
+  const scores = entry.aggregate_scores;
+  return scores.performance !== 0 || 
+         scores.accessibility !== 0 || 
+         scores.best_practices !== 0 || 
+         scores.seo !== 0 || 
+         scores.pwa !== 0;
+}
+
+function calculateMonthlyAverages(historySeries = []) {
+  const monthlyData = {};
+  
+  historySeries
+    .filter(hasNonZeroScores)
+    .forEach((entry) => {
+      const monthKey = entry.date.slice(0, 7);
+      if (!monthlyData[monthKey]) {
+        monthlyData[monthKey] = {
+          count: 0,
+          totals: { performance: 0, accessibility: 0, best_practices: 0, seo: 0, pwa: 0 }
+        };
+      }
+      
+      const data = monthlyData[monthKey];
+      data.count += 1;
+      data.totals.performance += entry.aggregate_scores.performance;
+      data.totals.accessibility += entry.aggregate_scores.accessibility;
+      data.totals.best_practices += entry.aggregate_scores.best_practices;
+      data.totals.seo += entry.aggregate_scores.seo;
+      data.totals.pwa += entry.aggregate_scores.pwa;
+    });
+  
+  return Object.entries(monthlyData)
+    .map(([month, data]) => ({
+      date: month,
+      isAverage: true,
+      aggregate_scores: {
+        performance: Math.round((data.totals.performance / data.count) * 100) / 100,
+        accessibility: Math.round((data.totals.accessibility / data.count) * 100) / 100,
+        best_practices: Math.round((data.totals.best_practices / data.count) * 100) / 100,
+        seo: Math.round((data.totals.seo / data.count) * 100) / 100,
+        pwa: Math.round((data.totals.pwa / data.count) * 100) / 100
+      }
+    }))
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+
 function renderHistoryRows(historySeries = []) {
-  return historySeries
-    .map(
-      (entry) =>
-        `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td><td>${entry.aggregate_scores.pwa}</td></tr>`
-    )
-    .join('\n');
+  const filteredSeries = historySeries.filter(hasNonZeroScores);
+  const reversedSeries = [...filteredSeries].reverse();
+  const monthlyAverages = calculateMonthlyAverages(historySeries);
+  
+  const dailyRows = reversedSeries.map(
+    (entry) =>
+      `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td><td>${entry.aggregate_scores.pwa}</td></tr>`
+  );
+  
+  const monthlyRows = monthlyAverages.map(
+    (entry) =>
+      `<tr style="background-color: #f0f0f0; font-weight: bold;"><td>${escapeHtml(entry.date)} (avg)</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td><td>${entry.aggregate_scores.pwa}</td></tr>`
+  );
+  
+  return [...monthlyRows, ...dailyRows].join('\n');
 }
 
 function renderTopUrlRows(topUrls = []) {

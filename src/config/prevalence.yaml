@@ -1,6 +1,6 @@
 scan:
   url_limit: 100
-  history_lookback_days: 30
+  history_lookback_days: 31
   traffic_window_mode: daily
 
 impact:
