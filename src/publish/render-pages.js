@@ -113,6 +113,17 @@ function renderHistoryRows(historySeries = []) {
   return [...monthlyRows, ...dailyRows].join('\n');
 }
 
+function renderLighthouseScoreCell(scores, key) {
+  if (!scores) {
+    return '<td>—</td>';
+  }
+  const value = scores[key];
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return '<td>—</td>';
+  }
+  return `<td>${value}</td>`;
+}
+
 function renderTopUrlRows(topUrls = []) {
   return topUrls
     .slice(0, 100)
@@ -122,6 +133,10 @@ function renderTopUrlRows(topUrls = []) {
   <td>${entry.page_load_count}</td>
   <td>${escapeHtml(entry.scan_status)}</td>
   <td>${escapeHtml(entry.core_web_vitals_status ?? 'unknown')}</td>
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance')}
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility')}
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices')}
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo')}
   <td>${entry.findings_count}</td>
   <td>${entry.severe_findings_count}</td>
   <td>${entry.failure_reason ? escapeHtml(entry.failure_reason) : ''}</td>
@@ -204,7 +219,7 @@ export function renderDailyReportPage(report) {
 
   <h2>Top URLs by Traffic (Scanned)</h2>
   <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
-  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint)</p>
+  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0–100 (higher is better).</p>
   <table border="1" cellpadding="6" cellspacing="0">
     <thead>
       <tr>
@@ -212,6 +227,10 @@ export function renderDailyReportPage(report) {
         <th>Traffic</th>
         <th>Scan status</th>
         <th>CWV</th>
+        <th>LH Performance</th>
+        <th>LH Accessibility</th>
+        <th>LH Best Practices</th>
+        <th>LH SEO</th>
         <th>Total findings</th>
         <th>Critical/Serious</th>
         <th>Failure reason</th>
