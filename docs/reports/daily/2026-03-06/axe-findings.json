@@ -1,9 +1,9 @@
 {
   "run_date": "2026-03-06",
   "run_id": "run-2026-03-06-0969e8ad13",
-  "generated_at": "2026-03-06T01:58:53.746Z",
+  "generated_at": "2026-03-06T09:30:21.908Z",
   "total_urls": 100,
-  "total_findings": 216,
+  "total_findings": 212,
   "urls": [
     {
       "url": "https://tools.usps.com",
@@ -808,15 +808,9 @@
             },
             {
               "selector": "div#wwaleft > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Severe%20Wea…\">",
-              "node_label": "Severe Weather Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (72.1px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.2px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Blizzard%20W…\">",
               "node_label": "Blizzard Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (75.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.2px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (75.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -837,28 +831,22 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (85.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Storm%20Warn…\">",
               "node_label": "Storm Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (66.3px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Warn…\">",
               "node_label": "Flood Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Tornado%20Wa…\">",
-              "node_label": "Tornado Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (66.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Gale%20Warni…\">",
               "node_label": "Gale Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
@@ -873,16 +861,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (109.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_r > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Advi…\">",
               "node_label": "Flood Advisory",
               "explanation": "Fix any of the following:\n  Target has insufficient size (65.6px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_r > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Dense%20Fog%…\">",
               "node_label": "Dense Fog Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (89.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (89.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -909,28 +897,22 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
-              "selector": "div#wwaright > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
               "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
-              "selector": "div#wwaright > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Watch\">",
               "node_label": "Flood Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (55.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (55.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwaright > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=High%20Wind%…\">",
               "node_label": "High Wind Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (76.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaright > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Fire%20Weath…\">",
-              "node_label": "Fire Weather Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (76.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaright > ul > li > a",
@@ -1025,7 +1007,7 @@
     {
       "url": "https://ncbi.nlm.nih.gov",
       "scan_status": "success",
-      "axe_findings_count": 3,
+      "axe_findings_count": 2,
       "axe_findings": [
         {
           "id": "color-contrast",
@@ -1088,20 +1070,6 @@
               "snippet": "<a href=\"https://www.nlm.nih.gov/careers/careers.html\" class=\"text-white\">",
               "node_label": "Careers",
               "explanation": "Fix any of the following:\n  Target has insufficient size (49.8px by 15px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 23.8px instead of at least 24px."
-            }
-          ]
-        },
-        {
-          "id": "landmark-one-main",
-          "title": "Document does not have a main landmark.",
-          "description": "One main landmark helps screen reader users navigate a web page. [Learn more about landmarks](https://dequeuniversity.com/rules/axe/4.11/landmark-one-main).",
-          "score": 0,
-          "items": [
-            {
-              "selector": "html",
-              "snippet": "<html lang=\"en\">",
-              "node_label": "html",
-              "explanation": "Fix all of the following:\n  Document does not have a main landmark"
             }
           ]
         }
@@ -1847,15 +1815,9 @@
             },
             {
               "selector": "div#wwaleft > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Severe%20Wea…\">",
-              "node_label": "Severe Weather Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (72.1px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.2px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Blizzard%20W…\">",
               "node_label": "Blizzard Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (75.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.2px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (75.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -1876,28 +1838,22 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (85.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Storm%20Warn…\">",
               "node_label": "Storm Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (66.3px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Warn…\">",
               "node_label": "Flood Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Tornado%20Wa…\">",
-              "node_label": "Tornado Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (66.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Gale%20Warni…\">",
               "node_label": "Gale Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
@@ -1912,16 +1868,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (109.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_r > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Advi…\">",
               "node_label": "Flood Advisory",
               "explanation": "Fix any of the following:\n  Target has insufficient size (65.6px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_r > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Dense%20Fog%…\">",
               "node_label": "Dense Fog Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (89.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (89.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1948,28 +1904,22 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
-              "selector": "div#wwaright > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
               "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
-              "selector": "div#wwaright > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Watch\">",
               "node_label": "Flood Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (55.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (55.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwaright > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=High%20Wind%…\">",
               "node_label": "High Wind Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (76.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaright > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Fire%20Weath…\">",
-              "node_label": "Fire Weather Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (76.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaright > ul > li > a",
@@ -2161,31 +2111,31 @@
           "items": [
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-nrd-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-yqp-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "01",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-nrd-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-yqp-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "02",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-nrd-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-yqp-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "03",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-nrd-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-yqp-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "04",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-nrd-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-yqp-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "05",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             }
@@ -2199,7 +2149,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-nrd-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-yqp-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -2396,8 +2346,22 @@
     {
       "url": "https://uscis.gov",
       "scan_status": "success",
-      "axe_findings_count": 1,
+      "axe_findings_count": 2,
       "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "items": [
+            {
+              "selector": "div.view-content > div.slick-list > div.slick-track > div#slick-slide00",
+              "snippet": "<div class=\"slick-slide\" data-slick-index=\"0\" aria-hidden=\"true\" role=\"tabpanel\" id=\"slick-slide00\" tabindex=\"-1\" style=\"width: 412px;\" aria-describedby=\"slick-slide-control00\">",
+              "node_label": "FY 2027 H-1B Cap Initial Registration Period Opens on March 4\n\nThe initial regi…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            }
+          ]
+        },
         {
           "id": "aria-required-children",
           "title": "Elements with an ARIA `[role]` that require children to contain a specific `[role]` are missing some or all of those required children.",
@@ -2952,7 +2916,7 @@
             {
               "selector": "div#footer > div#legal > span > span#ctl00_lblIP",
               "snippet": "<span id=\"ctl00_lblIP\" tabindex=\"6050\" class=\"lblIP\">",
-              "node_label": "(241)",
+              "node_label": "(227)",
               "explanation": "Fix any of the following:\n  Element has a tabindex greater than 0"
             }
           ]
@@ -3101,7 +3065,7 @@
           "items": [
             {
               "selector": "div.container-fluid > div.row > div.col-md-6 > a.btn",
-              "snippet": "<a target=\"_blank\" class=\"btn btn-outline-light shadow my-3\" href=\"https://feedback.gsa.gov/jfe/form/SV_3sfuhuJcX2xAynH?AdvSessionID=l9SsGUoA…\">",
+              "snippet": "<a target=\"_blank\" class=\"btn btn-outline-light shadow my-3\" href=\"https://feedback.gsa.gov/jfe/form/SV_3sfuhuJcX2xAynH?AdvSessionID=ZxFO2eaQ…\">",
               "node_label": "Send us your feedback!",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 4.36 (foreground color: #f8f9fa, background color: #1976d2, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
             }
@@ -3780,28 +3744,10 @@
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #ff0000, background color: #e9c188, font size: 10.0pt (13.3333px), font weight: normal). Expected contrast ratio of 4.5:1"
             },
             {
-              "selector": "div.full_width > div.SPCWeatherHeadlinesBoxEnh > div.SPCWeatherHeadlinesBody > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "Critical",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.37 (foreground color: #ff0000, background color: #e9c188, font size: 10.0pt (13.3333px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
               "selector": "tbody > tr > td > font",
               "snippet": "<font color=\"#ff0000\">",
-              "node_label": "34 minutes ago",
+              "node_label": "4 minutes ago",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.96 (foreground color: #ff0000, background color: #ffffef, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "tbody > tr > td > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "53 minutes ago",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.96 (foreground color: #ff0000, background color: #ffffef, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "tr > td > a > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "TORNADO 0013",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.92 (foreground color: #ff0000, background color: #f5ffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
             }
           ]
         },
@@ -3852,44 +3798,14 @@
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.full_width > div.SPCWeatherHeadlinesBoxEnh > div.SPCWeatherHeadlinesBody > img",
-              "snippet": "<img src=\"/new/images/feature_stories_bullet2.png\">",
-              "node_label": "div.full_width > div.SPCWeatherHeadlinesBoxEnh > div.SPCWeatherHeadlinesBody > img",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.MDbg",
-              "snippet": "<img class=\"MDbg\" src=\"/products/md/mcd0141_thumb.gif\">",
-              "node_label": "tr > td > a > img.MDbg",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
               "selector": "td > div > a > img.ACbg",
-              "snippet": "<img class=\"ACbg\" src=\"/products/exper/enhtstm/enh_small.gif\">",
+              "snippet": "<img class=\"ACbg\" src=\"/products/exper/day4-8/day48prob_small.gif\">",
               "node_label": "td > div > a > img.ACbg",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
               "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day1otlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.MDsm",
-              "snippet": "<img class=\"MDsm\" src=\"/products/md/mcd0140_thumb.gif\">",
-              "node_label": "tr > td > a > img.MDsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.WWsm",
-              "snippet": "<img class=\"WWsm\" src=\"/products/watch/ww0013_thumb.gif\">",
-              "node_label": "tr > td > a > img.WWsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/exper/fire_wx/day3-8fireotlk_sm.png\">",
+              "snippet": "<img class=\"ACsm\" src=\"/products/fire_wx/day2fireotlk_sm.png\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -3901,7 +3817,7 @@
             },
             {
               "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/fire_wx/day2fireotlk_sm.png\">",
+              "snippet": "<img class=\"ACsm\" src=\"/products/fire_wx/day1fireotlk_sm.png\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -3913,19 +3829,31 @@
             },
             {
               "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/fire_wx/day1fireotlk_sm.png\">",
+              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day1otlk_sm.png\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
               "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/exper/day4-8/day48prob_small.gif\">",
+              "snippet": "<img class=\"ACsm\" src=\"/products/exper/enhtstm/enh_small.gif\">",
+              "node_label": "td > div > a > img.ACsm",
+              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "selector": "tr > td > a > img.WWsm",
+              "snippet": "<img class=\"WWsm\" src=\"/products/watch/ww0014_thumb.gif\">",
+              "node_label": "tr > td > a > img.WWsm",
+              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "selector": "td > div > a > img.ACsm",
+              "snippet": "<img class=\"ACsm\" src=\"/products/exper/fire_wx/day3-8fireotlk_sm.png\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/climo/dataviewer/data/climo/conus/svr/svrday30/download/png_svrday30_conu…\" width=\"300\" style=\"height:auto;\">",
+              "snippet": "<img src=\"/climo/dataviewer/data/climo/conus/tor/torday30/download/png_torday30_conu…\" width=\"300\" style=\"height:auto;\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -3937,13 +3865,13 @@
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/new/images/SPC_outlook_final_updated-sm.png?1772762992033\" height=\"174\" width=\"280\">",
+              "snippet": "<img src=\"/new/images/WatchWarn.png\" height=\"174\" width=\"280\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/new/images/href_sm.png?1772762992039\" width=\"300\" height=\"212\">",
+              "snippet": "<img src=\"/new/images/SPC_mesoanalysis.png\" width=\"300\" height=\"212\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -3974,44 +3902,8 @@
           "score": 0,
           "items": [
             {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/md/md0141.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
               "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/enhtstm/\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day1otlk.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/md/md0140.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/watch/ww0013.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/fire_wx/\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day3otlk.html\">",
+              "snippet": "<a href=\"/products/exper/day4-8/\">",
               "node_label": "tr > td > div > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
             },
@@ -4023,7 +3915,7 @@
             },
             {
               "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day2otlk.html\">",
+              "snippet": "<a href=\"/products/outlook/day3otlk.html\">",
               "node_label": "tr > td > div > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
             },
@@ -4035,14 +3927,50 @@
             },
             {
               "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/day4-8/\">",
+              "snippet": "<a href=\"/products/outlook/day2otlk.html\">",
               "node_label": "tr > td > div > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "tr > td > div > a",
+              "snippet": "<a href=\"/products/outlook/day1otlk.html\">",
+              "node_label": "tr > td > div > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "tr > td > div > a",
+              "snippet": "<a href=\"/products/exper/enhtstm/\">",
+              "node_label": "tr > td > div > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "tbody > tr > td > a",
+              "snippet": "<a href=\"/products/watch/ww0014.html\">",
+              "node_label": "tbody > tr > td > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "tr > td > div > a",
+              "snippet": "<a href=\"/products/exper/fire_wx/\">",
+              "node_label": "tr > td > div > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "div.slides_container > div.slides_control > div.slide > a",
+              "snippet": "<a href=\"/climo/dataviewer/data/climo/conus/tor/torday30/download/png_torday30_conu…\" target=\"_blank\">",
+              "node_label": "div.slides_container > div.slides_control > div.slide > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
             },
             {
               "selector": "tbody > tr > td > a",
               "snippet": "<a href=\"/wcm/2026_torww_to_date.png\">",
               "node_label": "tbody > tr > td > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "div.slides_container > div.slides_control > div.slide > a",
+              "snippet": "<a href=\"/exper/mesoanalysis/new/\" target=\"_blank\">",
+              "node_label": "div.slides_container > div.slides_control > div.slide > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
             },
             {
@@ -4084,22 +4012,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (48px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
-              "selector": "tbody > tr > td.ac-enh > a.black",
-              "snippet": "<a class=\"black\" href=\"/products/outlook/day2otlk.html\">",
-              "node_label": "Enhanced",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (48px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
-            },
-            {
               "selector": "tbody > tr > td.ac-slight > a.black",
-              "snippet": "<a class=\"black\" href=\"/products/outlook/day3otlk.html\">",
+              "snippet": "<a class=\"black\" href=\"/products/outlook/day2otlk.html\">",
               "node_label": "Slight",
               "explanation": "Fix any of the following:\n  Target has insufficient size (26.7px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
-              "selector": "tbody > tr > td.ac48-noarea > a.black",
-              "snippet": "<a class=\"black\" href=\"/products/exper/day4-8/\">",
-              "node_label": "No Area",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (38.5px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
+              "selector": "tbody > tr > td.ac-nosevere > a.black",
+              "snippet": "<a class=\"black\" href=\"/products/outlook/day3otlk.html\">",
+              "node_label": "No Severe",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (50.4px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
               "selector": "tbody > tr > td.ac48-noarea > a.black",
@@ -4126,6 +4048,12 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (38.5px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
+              "selector": "tbody > tr > td.ac48-noarea > a.black",
+              "snippet": "<a class=\"black\" href=\"/products/exper/day4-8/\">",
+              "node_label": "No Area",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (38.5px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
+            },
+            {
               "selector": "tr > td > span.matrix > a.awhite",
               "snippet": "<a href=\"/products/fire_wx/overview.html\" class=\"awhite\">",
               "node_label": "Fire",
@@ -4138,10 +4066,10 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (32.6px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
-              "selector": "tbody > tr > td.fw12-critical > a.black",
+              "selector": "tbody > tr > td.fw12-low > a.black",
               "snippet": "<a class=\"black\" href=\"/products/fire_wx/fwdy2.html\">",
-              "node_label": "Critical",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (32.6px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
+              "node_label": "No Critical",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (49.2px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
               "selector": "tbody > tr > td.fw38-noarea > a.black",
@@ -4180,7 +4108,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (38.5px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
-              "selector": "div#slides > ul.pagination > li.current > a",
+              "selector": "div#slides > ul.pagination > li > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -4192,7 +4120,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides > ul.pagination > li > a",
+              "selector": "div#slides > ul.pagination > li.current > a",
               "snippet": "<a href=\"#2\">",
               "node_label": "3",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -4201,13 +4129,13 @@
               "selector": "div#slides > ul.pagination > li > a",
               "snippet": "<a href=\"#3\">",
               "node_label": "4",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
               "selector": "div#slides > ul.pagination > li > a",
               "snippet": "<a href=\"#4\">",
               "node_label": "5",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
               "selector": "div#slides > ul.pagination > li > a",
@@ -4228,7 +4156,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides1 > ul.pagination > li.current > a",
+              "selector": "div#slides1 > ul.pagination > li > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -4240,7 +4168,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides1 > ul.pagination > li > a",
+              "selector": "div#slides1 > ul.pagination > li.current > a",
               "snippet": "<a href=\"#2\">",
               "node_label": "3",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -4261,22 +4189,22 @@
               "selector": "div#slides1 > ul.pagination > li > a",
               "snippet": "<a href=\"#5\">",
               "node_label": "6",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
+            },
+            {
+              "selector": "div#slides2 > ul.pagination > li > a",
+              "snippet": "<a href=\"#0\">",
+              "node_label": "1",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
+            },
+            {
+              "selector": "div#slides2 > ul.pagination > li > a",
+              "snippet": "<a href=\"#1\">",
+              "node_label": "2",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
               "selector": "div#slides2 > ul.pagination > li.current > a",
-              "snippet": "<a href=\"#0\">",
-              "node_label": "1",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
-            },
-            {
-              "selector": "div#slides2 > ul.pagination > li > a",
-              "snippet": "<a href=\"#1\">",
-              "node_label": "2",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
-            },
-            {
-              "selector": "div#slides2 > ul.pagination > li > a",
               "snippet": "<a href=\"#2\">",
               "node_label": "3",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -4300,7 +4228,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides3 > ul.pagination > li.current > a",
+              "selector": "div#slides3 > ul.pagination > li > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -4312,7 +4240,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
             },
             {
-              "selector": "div#slides3 > ul.pagination > li > a",
+              "selector": "div#slides3 > ul.pagination > li.current > a",
               "snippet": "<a href=\"#2\">",
               "node_label": "3",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
@@ -4402,7 +4330,7 @@
             {
               "selector": "tbody > tr > td > table",
               "snippet": "<table cellspacing=\"1\" cellpadding=\"2\" border=\"0\" width=\"100%\">",
-              "node_label": "Hazard\tThu (03/05)\tFri (03/06)\tSat (03/07)\tSun (03/08)\tMon (03/09)\tTue (03/10)\t…",
+              "node_label": "Hazard\tFri (03/06)\tSat (03/07)\tSun (03/08)\tMon (03/09)\tTue (03/10)\tWed (03/11)\t…",
               "explanation": "Fix all of the following:\n  Some non-empty data cells do not have table headers"
             }
           ]
@@ -4447,105 +4375,19 @@
     {
       "url": "https://jfklibrary.org",
       "scan_status": "success",
-      "axe_findings_count": 5,
+      "axe_findings_count": 1,
       "axe_findings": [
         {
-          "id": "aria-allowed-attr",
-          "title": "`[aria-*]` attributes do not match their roles",
-          "description": "Each ARIA `role` supports a specific subset of `aria-*` attributes. Mismatching these invalidates the `aria-*` attributes. [Learn how to match ARIA attributes to their roles](https://dequeuniversity.com/rules/axe/4.11/aria-allowed-attr).",
+          "id": "meta-refresh",
+          "title": "The document uses `<meta http-equiv=\"refresh\">`",
+          "description": "Users do not expect a page to refresh automatically, and doing so will move focus back to the top of the page. This may create a frustrating or confusing experience. [Learn more about the refresh meta tag](https://dequeuniversity.com/rules/axe/4.11/meta-refresh).",
           "score": 0,
           "items": [
             {
-              "selector": "div#block-homepagecardgriddontmiss > ul.field > ul.slick-dots > li#slick-slide00",
-              "snippet": "<li class=\"slick-active\" aria-hidden=\"false\" role=\"presentation\" aria-selected=\"true\" aria-controls=\"navigation00\" id=\"slick-slide00\">",
-              "node_label": "1",
-              "explanation": "Fix all of the following:\n  ARIA attribute is not allowed: aria-selected=\"true\""
-            },
-            {
-              "selector": "div#block-homepagecardgridlearn > ul.field > ul.slick-dots > li#slick-slide10",
-              "snippet": "<li class=\"slick-active\" aria-hidden=\"false\" role=\"presentation\" aria-selected=\"true\" aria-controls=\"navigation10\" id=\"slick-slide10\">",
-              "node_label": "1",
-              "explanation": "Fix all of the following:\n  ARIA attribute is not allowed: aria-selected=\"true\""
-            }
-          ]
-        },
-        {
-          "id": "aria-input-field-name",
-          "title": "ARIA input fields do not have accessible names",
-          "description": "When an input field doesn't have an accessible name, screen readers announce it with a generic name, making it unusable for users who rely on screen readers. [Learn more about input field labels](https://dequeuniversity.com/rules/axe/4.11/aria-input-field-name).",
-          "score": 0,
-          "items": [
-            {
-              "selector": "div#block-homepagecardgriddontmiss > ul.field > div.slick-list > div.slick-track",
-              "snippet": "<div class=\"slick-track\" style=\"opacity: 1; width: 1408px; transform: translate3d(-352px, 0px, 0px);\" role=\"listbox\">",
-              "node_label": "PRESIDENT KENNEDY'S HISTORIC SPEECHES\nSEE MORE\nPRESIDENTIAL PETS\nSpecial exhibi…",
-              "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "div#block-homepagecardgridlearn > ul.field > div.slick-list > div.slick-track",
-              "snippet": "<div class=\"slick-track\" style=\"opacity: 1; width: 2464px; transform: translate3d(-352px, 0px, 0px);\" role=\"listbox\">",
-              "node_label": "PROFILE IN COURAGE ESSAY CONTEST\nFor high school students\nLEARN MORE\nLIFE OF JF…",
-              "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            }
-          ]
-        },
-        {
-          "id": "aria-required-children",
-          "title": "Elements with an ARIA `[role]` that require children to contain a specific `[role]` are missing some or all of those required children.",
-          "description": "Some ARIA parent roles must contain specific child roles to perform their intended accessibility functions. [Learn more about roles and required children elements](https://dequeuniversity.com/rules/axe/4.11/aria-required-children).",
-          "score": 0,
-          "items": [
-            {
-              "selector": "div.region > div#block-homepagecardgriddontmiss > ul.field > ul.slick-dots",
-              "snippet": "<ul class=\"slick-dots\" style=\"\" role=\"tablist\">",
-              "node_label": "1\n2",
-              "explanation": "Fix any of the following:\n  Element has children which are not allowed: [role=presentation]"
-            },
-            {
-              "selector": "div.region > div#block-homepagecardgridlearn > ul.field > ul.slick-dots",
-              "snippet": "<ul class=\"slick-dots\" style=\"\" role=\"tablist\">",
-              "node_label": "1\n2\n3\n4\n5",
-              "explanation": "Fix any of the following:\n  Element has children which are not allowed: [role=presentation]"
-            }
-          ]
-        },
-        {
-          "id": "aria-valid-attr-value",
-          "title": "`[aria-*]` attributes do not have valid values",
-          "description": "Assistive technologies, like screen readers, can't interpret ARIA attributes with invalid values. [Learn more about valid values for ARIA attributes](https://dequeuniversity.com/rules/axe/4.11/aria-valid-attr-value).",
-          "score": 0,
-          "items": [
-            {
-              "selector": "div#block-homepagecardgriddontmiss > ul.field > ul.slick-dots > li#slick-slide00",
-              "snippet": "<li class=\"slick-active\" aria-hidden=\"false\" role=\"presentation\" aria-selected=\"true\" aria-controls=\"navigation00\" id=\"slick-slide00\">",
-              "node_label": "1",
-              "explanation": "Fix all of the following:\n  Invalid ARIA attribute value: aria-controls=\"navigation00\""
-            },
-            {
-              "selector": "div#block-homepagecardgridlearn > ul.field > ul.slick-dots > li#slick-slide10",
-              "snippet": "<li class=\"slick-active\" aria-hidden=\"false\" role=\"presentation\" aria-selected=\"true\" aria-controls=\"navigation10\" id=\"slick-slide10\">",
-              "node_label": "1",
-              "explanation": "Fix all of the following:\n  Invalid ARIA attribute value: aria-controls=\"navigation10\""
-            }
-          ]
-        },
-        {
-          "id": "list",
-          "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
-          "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more about proper list structure](https://dequeuniversity.com/rules/axe/4.11/list).",
-          "score": 0,
-          "items": [
-            {
-              "selector": "div#pg__c > div.region > div#block-homepagecardgriddontmiss > ul.field",
-              "snippet": "<ul class=\"field field--name-field-cards field--type-entity-reference-revisions field…\">",
-              "node_label": "PRESIDENT KENNEDY'S HISTORIC SPEECHES\nSEE MORE\nPRESIDENTIAL PETS\nSpecial exhibi…",
-              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed: div, [role=tablist]"
-            },
-            {
-              "selector": "div#pg__c > div.region > div#block-homepagecardgridlearn > ul.field",
-              "snippet": "<ul class=\"field field--name-field-cards field--type-entity-reference-revisions field…\">",
-              "node_label": "PROFILE IN COURAGE ESSAY CONTEST\nFor high school students\nLEARN MORE\nLIFE OF JF…",
-              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed: div, [role=tablist]"
+              "selector": "head > meta",
+              "snippet": "<meta http-equiv=\"refresh\" content=\"360\">",
+              "node_label": "head > meta",
+              "explanation": "Fix any of the following:\n  <meta> tag forces timed refresh of page (less than 20 hours)"
             }
           ]
         }
@@ -4827,7 +4669,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n119\nDays\n21\nHours\n47\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n119\nDays\n14\nHours\n14\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
@@ -5037,12 +4879,6 @@
           "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
           "score": 0,
           "items": [
-            {
-              "selector": "div.field__item > div.nhlbi_news_cards > div.nhlbi_text_link_button > a",
-              "snippet": "<a href=\"/events/2026/defining-lung-health-through-lifespan\" aria-label=\"Continue Reading.\">",
-              "node_label": "View Event Details",
-              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
-            },
             {
               "selector": "div.field__item > div.nhlbi_news_cards > div.nhlbi_text_link_button > a",
               "snippet": "<a href=\"/events/2026/mechanisms-interventions-paving-way-transformative-therapies-…\" aria-label=\"Continue Reading.\">",
@@ -6063,20 +5899,14 @@
             {
               "selector": "div.dataset-content > div.organization-type-wrap > span.organization-type > span",
               "snippet": "<span>",
-              "node_label": "Federal",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.1 (foreground color: #ffffff, background color: #71999f, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "li.dataset-item > div.dataset-content > h3.dataset-heading > span.dataset-collection",
-              "snippet": "<span class=\"dataset-collection label label-default\">",
-              "node_label": " Collection ",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 4.47 (foreground color: #ffffff, background color: #777777, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+              "node_label": "State",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 4.18 (foreground color: #ffffff, background color: #8e719f, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.dataset-content > div.organization-type-wrap > span.organization-type > span",
               "snippet": "<span>",
-              "node_label": "State",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 4.18 (foreground color: #ffffff, background color: #8e719f, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+              "node_label": "Federal",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.1 (foreground color: #ffffff, background color: #71999f, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.dataset-content > div.organization-type-wrap > span.organization-type > span",
@@ -6173,6 +6003,12 @@
             {
               "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
               "snippet": "<li class=\"dataset-item has-organization\">",
+              "node_label": "Federal\nBaby Names from Social Security Card Applications - State and District …",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
+              "snippet": "<li class=\"dataset-item has-organization\">",
               "node_label": "City\nMotor Vehicle Collisions - Crashes \n\nCity of New York —\n\n The Motor Vehicl…",
               "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
             },
@@ -6180,12 +6016,6 @@
               "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
               "snippet": "<li class=\"dataset-item has-organization\">",
               "node_label": "City\nTraffic Crashes - Crashes \n\nCity of Chicago —\n\n Crash data shows informati…",
-              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
-            },
-            {
-              "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
-              "snippet": "<li class=\"dataset-item has-organization\">",
-              "node_label": "Federal\nBaby Names from Social Security Card Applications - State and District …",
               "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
             },
             {
@@ -6209,12 +6039,6 @@
             {
               "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
               "snippet": "<li class=\"dataset-item has-organization\">",
-              "node_label": "Federal\n Collection Civil Rights Data Collection (CRDC) \n\nDepartment of Educati…",
-              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
-            },
-            {
-              "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
-              "snippet": "<li class=\"dataset-item has-organization\">",
               "node_label": "Federal\n Collection Civil Rights Data Collection (CRDC) for the 2015-16 school …",
               "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
             },
@@ -6228,6 +6052,12 @@
               "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
               "snippet": "<li class=\"dataset-item has-organization\">",
               "node_label": "Federal\nBorder Crossing Entry Data \n\nDepartment of Transportation —\n\n The Burea…",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
+              "snippet": "<li class=\"dataset-item has-organization\">",
+              "node_label": "Federal\nWalkability Index \n\nU.S. Environmental Protection Agency —\n\n The Walkab…",
               "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
             }
           ]
@@ -6852,7 +6682,7 @@
             {
               "selector": "div.homepage-grid > div#embedded-search-area > form#embedded_entry_search_form > span#expected_result_count",
               "snippet": "<span id=\"expected_result_count\" class=\"search-result-count\">",
-              "node_label": "994,447 documents",
+              "node_label": "994,538 documents",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.02 (foreground color: #b88659, background color: #f9f9f9, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
             },
             {
@@ -6897,21 +6727,9 @@
           "items": [
             {
               "selector": "div.fr-head-meta-counts > ul.fr-list > li > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpublication_date%5D%5Bis%5D=2026-03-05\">",
-              "node_label": "65 documents",
+              "snippet": "<a href=\"/documents/search?conditions%5Bpublication_date%5D%5Bis%5D=2026-03-06\">",
+              "node_label": "91 documents",
               "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.78:1 with the surrounding text. (Minimum contrast is 3:1, link text: #4d5e30, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "li > div.public-inspection-list-stats > div.filings-summary > a",
-              "snippet": "<a href=\"/public-inspection/search?conditions%5Bspecial_filing%5D=1\">",
-              "node_label": "6 documents",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.46:1 with the surrounding text. (Minimum contrast is 3:1, link text: #803333, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "li > div.public-inspection-list-stats > div.filings-summary > a",
-              "snippet": "<a href=\"/public-inspection/search?conditions%5Bspecial_filing%5D=0\">",
-              "node_label": "87 documents",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.46:1 with the surrounding text. (Minimum contrast is 3:1, link text: #803333, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
             },
             {
               "selector": "div.content-block > div#home-aid-tagline > p > a",
