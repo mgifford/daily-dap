@@ -145,14 +145,24 @@ test('snapshot writer and artifact manifest stay in sync', async () => {
   const reportPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'report.json');
   const historyPath = path.join(tempRoot, 'docs', 'reports', 'history.json');
   const dashboardPath = path.join(tempRoot, 'docs', 'reports', 'index.html');
+  const axeFindingsPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'axe-findings.json');
 
   const reportStat = await fs.stat(reportPath);
   const historyStat = await fs.stat(historyPath);
   const dashboardStat = await fs.stat(dashboardPath);
+  const axeFindingsStat = await fs.stat(axeFindingsPath);
 
   assert.equal(reportStat.isFile(), true);
   assert.equal(historyStat.isFile(), true);
   assert.equal(dashboardStat.isFile(), true);
+  assert.equal(axeFindingsStat.isFile(), true, 'axe-findings.json should be written');
+
+  const axeFindingsRaw = await fs.readFile(axeFindingsPath, 'utf8');
+  const axeFindings = JSON.parse(axeFindingsRaw);
+  assert.equal(axeFindings.run_date, report.run_date, 'axe-findings run_date should match report');
+  assert.ok(typeof axeFindings.total_urls === 'number', 'axe-findings should have total_urls');
+  assert.ok(typeof axeFindings.total_findings === 'number', 'axe-findings should have total_findings');
+  assert.ok(Array.isArray(axeFindings.urls), 'axe-findings should have urls array');
 
   assert.equal(manifest.files.some((file) => file.path === `docs/reports/daily/${report.run_date}/report.json`), true);
   assert.equal(manifest.files.some((file) => file.path === 'docs/reports/history.json'), true);

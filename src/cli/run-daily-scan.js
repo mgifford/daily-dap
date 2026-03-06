@@ -133,10 +133,65 @@ function createMockScannerRunners(failNeedles = []) {
         const seo = scoreFromUrl(url, 72) / 100;
         const pwa = scoreFromUrl(url, 55) / 100;
 
+        const selectorBase = url.replace('https://', '').replaceAll('/', '-');
+        const seed = scoreFromUrl(url, 0);
+        const accessibilityAudits = {};
+        const accessibilityAuditRefs = [];
+
+        if (seed % 2 === 0) {
+          accessibilityAudits['color-contrast'] = {
+            id: 'color-contrast',
+            title: 'Background and foreground colors do not have a sufficient contrast ratio.',
+            description: 'Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.9/color-contrast).',
+            score: 0,
+            scoreDisplayMode: 'binary',
+            details: {
+              type: 'table',
+              items: [
+                {
+                  node: {
+                    type: 'node',
+                    selector: `#${selectorBase}-header`,
+                    snippet: `<h1 class="header">Page Title</h1>`,
+                    nodeLabel: 'Page Title',
+                    explanation: 'Fix any of the following:\n  Element has insufficient color contrast of 2.73 (foreground color: #767676, background color: #ffffff, font size: 16px, font weight: normal).'
+                  }
+                }
+              ]
+            }
+          };
+          accessibilityAuditRefs.push({ id: 'color-contrast', weight: 3 });
+        }
+
+        if (seed % 3 === 0) {
+          accessibilityAudits['aria-label'] = {
+            id: 'aria-label',
+            title: 'ARIA input fields do not have accessible names.',
+            description: 'By default, only the visible label text for form fields is accessible. When using an ARIA role that designates form input, provide an accessible name. [Learn more about ARIA input field labels](https://dequeuniversity.com/rules/axe/4.9/aria-label).',
+            score: 0,
+            scoreDisplayMode: 'binary',
+            details: {
+              type: 'table',
+              items: [
+                {
+                  node: {
+                    type: 'node',
+                    selector: `#${selectorBase}-search`,
+                    snippet: `<input type="search" role="searchbox" />`,
+                    nodeLabel: '',
+                    explanation: 'Fix any of the following:\n  aria-label attribute does not exist or is empty.'
+                  }
+                }
+              ]
+            }
+          };
+          accessibilityAuditRefs.push({ id: 'aria-label', weight: 7 });
+        }
+
         return {
           categories: {
             performance: { score: performance },
-            accessibility: { score: accessibility },
+            accessibility: { score: accessibility, auditRefs: accessibilityAuditRefs },
             'best-practices': { score: bestPractices },
             seo: { score: seo },
             pwa: { score: pwa }
@@ -144,7 +199,8 @@ function createMockScannerRunners(failNeedles = []) {
           audits: {
             'largest-contentful-paint': { score: performance },
             'cumulative-layout-shift': { score: seo },
-            'interaction-to-next-paint': { score: bestPractices }
+            'interaction-to-next-paint': { score: bestPractices },
+            ...accessibilityAudits
           }
         };
       }

@@ -26,7 +26,8 @@ function normalizeTopUrls(urlResults = []) {
               seo: coerceScore(result.lighthouse_seo),
               pwa: coerceScore(result.lighthouse_pwa)
             }
-          : null
+          : null,
+      axe_findings: Array.isArray(result.axe_findings) ? result.axe_findings : []
     }))
     .sort((left, right) => right.page_load_count - left.page_load_count);
 }

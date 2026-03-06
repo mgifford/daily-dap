@@ -1,5 +1,6 @@
 import { classifyScanStatus } from './status-classifier.js';
 import { normalizeSeverity } from './scangov-runner.js';
+import { extractAxeFindings } from './axe-extractor.js';
 
 function normalizeFindings(url, findings = []) {
   return findings.map((finding) => ({
@@ -34,6 +35,7 @@ export function normalizeUrlScanResult({
     lighthouse_pwa: lighthouseResult?.lighthouse_pwa ?? null,
     core_web_vitals_status: lighthouseResult?.core_web_vitals_status ?? 'unknown',
     accessibility_findings: normalizeFindings(urlRecord.url, scanGovResult?.accessibility_findings),
+    axe_findings: extractAxeFindings(lighthouseResult?.raw),
     scan_diagnostics: {
       attempt_count: diagnostics.attempt_count ?? 0,
       retry_count: diagnostics.retry_count ?? 0,

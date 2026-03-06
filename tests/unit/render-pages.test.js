@@ -204,3 +204,128 @@ test('renderDailyReportPage includes monthly averages', () => {
   // Monthly averages should have special styling (check for style attribute presence)
   assert.ok(html.includes('style=') && html.includes('(avg)'), 'Monthly averages should have styling');
 });
+
+test('renderDailyReportPage includes Details button and modal dialog for each URL', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 11409495,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'color-contrast',
+            title: 'Background and foreground colors do not have a sufficient contrast ratio.',
+            description: 'Low-contrast text is difficult or impossible for many users to read.',
+            score: 0,
+            items: [
+              {
+                selector: '.nav-link',
+                snippet: '<a class="nav-link" href="/about">About</a>',
+                node_label: 'About',
+                explanation: 'Fix: insufficient color contrast of 2.73.'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Table should have Details column header
+  assert.ok(html.includes('<th>Axe details</th>'), 'Should have Axe details column header');
+
+  // Details button should be present
+  assert.ok(html.includes('class="details-btn"'), 'Should have details button');
+  assert.ok(html.includes('aria-haspopup="dialog"'), 'Details button should indicate dialog popup');
+  assert.ok(html.includes('data-open-modal="modal-url-0"'), 'Details button should use data attribute to open modal');
+
+  // Modal dialog should be present
+  assert.ok(html.includes('<dialog'), 'Should include dialog element');
+  assert.ok(html.includes('id="modal-url-0"'), 'Should have modal with correct id');
+  assert.ok(html.includes('aria-modal="true"'), 'Modal should have aria-modal');
+
+  // Modal should contain axe finding details
+  assert.ok(html.includes('color-contrast'), 'Modal should show finding rule id');
+  assert.ok(html.includes('Background and foreground colors'), 'Modal should show finding title');
+  assert.ok(html.includes('.nav-link'), 'Modal should show selector');
+  assert.ok(html.includes('&lt;a class=&quot;nav-link&quot;'), 'Modal should show escaped HTML snippet');
+
+  // Link to axe findings JSON
+  assert.ok(html.includes('axe-findings.json'), 'Should include link to axe findings JSON');
+});
+
+test('renderDailyReportPage renders modal with "no findings" message when axe_findings is empty', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 90, accessibility: 100, best_practices: 95, seo: 95, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://www.nih.gov',
+        page_load_count: 5000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 90, accessibility: 100, best_practices: 95, seo: 95, pwa: 0 },
+        axe_findings: []
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('No accessibility findings'), 'Should show no findings message for empty axe_findings');
+  assert.ok(html.includes('<dialog'), 'Should still render dialog element');
+});
+
+test('renderDailyReportPage handles missing axe_findings field gracefully', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://www.example.gov',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 }
+        // no axe_findings field
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  // Should not throw
+  assert.doesNotThrow(() => renderDailyReportPage(report), 'Should not throw when axe_findings is missing');
+});

@@ -124,11 +124,76 @@ function renderLighthouseScoreCell(scores, key) {
   return `<td>${value}</td>`;
 }
 
+function renderAxeFindingItems(items = []) {
+  if (items.length === 0) {
+    return '<p><em>No specific element details available.</em></p>';
+  }
+
+  return items
+    .map(
+      (item, index) => `
+      <div class="axe-item">
+        <p><strong>Element ${index + 1}</strong></p>
+        ${item.selector ? `<p><strong>Selector:</strong> <code>${escapeHtml(item.selector)}</code></p>` : ''}
+        ${item.snippet ? `<p><strong>HTML:</strong></p><pre><code>${escapeHtml(item.snippet)}</code></pre>` : ''}
+        ${item.node_label ? `<p><strong>Label:</strong> ${escapeHtml(item.node_label)}</p>` : ''}
+        ${item.explanation ? `<p><strong>How to fix:</strong> ${escapeHtml(item.explanation)}</p>` : ''}
+      </div>`
+    )
+    .join('\n');
+}
+
+function renderAxeFindingsList(axeFindings = []) {
+  if (axeFindings.length === 0) {
+    return '<p>No accessibility findings from this scan.</p>';
+  }
+
+  return axeFindings
+    .map(
+      (finding) => `
+      <details>
+        <summary><strong>${escapeHtml(finding.title)}</strong> (rule: <code>${escapeHtml(finding.id)}</code>)</summary>
+        <div class="finding-detail">
+          <p>${escapeHtml(finding.description)}</p>
+          <p><strong>Affected elements (${finding.items.length}):</strong></p>
+          ${renderAxeFindingItems(finding.items)}
+        </div>
+      </details>`
+    )
+    .join('\n');
+}
+
+function renderUrlModal(entry, modalId) {
+  const axeFindings = Array.isArray(entry.axe_findings) ? entry.axe_findings : [];
+  return `
+<dialog id="${escapeHtml(modalId)}" aria-labelledby="${escapeHtml(modalId)}-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="${escapeHtml(modalId)}-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="${escapeHtml(modalId)}">&#x2715;</button>
+  </div>
+  <p><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></p>
+  <p>Lighthouse Accessibility Score: ${entry.lighthouse_scores ? entry.lighthouse_scores.accessibility : '—'}</p>
+  <p>Axe findings: ${axeFindings.length}</p>
+  ${renderAxeFindingsList(axeFindings)}
+  <p><a href="axe-findings.json">Download full axe findings JSON</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="${escapeHtml(modalId)}">Close</button>
+  </div>
+</dialog>`;
+}
+
+function renderTopUrlModals(topUrls = []) {
+  return topUrls
+    .slice(0, 100)
+    .map((entry, index) => renderUrlModal(entry, `modal-url-${index}`))
+    .join('\n');
+}
+
 function renderTopUrlRows(topUrls = []) {
   return topUrls
     .slice(0, 100)
     .map(
-      (entry) => `<tr>
+      (entry, index) => `<tr>
   <td><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td>${entry.page_load_count}</td>
   <td>${escapeHtml(entry.scan_status)}</td>
@@ -140,6 +205,7 @@ function renderTopUrlRows(topUrls = []) {
   <td>${entry.findings_count}</td>
   <td>${entry.severe_findings_count}</td>
   <td>${entry.failure_reason ? escapeHtml(entry.failure_reason) : ''}</td>
+  <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button></td>
 </tr>`
     )
     .join('\n');
@@ -182,6 +248,75 @@ export function renderDailyReportPage(report) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily DAP Report ${escapeHtml(report.run_date)}</title>
+  <style>
+    .axe-modal {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1.5rem;
+      max-width: 800px;
+      width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .axe-modal::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .modal-header h2 {
+      margin: 0;
+    }
+    .modal-close {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.2rem 0.5rem;
+    }
+    .modal-footer {
+      margin-top: 1rem;
+      text-align: right;
+    }
+    .axe-item {
+      border-left: 3px solid #d9534f;
+      margin: 0.5rem 0;
+      padding: 0.5rem 0.75rem;
+      background: #fef9f9;
+    }
+    .axe-item pre {
+      background: #f5f5f5;
+      padding: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.85em;
+    }
+    .finding-detail {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e0e0e0;
+      margin-top: 0.25rem;
+    }
+    details summary {
+      cursor: pointer;
+      padding: 0.4rem 0;
+    }
+    .details-btn {
+      background: #0071bc;
+      border: none;
+      border-radius: 3px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.85em;
+      padding: 0.25rem 0.6rem;
+      white-space: nowrap;
+    }
+    .details-btn:hover {
+      background: #205493;
+    }
+  </style>
 </head>
 <body>
   <h1>Daily DAP Report — ${escapeHtml(report.run_date)}</h1>
@@ -219,7 +354,8 @@ export function renderDailyReportPage(report) {
 
   <h2>Top URLs by Traffic (Scanned)</h2>
   <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
-  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0–100 (higher is better).</p>
+  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0–100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
+  <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
   <table border="1" cellpadding="6" cellspacing="0">
     <thead>
       <tr>
@@ -234,12 +370,32 @@ export function renderDailyReportPage(report) {
         <th>Total findings</th>
         <th>Critical/Serious</th>
         <th>Failure reason</th>
+        <th>Axe details</th>
       </tr>
     </thead>
     <tbody>
       ${renderTopUrlRows(report.top_urls)}
     </tbody>
   </table>
+
+  ${renderTopUrlModals(report.top_urls)}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var dialog = document.getElementById(btn.dataset.openModal);
+          if (dialog) { dialog.showModal(); }
+        });
+      });
+      document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var dialog = document.getElementById(btn.dataset.closeModal);
+          if (dialog) { dialog.close(); }
+        });
+      });
+    });
+  </script>
 </body>
 </html>`;
 }
