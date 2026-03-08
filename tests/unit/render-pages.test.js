@@ -329,3 +329,190 @@ test('renderDailyReportPage handles missing axe_findings field gracefully', () =
   // Should not throw
   assert.doesNotThrow(() => renderDailyReportPage(report), 'Should not throw when axe_findings is missing');
 });
+
+test('renderDailyReportPage renders multi-line explanation as a bulleted list', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names.',
+            score: 0,
+            tags: [],
+            items: [
+              {
+                selector: 'span.down-arr',
+                snippet: '<span role="button">',
+                node_label: 'span.down-arr',
+                explanation: 'Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // The explanation should be rendered as a list
+  assert.ok(html.includes('<ul class="fix-list">'), 'Should render explanation as a fix-list');
+  assert.ok(html.includes('<li>Element does not have text that is visible to screen readers</li>'), 'Should list first fix item');
+  assert.ok(html.includes('<li>aria-label attribute does not exist or is empty</li>'), 'Should list second fix item');
+  assert.ok(html.includes('Fix any of the following:'), 'Should keep the fix prompt text');
+});
+
+test('renderDailyReportPage renders markdown links in description as HTML anchors', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names. [Learn more](https://dequeuniversity.com/rules/axe/4.11/aria-command-name).',
+            score: 0,
+            tags: [],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // The markdown link should be converted to an HTML anchor
+  assert.ok(
+    html.includes('href="https://dequeuniversity.com/rules/axe/4.11/aria-command-name"'),
+    'Should render markdown link as HTML anchor with href'
+  );
+  assert.ok(html.includes('Learn more'), 'Should include link text');
+  // The raw markdown syntax should not appear
+  assert.ok(!html.includes('[Learn more]'), 'Should not show raw markdown link syntax');
+});
+
+test('renderDailyReportPage renders WCAG tags from axe findings', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names.',
+            score: 0,
+            tags: ['cat.aria', 'wcag2a', 'wcag412'],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // WCAG 4.1.2 should be displayed (parsed from 'wcag412')
+  assert.ok(html.includes('WCAG 4.1.2'), 'Should display WCAG criterion from tags');
+  // Non-WCAG tags like cat.aria should not produce output
+  assert.ok(!html.includes('cat.aria'), 'Should not show non-WCAG tags like cat.aria');
+  // The wcag2a tag means WCAG 2.A which is not a standard form - should not appear
+  assert.ok(html.includes('wcag-tags'), 'Should include wcag-tags class');
+});
+
+test('renderDailyReportPage renders "Element path" label instead of "Selector"', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names.',
+            score: 0,
+            tags: [],
+            items: [
+              {
+                selector: '#headingOneAnchor > .down-arr',
+                snippet: '<span role="button">',
+                node_label: '#headingOneAnchor > .down-arr',
+                explanation: 'Fix: add an aria-label.'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('Element path:'), 'Should use "Element path" label matching Accessibility Insights format');
+  assert.ok(html.includes('Snippet:'), 'Should use "Snippet" label matching Accessibility Insights format');
+});

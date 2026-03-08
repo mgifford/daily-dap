@@ -124,6 +124,63 @@ function renderLighthouseScoreCell(scores, key) {
   return `<td>${value}</td>`;
 }
 
+function renderDescriptionHtml(description) {
+  // Convert [text](url) markdown links to HTML anchors; escape everything else.
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+  let result = '';
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(description)) !== null) {
+    result += escapeHtml(description.slice(lastIndex, match.index));
+    result += `<a href="${escapeHtml(match[2])}" target="_blank" rel="noreferrer">${escapeHtml(match[1])}</a>`;
+    lastIndex = match.index + match[0].length;
+  }
+  result += escapeHtml(description.slice(lastIndex));
+  return result;
+}
+
+function renderExplanationHtml(explanation) {
+  if (!explanation) {
+    return '';
+  }
+
+  const lines = explanation.split('\n');
+  const firstLine = escapeHtml(lines[0].trim());
+  const bulletLines = lines.slice(1).map((l) => l.trim()).filter(Boolean);
+
+  if (bulletLines.length === 0) {
+    return `<p><strong>How to fix:</strong> ${firstLine}</p>`;
+  }
+
+  const listItems = bulletLines.map((l) => `<li>${escapeHtml(l)}</li>`).join('\n        ');
+  return `<p><strong>How to fix:</strong> ${firstLine}</p>
+      <ul class="fix-list">
+        ${listItems}
+      </ul>`;
+}
+
+function formatWcagTag(tag) {
+  // Match purely numeric criterion tags like wcag412 (WCAG 4.1.2) or wcag2411 (WCAG 2.4.11).
+  // Level tags like wcag2a or wcag2aa are intentionally excluded (they contain letters).
+  // The regex guarantees 3–4 digits, so digits[0], digits[1], and digits.slice(2) are always valid.
+  const match = tag.match(/^wcag(\d{3,4})$/);
+  if (!match) {
+    return null;
+  }
+  // principle = first digit, guideline = second digit, criterion = remaining 1–2 digits
+  const digits = match[1];
+  return `WCAG ${digits[0]}.${digits[1]}.${digits.slice(2)}`;
+}
+
+function renderWcagTags(tags = []) {
+  const wcagLabels = tags.map(formatWcagTag).filter(Boolean);
+  if (wcagLabels.length === 0) {
+    return '';
+  }
+  return `<p class="wcag-tags"><strong>WCAG criteria:</strong> ${wcagLabels.map((l) => escapeHtml(l)).join(', ')}</p>`;
+}
+
 function renderAxeFindingItems(items = []) {
   if (items.length === 0) {
     return '<p><em>No specific element details available.</em></p>';
@@ -134,10 +191,10 @@ function renderAxeFindingItems(items = []) {
       (item, index) => `
       <div class="axe-item">
         <p><strong>Element ${index + 1}</strong></p>
-        ${item.selector ? `<p><strong>Selector:</strong> <code>${escapeHtml(item.selector)}</code></p>` : ''}
-        ${item.snippet ? `<p><strong>HTML:</strong></p><pre><code>${escapeHtml(item.snippet)}</code></pre>` : ''}
-        ${item.node_label ? `<p><strong>Label:</strong> ${escapeHtml(item.node_label)}</p>` : ''}
-        ${item.explanation ? `<p><strong>How to fix:</strong> ${escapeHtml(item.explanation)}</p>` : ''}
+        ${item.selector ? `<p><strong>Element path:</strong> <code>${escapeHtml(item.selector)}</code></p>` : ''}
+        ${item.snippet ? `<p><strong>Snippet:</strong></p><pre><code>${escapeHtml(item.snippet)}</code></pre>` : ''}
+        ${item.node_label && item.node_label !== item.selector ? `<p><strong>Label:</strong> ${escapeHtml(item.node_label)}</p>` : ''}
+        ${renderExplanationHtml(item.explanation)}
       </div>`
     )
     .join('\n');
@@ -154,7 +211,8 @@ function renderAxeFindingsList(axeFindings = []) {
       <details>
         <summary><strong>${escapeHtml(finding.title)}</strong> (rule: <code>${escapeHtml(finding.id)}</code>)</summary>
         <div class="finding-detail">
-          <p>${escapeHtml(finding.description)}</p>
+          <p>${renderDescriptionHtml(finding.description)}</p>
+          ${renderWcagTags(finding.tags)}
           <p><strong>Affected elements (${finding.items.length}):</strong></p>
           ${renderAxeFindingItems(finding.items)}
         </div>
@@ -298,6 +356,18 @@ export function renderDailyReportPage(report) {
       padding: 0.5rem 1rem;
       border: 1px solid #e0e0e0;
       margin-top: 0.25rem;
+    }
+    .fix-list {
+      margin: 0.25rem 0 0.5rem 1.5rem;
+      padding: 0;
+    }
+    .fix-list li {
+      margin: 0.2rem 0;
+    }
+    .wcag-tags {
+      margin: 0.25rem 0;
+      font-size: 0.9em;
+      color: #444;
     }
     details summary {
       cursor: pointer;

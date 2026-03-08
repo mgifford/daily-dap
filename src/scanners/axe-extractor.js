@@ -63,6 +63,7 @@ export function extractAxeFindings(lighthouseRaw) {
       title: audit.title ?? '',
       description: audit.description ?? '',
       score: audit.score,
+      tags: ref.tags ?? [],
       items: extractItemNodes(audit)
     });
   }
