@@ -619,3 +619,49 @@ test('renderDailyReportPage renders copy-finding button for each axe finding', (
   assert.ok(html.includes('heading-order'), 'Should embed rule ID in copy text');
   assert.ok(html.includes('navigator.clipboard'), 'Should include clipboard JavaScript');
 });
+
+test('renderDailyReportPage shows FPC column in Common Accessibility Issues table', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Elements must meet minimum color contrast ratio', description: 'Ensures text meets contrast requirements.', score: 0, tags: [], items: [] },
+          { id: 'image-alt', title: 'Images must have alternative text', description: 'Ensures images have alt text.', score: 0, tags: [], items: [] }
+        ]
+      },
+      {
+        url: 'https://other.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Elements must meet minimum color contrast ratio', description: 'Ensures text meets contrast requirements.', score: 0, tags: [], items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // FPC column header should be present
+  assert.ok(html.includes('Section 508 FPC'), 'Should include FPC column header');
+
+  // color-contrast maps to LV and WPC
+  assert.ok(html.includes('<abbr title="Limited Vision">LV</abbr>'), 'Should include LV abbr for color-contrast');
+  assert.ok(html.includes('<abbr title="Without Perception of Color">WPC</abbr>'), 'Should include WPC abbr for color-contrast');
+
+  // image-alt maps to WV and WH
+  assert.ok(html.includes('<abbr title="Without Vision">WV</abbr>'), 'Should include WV abbr for image-alt');
+
+  // FPC legend (details/summary) should be present
+  assert.ok(html.includes('Functional Performance Criteria (FPC) key'), 'Should include FPC legend');
+  assert.ok(html.includes('section508.gov'), 'Should include Section 508 reference link');
+});

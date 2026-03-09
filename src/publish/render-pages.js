@@ -1,3 +1,5 @@
+import { AXE_TO_FPC, FPC_LABELS } from '../data/axe-fpc-mapping.js';
+
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 
 function escapeHtml(value) {
@@ -673,6 +675,16 @@ function buildAxePatternCounts(topUrls = []) {
   return [...counts.values()].sort((a, b) => b.count - a.count);
 }
 
+function renderFpcCodes(ruleId) {
+  const codes = AXE_TO_FPC.get(ruleId);
+  if (!codes || codes.length === 0) {
+    return '<em>unknown</em>';
+  }
+  return codes
+    .map((code) => `<abbr title="${escapeHtml(FPC_LABELS[code] ?? code)}">${escapeHtml(code)}</abbr>`)
+    .join(', ');
+}
+
 function renderAxePatternsSection(topUrls = []) {
   const patterns = buildAxePatternCounts(topUrls);
 
@@ -685,7 +697,7 @@ function renderAxePatternsSection(topUrls = []) {
   const rows = topPatterns
     .map(
       (p) =>
-        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${p.count}</td></tr>`
+        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${p.count}</td><td>${renderFpcCodes(p.id)}</td></tr>`
     )
     .join('\n');
 
@@ -699,12 +711,25 @@ function renderAxePatternsSection(topUrls = []) {
           <th scope="col">Rule ID</th>
           <th scope="col">Description</th>
           <th scope="col">URLs affected</th>
+          <th scope="col">Section 508 FPC</th>
         </tr>
       </thead>
       <tbody>
         ${rows}
       </tbody>
     </table>`)}
+    <details>
+      <summary>Section 508 Functional Performance Criteria (FPC) key</summary>
+      <dl>
+        ${Object.entries(FPC_LABELS)
+          .map(([code, label]) => `<dt><strong>${escapeHtml(code)}</strong></dt><dd>${escapeHtml(label)}</dd>`)
+          .join('\n        ')}
+      </dl>
+      <p>FPC codes indicate which user groups are impacted by each accessibility barrier.
+         See the <a href="https://www.section508.gov/develop/mapping-wcag-to-fpc/" target="_blank" rel="noreferrer">Section 508 WCAG to FPC mapping</a>
+         and the <a href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf" target="_blank" rel="noreferrer">EN 301 549 v3.2.1 Table B.2</a>
+         for additional detail on how accessibility requirements map to functional needs.</p>
+    </details>
     <p><a href="axe-findings.json">Download full axe findings JSON for this day</a></p>
   </section>`;
 }
