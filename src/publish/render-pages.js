@@ -563,7 +563,7 @@ export function renderDailyReportPage(report) {
 
 export function renderDashboardPage({ latestReport, historyIndex = [] }) {
   const historyLinks = historyIndex
-    .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${entry.run_id})</li>`)
+    .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${escapeHtml(entry.run_id)})</li>`)
     .join('\n');
 
   const latestScores = latestReport?.aggregate_scores;
