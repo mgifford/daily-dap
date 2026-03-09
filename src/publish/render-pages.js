@@ -147,9 +147,12 @@ function renderSharedStyles() {
       border-radius: 4px;
       color: #fff;
       cursor: pointer;
-      font-size: 0.8rem;
-      padding: 0.3rem 0.65rem;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
     }
     .details-btn:hover { background: #003d8a; }
     .details-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
@@ -161,14 +164,15 @@ function renderSharedStyles() {
       padding: 1.5rem;
       max-width: 800px;
       width: 90vw;
-      max-height: 80vh;
+      max-height: 85vh;
       overflow-y: auto;
     }
     .axe-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
     .modal-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      gap: 1rem;
       margin-bottom: 1rem;
     }
     .modal-header h2 { margin: 0; }
@@ -178,8 +182,14 @@ function renderSharedStyles() {
       border-radius: 4px;
       cursor: pointer;
       font-size: 1.2rem;
-      padding: 0.2rem 0.5rem;
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
+    .modal-close:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
     .modal-footer { margin-top: 1rem; text-align: right; }
     .axe-item {
       border-left: 3px solid #d9534f;
@@ -210,14 +220,24 @@ function renderSharedStyles() {
       border-radius: 4px;
       color: #0050b3;
       cursor: pointer;
-      font-size: 0.8rem;
-      padding: 0.25rem 0.6rem;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
       margin-top: 0.5rem;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
     }
     .copy-finding-btn:hover { background: #dde8f7; border-color: #0050b3; }
     .copy-finding-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
     .copy-finding-btn.copied { background: #d4edda; border-color: #28a745; color: #155724; }
+
+    /* ---------- URL cells ---------- */
+    .url-cell {
+      word-break: break-all;
+      overflow-wrap: break-word;
+      max-width: 280px;
+    }
 
     /* ---------- Site footer ---------- */
     .site-footer {
@@ -245,6 +265,17 @@ function renderSharedStyles() {
       .site-header-inner { flex-direction: column; align-items: flex-start; }
       .score-card .score-value { font-size: 1.5rem; }
       th, td { padding: 0.4rem 0.5rem; }
+      .axe-modal {
+        position: fixed;
+        inset: 0;
+        max-width: 100%;
+        width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        margin: 0;
+      }
+      .site-main { padding: 1rem 0.75rem 2rem; }
+      section { padding: 1rem; }
     }
   </style>`;
 }
@@ -323,6 +354,7 @@ function renderEstimatedImpactSection(report) {
   <h2>Estimated Impact (${escapeHtml(trafficWindowMode)})</h2>
   <p>Affected share percent: ${affectedSharePercent}</p>
   ${wrapTable(`<table>
+    <caption>Estimated accessibility impact by category</caption>
     <thead><tr><th scope="col">Category</th><th scope="col">Prevalence</th><th scope="col">Estimated impacted users</th></tr></thead>
     <tbody>
       ${renderCategoryRows(impact.categories)}
@@ -577,7 +609,7 @@ function renderTopUrlRows(topUrls = []) {
     .slice(0, 100)
     .map(
       (entry, index) => `<tr>
-  <td><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+  <td class="url-cell"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td>${entry.page_load_count}</td>
   <td>${escapeHtml(entry.scan_status)}</td>
   <td>${escapeHtml(entry.core_web_vitals_status ?? 'unknown')}</td>
@@ -641,6 +673,7 @@ function renderDayComparisonSection(report) {
   <section aria-labelledby="day-comparison-heading">
     <h2 id="day-comparison-heading">Day-over-Day Comparison (vs ${escapeHtml(prevEntry.date)})</h2>
     ${wrapTable(`<table>
+      <caption>Score comparison between ${escapeHtml(prevEntry.date)} and ${escapeHtml(currentDate)}</caption>
       <thead>
         <tr>
           <th scope="col">Metric</th>
@@ -706,6 +739,7 @@ function renderAxePatternsSection(topUrls = []) {
     <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})</h2>
     <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
     ${wrapTable(`<table>
+      <caption>Top axe-core accessibility rule violations across scanned URLs</caption>
       <thead>
         <tr>
           <th scope="col">Rule ID</th>
@@ -806,6 +840,7 @@ export function renderDailyReportPage(report) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily DAP Report - ${escapeHtml(report.run_date)}</title>
+  <meta name="description" content="Daily accessibility and performance scan results for the top U.S. government URLs on ${escapeHtml(report.run_date)}, powered by Lighthouse and axe-core." />
   ${renderSharedStyles()}
 </head>
 <body>
@@ -858,6 +893,7 @@ export function renderDailyReportPage(report) {
     <section aria-labelledby="history-heading">
       <h2 id="history-heading">History</h2>
       ${wrapTable(`<table>
+        <caption>Daily aggregate Lighthouse scores over the past 31 days</caption>
         <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
         <tbody>
           ${renderHistoryRows(report.history_series)}
@@ -871,6 +907,7 @@ export function renderDailyReportPage(report) {
       <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
       <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
       ${wrapTable(`<table>
+        <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
         <thead>
           <tr>
             <th scope="col">URL</th>
@@ -908,8 +945,24 @@ export function renderDailyReportPage(report) {
       });
       document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var dialog = document.getElementById(btn.dataset.closeModal);
-          if (dialog) { dialog.close(); }
+          var modalId = btn.dataset.closeModal;
+          var dialog = document.getElementById(modalId);
+          if (dialog) {
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      // Close modal when clicking the backdrop (outside the dialog content)
+      document.querySelectorAll('.axe-modal').forEach(function (dialog) {
+        dialog.addEventListener('click', function (e) {
+          if (e.target === dialog) {
+            var modalId = dialog.id;
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
         });
       });
       document.querySelectorAll('[data-copy-text]').forEach(function (btn) {
@@ -974,6 +1027,7 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily DAP - U.S. Government Website Quality Dashboard</title>
+  <meta name="description" content="Daily automated accessibility and performance benchmarks for the top 100 most-visited U.S. government websites, powered by Lighthouse and axe-core." />
   ${renderSharedStyles()}
 </head>
 <body>

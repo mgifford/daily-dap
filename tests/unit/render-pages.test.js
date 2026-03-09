@@ -665,3 +665,92 @@ test('renderDailyReportPage shows FPC column in Common Accessibility Issues tabl
   assert.ok(html.includes('Functional Performance Criteria (FPC) key'), 'Should include FPC legend');
   assert.ok(html.includes('section508.gov'), 'Should include Section 508 reference link');
 });
+
+const minimalReport = {
+  run_date: '2026-03-09',
+  run_id: 'test-run',
+  url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
+  aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 },
+  estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 5, categories: [{ name: 'Contrast', prevalence_rate: '10%', estimated_impacted_users: 1000 }] },
+  history_series: [
+    { date: '2026-03-08', aggregate_scores: { performance: 58, accessibility: 68, best_practices: 78, seo: 83 } },
+    { date: '2026-03-09', aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 } }
+  ],
+  top_urls: [
+    {
+      url: 'https://example.gov/some/very/long/path',
+      page_load_count: 500000,
+      scan_status: 'success',
+      failure_reason: null,
+      findings_count: 2,
+      severe_findings_count: 1,
+      core_web_vitals_status: 'good',
+      lighthouse_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 },
+      axe_findings: []
+    }
+  ],
+  generated_at: '2026-03-09T00:00:00.000Z',
+  report_status: 'success'
+};
+
+test('renderDailyReportPage includes meta description tag', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('<meta name="description"'), 'Should include meta description tag');
+  assert.ok(html.includes('2026-03-09'), 'Meta description should include report date');
+});
+
+test('renderDashboardPage includes meta description tag', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [] });
+  assert.ok(html.includes('<meta name="description"'), 'Dashboard should include meta description tag');
+});
+
+test('renderDailyReportPage includes table captions for accessibility', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('<caption>Daily aggregate Lighthouse scores'), 'History table should have a caption');
+  assert.ok(html.includes('<caption>Top government URLs'), 'Top URLs table should have a caption');
+  assert.ok(html.includes('<caption>Score comparison between'), 'Day comparison table should have a caption');
+  assert.ok(html.includes('<caption>Estimated accessibility impact'), 'Impact table should have a caption');
+});
+
+test('renderDailyReportPage uses url-cell class on URL column', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('class="url-cell"'), 'URL cells should have url-cell class for word-break styling');
+});
+
+test('renderDailyReportPage includes min-height on button styles for touch targets', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('min-height: 2.75rem'), 'Buttons should have min-height for adequate touch target size');
+});
+
+test('renderDailyReportPage includes mobile modal styles', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('@media (max-width: 640px)'), 'Should include mobile responsive breakpoint');
+  assert.ok(html.includes('inset: 0'), 'Modal should use inset: 0 on mobile for full-screen display');
+});
+
+test('renderDailyReportPage includes backdrop click-to-close JavaScript', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('e.target === dialog'), 'Should include backdrop click detection for closing modal');
+});
+
+test('renderDailyReportPage returns focus to opener button when modal closes', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('data-open-modal='), 'Should reference opener button attribute for focus return');
+  assert.ok(html.includes('opener.focus()'), 'Should return focus to opener button on modal close');
+});
+
+test('renderDailyReportPage axe patterns table includes caption', () => {
+  const reportWithAxe = {
+    ...minimalReport,
+    top_urls: [
+      {
+        ...minimalReport.top_urls[0],
+        axe_findings: [
+          { id: 'color-contrast', title: 'Color contrast', description: 'Contrast issue.', tags: [], items: [] }
+        ]
+      }
+    ]
+  };
+  const html = renderDailyReportPage(reportWithAxe);
+  assert.ok(html.includes('<caption>Top axe-core accessibility rule violations'), 'Axe patterns table should have a caption');
+});
