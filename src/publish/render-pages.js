@@ -1,3 +1,5 @@
+const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -5,6 +7,269 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
+}
+
+function renderSharedStyles() {
+  return `
+  <style>
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1b1b1b;
+      background: #f5f7fa;
+    }
+    a { color: #0050b3; }
+    a:hover { color: #003d8a; }
+    h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+    ul { padding-left: 1.5rem; }
+    code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
+    pre code { background: none; padding: 0; }
+
+    /* ---------- Skip link ---------- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: #0050b3;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      z-index: 9999;
+      font-weight: bold;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ---------- Site header ---------- */
+    .site-header {
+      background: #0050b3;
+      color: #fff;
+      padding: 0.75rem 1rem;
+    }
+    .site-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .site-header .site-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .site-header .site-title:hover { text-decoration: underline; }
+    .site-header nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .site-header nav a { color: #d4e4ff; text-decoration: none; font-size: 0.9rem; }
+    .site-header nav a:hover { color: #fff; text-decoration: underline; }
+    .github-link::before { content: ""; }
+
+    /* ---------- Main wrapper ---------- */
+    .site-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .page-intro {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #0050b3;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .page-intro h1 { margin-top: 0; }
+
+    /* ---------- Content cards ---------- */
+    section {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    section > h2:first-of-type { margin-top: 0; }
+
+    /* ---------- Score badges ---------- */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .score-card {
+      background: #f0f5ff;
+      border: 1px solid #c6d9ff;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .score-card .score-label { font-size: 0.78rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    .score-card .score-value { font-size: 2rem; font-weight: 700; color: #0050b3; line-height: 1.1; }
+
+    /* ---------- Tables ---------- */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d0d7de;
+      vertical-align: top;
+    }
+    th {
+      background: #f0f3f8;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) { background: #fafbfc; }
+    tbody tr:hover { background: #f0f5ff; }
+    tr.monthly-avg { background: #eef3fa; font-weight: 600; }
+    tr.monthly-avg:hover { background: #dde8f7; }
+
+    /* ---------- Buttons ---------- */
+    .details-btn {
+      background: #0050b3;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.65rem;
+      white-space: nowrap;
+    }
+    .details-btn:hover { background: #003d8a; }
+    .details-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+
+    /* ---------- Modals ---------- */
+    .axe-modal {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1.5rem;
+      max-width: 800px;
+      width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .axe-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .modal-header h2 { margin: 0; }
+    .modal-close {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.2rem 0.5rem;
+    }
+    .modal-footer { margin-top: 1rem; text-align: right; }
+    .axe-item {
+      border-left: 3px solid #d9534f;
+      margin: 0.5rem 0;
+      padding: 0.5rem 0.75rem;
+      background: #fef9f9;
+    }
+    .axe-item pre {
+      background: #f5f5f5;
+      padding: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.85em;
+    }
+    .finding-detail {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e0e0e0;
+      margin-top: 0.25rem;
+    }
+    .fix-list { margin: 0.25rem 0 0.5rem 1.5rem; padding: 0; }
+    .fix-list li { margin: 0.2rem 0; }
+    .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: #444; }
+    details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- Site footer ---------- */
+    .site-footer {
+      background: #1b1b2f;
+      color: #ccc;
+      padding: 1.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-footer a { color: #a8c8ff; }
+    .site-footer a:hover { color: #fff; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 640px) {
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.1rem; }
+      .site-header-inner { flex-direction: column; align-items: flex-start; }
+      .score-card .score-value { font-size: 1.5rem; }
+      th, td { padding: 0.4rem 0.5rem; }
+    }
+  </style>`;
+}
+
+function renderSiteHeader() {
+  return `
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <a class="site-title" href="../../index.html">Daily DAP</a>
+    <nav aria-label="Site navigation">
+      <a href="../../index.html">Dashboard</a>
+      <a class="github-link" href="${GITHUB_URL}" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </div>
+</header>`;
+}
+
+function renderDashboardHeader() {
+  return `
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <span class="site-title">Daily DAP</span>
+    <nav aria-label="Site navigation">
+      <a class="github-link" href="${GITHUB_URL}" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </div>
+</header>`;
+}
+
+function renderSiteFooter() {
+  return `
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <p>Daily DAP &mdash; U.S. government website quality benchmarks powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
+    <p><a href="${GITHUB_URL}" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="${GITHUB_URL}/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
+  </div>
+</footer>`;
+}
+
+function wrapTable(tableHtml) {
+  return `<div class="table-scroll">${tableHtml}</div>`;
 }
 
 function renderCategoryRows(categories = []) {
@@ -39,12 +304,12 @@ function renderEstimatedImpactSection(report) {
   return `
   <h2>Estimated Impact (${escapeHtml(trafficWindowMode)})</h2>
   <p>Affected share percent: ${affectedSharePercent}</p>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead><tr><th>Category</th><th>Prevalence</th><th>Estimated impacted users</th></tr></thead>
+  ${wrapTable(`<table>
+    <thead><tr><th scope="col">Category</th><th scope="col">Prevalence</th><th scope="col">Estimated impacted users</th></tr></thead>
     <tbody>
       ${renderCategoryRows(impact.categories)}
     </tbody>
-  </table>`;
+  </table>`)}`;
 }
 
 function hasNonZeroScores(entry) {
@@ -107,7 +372,7 @@ function renderHistoryRows(historySeries = []) {
   
   const monthlyRows = monthlyAverages.map(
     (entry) =>
-      `<tr style="background-color: #f0f0f0; font-weight: bold;"><td>${escapeHtml(entry.date)} (avg)</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
+      `<tr class="monthly-avg"><td>${escapeHtml(entry.date)} (avg)</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
   );
   
   return [...monthlyRows, ...dailyRows].join('\n');
@@ -315,7 +580,7 @@ function renderDayComparisonSection(report) {
   return `
   <section aria-labelledby="day-comparison-heading">
     <h2 id="day-comparison-heading">Day-over-Day Comparison (vs ${escapeHtml(prevEntry.date)})</h2>
-    <table border="1" cellpadding="6" cellspacing="0">
+    ${wrapTable(`<table>
       <thead>
         <tr>
           <th scope="col">Metric</th>
@@ -330,7 +595,7 @@ function renderDayComparisonSection(report) {
         <tr><td>Best Practices</td><td>${prev.best_practices}</td><td>${curr.best_practices}</td><td>${scoreDelta(curr.best_practices, prev.best_practices)}</td></tr>
         <tr><td>SEO</td><td>${prev.seo}</td><td>${curr.seo}</td><td>${scoreDelta(curr.seo, prev.seo)}</td></tr>
       </tbody>
-    </table>
+    </table>`)}
   </section>`;
 }
 
@@ -370,7 +635,7 @@ function renderAxePatternsSection(topUrls = []) {
   <section aria-labelledby="axe-patterns-heading">
     <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})</h2>
     <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
-    <table border="1" cellpadding="6" cellspacing="0">
+    ${wrapTable(`<table>
       <thead>
         <tr>
           <th scope="col">Rule ID</th>
@@ -381,7 +646,7 @@ function renderAxePatternsSection(topUrls = []) {
       <tbody>
         ${rows}
       </tbody>
-    </table>
+    </table>`)}
     <p><a href="axe-findings.json">Download full axe findings JSON for this day</a></p>
   </section>`;
 }
@@ -457,159 +722,98 @@ export function renderDailyReportPage(report) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Accessibility Report - ${escapeHtml(report.run_date)}</title>
-  <style>
-    .axe-modal {
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 1.5rem;
-      max-width: 800px;
-      width: 90vw;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    .axe-modal::backdrop {
-      background: rgba(0, 0, 0, 0.5);
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    .modal-header h2 {
-      margin: 0;
-    }
-    .modal-close {
-      background: none;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      padding: 0.2rem 0.5rem;
-    }
-    .modal-footer {
-      margin-top: 1rem;
-      text-align: right;
-    }
-    .axe-item {
-      border-left: 3px solid #d9534f;
-      margin: 0.5rem 0;
-      padding: 0.5rem 0.75rem;
-      background: #fef9f9;
-    }
-    .axe-item pre {
-      background: #f5f5f5;
-      padding: 0.5rem;
-      overflow-x: auto;
-      font-size: 0.85em;
-    }
-    .finding-detail {
-      padding: 0.5rem 1rem;
-      border: 1px solid #e0e0e0;
-      margin-top: 0.25rem;
-    }
-    .fix-list {
-      margin: 0.25rem 0 0.5rem 1.5rem;
-      padding: 0;
-    }
-    .fix-list li {
-      margin: 0.2rem 0;
-    }
-    .wcag-tags {
-      margin: 0.25rem 0;
-      font-size: 0.9em;
-      color: #444;
-    }
-    details summary {
-      cursor: pointer;
-      padding: 0.4rem 0;
-    }
-    .details-btn {
-      background: #0071bc;
-      border: none;
-      border-radius: 3px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.85em;
-      padding: 0.25rem 0.6rem;
-      white-space: nowrap;
-    }
-    .details-btn:hover {
-      background: #205493;
-    }
-  </style>
+  <title>Daily DAP Report - ${escapeHtml(report.run_date)}</title>
+  ${renderSharedStyles()}
 </head>
 <body>
-  <h1>Daily DAP Accessibility Report - ${escapeHtml(report.run_date)}</h1>
-  <p>Run ID: ${escapeHtml(report.run_id)}</p>
-  <p>Status: ${escapeHtml(report.report_status)}</p>
-  <p>Source data date: ${escapeHtml(report.source_data_date ?? report.run_date)}</p>
-  <p>Report generated at: ${formatTimestamp(report.generated_at)}</p>
-  <p><a href="../../index.html">Back to dashboard</a></p>
+  ${renderSiteHeader()}
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1>Daily DAP Accessibility Report &mdash; ${escapeHtml(report.run_date)}</h1>
+      <p>Run ID: ${escapeHtml(report.run_id)} &middot; Status: ${escapeHtml(report.report_status)} &middot; Source data: ${escapeHtml(report.source_data_date ?? report.run_date)} &middot; Generated: ${formatTimestamp(report.generated_at)}</p>
+    </div>
 
-  ${renderDapContextSection()}
+    ${renderDapContextSection()}
 
-  ${renderNarrativeSection(report)}
+    ${renderNarrativeSection(report)}
 
-  ${renderDayComparisonSection(report)}
+    ${renderDayComparisonSection(report)}
 
-  ${renderAxePatternsSection(report.top_urls)}
+    ${renderAxePatternsSection(report.top_urls)}
 
-  <h2>URL Counts</h2>
-  <ul>
-    <li>Processed: ${report.url_counts.processed}</li>
-    <li>Succeeded: ${report.url_counts.succeeded}</li>
-    <li>Failed: ${report.url_counts.failed}</li>
-    <li>Excluded: ${report.url_counts.excluded}</li>
-  </ul>
+    <section aria-labelledby="scores-heading">
+      <h2 id="scores-heading">Aggregate Scores</h2>
+      ${renderExecutionErrorNotice(report)}
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-label">Performance</div>
+          <div class="score-value">${report.aggregate_scores.performance}</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Accessibility</div>
+          <div class="score-value">${report.aggregate_scores.accessibility}</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Best Practices</div>
+          <div class="score-value">${report.aggregate_scores.best_practices}</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">SEO</div>
+          <div class="score-value">${report.aggregate_scores.seo}</div>
+        </div>
+      </div>
+      <ul>
+        <li>Processed: ${report.url_counts.processed}</li>
+        <li>Succeeded: ${report.url_counts.succeeded}</li>
+        <li>Failed: ${report.url_counts.failed}</li>
+        <li>Excluded: ${report.url_counts.excluded}</li>
+      </ul>
+    </section>
 
-  <h2>Aggregate Scores</h2>
-  ${renderExecutionErrorNotice(report)}
-  <ul>
-    <li>Performance: ${report.aggregate_scores.performance}</li>
-    <li>Accessibility: ${report.aggregate_scores.accessibility}</li>
-    <li>Best Practices: ${report.aggregate_scores.best_practices}</li>
-    <li>SEO: ${report.aggregate_scores.seo}</li>
-  </ul>
+    ${renderEstimatedImpactSection(report)}
 
-  ${renderEstimatedImpactSection(report)}
+    <section aria-labelledby="history-heading">
+      <h2 id="history-heading">History</h2>
+      ${wrapTable(`<table>
+        <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
+        <tbody>
+          ${renderHistoryRows(report.history_series)}
+        </tbody>
+      </table>`)}
+    </section>
 
-  <h2>History</h2>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead><tr><th>Date</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th></tr></thead>
-    <tbody>
-      ${renderHistoryRows(report.history_series)}
-    </tbody>
-  </table>
-
-  <h2>Top URLs by Traffic (Scanned)</h2>
-  <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
-  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0–100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
-  <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead>
-      <tr>
-        <th>URL</th>
-        <th>Traffic</th>
-        <th>Scan status</th>
-        <th>CWV</th>
-        <th>LH Performance</th>
-        <th>LH Accessibility</th>
-        <th>LH Best Practices</th>
-        <th>LH SEO</th>
-        <th>Total findings</th>
-        <th>Critical/Serious</th>
-        <th>Failure reason</th>
-        <th>Axe details</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${renderTopUrlRows(report.top_urls)}
-    </tbody>
-  </table>
+    <section aria-labelledby="top-urls-heading">
+      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)</h2>
+      <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
+      <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
+      <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
+      ${wrapTable(`<table>
+        <thead>
+          <tr>
+            <th scope="col">URL</th>
+            <th scope="col">Traffic</th>
+            <th scope="col">Scan status</th>
+            <th scope="col">CWV</th>
+            <th scope="col">LH Performance</th>
+            <th scope="col">LH Accessibility</th>
+            <th scope="col">LH Best Practices</th>
+            <th scope="col">LH SEO</th>
+            <th scope="col">Total findings</th>
+            <th scope="col">Critical/Serious</th>
+            <th scope="col">Failure reason</th>
+            <th scope="col">Axe details</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${renderTopUrlRows(report.top_urls)}
+        </tbody>
+      </table>`)}
+    </section>
+  </main>
 
   ${renderTopUrlModals(report.top_urls)}
+
+  ${renderSiteFooter()}
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -642,12 +846,25 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
     ? `
   <section aria-labelledby="latest-scores-heading">
     <h2 id="latest-scores-heading">Latest Scores (${escapeHtml(latestReport.run_date)})</h2>
-    <ul>
-      <li>Performance: ${latestScores.performance}</li>
-      <li>Accessibility: ${latestScores.accessibility}</li>
-      <li>Best Practices: ${latestScores.best_practices}</li>
-      <li>SEO: ${latestScores.seo}</li>
-    </ul>
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-label">Performance</div>
+        <div class="score-value">${latestScores.performance}</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Accessibility</div>
+        <div class="score-value">${latestScores.accessibility}</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Best Practices</div>
+        <div class="score-value">${latestScores.best_practices}</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">SEO</div>
+        <div class="score-value">${latestScores.seo}</div>
+      </div>
+    </div>
+    <p><a href="./daily/${escapeHtml(latestReport.run_date)}/index.html">Open latest report &rarr;</a></p>
   </section>`
     : '';
 
@@ -656,38 +873,41 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Accessibility Reports</title>
+  <title>Daily DAP - U.S. Government Website Quality Dashboard</title>
+  ${renderSharedStyles()}
 </head>
 <body>
-  <h1>Daily DAP Accessibility Reports</h1>
+  ${renderDashboardHeader()}
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1>U.S. Government Website Quality Dashboard</h1>
+      <p>Daily automated accessibility and performance scans of the top 100 most-visited U.S. government URLs, powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Google Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
+    </div>
 
-  <section aria-labelledby="about-heading">
-    <h2 id="about-heading">What is This?</h2>
-    <p>The <strong>Digital Analytics Program (DAP)</strong> tracks website traffic across U.S. federal government websites. This dashboard shows daily automated accessibility and quality scans of the top 100 most-visited government URLs, measured using Google Lighthouse and the axe-core accessibility engine.</p>
-    <p>Each report covers:</p>
-    <ul>
-      <li><strong>Accessibility scores</strong> - WCAG compliance measured by Lighthouse (0-100, higher is better)</li>
-      <li><strong>Axe findings</strong> - Specific WCAG violations detected by axe-core rules</li>
-      <li><strong>Performance, Best Practices, and SEO scores</strong> - Overall web quality metrics</li>
-      <li><strong>Day-over-day changes</strong> - How scores shift compared to the previous day</li>
-    </ul>
-    <p>Scans run daily. Click any report date to see detailed per-URL findings, accessibility patterns, and trend analysis.</p>
-  </section>
+    <section aria-labelledby="about-heading">
+      <h2 id="about-heading">What is DAP?</h2>
+      <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services.</p>
+      <p>This dashboard uses DAP traffic data to identify the <strong>most-visited government URLs</strong> and measures their quality daily. Each scan covers:</p>
+      <ul>
+        <li><strong>Accessibility</strong> &mdash; WCAG compliance measured by Lighthouse and axe-core (0&ndash;100, higher is better)</li>
+        <li><strong>Performance</strong> &mdash; Page load speed including Core Web Vitals (0&ndash;100, higher is better)</li>
+        <li><strong>Best Practices</strong> &mdash; Modern web development standards (0&ndash;100, higher is better)</li>
+        <li><strong>SEO</strong> &mdash; Search engine optimisation fundamentals (0&ndash;100, higher is better)</li>
+      </ul>
+      <p>Scans run daily. Click any report date below to see detailed per-URL findings, accessibility patterns, and trend analysis. <a href="${GITHUB_URL}" target="_blank" rel="noreferrer">View the source code on GitHub</a>.</p>
+    </section>
 
-  ${scoresSummary}
+    ${scoresSummary}
 
-  <section aria-labelledby="latest-report-heading">
-    <h2 id="latest-report-heading">Latest Report</h2>
-    <p>Run date: ${escapeHtml(latestReport?.run_date ?? 'n/a')}</p>
-    <p><a href="./daily/${escapeHtml(latestReport?.run_date ?? '')}/index.html">Open latest report</a></p>
-  </section>
+    <section aria-labelledby="recent-reports-heading">
+      <h2 id="recent-reports-heading">Recent Reports</h2>
+      <ul>
+        ${historyLinks}
+      </ul>
+    </section>
+  </main>
 
-  <section aria-labelledby="recent-reports-heading">
-    <h2 id="recent-reports-heading">Recent Reports</h2>
-    <ul>
-      ${historyLinks}
-    </ul>
-  </section>
+  ${renderSiteFooter()}
 </body>
 </html>`;
 }
