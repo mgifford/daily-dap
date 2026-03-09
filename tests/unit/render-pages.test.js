@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage } from '../../src/publish/render-pages.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {

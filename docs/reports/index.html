@@ -3,16 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Reports</title>
+  <title>Daily DAP Accessibility Reports</title>
 </head>
 <body>
-  <h1>Daily DAP Quality Reports</h1>
-  <p>Latest run: 2026-03-08</p>
-  <p><a href="./daily/2026-03-08/index.html">Open latest report</a></p>
+  <h1>Daily DAP Accessibility Reports</h1>
 
-  <h2>Recent Reports</h2>
-  <ul>
-    <li><a href="./daily/2026-03-08/index.html">2026-03-08</a> (run-2026-03-08-77c71b7dbd)</li>
+  <section aria-labelledby="about-heading">
+    <h2 id="about-heading">What is This?</h2>
+    <p>The <strong>Digital Analytics Program (DAP)</strong> tracks website traffic across U.S. federal government websites. This dashboard shows daily automated accessibility and quality scans of the top 100 most-visited government URLs, measured using Google Lighthouse and the axe-core accessibility engine.</p>
+    <p>Each report covers:</p>
+    <ul>
+      <li><strong>Accessibility scores</strong> - WCAG compliance measured by Lighthouse (0-100, higher is better)</li>
+      <li><strong>Axe findings</strong> - Specific WCAG violations detected by axe-core rules</li>
+      <li><strong>Performance, Best Practices, and SEO scores</strong> - Overall web quality metrics</li>
+      <li><strong>Day-over-day changes</strong> - How scores shift compared to the previous day</li>
+    </ul>
+    <p>Scans run daily. Click any report date to see detailed per-URL findings, accessibility patterns, and trend analysis.</p>
+  </section>
+
+  
+  <section aria-labelledby="latest-scores-heading">
+    <h2 id="latest-scores-heading">Latest Scores (2026-03-08)</h2>
+    <ul>
+      <li>Performance: 49.18</li>
+      <li>Accessibility: 92.28</li>
+      <li>Best Practices: 84.84</li>
+      <li>SEO: 89.23</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="latest-report-heading">
+    <h2 id="latest-report-heading">Latest Report</h2>
+    <p>Run date: 2026-03-08</p>
+    <p><a href="./daily/2026-03-08/index.html">Open latest report</a></p>
+  </section>
+
+  <section aria-labelledby="recent-reports-heading">
+    <h2 id="recent-reports-heading">Recent Reports</h2>
+    <ul>
+      <li><a href="./daily/2026-03-08/index.html">2026-03-08</a> (run-2026-03-08-77c71b7dbd)</li>
 <li><a href="./daily/2026-03-07/index.html">2026-03-07</a> (run-2026-03-07-597d5e633a)</li>
 <li><a href="./daily/2026-03-06/index.html">2026-03-06</a> (run-2026-03-06-0969e8ad13)</li>
 <li><a href="./daily/2026-03-05/index.html">2026-03-05</a> (run-2026-03-05-dd92379117)</li>
@@ -27,6 +56,7 @@
 <li><a href="./daily/2026-02-24/index.html">2026-02-24</a> (run-2026-02-24-d4985c9143)</li>
 <li><a href="./daily/2026-02-23/index.html">2026-02-23</a> (run-2026-02-23-ab199e9f5d)</li>
 <li><a href="./daily/2026-02-22/index.html">2026-02-22</a> (run-2026-02-22-2c4d9392f1)</li>
-  </ul>
+    </ul>
+  </section>
 </body>
 </html>

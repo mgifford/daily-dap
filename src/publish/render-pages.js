@@ -269,6 +269,158 @@ function renderTopUrlRows(topUrls = []) {
     .join('\n');
 }
 
+function renderDapContextSection() {
+  return `
+  <section aria-labelledby="dap-context-heading">
+    <h2 id="dap-context-heading">About These Reports</h2>
+    <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
+    <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
+    <ul>
+      <li><strong>Performance</strong> - How fast pages load for users (scores 0-100, higher is better)</li>
+      <li><strong>Accessibility</strong> - How well pages work for users with disabilities, following WCAG guidelines (scores 0-100, higher is better)</li>
+      <li><strong>Best Practices</strong> - Whether pages follow modern web development standards (scores 0-100, higher is better)</li>
+      <li><strong>SEO</strong> - How well pages are optimized for search engines (scores 0-100, higher is better)</li>
+    </ul>
+    <p>Accessibility findings come from <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>, the industry-standard accessibility testing engine embedded in Lighthouse. The <strong>axe findings</strong> surface specific WCAG violations such as missing alternative text, insufficient color contrast, and missing form labels that make government websites harder to use for people with disabilities.</p>
+    <p>Traffic data reflects daily visitor counts from DAP. URLs are ranked by page load count, ensuring the most-used government pages are prioritized for quality measurement.</p>
+  </section>`;
+}
+
+function renderDayComparisonSection(report) {
+  const currentDate = report.run_date;
+  const historySeries = report.history_series ?? [];
+
+  const prevEntry = [...historySeries]
+    .reverse()
+    .find((entry) => {
+      if (entry.date >= currentDate) return false;
+      const s = entry.aggregate_scores;
+      return s && (s.performance !== 0 || s.accessibility !== 0 || s.best_practices !== 0 || s.seo !== 0);
+    });
+
+  if (!prevEntry) {
+    return '';
+  }
+
+  const curr = report.aggregate_scores;
+  const prev = prevEntry.aggregate_scores;
+
+  function scoreDelta(current, previous) {
+    const delta = Math.round((current - previous) * 100) / 100;
+    if (delta > 0) return `<span style="color:#2e7d32" aria-label="increased by ${delta}">+${delta}</span>`;
+    if (delta < 0) return `<span style="color:#c62828" aria-label="decreased by ${Math.abs(delta)}">${delta}</span>`;
+    return `<span style="color:#555" aria-label="no change">0</span>`;
+  }
+
+  return `
+  <section aria-labelledby="day-comparison-heading">
+    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs ${escapeHtml(prevEntry.date)})</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th scope="col">Metric</th>
+          <th scope="col">${escapeHtml(prevEntry.date)}</th>
+          <th scope="col">${escapeHtml(currentDate)}</th>
+          <th scope="col">Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Performance</td><td>${prev.performance}</td><td>${curr.performance}</td><td>${scoreDelta(curr.performance, prev.performance)}</td></tr>
+        <tr><td>Accessibility</td><td>${prev.accessibility}</td><td>${curr.accessibility}</td><td>${scoreDelta(curr.accessibility, prev.accessibility)}</td></tr>
+        <tr><td>Best Practices</td><td>${prev.best_practices}</td><td>${curr.best_practices}</td><td>${scoreDelta(curr.best_practices, prev.best_practices)}</td></tr>
+        <tr><td>SEO</td><td>${prev.seo}</td><td>${curr.seo}</td><td>${scoreDelta(curr.seo, prev.seo)}</td></tr>
+      </tbody>
+    </table>
+  </section>`;
+}
+
+function buildAxePatternCounts(topUrls = []) {
+  const counts = new Map();
+  for (const entry of topUrls) {
+    for (const finding of entry.axe_findings ?? []) {
+      const existing = counts.get(finding.id);
+      if (existing) {
+        existing.count += 1;
+        existing.title = finding.title;
+      } else {
+        counts.set(finding.id, { id: finding.id, title: finding.title, count: 1 });
+      }
+    }
+  }
+  return [...counts.values()].sort((a, b) => b.count - a.count);
+}
+
+function renderAxePatternsSection(topUrls = []) {
+  const patterns = buildAxePatternCounts(topUrls);
+
+  if (patterns.length === 0) {
+    return '';
+  }
+
+  const topPatterns = patterns.slice(0, 10);
+
+  const rows = topPatterns
+    .map(
+      (p) =>
+        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${p.count}</td></tr>`
+    )
+    .join('\n');
+
+  return `
+  <section aria-labelledby="axe-patterns-heading">
+    <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})</h2>
+    <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th scope="col">Rule ID</th>
+          <th scope="col">Description</th>
+          <th scope="col">URLs affected</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    <p><a href="axe-findings.json">Download full axe findings JSON for this day</a></p>
+  </section>`;
+}
+
+function renderNarrativeSection(report) {
+  const historySeries = report.history_series ?? [];
+  const nonZero = historySeries.filter(hasNonZeroScores);
+
+  if (nonZero.length < 2) {
+    return '';
+  }
+
+  const oldest = nonZero[0];
+  const newest = nonZero[nonZero.length - 1];
+  const dayCount = nonZero.length;
+
+  const accessDelta = Math.round((newest.aggregate_scores.accessibility - oldest.aggregate_scores.accessibility) * 100) / 100;
+  const perfDelta = Math.round((newest.aggregate_scores.performance - oldest.aggregate_scores.performance) * 100) / 100;
+
+  function trend(delta) {
+    if (delta > 0.5) return 'improved';
+    if (delta < -0.5) return 'declined';
+    return 'remained stable';
+  }
+
+  const accessTrend = trend(accessDelta);
+  const perfTrend = trend(perfDelta);
+
+  const accessDeltaText = accessDelta >= 0 ? `+${accessDelta}` : `${accessDelta}`;
+  const perfDeltaText = perfDelta >= 0 ? `+${perfDelta}` : `${perfDelta}`;
+
+  return `
+  <section aria-labelledby="narrative-heading">
+    <h2 id="narrative-heading">Accessibility Trend Narrative</h2>
+    <p>Over the past <strong>${dayCount} days</strong> of data (${escapeHtml(oldest.date)} to ${escapeHtml(newest.date)}), government website accessibility scores have <strong>${accessTrend}</strong> (${accessDeltaText} points, from ${oldest.aggregate_scores.accessibility} to ${newest.aggregate_scores.accessibility}). Performance scores have ${perfTrend} (${perfDeltaText} points, from ${oldest.aggregate_scores.performance} to ${newest.aggregate_scores.performance}).</p>
+    <p>Today's aggregate accessibility score of <strong>${report.aggregate_scores.accessibility}</strong> reflects the mean Lighthouse accessibility score across ${report.url_counts.succeeded} successfully scanned government URLs. A score above 90 indicates generally strong compliance with WCAG automated checks, though manual testing is always recommended to fully assess accessibility.</p>
+  </section>`;
+}
+
 function renderExecutionErrorNotice(report) {
   const diagnostics = report?.scan_diagnostics;
   if (!diagnostics) {
@@ -305,7 +457,7 @@ export function renderDailyReportPage(report) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Report ${escapeHtml(report.run_date)}</title>
+  <title>Daily DAP Accessibility Report - ${escapeHtml(report.run_date)}</title>
   <style>
     .axe-modal {
       border: 1px solid #ccc;
@@ -389,11 +541,20 @@ export function renderDailyReportPage(report) {
   </style>
 </head>
 <body>
-  <h1>Daily DAP Report — ${escapeHtml(report.run_date)}</h1>
+  <h1>Daily DAP Accessibility Report - ${escapeHtml(report.run_date)}</h1>
   <p>Run ID: ${escapeHtml(report.run_id)}</p>
   <p>Status: ${escapeHtml(report.report_status)}</p>
   <p>Source data date: ${escapeHtml(report.source_data_date ?? report.run_date)}</p>
   <p>Report generated at: ${formatTimestamp(report.generated_at)}</p>
+  <p><a href="../../index.html">Back to dashboard</a></p>
+
+  ${renderDapContextSection()}
+
+  ${renderNarrativeSection(report)}
+
+  ${renderDayComparisonSection(report)}
+
+  ${renderAxePatternsSection(report.top_urls)}
 
   <h2>URL Counts</h2>
   <ul>
@@ -472,25 +633,61 @@ export function renderDailyReportPage(report) {
 
 export function renderDashboardPage({ latestReport, historyIndex = [] }) {
   const historyLinks = historyIndex
-    .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${entry.run_id})</li>`)
+    .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${escapeHtml(entry.run_id)})</li>`)
     .join('\n');
+
+  const latestScores = latestReport?.aggregate_scores;
+
+  const scoresSummary = latestScores
+    ? `
+  <section aria-labelledby="latest-scores-heading">
+    <h2 id="latest-scores-heading">Latest Scores (${escapeHtml(latestReport.run_date)})</h2>
+    <ul>
+      <li>Performance: ${latestScores.performance}</li>
+      <li>Accessibility: ${latestScores.accessibility}</li>
+      <li>Best Practices: ${latestScores.best_practices}</li>
+      <li>SEO: ${latestScores.seo}</li>
+    </ul>
+  </section>`
+    : '';
 
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Reports</title>
+  <title>Daily DAP Accessibility Reports</title>
 </head>
 <body>
-  <h1>Daily DAP Quality Reports</h1>
-  <p>Latest run: ${escapeHtml(latestReport?.run_date ?? 'n/a')}</p>
-  <p><a href="./daily/${escapeHtml(latestReport?.run_date ?? '')}/index.html">Open latest report</a></p>
+  <h1>Daily DAP Accessibility Reports</h1>
 
-  <h2>Recent Reports</h2>
-  <ul>
-    ${historyLinks}
-  </ul>
+  <section aria-labelledby="about-heading">
+    <h2 id="about-heading">What is This?</h2>
+    <p>The <strong>Digital Analytics Program (DAP)</strong> tracks website traffic across U.S. federal government websites. This dashboard shows daily automated accessibility and quality scans of the top 100 most-visited government URLs, measured using Google Lighthouse and the axe-core accessibility engine.</p>
+    <p>Each report covers:</p>
+    <ul>
+      <li><strong>Accessibility scores</strong> - WCAG compliance measured by Lighthouse (0-100, higher is better)</li>
+      <li><strong>Axe findings</strong> - Specific WCAG violations detected by axe-core rules</li>
+      <li><strong>Performance, Best Practices, and SEO scores</strong> - Overall web quality metrics</li>
+      <li><strong>Day-over-day changes</strong> - How scores shift compared to the previous day</li>
+    </ul>
+    <p>Scans run daily. Click any report date to see detailed per-URL findings, accessibility patterns, and trend analysis.</p>
+  </section>
+
+  ${scoresSummary}
+
+  <section aria-labelledby="latest-report-heading">
+    <h2 id="latest-report-heading">Latest Report</h2>
+    <p>Run date: ${escapeHtml(latestReport?.run_date ?? 'n/a')}</p>
+    <p><a href="./daily/${escapeHtml(latestReport?.run_date ?? '')}/index.html">Open latest report</a></p>
+  </section>
+
+  <section aria-labelledby="recent-reports-heading">
+    <h2 id="recent-reports-heading">Recent Reports</h2>
+    <ul>
+      ${historyLinks}
+    </ul>
+  </section>
 </body>
 </html>`;
 }

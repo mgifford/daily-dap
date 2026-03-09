@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Report 2026-03-08</title>
+  <title>Daily DAP Accessibility Report - 2026-03-08</title>
   <style>
     .axe-modal {
       border: 1px solid #ccc;
@@ -75,11 +75,83 @@
   </style>
 </head>
 <body>
-  <h1>Daily DAP Report — 2026-03-08</h1>
+  <h1>Daily DAP Accessibility Report - 2026-03-08</h1>
   <p>Run ID: run-2026-03-08-77c71b7dbd</p>
   <p>Status: partial</p>
   <p>Source data date: 2026-03-06</p>
   <p>Report generated at: 2026-03-08T09:29:05.439Z</p>
+  <p><a href="../../index.html">Back to dashboard</a></p>
+
+  
+  <section aria-labelledby="dap-context-heading">
+    <h2 id="dap-context-heading">About These Reports</h2>
+    <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
+    <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
+    <ul>
+      <li><strong>Performance</strong> - How fast pages load for users (scores 0-100, higher is better)</li>
+      <li><strong>Accessibility</strong> - How well pages work for users with disabilities, following WCAG guidelines (scores 0-100, higher is better)</li>
+      <li><strong>Best Practices</strong> - Whether pages follow modern web development standards (scores 0-100, higher is better)</li>
+      <li><strong>SEO</strong> - How well pages are optimized for search engines (scores 0-100, higher is better)</li>
+    </ul>
+    <p>Accessibility findings come from <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>, the industry-standard accessibility testing engine embedded in Lighthouse. The <strong>axe findings</strong> surface specific WCAG violations such as missing alternative text, insufficient color contrast, and missing form labels that make government websites harder to use for people with disabilities.</p>
+    <p>Traffic data reflects daily visitor counts from DAP. URLs are ranked by page load count, ensuring the most-used government pages are prioritized for quality measurement.</p>
+  </section>
+
+  
+  <section aria-labelledby="narrative-heading">
+    <h2 id="narrative-heading">Accessibility Trend Narrative</h2>
+    <p>Over the past <strong>10 days</strong> of data (2026-02-26 to 2026-03-07), government website accessibility scores have <strong>improved</strong> (+24.03 points, from 68 to 92.03). Performance scores have improved (+10.24 points, from 38 to 48.24).</p>
+    <p>Today's aggregate accessibility score of <strong>92.28</strong> reflects the mean Lighthouse accessibility score across 98 successfully scanned government URLs. A score above 90 indicates generally strong compliance with WCAG automated checks, though manual testing is always recommended to fully assess accessibility.</p>
+  </section>
+
+  
+  <section aria-labelledby="day-comparison-heading">
+    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs 2026-03-07)</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th scope="col">Metric</th>
+          <th scope="col">2026-03-07</th>
+          <th scope="col">2026-03-08</th>
+          <th scope="col">Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Performance</td><td>48.24</td><td>49.18</td><td><span style="color:#2e7d32" aria-label="increased by 0.94">+0.94</span></td></tr>
+        <tr><td>Accessibility</td><td>92.03</td><td>92.28</td><td><span style="color:#2e7d32" aria-label="increased by 0.25">+0.25</span></td></tr>
+        <tr><td>Best Practices</td><td>85.05</td><td>84.84</td><td><span style="color:#c62828" aria-label="decreased by 0.21">-0.21</span></td></tr>
+        <tr><td>SEO</td><td>90.26</td><td>89.23</td><td><span style="color:#c62828" aria-label="decreased by 1.03">-1.03</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+  <section aria-labelledby="axe-patterns-heading">
+    <h2 id="axe-patterns-heading">Common Accessibility Issues (Top 10)</h2>
+    <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th scope="col">Rule ID</th>
+          <th scope="col">Description</th>
+          <th scope="col">URLs affected</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>heading-order</code></td><td>Heading elements are not in a sequentially-descending order</td><td>27</td></tr>
+<tr><td><code>target-size</code></td><td>Touch targets do not have sufficient size or spacing.</td><td>24</td></tr>
+<tr><td><code>landmark-one-main</code></td><td>Document does not have a main landmark.</td><td>20</td></tr>
+<tr><td><code>color-contrast</code></td><td>Background and foreground colors do not have a sufficient contrast ratio.</td><td>20</td></tr>
+<tr><td><code>label-content-name-mismatch</code></td><td>Elements with visible text labels do not have matching accessible names.</td><td>15</td></tr>
+<tr><td><code>link-name</code></td><td>Links do not have a discernible name</td><td>12</td></tr>
+<tr><td><code>image-alt</code></td><td>Image elements do not have `[alt]` attributes</td><td>10</td></tr>
+<tr><td><code>listitem</code></td><td>List items (`&lt;li&gt;`) are not contained within `&lt;ul&gt;`, `&lt;ol&gt;` or `&lt;menu&gt;` parent elements.</td><td>8</td></tr>
+<tr><td><code>link-in-text-block</code></td><td>Links rely on color to be distinguishable.</td><td>8</td></tr>
+<tr><td><code>aria-required-children</code></td><td>Elements with an ARIA `[role]` that require children to contain a specific `[role]` are missing some or all of those required children.</td><td>6</td></tr>
+      </tbody>
+    </table>
+    <p><a href="axe-findings.json">Download full axe findings JSON for this day</a></p>
+  </section>
 
   <h2>URL Counts</h2>
   <ul>
