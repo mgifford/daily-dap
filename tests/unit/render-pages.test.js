@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage } from '../../src/publish/render-pages.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {
@@ -328,4 +328,158 @@ test('renderDailyReportPage handles missing axe_findings field gracefully', () =
 
   // Should not throw
   assert.doesNotThrow(() => renderDailyReportPage(report), 'Should not throw when axe_findings is missing');
+});
+
+test('renderDailyReportPage includes DAP context section', () => {
+  const report = {
+    run_date: '2026-03-08',
+    run_id: 'test-run',
+    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-08T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('Digital Analytics Program'), 'Should include DAP full name');
+  assert.ok(html.includes('axe-core'), 'Should mention axe-core');
+  assert.ok(html.includes('WCAG'), 'Should mention WCAG');
+  assert.ok(html.includes('About These Reports'), 'Should have context section heading');
+});
+
+test('renderDailyReportPage shows day-over-day comparison when history has previous data', () => {
+  const report = {
+    run_date: '2026-03-08',
+    run_id: 'test-run',
+    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [
+      { date: '2026-03-07', aggregate_scores: { performance: 48, accessibility: 91, best_practices: 86, seo: 90, pwa: 0 } },
+      { date: '2026-03-08', aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 } }
+    ],
+    top_urls: [],
+    generated_at: '2026-03-08T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('Day-over-Day Comparison'), 'Should include comparison section heading');
+  assert.ok(html.includes('2026-03-07'), 'Should show previous day date');
+  assert.ok(html.includes('+1'), 'Should show positive delta for accessibility');
+});
+
+test('renderDailyReportPage skips day-over-day section when no prior history', () => {
+  const report = {
+    run_date: '2026-03-08',
+    run_id: 'test-run',
+    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-08T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  assert.ok(!html.includes('Day-over-Day Comparison'), 'Should not show comparison section when no history');
+});
+
+test('renderDailyReportPage shows common axe patterns section when there are findings', () => {
+  const report = {
+    run_date: '2026-03-08',
+    run_id: 'test-run',
+    url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 2,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 40, accessibility: 85, best_practices: 80, seo: 88, pwa: 0 },
+        axe_findings: [
+          { id: 'color-contrast', title: 'Insufficient color contrast', score: 0, items: [] },
+          { id: 'image-alt', title: 'Images missing alt text', score: 0, items: [] }
+        ]
+      },
+      {
+        url: 'https://another.gov',
+        page_load_count: 500,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 70, accessibility: 95, best_practices: 90, seo: 92, pwa: 0 },
+        axe_findings: [
+          { id: 'color-contrast', title: 'Insufficient color contrast', score: 0, items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-08T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('Common Accessibility Issues'), 'Should include axe patterns section');
+  assert.ok(html.includes('color-contrast'), 'Should list the most frequent rule');
+  assert.ok(html.includes('image-alt'), 'Should list image-alt rule');
+});
+
+test('renderDailyReportPage shows narrative section when history has sufficient data', () => {
+  const report = {
+    run_date: '2026-03-08',
+    run_id: 'test-run',
+    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [
+      { date: '2026-03-01', aggregate_scores: { performance: 45, accessibility: 90, best_practices: 84, seo: 88, pwa: 0 } },
+      { date: '2026-03-07', aggregate_scores: { performance: 48, accessibility: 91, best_practices: 85, seo: 89, pwa: 0 } }
+    ],
+    top_urls: [],
+    generated_at: '2026-03-08T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('Accessibility Trend Narrative'), 'Should include narrative section heading');
+  assert.ok(html.includes('2 days'), 'Should mention the number of data points');
+});
+
+test('renderDashboardPage includes DAP context and latest scores', () => {
+  const latestReport = {
+    run_date: '2026-03-08',
+    run_id: 'run-2026-03-08-abc',
+    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 }
+  };
+
+  const html = renderDashboardPage({ latestReport, historyIndex: [] });
+
+  assert.ok(html.includes('Digital Analytics Program'), 'Dashboard should include DAP description');
+  assert.ok(html.includes('Accessibility scores'), 'Dashboard should describe accessibility scores');
+  assert.ok(html.includes('49'), 'Dashboard should show latest performance score');
+  assert.ok(html.includes('92'), 'Dashboard should show latest accessibility score');
+  assert.ok(html.includes('What is This?'), 'Dashboard should have about section');
+});
+
+test('renderDashboardPage renders without latest report', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(html.includes('Daily DAP'), 'Should render basic page without latest report');
+  assert.doesNotThrow(() => renderDashboardPage({ latestReport: null }), 'Should not throw with no report');
 });

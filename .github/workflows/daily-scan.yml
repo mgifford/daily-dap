@@ -119,6 +119,11 @@ jobs:
           git commit -m "chore: publish daily DAP report snapshots"
           git push
 
+      - name: Generate accessibility summary
+        if: steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        shell: bash
+        run: node src/cli/generate-accessibility-summary.js
+
       - name: Fail workflow on pipeline error
         if: steps.pipeline.outputs.exit_code != '0'
         run: |
