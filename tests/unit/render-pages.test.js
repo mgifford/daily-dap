@@ -67,7 +67,7 @@ test('renderDailyReportPage reverses history order (most recent first)', () => {
   };
 
   const html = renderDailyReportPage(report);
-  const historyTableMatch = html.match(/<h2>History<\/h2>[\s\S]*?<\/table>/);
+  const historyTableMatch = html.match(/id="history-heading"[^>]*>History[\s\S]*?<\/table>/);
   assert.ok(historyTableMatch, 'History table should exist');
   
   const historyTable = historyTableMatch[0];
@@ -117,10 +117,10 @@ test('renderDailyReportPage shows Lighthouse scores for top URLs with successful
   const html = renderDailyReportPage(report);
 
   // Table should include Lighthouse score column headers
-  assert.ok(html.includes('<th>LH Performance</th>'), 'Should have LH Performance column header');
-  assert.ok(html.includes('<th>LH Accessibility</th>'), 'Should have LH Accessibility column header');
-  assert.ok(html.includes('<th>LH Best Practices</th>'), 'Should have LH Best Practices column header');
-  assert.ok(html.includes('<th>LH SEO</th>'), 'Should have LH SEO column header');
+  assert.ok(html.includes('>LH Performance<'), 'Should have LH Performance column header');
+  assert.ok(html.includes('>LH Accessibility<'), 'Should have LH Accessibility column header');
+  assert.ok(html.includes('>LH Best Practices<'), 'Should have LH Best Practices column header');
+  assert.ok(html.includes('>LH SEO<'), 'Should have LH SEO column header');
 
   // Scores for first URL should appear
   assert.ok(html.includes('<td>39</td>'), 'Should include performance score 39 for tools.usps.com');
@@ -248,7 +248,7 @@ test('renderDailyReportPage includes Details button and modal dialog for each UR
   const html = renderDailyReportPage(report);
 
   // Table should have Details column header
-  assert.ok(html.includes('<th>Axe details</th>'), 'Should have Axe details column header');
+  assert.ok(html.includes('>Axe details<'), 'Should have Axe details column header');
 
   // Details button should be present
   assert.ok(html.includes('class="details-btn"'), 'Should have details button');
