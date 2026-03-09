@@ -201,6 +201,22 @@ function renderSharedStyles() {
     .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: #444; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
 
+    /* ---------- Copy finding button ---------- */
+    .copy-finding-btn {
+      background: #f0f3f8;
+      border: 1px solid #c6d9ff;
+      border-radius: 4px;
+      color: #0050b3;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      margin-top: 0.5rem;
+      white-space: nowrap;
+    }
+    .copy-finding-btn:hover { background: #dde8f7; border-color: #0050b3; }
+    .copy-finding-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .copy-finding-btn.copied { background: #d4edda; border-color: #28a745; color: #155724; }
+
     /* ---------- Site footer ---------- */
     .site-footer {
       background: #1b1b2f;
@@ -465,7 +481,48 @@ function renderAxeFindingItems(items = []) {
     .join('\n');
 }
 
-function renderAxeFindingsList(axeFindings = []) {
+export function plainTextDescription(description) {
+  // Convert [text](url) markdown links to plain "text (url)" format for clipboard output.
+  return description.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '$1 ($2)');
+}
+
+export function buildFindingCopyText(pageUrl, finding) {
+  const wcagLabels = (finding.tags ?? []).map(formatWcagTag).filter(Boolean);
+  const lines = [
+    `**URL:** ${pageUrl}`,
+    '',
+    `**${finding.title}** (rule: \`${finding.id}\`)`,
+    '',
+    plainTextDescription(finding.description ?? ''),
+  ];
+
+  if (wcagLabels.length > 0) {
+    lines.push('', `**WCAG criteria:** ${wcagLabels.join(', ')}`);
+  }
+
+  const items = finding.items ?? [];
+  lines.push('', `**Affected elements (${items.length}):**`);
+
+  items.forEach((item, index) => {
+    lines.push('', `**Element ${index + 1}**`);
+    if (item.selector) {
+      lines.push(`Element path: \`${item.selector}\``);
+    }
+    if (item.snippet) {
+      lines.push('Snippet:', '```', item.snippet, '```');
+    }
+    if (item.node_label && item.node_label !== item.selector) {
+      lines.push(`Label: ${item.node_label}`);
+    }
+    if (item.explanation) {
+      lines.push(`How to fix: ${item.explanation}`);
+    }
+  });
+
+  return lines.join('\n');
+}
+
+function renderAxeFindingsList(axeFindings = [], pageUrl = '') {
   if (axeFindings.length === 0) {
     return '<p>No accessibility findings from this scan.</p>';
   }
@@ -480,6 +537,7 @@ function renderAxeFindingsList(axeFindings = []) {
           ${renderWcagTags(finding.tags)}
           <p><strong>Affected elements (${finding.items.length}):</strong></p>
           ${renderAxeFindingItems(finding.items)}
+          <button class="copy-finding-btn" data-copy-text="${escapeHtml(buildFindingCopyText(pageUrl, finding))}" aria-label="Copy finding to clipboard">Copy finding</button>
         </div>
       </details>`
     )
@@ -497,7 +555,7 @@ function renderUrlModal(entry, modalId) {
   <p><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></p>
   <p>Lighthouse Accessibility Score: ${entry.lighthouse_scores ? entry.lighthouse_scores.accessibility : '—'}</p>
   <p>Axe findings: ${axeFindings.length}</p>
-  ${renderAxeFindingsList(axeFindings)}
+  ${renderAxeFindingsList(axeFindings, entry.url)}
   <p><a href="axe-findings.json">Download full axe findings JSON</a></p>
   <div class="modal-footer">
     <button aria-label="Close dialog" data-close-modal="${escapeHtml(modalId)}">Close</button>
@@ -827,6 +885,23 @@ export function renderDailyReportPage(report) {
         btn.addEventListener('click', function () {
           var dialog = document.getElementById(btn.dataset.closeModal);
           if (dialog) { dialog.close(); }
+        });
+      });
+      document.querySelectorAll('[data-copy-text]').forEach(function (btn) {
+        // The 'click' event fires for both mouse clicks and keyboard activation (Enter/Space)
+        // on <button> elements, so keyboard users receive the same visual feedback.
+        btn.addEventListener('click', function () {
+          var text = btn.dataset.copyText;
+          if (!navigator.clipboard) { return; }
+          navigator.clipboard.writeText(text).then(function () {
+            var original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = original;
+              btn.classList.remove('copied');
+            }, 2000);
+          });
         });
       });
     });

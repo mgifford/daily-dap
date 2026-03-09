@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage, renderDashboardPage } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, buildFindingCopyText, plainTextDescription } from '../../src/publish/render-pages.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {
@@ -515,4 +515,107 @@ test('renderDailyReportPage renders "Element path" label instead of "Selector"',
 
   assert.ok(html.includes('Element path:'), 'Should use "Element path" label matching Accessibility Insights format');
   assert.ok(html.includes('Snippet:'), 'Should use "Snippet" label matching Accessibility Insights format');
+});
+
+test('plainTextDescription converts markdown links to plain text', () => {
+  const input = 'Properly ordered headings. [Learn more](https://dequeuniversity.com/rules/axe/4.11/heading-order).';
+  const result = plainTextDescription(input);
+  assert.ok(result.includes('Learn more (https://dequeuniversity.com/rules/axe/4.11/heading-order)'), 'Should convert markdown link to plain text form');
+  assert.ok(!result.includes('[Learn more]'), 'Should not contain raw markdown link syntax');
+});
+
+test('buildFindingCopyText includes page URL and finding details', () => {
+  const pageUrl = 'https://informeddelivery.usps.com';
+  const finding = {
+    id: 'heading-order',
+    title: 'Heading elements are not in a sequentially-descending order',
+    description: 'Properly ordered headings. [Learn more](https://dequeuniversity.com/rules/axe/4.11/heading-order).',
+    tags: ['cat.semantics', 'wcag2a', 'wcag246'],
+    items: [
+      {
+        selector: 'div.row > div.col-12 > div.faq-unit > h4.header-4',
+        snippet: '<h4>',
+        node_label: 'What is Informed Delivery?',
+        explanation: 'Fix any of the following:\n  Heading order invalid'
+      }
+    ]
+  };
+
+  const text = buildFindingCopyText(pageUrl, finding);
+
+  assert.ok(text.includes('**URL:** https://informeddelivery.usps.com'), 'Should include the page URL');
+  assert.ok(text.includes('heading-order'), 'Should include the rule ID');
+  assert.ok(text.includes('Heading elements are not in a sequentially-descending order'), 'Should include the finding title');
+  assert.ok(text.includes('Learn more (https://dequeuniversity.com/rules/axe/4.11/heading-order)'), 'Should convert markdown links to plain text');
+  assert.ok(text.includes('WCAG 2.4.6'), 'Should include parsed WCAG criterion');
+  assert.ok(text.includes('div.row > div.col-12 > div.faq-unit > h4.header-4'), 'Should include element selector');
+  assert.ok(text.includes('<h4>'), 'Should include element snippet');
+  assert.ok(text.includes('What is Informed Delivery?'), 'Should include node label');
+  assert.ok(text.includes('Heading order invalid'), 'Should include how-to-fix text');
+});
+
+test('buildFindingCopyText handles finding with no items', () => {
+  const finding = {
+    id: 'color-contrast',
+    title: 'Elements must have sufficient color contrast',
+    description: 'Ensure the contrast ratio meets the minimum.',
+    tags: [],
+    items: []
+  };
+  const text = buildFindingCopyText('https://example.gov', finding);
+  assert.ok(text.includes('**URL:** https://example.gov'), 'Should include URL even with no items');
+  assert.ok(text.includes('**Affected elements (0):**'), 'Should show zero affected elements');
+  assert.ok(!text.includes('**WCAG criteria:**'), 'Should not include WCAG section when tags are empty');
+});
+
+test('renderDailyReportPage renders copy-finding button for each axe finding', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://informeddelivery.usps.com',
+        page_load_count: 5000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'heading-order',
+            title: 'Heading elements are not in a sequentially-descending order',
+            description: 'Properly ordered headings convey structure.',
+            score: 0,
+            tags: ['wcag246'],
+            items: [
+              {
+                selector: 'div.row > div.col-12 > h4.header-4',
+                snippet: '<h4>',
+                node_label: 'What is Informed Delivery?',
+                explanation: 'Fix any of the following:\n  Heading order invalid'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('copy-finding-btn'), 'Should render copy finding button');
+  assert.ok(html.includes('data-copy-text='), 'Should include data-copy-text attribute');
+  assert.ok(html.includes('Copy finding'), 'Should use "Copy finding" as button label');
+  assert.ok(html.includes('aria-label="Copy finding to clipboard"'), 'Should have accessible aria-label');
+  assert.ok(html.includes('https://informeddelivery.usps.com'), 'Should embed URL in copy text');
+  assert.ok(html.includes('heading-order'), 'Should embed rule ID in copy text');
+  assert.ok(html.includes('navigator.clipboard'), 'Should include clipboard JavaScript');
 });
