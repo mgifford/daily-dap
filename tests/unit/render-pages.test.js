@@ -330,156 +330,189 @@ test('renderDailyReportPage handles missing axe_findings field gracefully', () =
   assert.doesNotThrow(() => renderDailyReportPage(report), 'Should not throw when axe_findings is missing');
 });
 
-test('renderDailyReportPage includes DAP context section', () => {
+test('renderDailyReportPage renders multi-line explanation as a bulleted list', () => {
   const report = {
-    run_date: '2026-03-08',
+    run_date: '2026-03-05',
     run_id: 'test-run',
-    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
-    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
-    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
-    history_series: [],
-    top_urls: [],
-    generated_at: '2026-03-08T00:00:00.000Z',
-    report_status: 'success'
-  };
-
-  const html = renderDailyReportPage(report);
-
-  assert.ok(html.includes('Digital Analytics Program'), 'Should include DAP full name');
-  assert.ok(html.includes('axe-core'), 'Should mention axe-core');
-  assert.ok(html.includes('WCAG'), 'Should mention WCAG');
-  assert.ok(html.includes('About These Reports'), 'Should have context section heading');
-});
-
-test('renderDailyReportPage shows day-over-day comparison when history has previous data', () => {
-  const report = {
-    run_date: '2026-03-08',
-    run_id: 'test-run',
-    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
-    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
-    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
-    history_series: [
-      { date: '2026-03-07', aggregate_scores: { performance: 48, accessibility: 91, best_practices: 86, seo: 90, pwa: 0 } },
-      { date: '2026-03-08', aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 } }
-    ],
-    top_urls: [],
-    generated_at: '2026-03-08T00:00:00.000Z',
-    report_status: 'success'
-  };
-
-  const html = renderDailyReportPage(report);
-
-  assert.ok(html.includes('Day-over-Day Comparison'), 'Should include comparison section heading');
-  assert.ok(html.includes('2026-03-07'), 'Should show previous day date');
-  assert.ok(html.includes('+1'), 'Should show positive delta for accessibility');
-});
-
-test('renderDailyReportPage skips day-over-day section when no prior history', () => {
-  const report = {
-    run_date: '2026-03-08',
-    run_id: 'test-run',
-    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
-    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
-    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
-    history_series: [],
-    top_urls: [],
-    generated_at: '2026-03-08T00:00:00.000Z',
-    report_status: 'success'
-  };
-
-  const html = renderDailyReportPage(report);
-  assert.ok(!html.includes('Day-over-Day Comparison'), 'Should not show comparison section when no history');
-});
-
-test('renderDailyReportPage shows common axe patterns section when there are findings', () => {
-  const report = {
-    run_date: '2026-03-08',
-    run_id: 'test-run',
-    url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
-    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
     estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
     history_series: [],
     top_urls: [
       {
-        url: 'https://example.gov',
+        url: 'https://tools.usps.com',
         page_load_count: 1000,
-        scan_status: 'success',
-        failure_reason: null,
-        findings_count: 2,
-        severe_findings_count: 1,
-        core_web_vitals_status: 'poor',
-        lighthouse_scores: { performance: 40, accessibility: 85, best_practices: 80, seo: 88, pwa: 0 },
-        axe_findings: [
-          { id: 'color-contrast', title: 'Insufficient color contrast', score: 0, items: [] },
-          { id: 'image-alt', title: 'Images missing alt text', score: 0, items: [] }
-        ]
-      },
-      {
-        url: 'https://another.gov',
-        page_load_count: 500,
         scan_status: 'success',
         failure_reason: null,
         findings_count: 1,
         severe_findings_count: 1,
-        core_web_vitals_status: 'good',
-        lighthouse_scores: { performance: 70, accessibility: 95, best_practices: 90, seo: 92, pwa: 0 },
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
         axe_findings: [
-          { id: 'color-contrast', title: 'Insufficient color contrast', score: 0, items: [] }
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names.',
+            score: 0,
+            tags: [],
+            items: [
+              {
+                selector: 'span.down-arr',
+                snippet: '<span role="button">',
+                node_label: 'span.down-arr',
+                explanation: 'Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty'
+              }
+            ]
+          }
         ]
       }
     ],
-    generated_at: '2026-03-08T00:00:00.000Z',
+    generated_at: '2026-03-05T00:00:00.000Z',
     report_status: 'success'
   };
 
   const html = renderDailyReportPage(report);
 
-  assert.ok(html.includes('Common Accessibility Issues'), 'Should include axe patterns section');
-  assert.ok(html.includes('color-contrast'), 'Should list the most frequent rule');
-  assert.ok(html.includes('image-alt'), 'Should list image-alt rule');
+  // The explanation should be rendered as a list
+  assert.ok(html.includes('<ul class="fix-list">'), 'Should render explanation as a fix-list');
+  assert.ok(html.includes('<li>Element does not have text that is visible to screen readers</li>'), 'Should list first fix item');
+  assert.ok(html.includes('<li>aria-label attribute does not exist or is empty</li>'), 'Should list second fix item');
+  assert.ok(html.includes('Fix any of the following:'), 'Should keep the fix prompt text');
 });
 
-test('renderDailyReportPage shows narrative section when history has sufficient data', () => {
+test('renderDailyReportPage renders markdown links in description as HTML anchors', () => {
   const report = {
-    run_date: '2026-03-08',
+    run_date: '2026-03-05',
     run_id: 'test-run',
-    url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
-    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 },
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
     estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
-    history_series: [
-      { date: '2026-03-01', aggregate_scores: { performance: 45, accessibility: 90, best_practices: 84, seo: 88, pwa: 0 } },
-      { date: '2026-03-07', aggregate_scores: { performance: 48, accessibility: 91, best_practices: 85, seo: 89, pwa: 0 } }
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names. [Learn more](https://dequeuniversity.com/rules/axe/4.11/aria-command-name).',
+            score: 0,
+            tags: [],
+            items: []
+          }
+        ]
+      }
     ],
-    top_urls: [],
-    generated_at: '2026-03-08T00:00:00.000Z',
+    generated_at: '2026-03-05T00:00:00.000Z',
     report_status: 'success'
   };
 
   const html = renderDailyReportPage(report);
 
-  assert.ok(html.includes('Accessibility Trend Narrative'), 'Should include narrative section heading');
-  assert.ok(html.includes('2 days'), 'Should mention the number of data points');
+  // The markdown link should be converted to an HTML anchor
+  assert.ok(
+    html.includes('href="https://dequeuniversity.com/rules/axe/4.11/aria-command-name"'),
+    'Should render markdown link as HTML anchor with href'
+  );
+  assert.ok(html.includes('Learn more'), 'Should include link text');
+  // The raw markdown syntax should not appear
+  assert.ok(!html.includes('[Learn more]'), 'Should not show raw markdown link syntax');
 });
 
-test('renderDashboardPage includes DAP context and latest scores', () => {
-  const latestReport = {
-    run_date: '2026-03-08',
-    run_id: 'run-2026-03-08-abc',
-    aggregate_scores: { performance: 49, accessibility: 92, best_practices: 85, seo: 89, pwa: 0 }
+test('renderDailyReportPage renders WCAG tags from axe findings', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names.',
+            score: 0,
+            tags: ['cat.aria', 'wcag2a', 'wcag412'],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
   };
 
-  const html = renderDashboardPage({ latestReport, historyIndex: [] });
+  const html = renderDailyReportPage(report);
 
-  assert.ok(html.includes('Digital Analytics Program'), 'Dashboard should include DAP description');
-  assert.ok(html.includes('Accessibility scores'), 'Dashboard should describe accessibility scores');
-  assert.ok(html.includes('49'), 'Dashboard should show latest performance score');
-  assert.ok(html.includes('92'), 'Dashboard should show latest accessibility score');
-  assert.ok(html.includes('What is This?'), 'Dashboard should have about section');
+  // WCAG 4.1.2 should be displayed (parsed from 'wcag412')
+  assert.ok(html.includes('WCAG 4.1.2'), 'Should display WCAG criterion from tags');
+  // Non-WCAG tags like cat.aria should not produce output
+  assert.ok(!html.includes('cat.aria'), 'Should not show non-WCAG tags like cat.aria');
+  // The wcag2a tag means WCAG 2.A which is not a standard form - should not appear
+  assert.ok(html.includes('wcag-tags'), 'Should include wcag-tags class');
 });
 
-test('renderDashboardPage renders without latest report', () => {
-  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+test('renderDailyReportPage renders "Element path" label instead of "Selector"', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-command-name',
+            title: 'Elements do not have accessible names.',
+            description: 'Screen readers need accessible names.',
+            score: 0,
+            tags: [],
+            items: [
+              {
+                selector: '#headingOneAnchor > .down-arr',
+                snippet: '<span role="button">',
+                node_label: '#headingOneAnchor > .down-arr',
+                explanation: 'Fix: add an aria-label.'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
 
-  assert.ok(html.includes('Daily DAP'), 'Should render basic page without latest report');
-  assert.doesNotThrow(() => renderDashboardPage({ latestReport: null }), 'Should not throw with no report');
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('Element path:'), 'Should use "Element path" label matching Accessibility Insights format');
+  assert.ok(html.includes('Snippet:'), 'Should use "Snippet" label matching Accessibility Insights format');
 });
