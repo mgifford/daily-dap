@@ -3,45 +3,333 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Accessibility Reports</title>
+  <title>Daily DAP - U.S. Government Website Quality Dashboard</title>
+  <meta name="description" content="Daily automated accessibility and performance benchmarks for the top 100 most-visited U.S. government websites, powered by Lighthouse and axe-core." />
+  
+  <style>
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1b1b1b;
+      background: #f5f7fa;
+    }
+    a { color: #0050b3; }
+    a:hover { color: #003d8a; }
+    h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+    ul { padding-left: 1.5rem; }
+    code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
+    pre code { background: none; padding: 0; }
+
+    /* ---------- Skip link ---------- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: #0050b3;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      z-index: 9999;
+      font-weight: bold;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ---------- Site header ---------- */
+    .site-header {
+      background: #0050b3;
+      color: #fff;
+      padding: 0.75rem 1rem;
+    }
+    .site-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .site-header .site-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .site-header .site-title:hover { text-decoration: underline; }
+    .site-header nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .site-header nav a { color: #d4e4ff; text-decoration: none; font-size: 0.9rem; }
+    .site-header nav a:hover { color: #fff; text-decoration: underline; }
+    .github-link::before { content: ""; }
+
+    /* ---------- Main wrapper ---------- */
+    .site-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .page-intro {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #0050b3;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .page-intro h1 { margin-top: 0; }
+
+    /* ---------- Content cards ---------- */
+    section {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    section > h2:first-of-type { margin-top: 0; }
+
+    /* ---------- Score badges ---------- */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .score-card {
+      background: #f0f5ff;
+      border: 1px solid #c6d9ff;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .score-card .score-label { font-size: 0.78rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    .score-card .score-value { font-size: 2rem; font-weight: 700; color: #0050b3; line-height: 1.1; }
+
+    /* ---------- Tables ---------- */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d0d7de;
+      vertical-align: top;
+    }
+    th {
+      background: #f0f3f8;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) { background: #fafbfc; }
+    tbody tr:hover { background: #f0f5ff; }
+    tr.monthly-avg { background: #eef3fa; font-weight: 600; }
+    tr.monthly-avg:hover { background: #dde8f7; }
+
+    /* ---------- Buttons ---------- */
+    .details-btn {
+      background: #0050b3;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+    .details-btn:hover { background: #003d8a; }
+    .details-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+
+    /* ---------- Modals ---------- */
+    .axe-modal {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1.5rem;
+      max-width: 800px;
+      width: 90vw;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .axe-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .modal-header h2 { margin: 0; }
+    .modal-close {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .modal-close:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .modal-footer { margin-top: 1rem; text-align: right; }
+    .axe-item {
+      border-left: 3px solid #d9534f;
+      margin: 0.5rem 0;
+      padding: 0.5rem 0.75rem;
+      background: #fef9f9;
+    }
+    .axe-item pre {
+      background: #f5f5f5;
+      padding: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.85em;
+    }
+    .finding-detail {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e0e0e0;
+      margin-top: 0.25rem;
+    }
+    .fix-list { margin: 0.25rem 0 0.5rem 1.5rem; padding: 0; }
+    .fix-list li { margin: 0.2rem 0; }
+    .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: #444; }
+    details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- Copy finding button ---------- */
+    .copy-finding-btn {
+      background: #f0f3f8;
+      border: 1px solid #c6d9ff;
+      border-radius: 4px;
+      color: #0050b3;
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
+      margin-top: 0.5rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+    .copy-finding-btn:hover { background: #dde8f7; border-color: #0050b3; }
+    .copy-finding-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .copy-finding-btn.copied { background: #d4edda; border-color: #28a745; color: #155724; }
+
+    /* ---------- URL cells ---------- */
+    .url-cell {
+      word-break: break-all;
+      overflow-wrap: break-word;
+      max-width: 280px;
+    }
+
+    /* ---------- Site footer ---------- */
+    .site-footer {
+      background: #1b1b2f;
+      color: #ccc;
+      padding: 1.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-footer a { color: #a8c8ff; }
+    .site-footer a:hover { color: #fff; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 640px) {
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.1rem; }
+      .site-header-inner { flex-direction: column; align-items: flex-start; }
+      .score-card .score-value { font-size: 1.5rem; }
+      th, td { padding: 0.4rem 0.5rem; }
+      .axe-modal {
+        position: fixed;
+        inset: 0;
+        max-width: 100%;
+        width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        margin: 0;
+      }
+      .site-main { padding: 1rem 0.75rem 2rem; }
+      section { padding: 1rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Daily DAP Accessibility Reports</h1>
-
-  <section aria-labelledby="about-heading">
-    <h2 id="about-heading">What is This?</h2>
-    <p>The <strong>Digital Analytics Program (DAP)</strong> tracks website traffic across U.S. federal government websites. This dashboard shows daily automated accessibility and quality scans of the top 100 most-visited government URLs, measured using Google Lighthouse and the axe-core accessibility engine.</p>
-    <p>Each report covers:</p>
-    <ul>
-      <li><strong>Accessibility scores</strong> - WCAG compliance measured by Lighthouse (0-100, higher is better)</li>
-      <li><strong>Axe findings</strong> - Specific WCAG violations detected by axe-core rules</li>
-      <li><strong>Performance, Best Practices, and SEO scores</strong> - Overall web quality metrics</li>
-      <li><strong>Day-over-day changes</strong> - How scores shift compared to the previous day</li>
-    </ul>
-    <p>Scans run daily. Click any report date to see detailed per-URL findings, accessibility patterns, and trend analysis.</p>
-  </section>
-
   
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <span class="site-title">Daily DAP</span>
+    <nav aria-label="Site navigation">
+      <a class="github-link" href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </div>
+</header>
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1>U.S. Government Website Quality Dashboard</h1>
+      <p>Daily automated accessibility and performance scans of the top 100 most-visited U.S. government URLs, powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Google Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
+    </div>
+
+    <section aria-labelledby="about-heading">
+      <h2 id="about-heading">What is DAP?</h2>
+      <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services.</p>
+      <p>This dashboard uses DAP traffic data to identify the <strong>most-visited government URLs</strong> and measures their quality daily. Each scan covers:</p>
+      <ul>
+        <li><strong>Accessibility</strong> &mdash; WCAG compliance measured by Lighthouse and axe-core (0&ndash;100, higher is better)</li>
+        <li><strong>Performance</strong> &mdash; Page load speed including Core Web Vitals (0&ndash;100, higher is better)</li>
+        <li><strong>Best Practices</strong> &mdash; Modern web development standards (0&ndash;100, higher is better)</li>
+        <li><strong>SEO</strong> &mdash; Search engine optimisation fundamentals (0&ndash;100, higher is better)</li>
+      </ul>
+      <p>Scans run daily. Click any report date below to see detailed per-URL findings, accessibility patterns, and trend analysis. <a href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">View the source code on GitHub</a>.</p>
+    </section>
+
+    
   <section aria-labelledby="latest-scores-heading">
     <h2 id="latest-scores-heading">Latest Scores (2026-03-09)</h2>
-    <ul>
-      <li>Performance: 47.68</li>
-      <li>Accessibility: 92.12</li>
-      <li>Best Practices: 84.71</li>
-      <li>SEO: 88.42</li>
-    </ul>
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-label">Performance</div>
+        <div class="score-value">48.02</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Accessibility</div>
+        <div class="score-value">91.98</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Best Practices</div>
+        <div class="score-value">85.47</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">SEO</div>
+        <div class="score-value">88.24</div>
+      </div>
+    </div>
+    <p><a href="./daily/2026-03-09/index.html">Open latest report &rarr;</a></p>
   </section>
 
-  <section aria-labelledby="latest-report-heading">
-    <h2 id="latest-report-heading">Latest Report</h2>
-    <p>Run date: 2026-03-09</p>
-    <p><a href="./daily/2026-03-09/index.html">Open latest report</a></p>
-  </section>
-
-  <section aria-labelledby="recent-reports-heading">
-    <h2 id="recent-reports-heading">Recent Reports</h2>
-    <ul>
-      <li><a href="./daily/2026-03-09/index.html">2026-03-09</a> (run-2026-03-09-5fce007f3e)</li>
+    <section aria-labelledby="recent-reports-heading">
+      <h2 id="recent-reports-heading">Recent Reports</h2>
+      <ul>
+        <li><a href="./daily/2026-03-09/index.html">2026-03-09</a> (run-2026-03-09-5fce007f3e)</li>
 <li><a href="./daily/2026-03-08/index.html">2026-03-08</a> (run-2026-03-08-77c71b7dbd)</li>
 <li><a href="./daily/2026-03-07/index.html">2026-03-07</a> (run-2026-03-07-597d5e633a)</li>
 <li><a href="./daily/2026-03-06/index.html">2026-03-06</a> (run-2026-03-06-0969e8ad13)</li>
@@ -57,7 +345,16 @@
 <li><a href="./daily/2026-02-24/index.html">2026-02-24</a> (run-2026-02-24-d4985c9143)</li>
 <li><a href="./daily/2026-02-23/index.html">2026-02-23</a> (run-2026-02-23-ab199e9f5d)</li>
 <li><a href="./daily/2026-02-22/index.html">2026-02-22</a> (run-2026-02-22-2c4d9392f1)</li>
-    </ul>
-  </section>
+      </ul>
+    </section>
+  </main>
+
+  
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <p>Daily DAP &mdash; U.S. government website quality benchmarks powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
+    <p><a href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="https://github.com/mgifford/daily-dap/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
+  </div>
+</footer>
 </body>
 </html>
