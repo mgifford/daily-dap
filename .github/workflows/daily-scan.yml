@@ -119,6 +119,26 @@ jobs:
           git commit -m "chore: publish daily DAP report snapshots"
           git push
 
+      - name: Archive old reports
+        if: steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        shell: bash
+        run: node src/cli/archive-old-reports.js
+
+      - name: Commit archived reports
+        if: steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        shell: bash
+        run: |
+          if git diff --quiet -- docs/reports/archive docs/reports/daily; then
+            echo "No archive changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/reports/archive docs/reports/daily
+          git commit -m "chore: archive DAP reports older than 14 days"
+          git push
+
       - name: Generate accessibility summary
         if: steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
         shell: bash

@@ -494,7 +494,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       report,
       historyIndex,
       dashboardContext: {
-        historyEntries: historyIndex.entries
+        historyEntries: historyIndex.entries.slice(0, runtimeConfig.scan.dashboard_display_days ?? 14),
+        archiveUrl: historyIndex.entries.length > (runtimeConfig.scan.dashboard_display_days ?? 14) ? './archive/index.html' : null
       }
     });
 

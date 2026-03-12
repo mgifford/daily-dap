@@ -53,6 +53,16 @@ export function validatePrevalenceConfig(config) {
     errors.push(`scan.traffic_window_mode must be one of: ${Array.from(TRAFFIC_WINDOW_MODES).join(', ')}`);
   }
 
+  if (scan.dashboard_display_days !== undefined) {
+    if (
+      typeof scan.dashboard_display_days !== 'number' ||
+      !Number.isInteger(scan.dashboard_display_days) ||
+      scan.dashboard_display_days < 1
+    ) {
+      errors.push('scan.dashboard_display_days must be an integer greater than 0 when provided');
+    }
+  }
+
   if (!assertObject(impact.prevalence_rates, 'impact.prevalence_rates', errors)) {
     return { valid: false, errors };
   }

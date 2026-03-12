@@ -1089,7 +1089,7 @@ export function renderDailyReportPage(report) {
 </html>`;
 }
 
-export function renderDashboardPage({ latestReport, historyIndex = [] }) {
+export function renderDashboardPage({ latestReport, historyIndex = [], archiveUrl = null }) {
   const historyLinks = historyIndex
     .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${escapeHtml(entry.run_id)})</li>`)
     .join('\n');
@@ -1120,6 +1120,15 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
     </div>
     <p><a href="./daily/${escapeHtml(latestReport.run_date)}/index.html">Open latest report &rarr;</a></p>
   </section>`
+    : '';
+
+  const archiveSection = archiveUrl
+    ? `
+    <section aria-labelledby="archive-heading">
+      <h2 id="archive-heading">Report Archive${renderAnchorLink('archive-heading', 'Report Archive')}</h2>
+      <p>Reports older than 14 days are available as downloadable zip archives containing the full HTML report, JSON data, and CSV findings.</p>
+      <p><a href="${escapeHtml(archiveUrl)}">Browse report archives &rarr;</a></p>
+    </section>`
     : '';
 
   return `<!doctype html>
@@ -1160,6 +1169,78 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
         ${historyLinks}
       </ul>
     </section>
+    ${archiveSection}
+  </main>
+
+  ${renderSiteFooter()}
+</body>
+</html>`;
+}
+
+export function renderArchiveIndexPage({ entries = [], generatedAt = null } = {}) {
+  const sortedEntries = [...entries].sort((a, b) => b.run_date.localeCompare(a.run_date));
+
+  const listItems = sortedEntries
+    .map(
+      (entry) =>
+        `<li><a href="${escapeHtml(entry.zip_filename)}" download>${escapeHtml(entry.run_date)}.zip</a>${entry.archived_at ? ` <span class="archive-date">(archived ${escapeHtml(entry.archived_at.slice(0, 10))})</span>` : ''}</li>`
+    )
+    .join('\n        ');
+
+  const generatedNote = generatedAt
+    ? `<p class="generated-note">Archive index generated: ${escapeHtml(generatedAt)}</p>`
+    : '';
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily DAP - Report Archives</title>
+  <meta name="description" content="Downloadable zip archives of Daily DAP reports older than 14 days." />
+  ${renderSharedStyles()}
+</head>
+<body>
+  ${renderDashboardHeader()}
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1 id="page-title">Report Archives${renderAnchorLink('page-title', 'Report Archives')}</h1>
+      <p>Daily DAP reports older than 14 days are stored here as downloadable zip archives. Each archive contains the full HTML report, JSON data files, and CSV accessibility findings for that day's scan.</p>
+      <p><a href="../index.html">&larr; Back to dashboard</a></p>
+    </div>
+
+    <section aria-labelledby="archives-heading">
+      <h2 id="archives-heading">Available Archives${renderAnchorLink('archives-heading', 'Available Archives')}</h2>
+      ${sortedEntries.length > 0 ? `<ul>\n        ${listItems}\n      </ul>` : '<p>No archived reports yet.</p>'}
+      ${generatedNote}
+    </section>
+  </main>
+
+  ${renderSiteFooter()}
+</body>
+</html>`;
+}
+
+export function renderArchiveRedirectStub(runDate) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="refresh" content="0; url=../../archive/index.html" />
+  <title>Report Archived - ${escapeHtml(runDate)}</title>
+  <meta name="description" content="The Daily DAP report for ${escapeHtml(runDate)} has been archived." />
+  ${renderSharedStyles()}
+</head>
+<body>
+  ${renderDashboardHeader()}
+  <main id="main-content" class="site-main" data-archived="true">
+    <div class="page-intro">
+      <h1 id="page-title">Report Archived</h1>
+      <p>The Daily DAP report for <strong>${escapeHtml(runDate)}</strong> has been archived and is available as a downloadable zip file.</p>
+      <p><a href="../../archive/index.html">View report archives &rarr;</a></p>
+      <p><a href="../../index.html">&larr; Back to dashboard</a></p>
+    </div>
   </main>
 
   ${renderSiteFooter()}
