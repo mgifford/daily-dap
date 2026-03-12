@@ -22,6 +22,24 @@
     h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.25rem; }
+
+    /* ---------- Heading anchor links ---------- */
+    .heading-anchor {
+      opacity: 0;
+      font-size: 0.75em;
+      text-decoration: none;
+      margin-left: 0.4em;
+      vertical-align: middle;
+      color: inherit;
+    }
+    h1:hover .heading-anchor,
+    h2:hover .heading-anchor,
+    h3:hover .heading-anchor,
+    h1:focus-within .heading-anchor,
+    h2:focus-within .heading-anchor,
+    h3:focus-within .heading-anchor,
+    .heading-anchor:focus { opacity: 1; }
+
     ul { padding-left: 1.5rem; }
     code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
     pre code { background: none; padding: 0; }
@@ -285,12 +303,12 @@
 </header>
   <main id="main-content" class="site-main">
     <div class="page-intro">
-      <h1>U.S. Government Website Quality Dashboard</h1>
+      <h1 id="page-title">U.S. Government Website Quality Dashboard<a href="#page-title" class="heading-anchor" aria-label="Link to U.S. Government Website Quality Dashboard"><span aria-hidden="true">#</span></a></h1>
       <p>Daily automated accessibility and performance scans of the top 100 most-visited U.S. government URLs, powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Google Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
     </div>
 
     <section aria-labelledby="about-heading">
-      <h2 id="about-heading">What is DAP?</h2>
+      <h2 id="about-heading">What is DAP?<a href="#about-heading" class="heading-anchor" aria-label="Link to What is DAP?"><span aria-hidden="true">#</span></a></h2>
       <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services.</p>
       <p>This dashboard uses DAP traffic data to identify the <strong>most-visited government URLs</strong> and measures their quality daily. Each scan covers:</p>
       <ul>
@@ -304,7 +322,7 @@
 
     
   <section aria-labelledby="latest-scores-heading">
-    <h2 id="latest-scores-heading">Latest Scores (2026-03-12)</h2>
+    <h2 id="latest-scores-heading">Latest Scores (2026-03-12)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-12)"><span aria-hidden="true">#</span></a></h2>
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
@@ -327,7 +345,7 @@
   </section>
 
     <section aria-labelledby="recent-reports-heading">
-      <h2 id="recent-reports-heading">Recent Reports</h2>
+      <h2 id="recent-reports-heading">Recent Reports<a href="#recent-reports-heading" class="heading-anchor" aria-label="Link to Recent Reports"><span aria-hidden="true">#</span></a></h2>
       <ul>
         <li><a href="./daily/2026-03-12/index.html">2026-03-12</a> (run-2026-03-12-73961ba659)</li>
 <li><a href="./daily/2026-03-11/index.html">2026-03-11</a> (run-2026-03-11-b2a2385e93)</li>

@@ -754,3 +754,93 @@ test('renderDailyReportPage axe patterns table includes caption', () => {
   const html = renderDailyReportPage(reportWithAxe);
   assert.ok(html.includes('<caption>Top axe-core accessibility rule violations'), 'Axe patterns table should have a caption');
 });
+
+test('renderDailyReportPage includes anchor links on all section headings', () => {
+  const html = renderDailyReportPage(minimalReport);
+
+  // Each heading with an id should have a corresponding .heading-anchor link
+  assert.ok(html.includes('href="#page-title"') && html.includes('id="page-title"'), 'h1 page title should have anchor link');
+  assert.ok(html.includes('href="#dap-context-heading"'), 'About These Reports heading should have anchor link');
+  assert.ok(html.includes('href="#narrative-heading"'), 'Narrative heading should have anchor link');
+  assert.ok(html.includes('href="#day-comparison-heading"'), 'Day comparison heading should have anchor link');
+  assert.ok(html.includes('href="#scores-heading"'), 'Aggregate Scores heading should have anchor link');
+  assert.ok(html.includes('href="#history-heading"'), 'History heading should have anchor link');
+  assert.ok(html.includes('href="#top-urls-heading"'), 'Top URLs heading should have anchor link');
+});
+
+test('renderDailyReportPage anchor links have accessible aria-labels', () => {
+  const html = renderDailyReportPage(minimalReport);
+
+  assert.ok(html.includes('aria-label="Link to About These Reports"'), 'About heading anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to Accessibility Trend Narrative"'), 'Narrative anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to Aggregate Scores"'), 'Scores anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to History"'), 'History anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to Top URLs by Traffic (Scanned)"'), 'Top URLs anchor should have descriptive aria-label');
+});
+
+test('renderDailyReportPage anchor link symbol is aria-hidden', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('<span aria-hidden="true">#</span>'), 'Anchor link symbol should be aria-hidden');
+});
+
+test('renderDailyReportPage includes heading-anchor CSS', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('.heading-anchor'), 'Should include heading-anchor CSS class');
+  assert.ok(html.includes('opacity: 0'), 'Heading anchor should be hidden by default');
+  assert.ok(html.includes('.heading-anchor:focus'), 'Heading anchor should be visible on focus');
+});
+
+test('renderDailyReportPage estimated impact heading has anchor link', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('href="#estimated-impact-heading"'), 'Estimated Impact heading should have anchor link');
+  assert.ok(html.includes('id="estimated-impact-heading"'), 'Estimated Impact heading should have an id');
+});
+
+test('renderDailyReportPage axe patterns heading has anchor link', () => {
+  const reportWithAxe = {
+    ...minimalReport,
+    top_urls: [
+      {
+        ...minimalReport.top_urls[0],
+        axe_findings: [
+          { id: 'color-contrast', title: 'Color contrast', description: 'Contrast issue.', tags: [], items: [] }
+        ]
+      }
+    ]
+  };
+  const html = renderDailyReportPage(reportWithAxe);
+  assert.ok(html.includes('href="#axe-patterns-heading"'), 'Axe patterns heading should have anchor link');
+  assert.ok(html.includes('aria-label="Link to Common Accessibility Issues (Top 1)"'), 'Axe patterns anchor should have descriptive aria-label');
+});
+
+test('renderDashboardPage includes anchor links on all section headings', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [] });
+
+  assert.ok(html.includes('href="#page-title"') && html.includes('id="page-title"'), 'h1 page title should have anchor link');
+  assert.ok(html.includes('href="#about-heading"'), 'What is DAP heading should have anchor link');
+  assert.ok(html.includes('href="#latest-scores-heading"'), 'Latest Scores heading should have anchor link');
+  assert.ok(html.includes('href="#recent-reports-heading"'), 'Recent Reports heading should have anchor link');
+});
+
+test('renderDashboardPage anchor links have accessible aria-labels', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [] });
+
+  assert.ok(html.includes('aria-label="Link to What is DAP?"'), 'About heading anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to Recent Reports"'), 'Recent Reports anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to Latest Scores (2026-03-09)"'), 'Latest Scores anchor should have descriptive aria-label');
+});
+
+test('renderDailyReportPage modal headings do not have anchor links', () => {
+  const reportWithUrl = {
+    ...minimalReport,
+    top_urls: [
+      { ...minimalReport.top_urls[0], axe_findings: [] }
+    ]
+  };
+  const html = renderDailyReportPage(reportWithUrl);
+  // Modal heading has id but should NOT have an anchor link since it's inside a dialog
+  assert.ok(html.includes('id="modal-url-0-title"'), 'Modal heading should still have its id');
+  const modalHeadingMatch = html.match(/<h2 id="modal-url-0-title"[^>]*>[\s\S]*?<\/h2>/);
+  assert.ok(modalHeadingMatch, 'Modal heading should be present');
+  assert.ok(!modalHeadingMatch[0].includes('heading-anchor'), 'Modal heading should not have a heading-anchor link');
+});

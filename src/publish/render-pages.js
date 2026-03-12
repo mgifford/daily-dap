@@ -11,6 +11,10 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
+function renderAnchorLink(id, label) {
+  return `<a href="#${escapeHtml(id)}" class="heading-anchor" aria-label="${escapeHtml(`Link to ${label}`)}"><span aria-hidden="true">#</span></a>`;
+}
+
 function renderSharedStyles() {
   return `
   <style>
@@ -29,6 +33,24 @@ function renderSharedStyles() {
     h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.25rem; }
+
+    /* ---------- Heading anchor links ---------- */
+    .heading-anchor {
+      opacity: 0;
+      font-size: 0.75em;
+      text-decoration: none;
+      margin-left: 0.4em;
+      vertical-align: middle;
+      color: inherit;
+    }
+    h1:hover .heading-anchor,
+    h2:hover .heading-anchor,
+    h3:hover .heading-anchor,
+    h1:focus-within .heading-anchor,
+    h2:focus-within .heading-anchor,
+    h3:focus-within .heading-anchor,
+    .heading-anchor:focus { opacity: 1; }
+
     ul { padding-left: 1.5rem; }
     code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
     pre code { background: none; padding: 0; }
@@ -368,12 +390,12 @@ function renderEstimatedImpactSection(report) {
   
   if (!hasImpactData && affectedSharePercent === 0) {
     return `
-  <h2>Estimated Impact (${escapeHtml(trafficWindowMode)})</h2>
+  <h2 id="estimated-impact-heading">Estimated Impact (${escapeHtml(trafficWindowMode)})${renderAnchorLink('estimated-impact-heading', `Estimated Impact (${trafficWindowMode})`)}</h2>
   <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>`;
   }
   
   return `
-  <h2>Estimated Impact (${escapeHtml(trafficWindowMode)})</h2>
+  <h2 id="estimated-impact-heading">Estimated Impact (${escapeHtml(trafficWindowMode)})${renderAnchorLink('estimated-impact-heading', `Estimated Impact (${trafficWindowMode})`)}</h2>
   <p>Affected share percent: ${affectedSharePercent}</p>
   ${wrapTable(`<table>
     <caption>Estimated accessibility impact by category</caption>
@@ -651,7 +673,7 @@ function renderTopUrlRows(topUrls = []) {
 function renderDapContextSection() {
   return `
   <section aria-labelledby="dap-context-heading">
-    <h2 id="dap-context-heading">About These Reports</h2>
+    <h2 id="dap-context-heading">About These Reports${renderAnchorLink('dap-context-heading', 'About These Reports')}</h2>
     <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
     <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
     <ul>
@@ -693,7 +715,7 @@ function renderDayComparisonSection(report) {
 
   return `
   <section aria-labelledby="day-comparison-heading">
-    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs ${escapeHtml(prevEntry.date)})</h2>
+    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs ${escapeHtml(prevEntry.date)})${renderAnchorLink('day-comparison-heading', `Day-over-Day Comparison (vs ${prevEntry.date})`)}</h2>
     ${wrapTable(`<table>
       <caption>Score comparison between ${escapeHtml(prevEntry.date)} and ${escapeHtml(currentDate)}</caption>
       <thead>
@@ -758,7 +780,7 @@ function renderAxePatternsSection(topUrls = []) {
 
   return `
   <section aria-labelledby="axe-patterns-heading">
-    <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})</h2>
+    <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})${renderAnchorLink('axe-patterns-heading', `Common Accessibility Issues (Top ${topPatterns.length})`)}</h2>
     <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
     ${wrapTable(`<table>
       <caption>Top axe-core accessibility rule violations across scanned URLs</caption>
@@ -819,7 +841,7 @@ function renderNarrativeSection(report) {
 
   return `
   <section aria-labelledby="narrative-heading">
-    <h2 id="narrative-heading">Accessibility Trend Narrative</h2>
+    <h2 id="narrative-heading">Accessibility Trend Narrative${renderAnchorLink('narrative-heading', 'Accessibility Trend Narrative')}</h2>
     <p>Over the past <strong>${dayCount} days</strong> of data (${escapeHtml(oldest.date)} to ${escapeHtml(newest.date)}), government website accessibility scores have <strong>${accessTrend}</strong> (${accessDeltaText} points, from ${oldest.aggregate_scores.accessibility} to ${newest.aggregate_scores.accessibility}). Performance scores have ${perfTrend} (${perfDeltaText} points, from ${oldest.aggregate_scores.performance} to ${newest.aggregate_scores.performance}).</p>
     <p>Today's aggregate accessibility score of <strong>${report.aggregate_scores.accessibility}</strong> reflects the mean Lighthouse accessibility score across ${report.url_counts.succeeded} successfully scanned government URLs. A score above 90 indicates generally strong compliance with WCAG automated checks, though manual testing is always recommended to fully assess accessibility.</p>
   </section>`;
@@ -869,7 +891,7 @@ export function renderDailyReportPage(report) {
   ${renderSiteHeader()}
   <main id="main-content" class="site-main">
     <div class="page-intro">
-      <h1>Daily DAP Accessibility Report &mdash; ${escapeHtml(report.run_date)}</h1>
+      <h1 id="page-title">Daily DAP Accessibility Report &mdash; ${escapeHtml(report.run_date)}${renderAnchorLink('page-title', `Daily DAP Accessibility Report \u2014 ${report.run_date}`)}</h1>
       <p>Run ID: ${escapeHtml(report.run_id)} &middot; Status: ${escapeHtml(report.report_status)} &middot; Source data: ${escapeHtml(report.source_data_date ?? report.run_date)} &middot; Generated: ${formatTimestamp(report.generated_at)}</p>
     </div>
 
@@ -882,7 +904,7 @@ export function renderDailyReportPage(report) {
     ${renderAxePatternsSection(report.top_urls)}
 
     <section aria-labelledby="scores-heading">
-      <h2 id="scores-heading">Aggregate Scores</h2>
+      <h2 id="scores-heading">Aggregate Scores${renderAnchorLink('scores-heading', 'Aggregate Scores')}</h2>
       ${renderExecutionErrorNotice(report)}
       <div class="score-grid">
         <div class="score-card">
@@ -913,7 +935,7 @@ export function renderDailyReportPage(report) {
     ${renderEstimatedImpactSection(report)}
 
     <section aria-labelledby="history-heading">
-      <h2 id="history-heading">History</h2>
+      <h2 id="history-heading">History${renderAnchorLink('history-heading', 'History')}</h2>
       ${wrapTable(`<table>
         <caption>Daily aggregate Lighthouse scores over the past 31 days</caption>
         <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
@@ -924,7 +946,7 @@ export function renderDailyReportPage(report) {
     </section>
 
     <section aria-labelledby="top-urls-heading">
-      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)</h2>
+      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)${renderAnchorLink('top-urls-heading', 'Top URLs by Traffic (Scanned)')}</h2>
       <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
       <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
       <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
@@ -1075,7 +1097,7 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
   const scoresSummary = latestScores
     ? `
   <section aria-labelledby="latest-scores-heading">
-    <h2 id="latest-scores-heading">Latest Scores (${escapeHtml(latestReport.run_date)})</h2>
+    <h2 id="latest-scores-heading">Latest Scores (${escapeHtml(latestReport.run_date)})${renderAnchorLink('latest-scores-heading', `Latest Scores (${latestReport.run_date})`)}</h2>
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
@@ -1111,12 +1133,12 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
   ${renderDashboardHeader()}
   <main id="main-content" class="site-main">
     <div class="page-intro">
-      <h1>U.S. Government Website Quality Dashboard</h1>
+      <h1 id="page-title">U.S. Government Website Quality Dashboard${renderAnchorLink('page-title', 'U.S. Government Website Quality Dashboard')}</h1>
       <p>Daily automated accessibility and performance scans of the top 100 most-visited U.S. government URLs, powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Google Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
     </div>
 
     <section aria-labelledby="about-heading">
-      <h2 id="about-heading">What is DAP?</h2>
+      <h2 id="about-heading">What is DAP?${renderAnchorLink('about-heading', 'What is DAP?')}</h2>
       <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services.</p>
       <p>This dashboard uses DAP traffic data to identify the <strong>most-visited government URLs</strong> and measures their quality daily. Each scan covers:</p>
       <ul>
@@ -1131,7 +1153,7 @@ export function renderDashboardPage({ latestReport, historyIndex = [] }) {
     ${scoresSummary}
 
     <section aria-labelledby="recent-reports-heading">
-      <h2 id="recent-reports-heading">Recent Reports</h2>
+      <h2 id="recent-reports-heading">Recent Reports${renderAnchorLink('recent-reports-heading', 'Recent Reports')}</h2>
       <ul>
         ${historyLinks}
       </ul>
