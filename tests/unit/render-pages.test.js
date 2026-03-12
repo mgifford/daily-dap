@@ -275,6 +275,37 @@ test('renderDailyReportPage renders modal with "no findings" message when axe_fi
     run_date: '2026-03-05',
     run_id: 'test-run',
     url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 90, accessibility: 85, best_practices: 95, seo: 95, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://www.nih.gov',
+        page_load_count: 5000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 90, accessibility: 85, best_practices: 95, seo: 95, pwa: 0 },
+        axe_findings: []
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('No accessibility findings'), 'Should show no findings message for empty axe_findings');
+  assert.ok(html.includes('<dialog'), 'Should still render dialog element');
+});
+
+test('renderDailyReportPage hides Details button and modal when accessibility score is 100', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
     aggregate_scores: { performance: 90, accessibility: 100, best_practices: 95, seo: 95, pwa: 0 },
     estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
     history_series: [],
@@ -297,8 +328,49 @@ test('renderDailyReportPage renders modal with "no findings" message when axe_fi
 
   const html = renderDailyReportPage(report);
 
-  assert.ok(html.includes('No accessibility findings'), 'Should show no findings message for empty axe_findings');
-  assert.ok(html.includes('<dialog'), 'Should still render dialog element');
+  assert.ok(!html.includes('class="details-btn"'), 'Should not show Details button when accessibility score is 100');
+  assert.ok(!html.includes('data-open-modal="modal-url-0"'), 'Should not include modal open attribute when accessibility score is 100');
+  assert.ok(!html.includes('<dialog'), 'Should not render modal dialog when accessibility score is 100');
+});
+
+test('renderDailyReportPage shows Details button when accessibility score is below 100', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 90, accessibility: 99, best_practices: 95, seo: 95, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://www.example.gov',
+        page_load_count: 3000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 90, accessibility: 99, best_practices: 95, seo: 95, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'label',
+            title: 'Form elements do not have associated labels',
+            description: 'Ensures every form element has a label.',
+            score: 0,
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('class="details-btn"'), 'Should show Details button when accessibility score is 99');
+  assert.ok(html.includes('data-open-modal="modal-url-0"'), 'Should include modal open attribute');
+  assert.ok(html.includes('<dialog'), 'Should render modal dialog');
 });
 
 test('renderDailyReportPage handles missing axe_findings field gracefully', () => {
@@ -328,6 +400,70 @@ test('renderDailyReportPage handles missing axe_findings field gracefully', () =
 
   // Should not throw
   assert.doesNotThrow(() => renderDailyReportPage(report), 'Should not throw when axe_findings is missing');
+});
+
+test('renderDailyReportPage handles mixed accessibility scores with correct button and modal ID pairing', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 90, accessibility: 90, best_practices: 95, seo: 95, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://first.gov',
+        page_load_count: 5000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 90, accessibility: 100, best_practices: 95, seo: 95, pwa: 0 },
+        axe_findings: []
+      },
+      {
+        url: 'https://second.gov',
+        page_load_count: 3000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 80, accessibility: 80, best_practices: 90, seo: 90, pwa: 0 },
+        axe_findings: [
+          { id: 'label', title: 'Missing label', description: 'Desc', score: 0, items: [] }
+        ]
+      },
+      {
+        url: 'https://third.gov',
+        page_load_count: 1000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 95, accessibility: 100, best_practices: 98, seo: 98, pwa: 0 },
+        axe_findings: []
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // First URL (index 0) has score 100 - no button, no modal
+  assert.ok(!html.includes('data-open-modal="modal-url-0"'), 'First URL (score 100) should not have a Details button');
+  assert.ok(!html.includes('id="modal-url-0"'), 'First URL (score 100) should not have a modal');
+
+  // Second URL (index 1) has score 80 - button and modal should use matching ID "modal-url-1"
+  assert.ok(html.includes('data-open-modal="modal-url-1"'), 'Second URL (score 80) should have a Details button');
+  assert.ok(html.includes('id="modal-url-1"'), 'Second URL (score 80) modal should use matching ID modal-url-1');
+
+  // Third URL (index 2) has score 100 - no button, no modal
+  assert.ok(!html.includes('data-open-modal="modal-url-2"'), 'Third URL (score 100) should not have a Details button');
+  assert.ok(!html.includes('id="modal-url-2"'), 'Third URL (score 100) should not have a modal');
 });
 
 test('renderDailyReportPage renders multi-line explanation as a bulleted list', () => {

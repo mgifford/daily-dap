@@ -644,7 +644,9 @@ function renderUrlModal(entry, modalId) {
 function renderTopUrlModals(topUrls = []) {
   return topUrls
     .slice(0, 100)
-    .map((entry, index) => renderUrlModal(entry, `modal-url-${index}`))
+    .map((entry, index) =>
+      entry.lighthouse_scores?.accessibility === 100 ? '' : renderUrlModal(entry, `modal-url-${index}`)
+    )
     .join('\n');
 }
 
@@ -664,7 +666,7 @@ function renderTopUrlRows(topUrls = []) {
   <td>${entry.findings_count}</td>
   <td>${entry.severe_findings_count}</td>
   <td>${entry.failure_reason ? escapeHtml(entry.failure_reason.replace(/_/g, ' ')) : ''}</td>
-  <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button></td>
+  <td>${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
 </tr>`
     )
     .join('\n');
