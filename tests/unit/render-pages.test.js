@@ -980,3 +980,124 @@ test('renderDailyReportPage modal headings do not have anchor links', () => {
   assert.ok(modalHeadingMatch, 'Modal heading should be present');
   assert.ok(!modalHeadingMatch[0].includes('heading-anchor'), 'Modal heading should not have a heading-anchor link');
 });
+
+test('renderDailyReportPage shows FPC codes in individual axe findings within URL modals', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 5000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 2,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'color-contrast',
+            title: 'Elements must meet minimum color contrast ratio',
+            description: 'Ensures text meets contrast requirements.',
+            score: 0,
+            tags: ['wcag143'],
+            items: []
+          },
+          {
+            id: 'image-alt',
+            title: 'Images must have alternative text',
+            description: 'Ensures images have alt text.',
+            score: 0,
+            tags: ['wcag111'],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // color-contrast maps to LV and WPC
+  assert.ok(html.includes('Section 508 FPC'), 'Should include FPC label for individual findings');
+  assert.ok(html.includes('<abbr title="Limited Vision">LV</abbr>'), 'color-contrast finding should show LV FPC code');
+  assert.ok(html.includes('<abbr title="Without Perception of Color">WPC</abbr>'), 'color-contrast finding should show WPC FPC code');
+  // image-alt maps to WV and WH
+  assert.ok(html.includes('<abbr title="Without Vision">WV</abbr>'), 'image-alt finding should show WV FPC code');
+  assert.ok(html.includes('<abbr title="Without Hearing">WH</abbr>'), 'image-alt finding should show WH FPC code');
+});
+
+test('buildFindingCopyText includes FPC codes for known axe rules', () => {
+  const finding = {
+    id: 'color-contrast',
+    title: 'Elements must have sufficient color contrast',
+    description: 'Ensure the contrast ratio meets the minimum.',
+    tags: ['wcag143'],
+    items: []
+  };
+  const text = buildFindingCopyText('https://example.gov', finding);
+  assert.ok(text.includes('**Section 508 FPC:**'), 'Should include FPC section heading');
+  assert.ok(text.includes('LV (Limited Vision)'), 'Should include LV FPC code with label');
+  assert.ok(text.includes('WPC (Without Perception of Color)'), 'Should include WPC FPC code with label');
+});
+
+test('buildFindingCopyText omits FPC section for unknown axe rules', () => {
+  const finding = {
+    id: 'unknown-rule-xyz',
+    title: 'Some unknown rule',
+    description: 'An unknown rule.',
+    tags: [],
+    items: []
+  };
+  const text = buildFindingCopyText('https://example.gov', finding);
+  assert.ok(!text.includes('**Section 508 FPC:**'), 'Should not include FPC section for unknown rules');
+});
+
+test('renderDailyReportPage omits FPC section for unknown axe rules in URL modals', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 5000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'unknown-custom-rule',
+            title: 'Some custom rule not in mapping',
+            description: 'An unknown custom rule.',
+            score: 0,
+            tags: [],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // The modal dialog for this URL should not show the FPC paragraph since rule is unknown
+  const modalMatch = html.match(/<dialog id="modal-url-0"[\s\S]*?<\/dialog>/);
+  assert.ok(modalMatch, 'Modal should be present for the URL');
+  assert.ok(!modalMatch[0].includes('<strong>Section 508 FPC:</strong>'), 'Should not show FPC paragraph for unknown axe rule');
+});

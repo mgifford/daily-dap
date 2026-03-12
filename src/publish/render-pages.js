@@ -566,6 +566,7 @@ export function plainTextDescription(description) {
 
 export function buildFindingCopyText(pageUrl, finding) {
   const wcagLabels = (finding.tags ?? []).map(formatWcagTag).filter(Boolean);
+  const fpcCodes = AXE_TO_FPC.get(finding.id) ?? [];
   const lines = [
     `**URL:** ${pageUrl}`,
     '',
@@ -576,6 +577,11 @@ export function buildFindingCopyText(pageUrl, finding) {
 
   if (wcagLabels.length > 0) {
     lines.push('', `**WCAG criteria:** ${wcagLabels.join(', ')}`);
+  }
+
+  if (fpcCodes.length > 0) {
+    const fpcLabels = fpcCodes.map((code) => `${code} (${FPC_LABELS[code] ?? code})`);
+    lines.push('', `**Section 508 FPC:** ${fpcLabels.join(', ')}`);
   }
 
   const items = finding.items ?? [];
@@ -606,19 +612,25 @@ function renderAxeFindingsList(axeFindings = [], pageUrl = '') {
   }
 
   return axeFindings
-    .map(
-      (finding) => `
+    .map((finding) => {
+      const fpcCodes = AXE_TO_FPC.get(finding.id);
+      const fpcHtml =
+        fpcCodes && fpcCodes.length > 0
+          ? `<p><strong>Section 508 FPC:</strong> ${renderFpcCodes(finding.id)}</p>`
+          : '';
+      return `
       <details>
         <summary><strong>${escapeHtml(finding.title)}</strong> (rule: <code>${escapeHtml(finding.id)}</code>)</summary>
         <div class="finding-detail">
           <p>${renderDescriptionHtml(finding.description)}</p>
           ${renderWcagTags(finding.tags)}
+          ${fpcHtml}
           <p><strong>Affected elements (${finding.items.length}):</strong></p>
           ${renderAxeFindingItems(finding.items)}
           <button class="copy-finding-btn" data-copy-text="${escapeHtml(buildFindingCopyText(pageUrl, finding))}" aria-label="Copy finding to clipboard">Copy finding</button>
         </div>
-      </details>`
-    )
+      </details>`;
+    })
     .join('\n');
 }
 
