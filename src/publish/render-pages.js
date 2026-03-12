@@ -634,7 +634,7 @@ function renderUrlModal(entry, modalId) {
   <p>Lighthouse Accessibility Score: ${entry.lighthouse_scores ? entry.lighthouse_scores.accessibility : '—'}</p>
   <p>Axe findings: ${axeFindings.length}</p>
   ${renderAxeFindingsList(axeFindings, entry.url)}
-  <p><a href="axe-findings.json">Download full axe findings JSON</a></p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
   <div class="modal-footer">
     <button aria-label="Close dialog" data-close-modal="${escapeHtml(modalId)}">Close</button>
   </div>
@@ -810,7 +810,7 @@ function renderAxePatternsSection(topUrls = []) {
          and the <a href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf" target="_blank" rel="noreferrer">EN 301 549 v3.2.1 Table B.2</a>
          for additional detail on how accessibility requirements map to functional needs.</p>
     </details>
-    <p><a href="axe-findings.json">Download full axe findings JSON for this day</a></p>
+    <p><a href="axe-findings.json">Download full axe findings JSON for this day</a> | <a href="axe-findings.csv">Download full axe findings CSV for this day</a></p>
   </section>`;
 }
 
@@ -951,7 +951,7 @@ export function renderDailyReportPage(report) {
       <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)${renderAnchorLink('top-urls-heading', 'Top URLs by Traffic (Scanned)')}</h2>
       <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
       <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
-      <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
+      <p><a href="axe-findings.json">Download axe findings JSON for this day</a> | <a href="axe-findings.csv">Download axe findings CSV for this day</a></p>
       ${wrapTable(`<table id="top-urls-table">
         <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
         <thead>
