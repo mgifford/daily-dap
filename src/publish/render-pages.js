@@ -1089,7 +1089,7 @@ export function renderDailyReportPage(report) {
 </html>`;
 }
 
-export function renderDashboardPage({ latestReport, historyIndex = [], archiveUrl = null }) {
+export function renderDashboardPage({ latestReport, historyIndex = [], archiveUrl = null, archiveWindowDays = 14 }) {
   const historyLinks = historyIndex
     .map((entry) => `<li><a href="./daily/${entry.run_date}/index.html">${escapeHtml(entry.run_date)}</a> (${escapeHtml(entry.run_id)})</li>`)
     .join('\n');
@@ -1126,7 +1126,7 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
     ? `
     <section aria-labelledby="archive-heading">
       <h2 id="archive-heading">Report Archive${renderAnchorLink('archive-heading', 'Report Archive')}</h2>
-      <p>Reports older than 14 days are available as downloadable zip archives containing the full HTML report, JSON data, and CSV findings.</p>
+      <p>Reports older than ${archiveWindowDays} days are available as downloadable zip archives containing the full HTML report, JSON data, and CSV findings.</p>
       <p><a href="${escapeHtml(archiveUrl)}">Browse report archives &rarr;</a></p>
     </section>`
     : '';
@@ -1177,7 +1177,7 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
 </html>`;
 }
 
-export function renderArchiveIndexPage({ entries = [], generatedAt = null } = {}) {
+export function renderArchiveIndexPage({ entries = [], generatedAt = null, displayDays = 14 } = {}) {
   const sortedEntries = [...entries].sort((a, b) => b.run_date.localeCompare(a.run_date));
 
   const listItems = sortedEntries
@@ -1197,7 +1197,7 @@ export function renderArchiveIndexPage({ entries = [], generatedAt = null } = {}
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily DAP - Report Archives</title>
-  <meta name="description" content="Downloadable zip archives of Daily DAP reports older than 14 days." />
+  <meta name="description" content="Downloadable zip archives of Daily DAP reports older than ${displayDays} days." />
   ${renderSharedStyles()}
 </head>
 <body>
@@ -1205,7 +1205,7 @@ export function renderArchiveIndexPage({ entries = [], generatedAt = null } = {}
   <main id="main-content" class="site-main">
     <div class="page-intro">
       <h1 id="page-title">Report Archives${renderAnchorLink('page-title', 'Report Archives')}</h1>
-      <p>Daily DAP reports older than 14 days are stored here as downloadable zip archives. Each archive contains the full HTML report, JSON data files, and CSV accessibility findings for that day's scan.</p>
+      <p>Daily DAP reports older than ${displayDays} days are stored here as downloadable zip archives. Each archive contains the full HTML report, JSON data files, and CSV accessibility findings for that day's scan.</p>
       <p><a href="../index.html">&larr; Back to dashboard</a></p>
     </div>
 

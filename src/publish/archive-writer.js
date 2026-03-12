@@ -117,7 +117,8 @@ export async function writeCommittedSnapshot({
   const dashboardHtml = renderDashboardPage({
     latestReport: report,
     historyIndex: dashboardContext?.historyEntries ?? historyIndex.entries,
-    archiveUrl: dashboardContext?.archiveUrl ?? null
+    archiveUrl: dashboardContext?.archiveUrl ?? null,
+    archiveWindowDays: dashboardContext?.archiveWindowDays ?? 14
   });
   await fs.writeFile(dashboardPath, dashboardHtml, 'utf8');
 

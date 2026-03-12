@@ -489,13 +489,16 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
     logStageStart('PUBLISHING');
 
+    const displayDays = runtimeConfig.scan.dashboard_display_days ?? 14;
+
     const snapshotPaths = await writeCommittedSnapshot({
       repoRoot,
       report,
       historyIndex,
       dashboardContext: {
-        historyEntries: historyIndex.entries.slice(0, runtimeConfig.scan.dashboard_display_days ?? 14),
-        archiveUrl: historyIndex.entries.length > (runtimeConfig.scan.dashboard_display_days ?? 14) ? './archive/index.html' : null
+        historyEntries: historyIndex.entries.slice(0, displayDays),
+        archiveUrl: historyIndex.entries.length > displayDays ? './archive/index.html' : null,
+        archiveWindowDays: displayDays
       }
     });
 

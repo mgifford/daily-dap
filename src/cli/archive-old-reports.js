@@ -183,6 +183,9 @@ async function getLatestReportDate(reportsRoot, historyEntries) {
 function getArchiveCutoffDate(latestDate, displayDays) {
   const latest = new Date(`${latestDate}T00:00:00.000Z`);
   const cutoff = new Date(latest);
+  // Subtract (displayDays - 1) so exactly displayDays entries remain in the display window.
+  // e.g. with displayDays=14: entries for days 0..13 (today through 13 days ago) are kept,
+  // and anything before that cutoff date is archived.
   cutoff.setUTCDate(cutoff.getUTCDate() - displayDays + 1);
   return cutoff.toISOString().slice(0, 10);
 }
@@ -235,7 +238,8 @@ export async function archiveOldReports({ repoRoot, displayDays = DEFAULT_DISPLA
   const archiveEntries = await buildArchiveEntries(archiveDir);
   const archiveIndexHtml = renderArchiveIndexPage({
     entries: archiveEntries,
-    generatedAt: new Date().toISOString()
+    generatedAt: new Date().toISOString(),
+    displayDays
   });
   await fs.writeFile(path.join(archiveDir, 'index.html'), archiveIndexHtml, 'utf8');
 
