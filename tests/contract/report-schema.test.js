@@ -146,16 +146,19 @@ test('snapshot writer and artifact manifest stay in sync', async () => {
   const historyPath = path.join(tempRoot, 'docs', 'reports', 'history.json');
   const dashboardPath = path.join(tempRoot, 'docs', 'reports', 'index.html');
   const axeFindingsPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'axe-findings.json');
+  const axeFindingsCsvPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'axe-findings.csv');
 
   const reportStat = await fs.stat(reportPath);
   const historyStat = await fs.stat(historyPath);
   const dashboardStat = await fs.stat(dashboardPath);
   const axeFindingsStat = await fs.stat(axeFindingsPath);
+  const axeFindingsCsvStat = await fs.stat(axeFindingsCsvPath);
 
   assert.equal(reportStat.isFile(), true);
   assert.equal(historyStat.isFile(), true);
   assert.equal(dashboardStat.isFile(), true);
   assert.equal(axeFindingsStat.isFile(), true, 'axe-findings.json should be written');
+  assert.equal(axeFindingsCsvStat.isFile(), true, 'axe-findings.csv should be written');
 
   const axeFindingsRaw = await fs.readFile(axeFindingsPath, 'utf8');
   const axeFindings = JSON.parse(axeFindingsRaw);
@@ -163,6 +166,14 @@ test('snapshot writer and artifact manifest stay in sync', async () => {
   assert.ok(typeof axeFindings.total_urls === 'number', 'axe-findings should have total_urls');
   assert.ok(typeof axeFindings.total_findings === 'number', 'axe-findings should have total_findings');
   assert.ok(Array.isArray(axeFindings.urls), 'axe-findings should have urls array');
+
+  const axeFindingsCsvRaw = await fs.readFile(axeFindingsCsvPath, 'utf8');
+  const csvLines = axeFindingsCsvRaw.trim().split('\n');
+  assert.ok(csvLines.length >= 1, 'axe-findings.csv should have at least a header row');
+  assert.ok(
+    csvLines[0].startsWith('url,scan_status,finding_id'),
+    'axe-findings.csv should have expected header columns'
+  );
 
   assert.equal(manifest.files.some((file) => file.path === `docs/reports/daily/${report.run_date}/report.json`), true);
   assert.equal(manifest.files.some((file) => file.path === 'docs/reports/history.json'), true);
