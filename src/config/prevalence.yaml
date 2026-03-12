@@ -1,6 +1,7 @@
 scan:
   url_limit: 100
   history_lookback_days: 31
+  dashboard_display_days: 14
   traffic_window_mode: daily
 
 impact:

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage, renderDashboardPage, buildFindingCopyText, plainTextDescription } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, buildFindingCopyText, plainTextDescription } from '../../src/publish/render-pages.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {
@@ -979,6 +979,101 @@ test('renderDailyReportPage modal headings do not have anchor links', () => {
   const modalHeadingMatch = html.match(/<h2 id="modal-url-0-title"[^>]*>[\s\S]*?<\/h2>/);
   assert.ok(modalHeadingMatch, 'Modal heading should be present');
   assert.ok(!modalHeadingMatch[0].includes('heading-anchor'), 'Modal heading should not have a heading-anchor link');
+});
+
+test('renderDashboardPage shows archive section when archiveUrl is provided', () => {
+  const historyEntries = [
+    { run_date: '2026-03-09', run_id: 'run-2026-03-09-abc', page_path: 'daily/2026-03-09/index.html' }
+  ];
+  const html = renderDashboardPage({
+    latestReport: minimalReport,
+    historyIndex: historyEntries,
+    archiveUrl: './archive/index.html'
+  });
+
+  assert.ok(html.includes('id="archive-heading"'), 'Archive section heading should be present');
+  assert.ok(html.includes('Report Archive'), 'Archive section heading text should be present');
+  assert.ok(html.includes('href="./archive/index.html"'), 'Archive link should use the provided archiveUrl');
+  assert.ok(html.includes('Browse report archives'), 'Archive link text should be present');
+});
+
+test('renderDashboardPage does not show archive section when archiveUrl is null', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [], archiveUrl: null });
+
+  assert.ok(!html.includes('id="archive-heading"'), 'Archive section should not be present when archiveUrl is null');
+  assert.ok(!html.includes('Browse report archives'), 'Archive link should not appear when archiveUrl is null');
+});
+
+test('renderDashboardPage does not show archive section when archiveUrl is omitted', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [] });
+
+  assert.ok(!html.includes('id="archive-heading"'), 'Archive section should not be present when archiveUrl is not provided');
+});
+
+test('renderArchiveIndexPage renders archive entries with download links', () => {
+  const entries = [
+    { run_date: '2026-01-15', zip_filename: '2026-01-15.zip', archived_at: '2026-02-01T12:00:00.000Z' },
+    { run_date: '2026-01-16', zip_filename: '2026-01-16.zip', archived_at: '2026-02-01T12:00:00.000Z' }
+  ];
+  const html = renderArchiveIndexPage({ entries, generatedAt: '2026-02-01T12:00:00.000Z' });
+
+  assert.ok(html.includes('<title>Daily DAP - Report Archives</title>'), 'Page title should be set');
+  assert.ok(html.includes('id="archives-heading"'), 'Archives section heading should be present');
+  assert.ok(html.includes('href="2026-01-15.zip"'), 'Link to first zip should be present');
+  assert.ok(html.includes('href="2026-01-16.zip"'), 'Link to second zip should be present');
+  assert.ok(html.includes('download'), 'Zip links should use download attribute');
+  assert.ok(html.includes('href="../index.html"'), 'Back to dashboard link should be present');
+});
+
+test('renderArchiveIndexPage sorts entries newest first', () => {
+  const entries = [
+    { run_date: '2026-01-10', zip_filename: '2026-01-10.zip', archived_at: null },
+    { run_date: '2026-01-20', zip_filename: '2026-01-20.zip', archived_at: null },
+    { run_date: '2026-01-15', zip_filename: '2026-01-15.zip', archived_at: null }
+  ];
+  const html = renderArchiveIndexPage({ entries });
+
+  const idx10 = html.indexOf('2026-01-10.zip');
+  const idx15 = html.indexOf('2026-01-15.zip');
+  const idx20 = html.indexOf('2026-01-20.zip');
+
+  assert.ok(idx20 < idx15, '2026-01-20 should appear before 2026-01-15');
+  assert.ok(idx15 < idx10, '2026-01-15 should appear before 2026-01-10');
+});
+
+test('renderArchiveIndexPage shows empty message when no entries', () => {
+  const html = renderArchiveIndexPage({ entries: [] });
+
+  assert.ok(html.includes('No archived reports yet'), 'Should show empty message when no entries');
+  assert.ok(!html.includes('<li>'), 'Should not render list items when no entries');
+});
+
+test('renderArchiveIndexPage escapes HTML in entry data', () => {
+  const entries = [
+    { run_date: '2026-01-15', zip_filename: '2026-01-15.zip', archived_at: '<script>alert(1)</script>' }
+  ];
+  const html = renderArchiveIndexPage({ entries });
+
+  assert.ok(!html.includes('<script>alert(1)</script>'), 'Script tag should be escaped in archived_at');
+  assert.ok(html.includes('&lt;script&gt;'), 'Script tag should be HTML-escaped');
+});
+
+test('renderArchiveRedirectStub renders redirect page with meta-refresh', () => {
+  const html = renderArchiveRedirectStub('2026-01-15');
+
+  assert.ok(html.includes('http-equiv="refresh"'), 'Should include meta refresh');
+  assert.ok(html.includes('url=../../archive/index.html'), 'Meta refresh should point to archive');
+  assert.ok(html.includes('data-archived="true"'), 'Should include data-archived marker');
+  assert.ok(html.includes('2026-01-15'), 'Should include the run date');
+  assert.ok(html.includes('href="../../archive/index.html"'), 'Should include link to archive');
+  assert.ok(html.includes('href="../../index.html"'), 'Should include link back to dashboard');
+});
+
+test('renderArchiveRedirectStub escapes HTML in run date', () => {
+  const html = renderArchiveRedirectStub('<script>xss</script>');
+
+  assert.ok(!html.includes('<script>xss</script>'), 'Script tag should be escaped');
+  assert.ok(html.includes('&lt;script&gt;xss&lt;/script&gt;'), 'Script tag should be HTML-escaped');
 });
 
 test('renderDailyReportPage shows FPC codes in individual axe findings within URL modals', () => {
