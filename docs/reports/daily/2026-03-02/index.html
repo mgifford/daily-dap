@@ -3,41 +3,205 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily DAP Accessibility Report - 2026-03-02</title>
+  <title>Daily DAP Report - 2026-03-02</title>
+  <meta name="description" content="Daily accessibility and performance scan results for the top U.S. government URLs on 2026-03-02, powered by Lighthouse and axe-core." />
+  
   <style>
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1b1b1b;
+      background: #f5f7fa;
+    }
+    a { color: #0050b3; }
+    a:hover { color: #003d8a; }
+    h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+
+    /* ---------- Heading anchor links ---------- */
+    .heading-anchor {
+      opacity: 0;
+      font-size: 0.75em;
+      text-decoration: none;
+      margin-left: 0.4em;
+      vertical-align: middle;
+      color: inherit;
+    }
+    h1:hover .heading-anchor,
+    h2:hover .heading-anchor,
+    h3:hover .heading-anchor,
+    h1:focus-within .heading-anchor,
+    h2:focus-within .heading-anchor,
+    h3:focus-within .heading-anchor,
+    .heading-anchor:focus { opacity: 1; }
+
+    ul { padding-left: 1.5rem; }
+    code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
+    pre code { background: none; padding: 0; }
+
+    /* ---------- Skip link ---------- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: #0050b3;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      z-index: 9999;
+      font-weight: bold;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ---------- Site header ---------- */
+    .site-header {
+      background: #0050b3;
+      color: #fff;
+      padding: 0.75rem 1rem;
+    }
+    .site-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .site-header .site-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .site-header .site-title:hover { text-decoration: underline; }
+    .site-header nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .site-header nav a { color: #d4e4ff; text-decoration: none; font-size: 0.9rem; }
+    .site-header nav a:hover { color: #fff; text-decoration: underline; }
+    .github-link::before { content: ""; }
+
+    /* ---------- Main wrapper ---------- */
+    .site-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .page-intro {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #0050b3;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .page-intro h1 { margin-top: 0; }
+
+    /* ---------- Content cards ---------- */
+    section {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    section > h2:first-of-type { margin-top: 0; }
+
+    /* ---------- Score badges ---------- */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .score-card {
+      background: #f0f5ff;
+      border: 1px solid #c6d9ff;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .score-card .score-label { font-size: 0.78rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    .score-card .score-value { font-size: 2rem; font-weight: 700; color: #0050b3; line-height: 1.1; }
+
+    /* ---------- Tables ---------- */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d0d7de;
+      vertical-align: top;
+    }
+    th {
+      background: #f0f3f8;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) { background: #fafbfc; }
+    tbody tr:hover { background: #f0f5ff; }
+    tr.monthly-avg { background: #eef3fa; font-weight: 600; }
+    tr.monthly-avg:hover { background: #dde8f7; }
+
+    /* ---------- Buttons ---------- */
+    .details-btn {
+      background: #0050b3;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+    .details-btn:hover { background: #003d8a; }
+    .details-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+
+    /* ---------- Modals ---------- */
     .axe-modal {
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 1.5rem;
       max-width: 800px;
       width: 90vw;
-      max-height: 80vh;
+      max-height: 85vh;
       overflow-y: auto;
     }
-    .axe-modal::backdrop {
-      background: rgba(0, 0, 0, 0.5);
-    }
+    .axe-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
     .modal-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      gap: 1rem;
       margin-bottom: 1rem;
     }
-    .modal-header h2 {
-      margin: 0;
-    }
+    .modal-header h2 { margin: 0; }
     .modal-close {
       background: none;
       border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
       font-size: 1.2rem;
-      padding: 0.2rem 0.5rem;
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .modal-footer {
-      margin-top: 1rem;
-      text-align: right;
-    }
+    .modal-close:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .modal-footer { margin-top: 1rem; text-align: right; }
     .axe-item {
       border-left: 3px solid #d9534f;
       margin: 0.5rem 0;
@@ -55,36 +219,98 @@
       border: 1px solid #e0e0e0;
       margin-top: 0.25rem;
     }
-    details summary {
+    .fix-list { margin: 0.25rem 0 0.5rem 1.5rem; padding: 0; }
+    .fix-list li { margin: 0.2rem 0; }
+    .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: #444; }
+    details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- Copy finding button ---------- */
+    .copy-finding-btn {
+      background: #f0f3f8;
+      border: 1px solid #c6d9ff;
+      border-radius: 4px;
+      color: #0050b3;
       cursor: pointer;
-      padding: 0.4rem 0;
-    }
-    .details-btn {
-      background: #0071bc;
-      border: none;
-      border-radius: 3px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.85em;
-      padding: 0.25rem 0.6rem;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
+      margin-top: 0.5rem;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
     }
-    .details-btn:hover {
-      background: #205493;
+    .copy-finding-btn:hover { background: #dde8f7; border-color: #0050b3; }
+    .copy-finding-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .copy-finding-btn.copied { background: #d4edda; border-color: #28a745; color: #155724; }
+
+    /* ---------- URL cells ---------- */
+    .url-cell {
+      word-break: break-all;
+      overflow-wrap: break-word;
+      max-width: 280px;
+    }
+
+    /* ---------- Site footer ---------- */
+    .site-footer {
+      background: #1b1b2f;
+      color: #ccc;
+      padding: 1.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-footer a { color: #a8c8ff; }
+    .site-footer a:hover { color: #fff; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 640px) {
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.1rem; }
+      .site-header-inner { flex-direction: column; align-items: flex-start; }
+      .score-card .score-value { font-size: 1.5rem; }
+      th, td { padding: 0.4rem 0.5rem; }
+      .axe-modal {
+        position: fixed;
+        inset: 0;
+        max-width: 100%;
+        width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        margin: 0;
+      }
+      .site-main { padding: 1rem 0.75rem 2rem; }
+      section { padding: 1rem; }
     }
   </style>
 </head>
 <body>
-  <h1>Daily DAP Accessibility Report - 2026-03-02</h1>
-  <p>Run ID: run-2026-03-02-91d77dd91c</p>
-  <p>Status: success</p>
-  <p>Source data date: 2026-02-28</p>
-  <p>Report generated at: 2026-03-02T09:34:05.518Z</p>
-  <p><a href="../../index.html">Back to dashboard</a></p>
-
   
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <a class="site-title" href="../../index.html">Daily DAP</a>
+    <nav aria-label="Site navigation">
+      <a href="../../index.html">Dashboard</a>
+      <a class="github-link" href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </div>
+</header>
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1 id="page-title">Daily DAP Accessibility Report &mdash; 2026-03-02<a href="#page-title" class="heading-anchor" aria-label="Link to Daily DAP Accessibility Report — 2026-03-02"><span aria-hidden="true">#</span></a></h1>
+      <p>Run ID: run-2026-03-02-91d77dd91c &middot; Status: success &middot; Source data: 2026-02-28 &middot; Generated: 2026-03-02T09:34:05.518Z</p>
+    </div>
+
+    
   <section aria-labelledby="dap-context-heading">
-    <h2 id="dap-context-heading">About These Reports</h2>
+    <h2 id="dap-context-heading">About These Reports<a href="#dap-context-heading" class="heading-anchor" aria-label="Link to About These Reports"><span aria-hidden="true">#</span></a></h2>
     <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
     <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
     <ul>
@@ -97,17 +323,18 @@
     <p>Traffic data reflects daily visitor counts from DAP. URLs are ranked by page load count, ensuring the most-used government pages are prioritized for quality measurement.</p>
   </section>
 
-  
+    
   <section aria-labelledby="narrative-heading">
-    <h2 id="narrative-heading">Accessibility Trend Narrative</h2>
+    <h2 id="narrative-heading">Accessibility Trend Narrative<a href="#narrative-heading" class="heading-anchor" aria-label="Link to Accessibility Trend Narrative"><span aria-hidden="true">#</span></a></h2>
     <p>Over the past <strong>4 days</strong> of data (2026-02-26 to 2026-03-01), government website accessibility scores have <strong>improved</strong> (+25.05 points, from 68 to 93.05). Performance scores have improved (+11.49 points, from 38 to 49.49).</p>
     <p>Today's aggregate accessibility score of <strong>91.41</strong> reflects the mean Lighthouse accessibility score across 100 successfully scanned government URLs. A score above 90 indicates generally strong compliance with WCAG automated checks, though manual testing is always recommended to fully assess accessibility.</p>
   </section>
 
-  
+    
   <section aria-labelledby="day-comparison-heading">
-    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs 2026-03-01)</h2>
-    <table border="1" cellpadding="6" cellspacing="0">
+    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs 2026-03-01)<a href="#day-comparison-heading" class="heading-anchor" aria-label="Link to Day-over-Day Comparison (vs 2026-03-01)"><span aria-hidden="true">#</span></a></h2>
+    <div class="table-scroll"><table>
+      <caption>Score comparison between 2026-03-01 and 2026-03-02</caption>
       <thead>
         <tr>
           <th scope="col">Metric</th>
@@ -122,69 +349,86 @@
         <tr><td>Best Practices</td><td>85.12</td><td>85.57</td><td><span style="color:#2e7d32" aria-label="increased by 0.45">+0.45</span></td></tr>
         <tr><td>SEO</td><td>89.28</td><td>88.93</td><td><span style="color:#c62828" aria-label="decreased by 0.35">-0.35</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
-  
+    
 
-  <h2>URL Counts</h2>
-  <ul>
-    <li>Processed: 100</li>
-    <li>Succeeded: 100</li>
-    <li>Failed: 0</li>
-    <li>Excluded: 0</li>
-  </ul>
+    <section aria-labelledby="scores-heading">
+      <h2 id="scores-heading">Aggregate Scores<a href="#scores-heading" class="heading-anchor" aria-label="Link to Aggregate Scores"><span aria-hidden="true">#</span></a></h2>
+      
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-label">Performance</div>
+          <div class="score-value">49.37</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Accessibility</div>
+          <div class="score-value">91.41</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Best Practices</div>
+          <div class="score-value">85.57</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">SEO</div>
+          <div class="score-value">88.93</div>
+        </div>
+      </div>
+      <ul>
+        <li>Processed: 100</li>
+        <li>Succeeded: 100</li>
+        <li>Failed: 0</li>
+        <li>Excluded: 0</li>
+      </ul>
+    </section>
 
-  <h2>Aggregate Scores</h2>
-  
-  <ul>
-    <li>Performance: 49.37</li>
-    <li>Accessibility: 91.41</li>
-    <li>Best Practices: 85.57</li>
-    <li>SEO: 88.93</li>
-  </ul>
-
-  
-  <h2>Estimated Impact (daily)</h2>
+    
+  <h2 id="estimated-impact-heading">Estimated Impact (daily)<a href="#estimated-impact-heading" class="heading-anchor" aria-label="Link to Estimated Impact (daily)"><span aria-hidden="true">#</span></a></h2>
   <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>
 
-  <h2>History</h2>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead><tr><th>Date</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th></tr></thead>
-    <tbody>
-      <tr style="background-color: #f0f0f0; font-weight: bold;"><td>2026-03 (avg)</td><td>49.49</td><td>93.05</td><td>85.12</td><td>89.28</td></tr>
-<tr style="background-color: #f0f0f0; font-weight: bold;"><td>2026-02 (avg)</td><td>44.78</td><td>84.54</td><td>82.24</td><td>87.41</td></tr>
+    <section aria-labelledby="history-heading">
+      <h2 id="history-heading">History<a href="#history-heading" class="heading-anchor" aria-label="Link to History"><span aria-hidden="true">#</span></a></h2>
+      <div class="table-scroll"><table>
+        <caption>Daily aggregate Lighthouse scores over the past 31 days</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
+        <tbody>
+          <tr class="monthly-avg"><td>2026-03 (avg)</td><td>49.49</td><td>93.05</td><td>85.12</td><td>89.28</td></tr>
+<tr class="monthly-avg"><td>2026-02 (avg)</td><td>44.78</td><td>84.54</td><td>82.24</td><td>87.41</td></tr>
 <tr><td>2026-03-01</td><td>49.49</td><td>93.05</td><td>85.12</td><td>89.28</td></tr>
 <tr><td>2026-02-28</td><td>48.55</td><td>92.72</td><td>85</td><td>89.39</td></tr>
 <tr><td>2026-02-27</td><td>47.78</td><td>92.91</td><td>84.71</td><td>89.85</td></tr>
 <tr><td>2026-02-26</td><td>38</td><td>68</td><td>77</td><td>83</td></tr>
-    </tbody>
-  </table>
+        </tbody>
+      </table></div>
+    </section>
 
-  <h2>Top URLs by Traffic (Scanned)</h2>
-  <p>Showing up to 100 highest-traffic URLs from the latest available DAP day in this run.</p>
-  <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0–100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
-  <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <thead>
-      <tr>
-        <th>URL</th>
-        <th>Traffic</th>
-        <th>Scan status</th>
-        <th>CWV</th>
-        <th>LH Performance</th>
-        <th>LH Accessibility</th>
-        <th>LH Best Practices</th>
-        <th>LH SEO</th>
-        <th>Total findings</th>
-        <th>Critical/Serious</th>
-        <th>Failure reason</th>
-        <th>Axe details</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-  <td><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></td>
+    <section aria-labelledby="top-urls-heading">
+      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)<a href="#top-urls-heading" class="heading-anchor" aria-label="Link to Top URLs by Traffic (Scanned)"><span aria-hidden="true">#</span></a></h2>
+      <p>Showing up to 100 highest-traffic URLs from the latest available DAP day in this run.</p>
+      <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
+      <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
+      <div class="table-scroll"><table>
+        <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
+        <thead>
+          <tr>
+            <th scope="col">URL</th>
+            <th scope="col">Traffic</th>
+            <th scope="col">Scan status</th>
+            <th scope="col">CWV</th>
+            <th scope="col">LH Performance</th>
+            <th scope="col">LH Accessibility</th>
+            <th scope="col">LH Best Practices</th>
+            <th scope="col">LH SEO</th>
+            <th scope="col">Total findings</th>
+            <th scope="col">Critical/Serious</th>
+            <th scope="col">Failure reason</th>
+            <th scope="col">Axe details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+  <td class="url-cell"><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></td>
   <td>8776413</td>
   <td>success</td>
   <td>poor</td>
@@ -198,7 +442,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-0">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubmed.ncbi.nlm.nih.gov</a></td>
+  <td class="url-cell"><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubmed.ncbi.nlm.nih.gov</a></td>
   <td>3973051</td>
   <td>success</td>
   <td>poor</td>
@@ -212,7 +456,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-1">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://pmc.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pmc.ncbi.nlm.nih.gov</a></td>
+  <td class="url-cell"><a href="https://pmc.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pmc.ncbi.nlm.nih.gov</a></td>
   <td>3356941</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -226,7 +470,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-2">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://irs.gov" target="_blank" rel="noreferrer">https://irs.gov</a></td>
+  <td class="url-cell"><a href="https://irs.gov" target="_blank" rel="noreferrer">https://irs.gov</a></td>
   <td>3114913</td>
   <td>success</td>
   <td>poor</td>
@@ -240,7 +484,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-3">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://ncbi.nlm.nih.gov</a></td>
+  <td class="url-cell"><a href="https://ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://ncbi.nlm.nih.gov</a></td>
   <td>2811805</td>
   <td>success</td>
   <td>poor</td>
@@ -254,7 +498,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-4">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://forecast.weather.gov" target="_blank" rel="noreferrer">https://forecast.weather.gov</a></td>
+  <td class="url-cell"><a href="https://forecast.weather.gov" target="_blank" rel="noreferrer">https://forecast.weather.gov</a></td>
   <td>1743182</td>
   <td>success</td>
   <td>poor</td>
@@ -268,7 +512,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-5">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://informeddelivery.usps.com" target="_blank" rel="noreferrer">https://informeddelivery.usps.com</a></td>
+  <td class="url-cell"><a href="https://informeddelivery.usps.com" target="_blank" rel="noreferrer">https://informeddelivery.usps.com</a></td>
   <td>1558624</td>
   <td>success</td>
   <td>poor</td>
@@ -282,7 +526,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-6">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://usps.com" target="_blank" rel="noreferrer">https://usps.com</a></td>
+  <td class="url-cell"><a href="https://usps.com" target="_blank" rel="noreferrer">https://usps.com</a></td>
   <td>1557972</td>
   <td>success</td>
   <td>poor</td>
@@ -296,7 +540,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-7">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://justice.gov" target="_blank" rel="noreferrer">https://justice.gov</a></td>
+  <td class="url-cell"><a href="https://justice.gov" target="_blank" rel="noreferrer">https://justice.gov</a></td>
   <td>1050113</td>
   <td>success</td>
   <td>poor</td>
@@ -310,7 +554,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-8">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://secure.login.gov" target="_blank" rel="noreferrer">https://secure.login.gov</a></td>
+  <td class="url-cell"><a href="https://secure.login.gov" target="_blank" rel="noreferrer">https://secure.login.gov</a></td>
   <td>976614</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -324,7 +568,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-9">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ais.usvisa-info.com" target="_blank" rel="noreferrer">https://ais.usvisa-info.com</a></td>
+  <td class="url-cell"><a href="https://ais.usvisa-info.com" target="_blank" rel="noreferrer">https://ais.usvisa-info.com</a></td>
   <td>851478</td>
   <td>success</td>
   <td>poor</td>
@@ -338,7 +582,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-10">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ssa.gov" target="_blank" rel="noreferrer">https://ssa.gov</a></td>
+  <td class="url-cell"><a href="https://ssa.gov" target="_blank" rel="noreferrer">https://ssa.gov</a></td>
   <td>699629</td>
   <td>success</td>
   <td>poor</td>
@@ -352,7 +596,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-11">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></td>
+  <td class="url-cell"><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></td>
   <td>650517</td>
   <td>success</td>
   <td>poor</td>
@@ -366,7 +610,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-12">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://webbook.nist.gov" target="_blank" rel="noreferrer">https://webbook.nist.gov</a></td>
+  <td class="url-cell"><a href="https://webbook.nist.gov" target="_blank" rel="noreferrer">https://webbook.nist.gov</a></td>
   <td>621127</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -380,7 +624,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-13">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://weather.gov" target="_blank" rel="noreferrer">https://weather.gov</a></td>
+  <td class="url-cell"><a href="https://weather.gov" target="_blank" rel="noreferrer">https://weather.gov</a></td>
   <td>619674</td>
   <td>success</td>
   <td>poor</td>
@@ -394,7 +638,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-14">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://secure.ssa.gov" target="_blank" rel="noreferrer">https://secure.ssa.gov</a></td>
+  <td class="url-cell"><a href="https://secure.ssa.gov" target="_blank" rel="noreferrer">https://secure.ssa.gov</a></td>
   <td>618165</td>
   <td>success</td>
   <td>poor</td>
@@ -408,7 +652,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-15">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://va.gov" target="_blank" rel="noreferrer">https://va.gov</a></td>
+  <td class="url-cell"><a href="https://va.gov" target="_blank" rel="noreferrer">https://va.gov</a></td>
   <td>599472</td>
   <td>success</td>
   <td>poor</td>
@@ -422,7 +666,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-16">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></td>
+  <td class="url-cell"><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></td>
   <td>585801</td>
   <td>success</td>
   <td>poor</td>
@@ -436,7 +680,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-17">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://cdc.gov" target="_blank" rel="noreferrer">https://cdc.gov</a></td>
+  <td class="url-cell"><a href="https://cdc.gov" target="_blank" rel="noreferrer">https://cdc.gov</a></td>
   <td>519810</td>
   <td>success</td>
   <td>poor</td>
@@ -450,7 +694,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-18">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fsa.usda.gov" target="_blank" rel="noreferrer">https://fsa.usda.gov</a></td>
+  <td class="url-cell"><a href="https://fsa.usda.gov" target="_blank" rel="noreferrer">https://fsa.usda.gov</a></td>
   <td>502983</td>
   <td>success</td>
   <td>poor</td>
@@ -464,7 +708,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-19">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://nps.gov" target="_blank" rel="noreferrer">https://nps.gov</a></td>
+  <td class="url-cell"><a href="https://nps.gov" target="_blank" rel="noreferrer">https://nps.gov</a></td>
   <td>485640</td>
   <td>success</td>
   <td>poor</td>
@@ -478,7 +722,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-20">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://medlineplus.gov" target="_blank" rel="noreferrer">https://medlineplus.gov</a></td>
+  <td class="url-cell"><a href="https://medlineplus.gov" target="_blank" rel="noreferrer">https://medlineplus.gov</a></td>
   <td>481497</td>
   <td>success</td>
   <td>poor</td>
@@ -492,7 +736,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-21">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://cisa.gov" target="_blank" rel="noreferrer">https://cisa.gov</a></td>
+  <td class="url-cell"><a href="https://cisa.gov" target="_blank" rel="noreferrer">https://cisa.gov</a></td>
   <td>466558</td>
   <td>success</td>
   <td>poor</td>
@@ -506,7 +750,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-22">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fas.usda.gov" target="_blank" rel="noreferrer">https://fas.usda.gov</a></td>
+  <td class="url-cell"><a href="https://fas.usda.gov" target="_blank" rel="noreferrer">https://fas.usda.gov</a></td>
   <td>458282</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -520,7 +764,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-23">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://usitc.gov" target="_blank" rel="noreferrer">https://usitc.gov</a></td>
+  <td class="url-cell"><a href="https://usitc.gov" target="_blank" rel="noreferrer">https://usitc.gov</a></td>
   <td>413212</td>
   <td>success</td>
   <td>poor</td>
@@ -534,7 +778,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-24">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://reg.usps.com" target="_blank" rel="noreferrer">https://reg.usps.com</a></td>
+  <td class="url-cell"><a href="https://reg.usps.com" target="_blank" rel="noreferrer">https://reg.usps.com</a></td>
   <td>377533</td>
   <td>success</td>
   <td>poor</td>
@@ -548,7 +792,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-25">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://gsaadvantage.gov" target="_blank" rel="noreferrer">https://gsaadvantage.gov</a></td>
+  <td class="url-cell"><a href="https://gsaadvantage.gov" target="_blank" rel="noreferrer">https://gsaadvantage.gov</a></td>
   <td>338418</td>
   <td>success</td>
   <td>poor</td>
@@ -562,7 +806,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-26">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://science.nasa.gov" target="_blank" rel="noreferrer">https://science.nasa.gov</a></td>
+  <td class="url-cell"><a href="https://science.nasa.gov" target="_blank" rel="noreferrer">https://science.nasa.gov</a></td>
   <td>305359</td>
   <td>success</td>
   <td>poor</td>
@@ -576,7 +820,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-27">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></td>
+  <td class="url-cell"><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></td>
   <td>292049</td>
   <td>success</td>
   <td>poor</td>
@@ -590,7 +834,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-28">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://myaccount.uscis.gov" target="_blank" rel="noreferrer">https://myaccount.uscis.gov</a></td>
+  <td class="url-cell"><a href="https://myaccount.uscis.gov" target="_blank" rel="noreferrer">https://myaccount.uscis.gov</a></td>
   <td>279094</td>
   <td>success</td>
   <td>poor</td>
@@ -604,7 +848,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-29">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://radar.weather.gov" target="_blank" rel="noreferrer">https://radar.weather.gov</a></td>
+  <td class="url-cell"><a href="https://radar.weather.gov" target="_blank" rel="noreferrer">https://radar.weather.gov</a></td>
   <td>273179</td>
   <td>success</td>
   <td>poor</td>
@@ -618,7 +862,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-30">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://usajobs.gov" target="_blank" rel="noreferrer">https://usajobs.gov</a></td>
+  <td class="url-cell"><a href="https://usajobs.gov" target="_blank" rel="noreferrer">https://usajobs.gov</a></td>
   <td>267735</td>
   <td>success</td>
   <td>poor</td>
@@ -632,7 +876,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-31">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://nasa.gov" target="_blank" rel="noreferrer">https://nasa.gov</a></td>
+  <td class="url-cell"><a href="https://nasa.gov" target="_blank" rel="noreferrer">https://nasa.gov</a></td>
   <td>259972</td>
   <td>success</td>
   <td>poor</td>
@@ -646,7 +890,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-32">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://tsp.gov" target="_blank" rel="noreferrer">https://tsp.gov</a></td>
+  <td class="url-cell"><a href="https://tsp.gov" target="_blank" rel="noreferrer">https://tsp.gov</a></td>
   <td>259504</td>
   <td>success</td>
   <td>poor</td>
@@ -660,7 +904,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-33">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://sec.gov" target="_blank" rel="noreferrer">https://sec.gov</a></td>
+  <td class="url-cell"><a href="https://sec.gov" target="_blank" rel="noreferrer">https://sec.gov</a></td>
   <td>247791</td>
   <td>success</td>
   <td>poor</td>
@@ -674,7 +918,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-34">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://americanenglish.state.gov" target="_blank" rel="noreferrer">https://americanenglish.state.gov</a></td>
+  <td class="url-cell"><a href="https://americanenglish.state.gov" target="_blank" rel="noreferrer">https://americanenglish.state.gov</a></td>
   <td>241424</td>
   <td>success</td>
   <td>poor</td>
@@ -688,7 +932,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-35">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://eric.ed.gov" target="_blank" rel="noreferrer">https://eric.ed.gov</a></td>
+  <td class="url-cell"><a href="https://eric.ed.gov" target="_blank" rel="noreferrer">https://eric.ed.gov</a></td>
   <td>240086</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -702,7 +946,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-36">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://cpsc.gov" target="_blank" rel="noreferrer">https://cpsc.gov</a></td>
+  <td class="url-cell"><a href="https://cpsc.gov" target="_blank" rel="noreferrer">https://cpsc.gov</a></td>
   <td>226496</td>
   <td>success</td>
   <td>poor</td>
@@ -716,7 +960,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-37">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://archives.gov" target="_blank" rel="noreferrer">https://archives.gov</a></td>
+  <td class="url-cell"><a href="https://archives.gov" target="_blank" rel="noreferrer">https://archives.gov</a></td>
   <td>223876</td>
   <td>success</td>
   <td>poor</td>
@@ -730,7 +974,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-38">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ncei.noaa.gov" target="_blank" rel="noreferrer">https://ncei.noaa.gov</a></td>
+  <td class="url-cell"><a href="https://ncei.noaa.gov" target="_blank" rel="noreferrer">https://ncei.noaa.gov</a></td>
   <td>222312</td>
   <td>success</td>
   <td>poor</td>
@@ -744,7 +988,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-39">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://egov.uscis.gov" target="_blank" rel="noreferrer">https://egov.uscis.gov</a></td>
+  <td class="url-cell"><a href="https://egov.uscis.gov" target="_blank" rel="noreferrer">https://egov.uscis.gov</a></td>
   <td>217025</td>
   <td>success</td>
   <td>poor</td>
@@ -758,7 +1002,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-40">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://esta.cbp.dhs.gov" target="_blank" rel="noreferrer">https://esta.cbp.dhs.gov</a></td>
+  <td class="url-cell"><a href="https://esta.cbp.dhs.gov" target="_blank" rel="noreferrer">https://esta.cbp.dhs.gov</a></td>
   <td>207456</td>
   <td>success</td>
   <td>poor</td>
@@ -772,7 +1016,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-41">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://www.va.gov" target="_blank" rel="noreferrer">https://www.va.gov</a></td>
+  <td class="url-cell"><a href="https://www.va.gov" target="_blank" rel="noreferrer">https://www.va.gov</a></td>
   <td>202808</td>
   <td>success</td>
   <td>poor</td>
@@ -786,7 +1030,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-42">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fns.usda.gov" target="_blank" rel="noreferrer">https://fns.usda.gov</a></td>
+  <td class="url-cell"><a href="https://fns.usda.gov" target="_blank" rel="noreferrer">https://fns.usda.gov</a></td>
   <td>202103</td>
   <td>success</td>
   <td>poor</td>
@@ -800,7 +1044,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-43">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></td>
+  <td class="url-cell"><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></td>
   <td>202077</td>
   <td>success</td>
   <td>poor</td>
@@ -814,7 +1058,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-44">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fda.gov" target="_blank" rel="noreferrer">https://fda.gov</a></td>
+  <td class="url-cell"><a href="https://fda.gov" target="_blank" rel="noreferrer">https://fda.gov</a></td>
   <td>193872</td>
   <td>success</td>
   <td>poor</td>
@@ -828,7 +1072,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-45">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://consumerfinance.gov" target="_blank" rel="noreferrer">https://consumerfinance.gov</a></td>
+  <td class="url-cell"><a href="https://consumerfinance.gov" target="_blank" rel="noreferrer">https://consumerfinance.gov</a></td>
   <td>191909</td>
   <td>success</td>
   <td>poor</td>
@@ -842,7 +1086,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-46">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://catalog.data.gov" target="_blank" rel="noreferrer">https://catalog.data.gov</a></td>
+  <td class="url-cell"><a href="https://catalog.data.gov" target="_blank" rel="noreferrer">https://catalog.data.gov</a></td>
   <td>177883</td>
   <td>success</td>
   <td>poor</td>
@@ -856,7 +1100,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-47">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></td>
+  <td class="url-cell"><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></td>
   <td>177344</td>
   <td>success</td>
   <td>poor</td>
@@ -870,7 +1114,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-48">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://medicare.gov" target="_blank" rel="noreferrer">https://medicare.gov</a></td>
+  <td class="url-cell"><a href="https://medicare.gov" target="_blank" rel="noreferrer">https://medicare.gov</a></td>
   <td>174378</td>
   <td>success</td>
   <td>poor</td>
@@ -884,7 +1128,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-49">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://osti.gov" target="_blank" rel="noreferrer">https://osti.gov</a></td>
+  <td class="url-cell"><a href="https://osti.gov" target="_blank" rel="noreferrer">https://osti.gov</a></td>
   <td>171542</td>
   <td>success</td>
   <td>poor</td>
@@ -898,7 +1142,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-50">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://usa.gov" target="_blank" rel="noreferrer">https://usa.gov</a></td>
+  <td class="url-cell"><a href="https://usa.gov" target="_blank" rel="noreferrer">https://usa.gov</a></td>
   <td>170962</td>
   <td>success</td>
   <td>poor</td>
@@ -912,7 +1156,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-51">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fws.gov" target="_blank" rel="noreferrer">https://fws.gov</a></td>
+  <td class="url-cell"><a href="https://fws.gov" target="_blank" rel="noreferrer">https://fws.gov</a></td>
   <td>167479</td>
   <td>success</td>
   <td>poor</td>
@@ -926,7 +1170,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-52">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://tsa.gov" target="_blank" rel="noreferrer">https://tsa.gov</a></td>
+  <td class="url-cell"><a href="https://tsa.gov" target="_blank" rel="noreferrer">https://tsa.gov</a></td>
   <td>167443</td>
   <td>success</td>
   <td>poor</td>
@@ -940,7 +1184,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-53">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ornl.gov" target="_blank" rel="noreferrer">https://ornl.gov</a></td>
+  <td class="url-cell"><a href="https://ornl.gov" target="_blank" rel="noreferrer">https://ornl.gov</a></td>
   <td>164446</td>
   <td>success</td>
   <td>poor</td>
@@ -954,7 +1198,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-54">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://federalregister.gov" target="_blank" rel="noreferrer">https://federalregister.gov</a></td>
+  <td class="url-cell"><a href="https://federalregister.gov" target="_blank" rel="noreferrer">https://federalregister.gov</a></td>
   <td>156984</td>
   <td>success</td>
   <td>poor</td>
@@ -968,7 +1212,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-55">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://dea.gov" target="_blank" rel="noreferrer">https://dea.gov</a></td>
+  <td class="url-cell"><a href="https://dea.gov" target="_blank" rel="noreferrer">https://dea.gov</a></td>
   <td>156850</td>
   <td>success</td>
   <td>poor</td>
@@ -982,7 +1226,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-56">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://sandia.gov" target="_blank" rel="noreferrer">https://sandia.gov</a></td>
+  <td class="url-cell"><a href="https://sandia.gov" target="_blank" rel="noreferrer">https://sandia.gov</a></td>
   <td>156566</td>
   <td>success</td>
   <td>poor</td>
@@ -996,7 +1240,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-57">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></td>
+  <td class="url-cell"><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></td>
   <td>146638</td>
   <td>success</td>
   <td>poor</td>
@@ -1010,7 +1254,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-58">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://dhs.gov" target="_blank" rel="noreferrer">https://dhs.gov</a></td>
+  <td class="url-cell"><a href="https://dhs.gov" target="_blank" rel="noreferrer">https://dhs.gov</a></td>
   <td>145412</td>
   <td>success</td>
   <td>poor</td>
@@ -1024,7 +1268,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-59">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubchem.ncbi.nlm.nih.gov</a></td>
+  <td class="url-cell"><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubchem.ncbi.nlm.nih.gov</a></td>
   <td>143819</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -1038,7 +1282,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-60">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://healthcare.gov" target="_blank" rel="noreferrer">https://healthcare.gov</a></td>
+  <td class="url-cell"><a href="https://healthcare.gov" target="_blank" rel="noreferrer">https://healthcare.gov</a></td>
   <td>143671</td>
   <td>success</td>
   <td>poor</td>
@@ -1052,7 +1296,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-61">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://kinetics.nist.gov" target="_blank" rel="noreferrer">https://kinetics.nist.gov</a></td>
+  <td class="url-cell"><a href="https://kinetics.nist.gov" target="_blank" rel="noreferrer">https://kinetics.nist.gov</a></td>
   <td>140688</td>
   <td>success</td>
   <td>good</td>
@@ -1066,7 +1310,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-62">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://my.uscis.gov" target="_blank" rel="noreferrer">https://my.uscis.gov</a></td>
+  <td class="url-cell"><a href="https://my.uscis.gov" target="_blank" rel="noreferrer">https://my.uscis.gov</a></td>
   <td>140651</td>
   <td>success</td>
   <td>poor</td>
@@ -1080,7 +1324,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-63">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://history.state.gov" target="_blank" rel="noreferrer">https://history.state.gov</a></td>
+  <td class="url-cell"><a href="https://history.state.gov" target="_blank" rel="noreferrer">https://history.state.gov</a></td>
   <td>138468</td>
   <td>success</td>
   <td>poor</td>
@@ -1094,7 +1338,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-64">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></td>
+  <td class="url-cell"><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></td>
   <td>130127</td>
   <td>success</td>
   <td>poor</td>
@@ -1108,7 +1352,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-65">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://bls.gov" target="_blank" rel="noreferrer">https://bls.gov</a></td>
+  <td class="url-cell"><a href="https://bls.gov" target="_blank" rel="noreferrer">https://bls.gov</a></td>
   <td>129817</td>
   <td>success</td>
   <td>poor</td>
@@ -1122,7 +1366,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-66">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://clinicaltrials.gov" target="_blank" rel="noreferrer">https://clinicaltrials.gov</a></td>
+  <td class="url-cell"><a href="https://clinicaltrials.gov" target="_blank" rel="noreferrer">https://clinicaltrials.gov</a></td>
   <td>129317</td>
   <td>success</td>
   <td>poor</td>
@@ -1136,7 +1380,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-67">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://qa.usembassy.gov" target="_blank" rel="noreferrer">https://qa.usembassy.gov</a></td>
+  <td class="url-cell"><a href="https://qa.usembassy.gov" target="_blank" rel="noreferrer">https://qa.usembassy.gov</a></td>
   <td>127928</td>
   <td>success</td>
   <td>poor</td>
@@ -1150,7 +1394,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-68">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://mynasadata.larc.nasa.gov" target="_blank" rel="noreferrer">https://mynasadata.larc.nasa.gov</a></td>
+  <td class="url-cell"><a href="https://mynasadata.larc.nasa.gov" target="_blank" rel="noreferrer">https://mynasadata.larc.nasa.gov</a></td>
   <td>124991</td>
   <td>success</td>
   <td>poor</td>
@@ -1164,7 +1408,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-69">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://www.nist.gov" target="_blank" rel="noreferrer">https://www.nist.gov</a></td>
+  <td class="url-cell"><a href="https://www.nist.gov" target="_blank" rel="noreferrer">https://www.nist.gov</a></td>
   <td>124469</td>
   <td>success</td>
   <td>poor</td>
@@ -1178,7 +1422,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-70">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://earthquake.usgs.gov" target="_blank" rel="noreferrer">https://earthquake.usgs.gov</a></td>
+  <td class="url-cell"><a href="https://earthquake.usgs.gov" target="_blank" rel="noreferrer">https://earthquake.usgs.gov</a></td>
   <td>121221</td>
   <td>success</td>
   <td>poor</td>
@@ -1192,7 +1436,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-71">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ecfr.gov" target="_blank" rel="noreferrer">https://ecfr.gov</a></td>
+  <td class="url-cell"><a href="https://ecfr.gov" target="_blank" rel="noreferrer">https://ecfr.gov</a></td>
   <td>120272</td>
   <td>success</td>
   <td>poor</td>
@@ -1206,7 +1450,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-72">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://store.usps.com" target="_blank" rel="noreferrer">https://store.usps.com</a></td>
+  <td class="url-cell"><a href="https://store.usps.com" target="_blank" rel="noreferrer">https://store.usps.com</a></td>
   <td>119182</td>
   <td>success</td>
   <td>poor</td>
@@ -1220,7 +1464,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-73">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://testnvmc.nvmc.uscg.gov" target="_blank" rel="noreferrer">https://testnvmc.nvmc.uscg.gov</a></td>
+  <td class="url-cell"><a href="https://testnvmc.nvmc.uscg.gov" target="_blank" rel="noreferrer">https://testnvmc.nvmc.uscg.gov</a></td>
   <td>118169</td>
   <td>success</td>
   <td>poor</td>
@@ -1234,7 +1478,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-74">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fbi.gov" target="_blank" rel="noreferrer">https://fbi.gov</a></td>
+  <td class="url-cell"><a href="https://fbi.gov" target="_blank" rel="noreferrer">https://fbi.gov</a></td>
   <td>116685</td>
   <td>success</td>
   <td>poor</td>
@@ -1248,7 +1492,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-75">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fisheries.noaa.gov" target="_blank" rel="noreferrer">https://fisheries.noaa.gov</a></td>
+  <td class="url-cell"><a href="https://fisheries.noaa.gov" target="_blank" rel="noreferrer">https://fisheries.noaa.gov</a></td>
   <td>114213</td>
   <td>success</td>
   <td>poor</td>
@@ -1262,7 +1506,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-76">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://cbp.gov" target="_blank" rel="noreferrer">https://cbp.gov</a></td>
+  <td class="url-cell"><a href="https://cbp.gov" target="_blank" rel="noreferrer">https://cbp.gov</a></td>
   <td>113434</td>
   <td>success</td>
   <td>poor</td>
@@ -1276,7 +1520,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-77">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://cmr.earthdata.nasa.gov" target="_blank" rel="noreferrer">https://cmr.earthdata.nasa.gov</a></td>
+  <td class="url-cell"><a href="https://cmr.earthdata.nasa.gov" target="_blank" rel="noreferrer">https://cmr.earthdata.nasa.gov</a></td>
   <td>110407</td>
   <td>success</td>
   <td>poor</td>
@@ -1290,7 +1534,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-78">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://state.gov" target="_blank" rel="noreferrer">https://state.gov</a></td>
+  <td class="url-cell"><a href="https://state.gov" target="_blank" rel="noreferrer">https://state.gov</a></td>
   <td>109853</td>
   <td>success</td>
   <td>poor</td>
@@ -1304,7 +1548,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-79">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://epa.gov" target="_blank" rel="noreferrer">https://epa.gov</a></td>
+  <td class="url-cell"><a href="https://epa.gov" target="_blank" rel="noreferrer">https://epa.gov</a></td>
   <td>106786</td>
   <td>success</td>
   <td>poor</td>
@@ -1318,7 +1562,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-80">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ae.usembassy.gov" target="_blank" rel="noreferrer">https://ae.usembassy.gov</a></td>
+  <td class="url-cell"><a href="https://ae.usembassy.gov" target="_blank" rel="noreferrer">https://ae.usembassy.gov</a></td>
   <td>106266</td>
   <td>success</td>
   <td>poor</td>
@@ -1332,7 +1576,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-81">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://wiki.earthdata.nasa.gov" target="_blank" rel="noreferrer">https://wiki.earthdata.nasa.gov</a></td>
+  <td class="url-cell"><a href="https://wiki.earthdata.nasa.gov" target="_blank" rel="noreferrer">https://wiki.earthdata.nasa.gov</a></td>
   <td>103216</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -1346,7 +1590,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-82">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://mytravel.state.gov" target="_blank" rel="noreferrer">https://mytravel.state.gov</a></td>
+  <td class="url-cell"><a href="https://mytravel.state.gov" target="_blank" rel="noreferrer">https://mytravel.state.gov</a></td>
   <td>100026</td>
   <td>success</td>
   <td>poor</td>
@@ -1360,7 +1604,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-83">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fs.usda.gov" target="_blank" rel="noreferrer">https://fs.usda.gov</a></td>
+  <td class="url-cell"><a href="https://fs.usda.gov" target="_blank" rel="noreferrer">https://fs.usda.gov</a></td>
   <td>99584</td>
   <td>success</td>
   <td>poor</td>
@@ -1374,7 +1618,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-84">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://aviationweather.gov" target="_blank" rel="noreferrer">https://aviationweather.gov</a></td>
+  <td class="url-cell"><a href="https://aviationweather.gov" target="_blank" rel="noreferrer">https://aviationweather.gov</a></td>
   <td>99420</td>
   <td>success</td>
   <td>poor</td>
@@ -1388,7 +1632,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-85">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://eeoc.gov" target="_blank" rel="noreferrer">https://eeoc.gov</a></td>
+  <td class="url-cell"><a href="https://eeoc.gov" target="_blank" rel="noreferrer">https://eeoc.gov</a></td>
   <td>98525</td>
   <td>success</td>
   <td>poor</td>
@@ -1402,7 +1646,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-86">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://star.nesdis.noaa.gov" target="_blank" rel="noreferrer">https://star.nesdis.noaa.gov</a></td>
+  <td class="url-cell"><a href="https://star.nesdis.noaa.gov" target="_blank" rel="noreferrer">https://star.nesdis.noaa.gov</a></td>
   <td>97905</td>
   <td>success</td>
   <td>poor</td>
@@ -1416,7 +1660,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-87">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://login.gov" target="_blank" rel="noreferrer">https://login.gov</a></td>
+  <td class="url-cell"><a href="https://login.gov" target="_blank" rel="noreferrer">https://login.gov</a></td>
   <td>96274</td>
   <td>success</td>
   <td>poor</td>
@@ -1430,7 +1674,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-88">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://reportfraud.ftc.gov" target="_blank" rel="noreferrer">https://reportfraud.ftc.gov</a></td>
+  <td class="url-cell"><a href="https://reportfraud.ftc.gov" target="_blank" rel="noreferrer">https://reportfraud.ftc.gov</a></td>
   <td>94477</td>
   <td>success</td>
   <td>poor</td>
@@ -1444,7 +1688,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-89">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://randr19.nist.gov" target="_blank" rel="noreferrer">https://randr19.nist.gov</a></td>
+  <td class="url-cell"><a href="https://randr19.nist.gov" target="_blank" rel="noreferrer">https://randr19.nist.gov</a></td>
   <td>92755</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -1458,7 +1702,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-90">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://itis.gov" target="_blank" rel="noreferrer">https://itis.gov</a></td>
+  <td class="url-cell"><a href="https://itis.gov" target="_blank" rel="noreferrer">https://itis.gov</a></td>
   <td>91676</td>
   <td>success</td>
   <td>poor</td>
@@ -1472,7 +1716,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-91">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://blast.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://blast.ncbi.nlm.nih.gov</a></td>
+  <td class="url-cell"><a href="https://blast.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://blast.ncbi.nlm.nih.gov</a></td>
   <td>88527</td>
   <td>success</td>
   <td>poor</td>
@@ -1486,7 +1730,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-92">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://fdic.gov" target="_blank" rel="noreferrer">https://fdic.gov</a></td>
+  <td class="url-cell"><a href="https://fdic.gov" target="_blank" rel="noreferrer">https://fdic.gov</a></td>
   <td>86771</td>
   <td>success</td>
   <td>poor</td>
@@ -1500,7 +1744,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-93">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://smmc.ornl.gov" target="_blank" rel="noreferrer">https://smmc.ornl.gov</a></td>
+  <td class="url-cell"><a href="https://smmc.ornl.gov" target="_blank" rel="noreferrer">https://smmc.ornl.gov</a></td>
   <td>86384</td>
   <td>success</td>
   <td>poor</td>
@@ -1514,7 +1758,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-94">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://search.justice.gov" target="_blank" rel="noreferrer">https://search.justice.gov</a></td>
+  <td class="url-cell"><a href="https://search.justice.gov" target="_blank" rel="noreferrer">https://search.justice.gov</a></td>
   <td>85924</td>
   <td>success</td>
   <td>needs_improvement</td>
@@ -1528,7 +1772,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-95">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://usgs.gov" target="_blank" rel="noreferrer">https://usgs.gov</a></td>
+  <td class="url-cell"><a href="https://usgs.gov" target="_blank" rel="noreferrer">https://usgs.gov</a></td>
   <td>85721</td>
   <td>success</td>
   <td>poor</td>
@@ -1542,7 +1786,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-96">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://army.mil" target="_blank" rel="noreferrer">https://army.mil</a></td>
+  <td class="url-cell"><a href="https://army.mil" target="_blank" rel="noreferrer">https://army.mil</a></td>
   <td>84431</td>
   <td>success</td>
   <td>unknown</td>
@@ -1556,7 +1800,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-97">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://s2.ipubmed.cn" target="_blank" rel="noreferrer">https://s2.ipubmed.cn</a></td>
+  <td class="url-cell"><a href="https://s2.ipubmed.cn" target="_blank" rel="noreferrer">https://s2.ipubmed.cn</a></td>
   <td>83112</td>
   <td>success</td>
   <td>unknown</td>
@@ -1570,7 +1814,7 @@
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-98">Details</button></td>
 </tr>
 <tr>
-  <td><a href="https://ttp.cbp.dhs.gov" target="_blank" rel="noreferrer">https://ttp.cbp.dhs.gov</a></td>
+  <td class="url-cell"><a href="https://ttp.cbp.dhs.gov" target="_blank" rel="noreferrer">https://ttp.cbp.dhs.gov</a></td>
   <td>82022</td>
   <td>success</td>
   <td>poor</td>
@@ -1583,8 +1827,10 @@
   <td></td>
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-99">Details</button></td>
 </tr>
-    </tbody>
-  </table>
+        </tbody>
+      </table></div>
+    </section>
+  </main>
 
   
 <dialog id="modal-url-0" aria-labelledby="modal-url-0-title" aria-modal="true" class="axe-modal">
@@ -3087,6 +3333,14 @@
   </div>
 </dialog>
 
+  
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <p>Daily DAP &mdash; U.S. government website quality benchmarks powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
+    <p><a href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="https://github.com/mgifford/daily-dap/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
+  </div>
+</footer>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
@@ -3097,8 +3351,41 @@
       });
       document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var dialog = document.getElementById(btn.dataset.closeModal);
-          if (dialog) { dialog.close(); }
+          var modalId = btn.dataset.closeModal;
+          var dialog = document.getElementById(modalId);
+          if (dialog) {
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      // Close modal when clicking the backdrop (outside the dialog content)
+      document.querySelectorAll('.axe-modal').forEach(function (dialog) {
+        dialog.addEventListener('click', function (e) {
+          if (e.target === dialog) {
+            var modalId = dialog.id;
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      document.querySelectorAll('[data-copy-text]').forEach(function (btn) {
+        // The 'click' event fires for both mouse clicks and keyboard activation (Enter/Space)
+        // on <button> elements, so keyboard users receive the same visual feedback.
+        btn.addEventListener('click', function () {
+          var text = btn.dataset.copyText;
+          if (!navigator.clipboard) { return; }
+          navigator.clipboard.writeText(text).then(function () {
+            var original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = original;
+              btn.classList.remove('copied');
+            }, 2000);
+          });
         });
       });
     });

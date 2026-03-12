@@ -22,6 +22,24 @@
     h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.25rem; }
+
+    /* ---------- Heading anchor links ---------- */
+    .heading-anchor {
+      opacity: 0;
+      font-size: 0.75em;
+      text-decoration: none;
+      margin-left: 0.4em;
+      vertical-align: middle;
+      color: inherit;
+    }
+    h1:hover .heading-anchor,
+    h2:hover .heading-anchor,
+    h3:hover .heading-anchor,
+    h1:focus-within .heading-anchor,
+    h2:focus-within .heading-anchor,
+    h3:focus-within .heading-anchor,
+    .heading-anchor:focus { opacity: 1; }
+
     ul { padding-left: 1.5rem; }
     code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
     pre code { background: none; padding: 0; }
@@ -286,13 +304,13 @@
 </header>
   <main id="main-content" class="site-main">
     <div class="page-intro">
-      <h1>Daily DAP Accessibility Report &mdash; 2026-03-09</h1>
+      <h1 id="page-title">Daily DAP Accessibility Report &mdash; 2026-03-09<a href="#page-title" class="heading-anchor" aria-label="Link to Daily DAP Accessibility Report — 2026-03-09"><span aria-hidden="true">#</span></a></h1>
       <p>Run ID: run-2026-03-09-5fce007f3e &middot; Status: partial &middot; Source data: 2026-03-08 &middot; Generated: 2026-03-09T20:06:19.345Z</p>
     </div>
 
     
   <section aria-labelledby="dap-context-heading">
-    <h2 id="dap-context-heading">About These Reports</h2>
+    <h2 id="dap-context-heading">About These Reports<a href="#dap-context-heading" class="heading-anchor" aria-label="Link to About These Reports"><span aria-hidden="true">#</span></a></h2>
     <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
     <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
     <ul>
@@ -307,14 +325,14 @@
 
     
   <section aria-labelledby="narrative-heading">
-    <h2 id="narrative-heading">Accessibility Trend Narrative</h2>
+    <h2 id="narrative-heading">Accessibility Trend Narrative<a href="#narrative-heading" class="heading-anchor" aria-label="Link to Accessibility Trend Narrative"><span aria-hidden="true">#</span></a></h2>
     <p>Over the past <strong>12 days</strong> of data (2026-02-26 to 2026-03-09), government website accessibility scores have <strong>improved</strong> (+24.12 points, from 68 to 92.12). Performance scores have improved (+9.68 points, from 38 to 47.68).</p>
     <p>Today's aggregate accessibility score of <strong>91.98</strong> reflects the mean Lighthouse accessibility score across 98 successfully scanned government URLs. A score above 90 indicates generally strong compliance with WCAG automated checks, though manual testing is always recommended to fully assess accessibility.</p>
   </section>
 
     
   <section aria-labelledby="day-comparison-heading">
-    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs 2026-03-08)</h2>
+    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs 2026-03-08)<a href="#day-comparison-heading" class="heading-anchor" aria-label="Link to Day-over-Day Comparison (vs 2026-03-08)"><span aria-hidden="true">#</span></a></h2>
     <div class="table-scroll"><table>
       <caption>Score comparison between 2026-03-08 and 2026-03-09</caption>
       <thead>
@@ -336,7 +354,7 @@
 
     
   <section aria-labelledby="axe-patterns-heading">
-    <h2 id="axe-patterns-heading">Common Accessibility Issues (Top 10)</h2>
+    <h2 id="axe-patterns-heading">Common Accessibility Issues (Top 10)<a href="#axe-patterns-heading" class="heading-anchor" aria-label="Link to Common Accessibility Issues (Top 10)"><span aria-hidden="true">#</span></a></h2>
     <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
     <div class="table-scroll"><table>
       <caption>Top axe-core accessibility rule violations across scanned URLs</caption>
@@ -383,7 +401,7 @@
   </section>
 
     <section aria-labelledby="scores-heading">
-      <h2 id="scores-heading">Aggregate Scores</h2>
+      <h2 id="scores-heading">Aggregate Scores<a href="#scores-heading" class="heading-anchor" aria-label="Link to Aggregate Scores"><span aria-hidden="true">#</span></a></h2>
       
       <div class="score-grid">
         <div class="score-card">
@@ -412,11 +430,11 @@
     </section>
 
     
-  <h2>Estimated Impact (daily)</h2>
+  <h2 id="estimated-impact-heading">Estimated Impact (daily)<a href="#estimated-impact-heading" class="heading-anchor" aria-label="Link to Estimated Impact (daily)"><span aria-hidden="true">#</span></a></h2>
   <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>
 
     <section aria-labelledby="history-heading">
-      <h2 id="history-heading">History</h2>
+      <h2 id="history-heading">History<a href="#history-heading" class="heading-anchor" aria-label="Link to History"><span aria-hidden="true">#</span></a></h2>
       <div class="table-scroll"><table>
         <caption>Daily aggregate Lighthouse scores over the past 31 days</caption>
         <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
@@ -440,7 +458,7 @@
     </section>
 
     <section aria-labelledby="top-urls-heading">
-      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)</h2>
+      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)<a href="#top-urls-heading" class="heading-anchor" aria-label="Link to Top URLs by Traffic (Scanned)"><span aria-hidden="true">#</span></a></h2>
       <p>Showing up to 100 highest-traffic URLs from the latest available DAP day in this run.</p>
       <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
       <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
