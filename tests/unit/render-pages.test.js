@@ -116,11 +116,11 @@ test('renderDailyReportPage shows Lighthouse scores for top URLs with successful
 
   const html = renderDailyReportPage(report);
 
-  // Table should include Lighthouse score column headers
-  assert.ok(html.includes('>LH Performance<'), 'Should have LH Performance column header');
-  assert.ok(html.includes('>LH Accessibility<'), 'Should have LH Accessibility column header');
-  assert.ok(html.includes('>LH Best Practices<'), 'Should have LH Best Practices column header');
-  assert.ok(html.includes('>LH SEO<'), 'Should have LH SEO column header');
+  // Table should include Lighthouse score column headers (without "LH " prefix)
+  assert.ok(html.includes('>Performance<'), 'Should have Performance column header');
+  assert.ok(html.includes('>Accessibility<'), 'Should have Accessibility column header');
+  assert.ok(html.includes('>Best Practices<'), 'Should have Best Practices column header');
+  assert.ok(html.includes('>SEO<'), 'Should have SEO column header');
 
   // Scores for first URL should appear
   assert.ok(html.includes('<td>39</td>'), 'Should include performance score 39 for tools.usps.com');

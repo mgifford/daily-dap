@@ -135,10 +135,31 @@ function renderSharedStyles() {
       font-weight: 600;
       white-space: nowrap;
     }
+    th.wrap-header { white-space: normal; min-width: 5rem; overflow-wrap: anywhere; }
     tbody tr:nth-child(even) { background: #fafbfc; }
     tbody tr:hover { background: #f0f5ff; }
     tr.monthly-avg { background: #eef3fa; font-weight: 600; }
     tr.monthly-avg:hover { background: #dde8f7; }
+
+    /* ---------- Sortable column headers ---------- */
+    .sort-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: inherit;
+      color: inherit;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      white-space: inherit;
+    }
+    .sort-btn::after { content: '\u21C5'; font-size: 0.75em; opacity: 0.45; }
+    th[aria-sort="ascending"] .sort-btn::after { content: '\u2191'; opacity: 1; }
+    th[aria-sort="descending"] .sort-btn::after { content: '\u2193'; opacity: 1; }
+    .sort-btn:hover { text-decoration: underline; }
+    .sort-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; border-radius: 2px; }
 
     /* ---------- Buttons ---------- */
     .details-btn {
@@ -234,9 +255,10 @@ function renderSharedStyles() {
 
     /* ---------- URL cells ---------- */
     .url-cell {
-      word-break: break-all;
-      overflow-wrap: break-word;
-      max-width: 280px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 320px;
     }
 
     /* ---------- Site footer ---------- */
@@ -611,15 +633,15 @@ function renderTopUrlRows(topUrls = []) {
       (entry, index) => `<tr>
   <td class="url-cell"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td>${entry.page_load_count}</td>
-  <td>${escapeHtml(entry.scan_status)}</td>
-  <td>${escapeHtml(entry.core_web_vitals_status ?? 'unknown')}</td>
+  <td>${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
+  <td>${escapeHtml((entry.core_web_vitals_status ?? 'unknown').replace(/_/g, ' '))}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo')}
   <td>${entry.findings_count}</td>
   <td>${entry.severe_findings_count}</td>
-  <td>${entry.failure_reason ? escapeHtml(entry.failure_reason) : ''}</td>
+  <td>${entry.failure_reason ? escapeHtml(entry.failure_reason.replace(/_/g, ' ')) : ''}</td>
   <td><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button></td>
 </tr>`
     )
@@ -906,21 +928,21 @@ export function renderDailyReportPage(report) {
       <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
       <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
       <p><a href="axe-findings.json">Download axe findings JSON for this day</a></p>
-      ${wrapTable(`<table>
+      ${wrapTable(`<table id="top-urls-table">
         <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
         <thead>
           <tr>
-            <th scope="col">URL</th>
-            <th scope="col">Traffic</th>
-            <th scope="col">Scan status</th>
-            <th scope="col">CWV</th>
-            <th scope="col">LH Performance</th>
-            <th scope="col">LH Accessibility</th>
-            <th scope="col">LH Best Practices</th>
-            <th scope="col">LH SEO</th>
-            <th scope="col">Total findings</th>
-            <th scope="col">Critical/Serious</th>
-            <th scope="col">Failure reason</th>
+            <th scope="col" data-sort-col="0" aria-sort="none"><button class="sort-btn">URL</button></th>
+            <th scope="col" data-sort-col="1" aria-sort="none"><button class="sort-btn">Traffic</button></th>
+            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">Scan status</button></th>
+            <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">CWV</button></th>
+            <th scope="col" data-sort-col="4" aria-sort="none"><button class="sort-btn">Performance</button></th>
+            <th scope="col" data-sort-col="5" aria-sort="none"><button class="sort-btn">Accessibility</button></th>
+            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
+            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
+            <th scope="col" class="wrap-header">Total findings</th>
+            <th scope="col" class="wrap-header">Critical/Serious</th>
+            <th scope="col" class="wrap-header">Failure reason</th>
             <th scope="col">Axe details</th>
           </tr>
         </thead>
@@ -982,6 +1004,61 @@ export function renderDailyReportPage(report) {
           });
         });
       });
+
+      // Sortable top-URLs table
+      (function () {
+        var table = document.getElementById('top-urls-table');
+        if (!table) { return; }
+        var tbody = table.querySelector('tbody');
+        var currentCol = -1;
+        var currentDir = 'none';
+        // Columns whose values are numeric (Traffic, Performance, Accessibility, Best Practices, SEO)
+        var numericCols = [1, 4, 5, 6, 7];
+
+        function getCellText(row, col) {
+          var cells = row.querySelectorAll('td');
+          return cells[col] ? cells[col].textContent.trim() : '';
+        }
+
+        function sortTable(col, dir) {
+          table.querySelectorAll('th[data-sort-col]').forEach(function (th) {
+            th.setAttribute('aria-sort', 'none');
+          });
+          var th = table.querySelector('th[data-sort-col="' + col + '"]');
+          if (th) { th.setAttribute('aria-sort', dir); }
+          currentCol = col;
+          currentDir = dir;
+
+          var isNumeric = numericCols.indexOf(col) !== -1;
+          var rows = Array.from(tbody.querySelectorAll('tr'));
+          rows.sort(function (a, b) {
+            var aVal = getCellText(a, col);
+            var bVal = getCellText(b, col);
+            var cmp;
+            if (isNumeric) {
+              var aNum = parseFloat(aVal.replace(/[^0-9.-]/g, ''));
+              var bNum = parseFloat(bVal.replace(/[^0-9.-]/g, ''));
+              aNum = isNaN(aNum) ? -Infinity : aNum;
+              bNum = isNaN(bNum) ? -Infinity : bNum;
+              cmp = aNum - bNum;
+            } else {
+              cmp = aVal.localeCompare(bVal);
+            }
+            return dir === 'ascending' ? cmp : -cmp;
+          });
+          rows.forEach(function (row) { tbody.appendChild(row); });
+        }
+
+        table.querySelectorAll('th[data-sort-col]').forEach(function (th) {
+          var btn = th.querySelector('.sort-btn');
+          if (!btn) { return; }
+          btn.addEventListener('click', function () {
+            var col = parseInt(th.dataset.sortCol, 10);
+            var dir = (currentCol === col && currentDir === 'ascending') ? 'descending' : 'ascending';
+            sortTable(col, dir);
+          });
+        });
+      }());
     });
   </script>
 </body>
