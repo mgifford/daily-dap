@@ -1,0 +1,68 @@
+name: Merge All Branches into Main
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge branches and delete after success
+        shell: bash
+        run: |
+          git fetch --all --prune
+
+          FAILED_BRANCHES=()
+          MERGED_BRANCHES=()
+
+          for branch in $(git branch -r | grep -v 'HEAD' | grep -v 'origin/main' | sed 's|origin/||'); do
+            echo "---"
+            echo "Attempting to merge branch: $branch"
+
+            if git merge --no-ff -m "chore: automated merge of $branch into main" "origin/$branch"; then
+              echo "Successfully merged $branch into main."
+              # Push after each successful merge so the next merge builds on the latest main.
+              git push origin main
+              git push origin --delete "$branch"
+              MERGED_BRANCHES+=("$branch")
+              echo "Deleted branch: $branch"
+            else
+              echo "Merge conflict detected for branch: $branch. Aborting merge."
+              git merge --abort
+              FAILED_BRANCHES+=("$branch")
+            fi
+          done
+
+          echo ""
+          echo "=== Merge Summary ==="
+          if [ ${#MERGED_BRANCHES[@]} -gt 0 ]; then
+            echo "Successfully merged and deleted:"
+            for b in "${MERGED_BRANCHES[@]}"; do
+              echo "  - $b"
+            done
+          else
+            echo "No branches were successfully merged."
+          fi
+
+          if [ ${#FAILED_BRANCHES[@]} -gt 0 ]; then
+            echo ""
+            echo "Branches with conflicts (not merged):"
+            for b in "${FAILED_BRANCHES[@]}"; do
+              echo "  - $b"
+            done
+          fi
