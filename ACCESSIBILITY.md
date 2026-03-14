@@ -71,7 +71,20 @@ Generated HTML reports follow accessibility best practices:
 ### Accessibility Testing Tools Used
 
 1. **Lighthouse**: Automated accessibility audits (included in scan process)
-2. **Manual Validation**: HTML report structure review
+2. **axe-core**: Automated WCAG 2.2 AA scanning of published GitHub Pages reports (via [`github/accessibility-scanner`](https://github.com/github/accessibility-scanner))
+3. **Manual Validation**: HTML report structure review
+
+### GitHub Pages Accessibility Scan
+
+The `.github/workflows/scan-github-pages.yml` workflow runs the [GitHub accessibility-scanner](https://github.com/github/accessibility-scanner) against the published GitHub Pages site using axe-core.
+
+**Trigger:** Monthly (1st of every month) and on every push to `main` that modifies `docs/`.
+
+**Pages scanned:**
+- `https://mgifford.github.io/daily-dap/` — main dashboard
+- `https://mgifford.github.io/daily-dap/reports/` — reports index
+
+**Requirements:** A `GH_TOKEN` repository secret with `contents: write`, `issues: write`, and `pull-requests: write` permissions must be configured for the workflow to file issues.
 
 ---
 
@@ -79,13 +92,12 @@ Generated HTML reports follow accessibility best practices:
 
 ### Current Limitations
 
-- [ ] No automated accessibility testing of generated HTML reports in CI
 - [ ] Limited screen reader testing of report pages
 - [ ] No automated checks for color contrast in report styling (when styling is added)
 
 ### Planned Improvements
 
-- [ ] Add axe-core testing of generated HTML reports in CI pipeline
+- [x] Add axe-core testing of generated HTML reports in CI pipeline
 - [ ] Implement pre-commit hooks for accessibility checks
 - [ ] Add keyboard navigation testing for interactive report features
 - [ ] Screen reader compatibility testing with NVDA/JAWS
