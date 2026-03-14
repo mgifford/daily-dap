@@ -788,17 +788,21 @@ test('renderDailyReportPage shows FPC column in Common Accessibility Issues tabl
   const html = renderDailyReportPage(report);
 
   // FPC column header should be present
-  assert.ok(html.includes('Section 508 FPC'), 'Should include FPC column header');
+  assert.ok(html.includes('Disabilities Affected'), 'Should include disabilities affected column header');
 
-  // color-contrast maps to LV and WPC
-  assert.ok(html.includes('<abbr title="Limited Vision">LV</abbr>'), 'Should include LV abbr for color-contrast');
-  assert.ok(html.includes('<abbr title="Without Perception of Color">WPC</abbr>'), 'Should include WPC abbr for color-contrast');
+  // color-contrast maps to LV and WPC - check for SVG icons with aria-labels
+  assert.ok(html.includes('aria-label="Limited Vision"'), 'Should include Limited Vision aria-label for color-contrast');
+  assert.ok(html.includes('aria-label="Without Perception of Color"'), 'Should include Without Perception of Color aria-label for color-contrast');
 
-  // image-alt maps to WV and WH
-  assert.ok(html.includes('<abbr title="Without Vision">WV</abbr>'), 'Should include WV abbr for image-alt');
+  // image-alt maps to WV and WH - check for SVG icons
+  assert.ok(html.includes('aria-label="Without Vision"'), 'Should include Without Vision aria-label for image-alt');
 
-  // FPC legend (details/summary) should be present
-  assert.ok(html.includes('Functional Performance Criteria (FPC) key'), 'Should include FPC legend');
+  // Disability icons should be present
+  assert.ok(html.includes('class="disability-icon"'), 'Should include disability icon SVGs');
+  assert.ok(html.includes('class="disability-badge"'), 'Should include disability badge spans');
+
+  // Legend should be present
+  assert.ok(html.includes('Disability icon key'), 'Should include disability icon key legend');
   assert.ok(html.includes('section508.gov'), 'Should include Section 508 reference link');
 });
 
@@ -1120,13 +1124,13 @@ test('renderDailyReportPage shows FPC codes in individual axe findings within UR
 
   const html = renderDailyReportPage(report);
 
-  // color-contrast maps to LV and WPC
-  assert.ok(html.includes('Section 508 FPC'), 'Should include FPC label for individual findings');
-  assert.ok(html.includes('<abbr title="Limited Vision">LV</abbr>'), 'color-contrast finding should show LV FPC code');
-  assert.ok(html.includes('<abbr title="Without Perception of Color">WPC</abbr>'), 'color-contrast finding should show WPC FPC code');
+  // color-contrast maps to LV and WPC - check for SVG icons with aria-labels
+  assert.ok(html.includes('Disabilities affected'), 'Should include "Disabilities affected" label for individual findings');
+  assert.ok(html.includes('aria-label="Limited Vision"'), 'color-contrast finding should show Limited Vision disability icon');
+  assert.ok(html.includes('aria-label="Without Perception of Color"'), 'color-contrast finding should show Without Perception of Color disability icon');
   // image-alt maps to WV and WH
-  assert.ok(html.includes('<abbr title="Without Vision">WV</abbr>'), 'image-alt finding should show WV FPC code');
-  assert.ok(html.includes('<abbr title="Without Hearing">WH</abbr>'), 'image-alt finding should show WH FPC code');
+  assert.ok(html.includes('aria-label="Without Vision"'), 'image-alt finding should show Without Vision disability icon');
+  assert.ok(html.includes('aria-label="Without Hearing"'), 'image-alt finding should show Without Hearing disability icon');
 });
 
 test('buildFindingCopyText includes FPC codes for known axe rules', () => {
@@ -1194,5 +1198,5 @@ test('renderDailyReportPage omits FPC section for unknown axe rules in URL modal
   // The modal dialog for this URL should not show the FPC paragraph since rule is unknown
   const modalMatch = html.match(/<dialog id="modal-url-0"[\s\S]*?<\/dialog>/);
   assert.ok(modalMatch, 'Modal should be present for the URL');
-  assert.ok(!modalMatch[0].includes('<strong>Section 508 FPC:</strong>'), 'Should not show FPC paragraph for unknown axe rule');
+  assert.ok(!modalMatch[0].includes('<strong>Disabilities affected:</strong>'), 'Should not show disability paragraph for unknown axe rule');
 });
