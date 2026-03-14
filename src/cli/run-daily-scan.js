@@ -12,6 +12,8 @@ import { aggregateCategoryScores } from '../aggregation/score-aggregation.js';
 import { buildSlowRiskRollup } from '../aggregation/slow-risk.js';
 import { estimateWeightedImpact } from '../aggregation/impact-estimation.js';
 import { estimateCategoryImpact } from '../aggregation/prevalence-impact.js';
+import { computeFpcExclusion } from '../aggregation/fpc-exclusion.js';
+import { isCensusDataStale } from '../data/census-disability-stats.js';
 import { buildHistorySeries } from '../aggregation/history-series.js';
 import { buildDailyReport } from '../publish/build-daily-report.js';
 import { buildHistoryIndex } from '../publish/build-history-index.js';
@@ -434,6 +436,13 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     const prevalenceImpact = estimateCategoryImpact(weightedImpact, runtimeConfig.impact.prevalence_rates);
     logProgress('AGGREGATION', 'Prevalence impact estimated');
 
+    const fpcExclusion = computeFpcExclusion(scanExecution.results);
+    logProgress('AGGREGATION', 'FPC exclusion computed');
+
+    if (isCensusDataStale()) {
+      logProgress('AGGREGATION', 'WARNING: Census disability data may be stale. Review src/data/census-disability-stats.js and update with the latest ACS data.');
+    }
+
     logStageComplete('AGGREGATION');
 
     logStageStart('HISTORY_LOADING', { 
@@ -462,6 +471,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       scoreSummary,
       weightedImpact,
       prevalenceImpact,
+      fpcExclusion,
       historyWindow,
       urlResults: scanExecution.results
     });

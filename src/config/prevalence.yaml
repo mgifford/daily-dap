@@ -5,12 +5,19 @@ scan:
   traffic_window_mode: daily
 
 impact:
+  # Section 508 FPC-aligned prevalence rates derived from U.S. Census Bureau ACS 2022.
+  # See src/data/census-disability-stats.js for full citations and per-category notes.
+  # Review annually; next review: 2026-01-01
   prevalence_rates:
-    blindness: 0.01
-    low_vision: 0.20
-    hearing_disability: 0.05
-    mobility_disability: 0.08
-    cognitive_disability: 0.12
+    WV: 0.010
+    LV: 0.024
+    WPC: 0.043
+    WH: 0.003
+    LH: 0.035
+    WS: 0.005
+    LM: 0.022
+    LRS: 0.058
+    LLCLA: 0.047
   severity_weights:
     critical: 1.0
     serious: 0.6
