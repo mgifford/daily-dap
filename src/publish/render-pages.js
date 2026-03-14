@@ -1,4 +1,4 @@
-import { AXE_TO_FPC, FPC_LABELS } from '../data/axe-fpc-mapping.js';
+import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS } from '../data/axe-fpc-mapping.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 
@@ -254,6 +254,30 @@ function renderSharedStyles() {
     .fix-list { margin: 0.25rem 0 0.5rem 1.5rem; padding: 0; }
     .fix-list li { margin: 0.2rem 0; }
     .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: #444; }
+    /* Disability icon badges (replacing FPC abbreviation codes) */
+    .disability-badges { display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center; }
+    .disability-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.15rem;
+      border-radius: 4px;
+      background: #f0f3f8;
+      border: 1px solid #c6d9ff;
+      color: #003d8a;
+      line-height: 0;
+    }
+    .disability-badge:hover { background: #dde8f7; }
+    .disability-icon { display: block; vertical-align: middle; }
+    .disability-legend {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.4rem 0.75rem;
+      align-items: center;
+      margin: 0.5rem 0;
+    }
+    .disability-legend dt { display: flex; align-items: center; justify-content: center; }
+    .disability-legend dd { margin: 0; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
 
     /* ---------- Copy finding button ---------- */
@@ -616,7 +640,7 @@ function renderAxeFindingsList(axeFindings = [], pageUrl = '') {
       const fpcCodes = AXE_TO_FPC.get(finding.id);
       const fpcHtml =
         fpcCodes && fpcCodes.length > 0
-          ? `<p><strong>Section 508 FPC:</strong> ${renderFpcCodes(finding.id)}</p>`
+          ? `<p><strong>Disabilities affected:</strong> ${renderFpcCodes(finding.id)}</p>`
           : '';
       return `
       <details>
@@ -771,9 +795,17 @@ function renderFpcCodes(ruleId) {
   if (!codes || codes.length === 0) {
     return '<em>unknown</em>';
   }
-  return codes
-    .map((code) => `<abbr title="${escapeHtml(FPC_LABELS[code] ?? code)}">${escapeHtml(code)}</abbr>`)
-    .join(', ');
+  const badges = codes
+    .map((code) => {
+      const label = FPC_LABELS[code] ?? code;
+      const svg = FPC_SVGS[code];
+      if (svg) {
+        return `<span class="disability-badge" title="${escapeHtml(label)}">${svg}</span>`;
+      }
+      return `<abbr title="${escapeHtml(label)}">${escapeHtml(code)}</abbr>`;
+    })
+    .join(' ');
+  return `<span class="disability-badges">${badges}</span>`;
 }
 
 function renderAxePatternsSection(topUrls = []) {
@@ -803,7 +835,7 @@ function renderAxePatternsSection(topUrls = []) {
           <th scope="col">Rule ID</th>
           <th scope="col">Description</th>
           <th scope="col">URLs affected</th>
-          <th scope="col">Section 508 FPC</th>
+          <th scope="col">Disabilities Affected</th>
         </tr>
       </thead>
       <tbody>
@@ -811,15 +843,18 @@ function renderAxePatternsSection(topUrls = []) {
       </tbody>
     </table>`)}
     <details>
-      <summary>Section 508 Functional Performance Criteria (FPC) key</summary>
-      <dl>
+      <summary>Disability icon key</summary>
+      <dl class="disability-legend">
         ${Object.entries(FPC_LABELS)
-          .map(([code, label]) => `<dt><strong>${escapeHtml(code)}</strong></dt><dd>${escapeHtml(label)}</dd>`)
+          .map(([code, label]) => {
+            const svg = FPC_SVGS[code] ?? '';
+            return `<dt>${svg}</dt><dd>${escapeHtml(label)}</dd>`;
+          })
           .join('\n        ')}
       </dl>
-      <p>FPC codes indicate which user groups are impacted by each accessibility barrier.
-         See the <a href="https://www.section508.gov/develop/mapping-wcag-to-fpc/" target="_blank" rel="noreferrer">Section 508 WCAG to FPC mapping</a>
-         and the <a href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf" target="_blank" rel="noreferrer">EN 301 549 v3.2.1 Table B.2</a>
+      <p>These icons show which groups of people with disabilities are excluded by each accessibility barrier.
+         Icons follow the Section 508 Functional Performance Criteria and the equivalent EU EN 301 549 v3.2.1 Table B.2 categories.</p>
+      <p>See the <a href="https://www.section508.gov/develop/mapping-wcag-to-fpc/" target="_blank" rel="noreferrer">Section 508 WCAG to FPC mapping</a>
          for additional detail on how accessibility requirements map to functional needs.</p>
     </details>
     <p><a href="axe-findings.json">Download full axe findings JSON for this day</a> | <a href="axe-findings.csv">Download full axe findings CSV for this day</a></p>
