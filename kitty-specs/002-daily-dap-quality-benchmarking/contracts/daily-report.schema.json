@@ -66,6 +66,40 @@
       "additionalProperties": false
     },
     "trend_window_days": { "type": "integer", "minimum": 1 },
+    "fpc_exclusion": {
+      "description": "Per-disability estimated excluded users derived from axe findings, page loads, and U.S. Census disability prevalence data.",
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["total_page_loads", "scanned_url_count", "categories", "census_vintage_year"],
+          "properties": {
+            "total_page_loads": { "type": "number", "minimum": 0 },
+            "scanned_url_count": { "type": "integer", "minimum": 0 },
+            "census_vintage_year": { "type": "integer", "minimum": 2020 },
+            "census_source": { "type": "string" },
+            "census_source_url": { "type": "string", "format": "uri" },
+            "categories": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "required": ["label", "prevalence_rate", "affected_page_loads", "estimated_excluded_users"],
+                "properties": {
+                  "label": { "type": "string" },
+                  "prevalence_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+                  "estimated_population": { "type": "integer", "minimum": 0 },
+                  "affected_page_loads": { "type": "number", "minimum": 0 },
+                  "affected_share_percent": { "type": "number", "minimum": 0 },
+                  "estimated_excluded_users": { "type": "number", "minimum": 0 },
+                  "source_note": { "type": "string" }
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "history_series": {
       "type": "array",
       "items": {

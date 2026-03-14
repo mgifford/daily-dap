@@ -37,6 +37,7 @@ export function buildDailyReport({
   scoreSummary,
   weightedImpact,
   prevalenceImpact,
+  fpcExclusion,
   historyWindow,
   urlResults = []
 }) {
@@ -93,6 +94,7 @@ export function buildDailyReport({
       affected_share_percent: weightedImpact?.totals?.affected_share_percent ?? 0,
       categories
     },
+    fpc_exclusion: fpcExclusion ?? null,
     source_data_date: sourceDataDate,
     top_urls: topUrls,
     trend_window_days: historyWindow?.window_days ?? 30,

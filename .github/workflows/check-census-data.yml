@@ -1,0 +1,114 @@
+name: Census Data Freshness Check
+
+on:
+  schedule:
+    # Run once a year on January 2 at 09:00 UTC
+    - cron: '0 9 2 1 *'
+  workflow_dispatch:
+    inputs:
+      check_date:
+        description: 'Override check date (YYYY-MM-DD, defaults to today)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-census-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check census data freshness
+        id: freshness
+        shell: bash
+        run: |
+          CHECK_DATE="${{ inputs.check_date }}"
+          if [[ -z "$CHECK_DATE" ]]; then
+            CHECK_DATE=$(date -u +%Y-%m-%d)
+          fi
+          echo "check_date=$CHECK_DATE" >> "$GITHUB_OUTPUT"
+
+          node --input-type=module <<'EOF'
+          import { CENSUS_DISABILITY_STATS, isCensusDataStale } from './src/data/census-disability-stats.js';
+
+          const checkDate = process.env.CHECK_DATE || new Date().toISOString().slice(0, 10);
+          const stale = isCensusDataStale(checkDate);
+
+          console.log('Census data vintage year:', CENSUS_DISABILITY_STATS.vintage_year);
+          console.log('Next review date:', CENSUS_DISABILITY_STATS.next_review_date);
+          console.log('Check date:', checkDate);
+          console.log('Is stale:', stale);
+
+          if (stale) {
+            console.log('::warning::Census disability data in src/data/census-disability-stats.js is past its review date. Please update the data with the latest ACS estimates from https://www.census.gov/topics/health/disability.html');
+            process.exitCode = 1;
+          } else {
+            console.log('Census data is current. No action needed.');
+          }
+          EOF
+        env:
+          CHECK_DATE: ${{ steps.freshness.outputs.check_date }}
+
+      - name: Open issue if census data is stale
+        if: failure() && steps.freshness.conclusion == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'census-data-review',
+              state: 'open'
+            });
+
+            if (issues.length > 0) {
+              console.log('An open census data review issue already exists:', issues[0].html_url);
+              return;
+            }
+
+            const { data: issue } = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Annual review: Update census disability prevalence data',
+              labels: ['census-data-review'],
+              body: `## Census Disability Data Review Required
+
+            The annual freshness check has detected that the disability prevalence data in [\`src/data/census-disability-stats.js\`](../blob/main/src/data/census-disability-stats.js) is past its scheduled review date.
+
+            ### Action Required
+
+            1. Check the latest disability statistics from the U.S. Census Bureau:
+               - [ACS Disability Statistics](https://www.census.gov/topics/health/disability.html)
+               - [ACS Table B18101 - Sex by Age by Disability Status](https://data.census.gov/table/ACSDT1Y2023.B18101)
+
+            2. Review supplemental sources:
+               - [CDC Disability and Health Data System](https://www.cdc.gov/ncbddd/disabilityandhealth/features/disability-prevalence-rural-urban.html)
+               - [NIDCD Quick Statistics (Hearing)](https://www.nidcd.nih.gov/health/statistics/quick-statistics-hearing)
+               - [AFB Statistical Snapshots (Vision)](https://www.afb.org/research-and-initiatives/statistics)
+
+            3. Update \`src/data/census-disability-stats.js\`:
+               - Update \`vintage_year\` to the new data year
+               - Update \`next_review_date\` to one year from today
+               - Update \`us_population\` to the latest estimate
+               - Update the \`fpc_rates\` entries with new prevalence figures
+
+            4. Update the comment block in \`src/config/prevalence.yaml\` to reflect the new vintage year and next review date.
+
+            See [\`src/data/census-disability-stats.js\`](../blob/main/src/data/census-disability-stats.js) for current vintage year, next review date, and per-category source notes.
+            `
+            });
+
+            console.log('Created issue:', issue.html_url);

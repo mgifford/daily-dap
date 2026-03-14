@@ -430,6 +430,80 @@ function renderEstimatedImpactSection(report) {
   </table>`)}`;
 }
 
+function renderFpcExclusionSection(report) {
+  const exclusion = report.fpc_exclusion;
+  if (!exclusion || !exclusion.categories) {
+    return '';
+  }
+
+  const totalPageLoads = exclusion.total_page_loads ?? 0;
+  const vintageYear = exclusion.census_vintage_year ?? 'unknown';
+  const sourceUrl = exclusion.census_source_url ?? 'https://www.census.gov/topics/health/disability.html';
+  const source = exclusion.census_source ?? 'U.S. Census Bureau';
+
+  const categories = Object.entries(exclusion.categories)
+    .filter(([, data]) => data.affected_page_loads > 0)
+    .sort((a, b) => b[1].estimated_excluded_users - a[1].estimated_excluded_users);
+
+  if (categories.length === 0) {
+    return `
+  <section aria-labelledby="fpc-exclusion-heading">
+    <h2 id="fpc-exclusion-heading">Americans Excluded by Disability${renderAnchorLink('fpc-exclusion-heading', 'Americans Excluded by Disability')}</h2>
+    <p><em>No accessibility findings data is available to estimate excluded users by disability category for this scan.</em></p>
+  </section>`;
+  }
+
+  const totalExcluded = categories.reduce((sum, [, data]) => sum + data.estimated_excluded_users, 0);
+
+  const rows = categories
+    .map(([code, data]) => {
+      const svg = FPC_SVGS[code];
+      const label = escapeHtml(data.label ?? code);
+      const icon = svg
+        ? `<span class="disability-badge" title="${label}">${svg}</span>`
+        : `<abbr title="${label}">${escapeHtml(code)}</abbr>`;
+      const pop = data.estimated_population
+        ? `~${Number(data.estimated_population).toLocaleString('en-US')}`
+        : 'N/A';
+      const rate = `${(data.prevalence_rate * 100).toFixed(1)}%`;
+      const affectedLoads = Number(data.affected_page_loads).toLocaleString('en-US');
+      const excluded = Math.round(data.estimated_excluded_users).toLocaleString('en-US');
+      return `<tr>
+      <td>${icon}</td>
+      <td>${label}</td>
+      <td>${rate}</td>
+      <td>${pop}</td>
+      <td>${affectedLoads}</td>
+      <td><strong>${excluded}</strong></td>
+    </tr>`;
+    })
+    .join('\n');
+
+  return `
+  <section aria-labelledby="fpc-exclusion-heading">
+    <h2 id="fpc-exclusion-heading">Americans Excluded by Disability Today${renderAnchorLink('fpc-exclusion-heading', 'Americans Excluded by Disability Today')}</h2>
+    <p>Based on <strong>${Number(totalPageLoads).toLocaleString('en-US')}</strong> page loads across successfully scanned government URLs and U.S. disability prevalence rates from the <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(source)}</a> (${escapeHtml(String(vintageYear))}), an estimated <strong>${Math.round(totalExcluded).toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on a government website today.</p>
+    <p>Each row shows the number of people in a disability group who visited a page with at least one accessibility issue that affects their group. Prevalence rates and U.S. population estimates are derived from the American Community Survey (ACS) and supplemental sources. These figures are rough estimates intended to illustrate the scale of accessibility barriers.</p>
+    ${wrapTable(`<table>
+      <caption>Estimated Americans excluded today by disability category (${escapeHtml(String(vintageYear))} Census data)</caption>
+      <thead>
+        <tr>
+          <th scope="col">Icon</th>
+          <th scope="col">Disability Group (Section 508 FPC)</th>
+          <th scope="col">U.S. Prevalence</th>
+          <th scope="col">U.S. Population Affected</th>
+          <th scope="col">Page Loads with Barriers</th>
+          <th scope="col">Est. Americans Excluded Today</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>`)}
+    <p><small>Sources: <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(source)}</a>; disability prevalence from ACS ${escapeHtml(String(vintageYear))} and supplemental CDC/NIDCD/NIH data. Reviewed annually.</small></p>
+  </section>`;
+}
+
 function hasNonZeroScores(entry) {
   const scores = entry.aggregate_scores;
   return scores.performance !== 0 || 
@@ -982,6 +1056,8 @@ export function renderDailyReportPage(report) {
     </section>
 
     ${renderEstimatedImpactSection(report)}
+
+    ${renderFpcExclusionSection(report)}
 
     <section aria-labelledby="history-heading">
       <h2 id="history-heading">History${renderAnchorLink('history-heading', 'History')}</h2>
