@@ -1,0 +1,30 @@
+name: Scan GitHub Pages Accessibility
+
+on:
+  schedule:
+    # Run on the first day of every month at 09:00 UTC
+    - cron: '0 9 1 * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan GitHub Pages with axe-core
+        uses: github/accessibility-scanner@v2
+        with:
+          urls: |
+            https://mgifford.github.io/daily-dap/
+            https://mgifford.github.io/daily-dap/reports/
+          repository: mgifford/daily-dap
+          token: ${{ secrets.GH_TOKEN }}
+          cache_key: daily-dap-github-pages
+          skip_copilot_assignment: true
