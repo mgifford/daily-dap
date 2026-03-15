@@ -1,5 +1,5 @@
 import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-fpc-mapping.js';
-import { getFpcPrevalenceRates } from '../data/census-disability-stats.js';
+import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 
@@ -295,6 +295,7 @@ function renderSharedStyles() {
     }
     .disability-legend dt { display: flex; align-items: center; justify-content: center; }
     .disability-legend dd { margin: 0; }
+    .fpc-prevalence { font-size: 0.85em; color: #555; white-space: nowrap; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
 
     /* ---------- Copy finding button ---------- */
@@ -1016,7 +1017,11 @@ function renderAxePatternsSection(topUrls = []) {
           .map(([code, label]) => {
             const svg = FPC_SVGS[code] ?? '';
             const description = FPC_DESCRIPTIONS[code] ?? '';
-            return `<dt>${svg}</dt><dd><strong>${escapeHtml(label)}</strong>${description ? ` &mdash; ${escapeHtml(description)}` : ''}</dd>`;
+            const fpcData = CENSUS_DISABILITY_STATS.fpc_rates[code];
+            const prevalenceText = fpcData
+              ? ` <span class="fpc-prevalence">(${(fpcData.rate * 100).toFixed(1)}% of U.S. population &mdash; ~${Number(fpcData.estimated_population).toLocaleString('en-US')} Americans)</span>`
+              : '';
+            return `<dt>${svg}</dt><dd><strong>${escapeHtml(label)}</strong>${description ? ` &mdash; ${escapeHtml(description)}` : ''}${prevalenceText}</dd>`;
           })
           .join('\n        ')}
       </dl>
@@ -1025,6 +1030,12 @@ function renderAxePatternsSection(topUrls = []) {
          (page loads for affected URLs &times; disability prevalence rate from U.S. Census ACS 2022).
          Hover over or focus an icon to see the full estimate and methodology.
          Icons follow the Section 508 Functional Performance Criteria and the equivalent EU EN 301 549 v3.2.1 Table B.2 categories.</p>
+      <p>Prevalence data: <a href="${escapeHtml(CENSUS_DISABILITY_STATS.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(CENSUS_DISABILITY_STATS.source)}</a>;
+         supplemental data from <abbr title="Centers for Disease Control and Prevention">CDC</abbr>,
+         <abbr title="National Institute on Deafness and Other Communication Disorders">NIDCD</abbr>,
+         <abbr title="American Foundation for the Blind">AFB</abbr>, and
+         <abbr title="National Eye Institute / National Institutes of Health">NIH/NEI</abbr>.
+         U.S. population base: ~${Number(CENSUS_DISABILITY_STATS.us_population).toLocaleString('en-US')} (${CENSUS_DISABILITY_STATS.vintage_year} estimate). Reviewed annually.</p>
       <p>See the <a href="https://www.section508.gov/develop/mapping-wcag-to-fpc/" target="_blank" rel="noreferrer">Section 508 WCAG to FPC mapping</a>
          for additional detail on how accessibility requirements map to functional needs.</p>
     </details>

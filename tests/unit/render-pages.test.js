@@ -1388,3 +1388,40 @@ test('disability icon key legend includes descriptions', () => {
   // Legend should include methodology note about page loads
   assert.ok(html.includes('page loads for affected URLs'), 'Legend should explain impact calculation methodology');
 });
+
+test('disability icon key legend includes prevalence rates and source citations', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Color contrast', description: 'Contrast check.', score: 0, tags: [], items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Legend should include prevalence percentages for FPC categories
+  assert.ok(html.includes('1.0% of U.S. population'), 'Legend should include WV prevalence rate');
+  assert.ok(html.includes('4.7% of U.S. population'), 'Legend should include LLCLA prevalence rate');
+  assert.ok(html.includes('4.3% of U.S. population'), 'Legend should include WPC prevalence rate');
+
+  // Legend should include estimated population counts
+  assert.ok(html.includes('3,400,000 Americans'), 'Legend should include WV estimated population');
+  assert.ok(html.includes('15,900,000 Americans'), 'Legend should include LLCLA estimated population');
+
+  // Legend should include census source link
+  assert.match(html, /href="https:\/\/www\.census\.gov/, 'Legend should link to census.gov source');
+  assert.ok(html.includes('American Community Survey'), 'Legend should cite American Community Survey');
+});
