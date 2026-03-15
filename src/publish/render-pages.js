@@ -1,4 +1,5 @@
-import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS } from '../data/axe-fpc-mapping.js';
+import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-fpc-mapping.js';
+import { getFpcPrevalenceRates } from '../data/census-disability-stats.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 
@@ -9,6 +10,12 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
+}
+
+function formatCompact(n) {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  return String(n);
 }
 
 function renderAnchorLink(id, label) {
@@ -260,15 +267,25 @@ function renderSharedStyles() {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.15rem;
+      gap: 0.15rem;
+      padding: 0.15rem 0.3rem;
       border-radius: 4px;
       background: #f0f3f8;
       border: 1px solid #c6d9ff;
       color: #003d8a;
-      line-height: 0;
+      line-height: 1;
+      cursor: help;
+      text-decoration: none;
     }
     .disability-badge:hover { background: #dde8f7; }
+    .disability-badge:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
     .disability-icon { display: block; vertical-align: middle; }
+    .disability-estimate {
+      font-size: 0.65rem;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
     .disability-legend {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -704,17 +721,18 @@ export function buildFindingCopyText(pageUrl, finding) {
   return lines.join('\n');
 }
 
-function renderAxeFindingsList(axeFindings = [], pageUrl = '') {
+function renderAxeFindingsList(axeFindings = [], pageUrl = '', pageLoadCount = 0) {
   if (axeFindings.length === 0) {
     return '<p>No accessibility findings from this scan.</p>';
   }
 
+  const prevalenceRates = getFpcPrevalenceRates();
   return axeFindings
     .map((finding) => {
       const fpcCodes = AXE_TO_FPC.get(finding.id);
       const fpcHtml =
         fpcCodes && fpcCodes.length > 0
-          ? `<p><strong>Disabilities affected:</strong> ${renderFpcCodes(finding.id)}</p>`
+          ? `<p><strong>Disabilities affected:</strong> ${renderFpcCodes(finding.id, pageLoadCount, prevalenceRates)}</p>`
           : '';
       return `
       <details>
@@ -743,7 +761,7 @@ function renderUrlModal(entry, modalId) {
   <p><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></p>
   <p>Lighthouse Accessibility Score: ${entry.lighthouse_scores ? entry.lighthouse_scores.accessibility : '—'}</p>
   <p>Axe findings: ${axeFindings.length}</p>
-  ${renderAxeFindingsList(axeFindings, entry.url)}
+  ${renderAxeFindingsList(axeFindings, entry.url, entry.page_load_count ?? 0)}
   <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
   <div class="modal-footer">
     <button aria-label="Close dialog" data-close-modal="${escapeHtml(modalId)}">Close</button>
@@ -851,20 +869,22 @@ function renderDayComparisonSection(report) {
 function buildAxePatternCounts(topUrls = []) {
   const counts = new Map();
   for (const entry of topUrls) {
+    const pageLoads = entry.page_load_count ?? 0;
     for (const finding of entry.axe_findings ?? []) {
       const existing = counts.get(finding.id);
       if (existing) {
         existing.count += 1;
+        existing.total_page_loads += pageLoads;
         existing.title = finding.title;
       } else {
-        counts.set(finding.id, { id: finding.id, title: finding.title, count: 1 });
+        counts.set(finding.id, { id: finding.id, title: finding.title, count: 1, total_page_loads: pageLoads });
       }
     }
   }
   return [...counts.values()].sort((a, b) => b.count - a.count);
 }
 
-function renderFpcCodes(ruleId) {
+function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
   const codes = AXE_TO_FPC.get(ruleId);
   if (!codes || codes.length === 0) {
     return '<em>unknown</em>';
@@ -872,11 +892,26 @@ function renderFpcCodes(ruleId) {
   const badges = codes
     .map((code) => {
       const label = FPC_LABELS[code] ?? code;
+      const description = FPC_DESCRIPTIONS[code] ?? '';
       const svg = FPC_SVGS[code];
-      if (svg) {
-        return `<span class="disability-badge" title="${escapeHtml(label)}">${svg}</span>`;
+      const rate = prevalenceRates[code] ?? 0;
+      const estimated = totalPageLoads > 0 && rate > 0 ? Math.round(totalPageLoads * rate) : null;
+      const tooltipParts = [label];
+      if (description) tooltipParts.push(description);
+      if (estimated !== null) {
+        tooltipParts.push(
+          `Estimated ~${estimated.toLocaleString('en-US')} people potentially excluded ` +
+          `(${(rate * 100).toFixed(1)}% prevalence \u00d7 ${totalPageLoads.toLocaleString('en-US')} affected page loads)`
+        );
       }
-      return `<abbr title="${escapeHtml(label)}">${escapeHtml(code)}</abbr>`;
+      const tooltip = tooltipParts.join('. ');
+      const estimateHtml = estimated !== null
+        ? `<span class="disability-estimate" aria-hidden="true">~${formatCompact(estimated)}</span>`
+        : '';
+      if (svg) {
+        return `<span class="disability-badge" role="img" aria-label="${escapeHtml(tooltip)}" title="${escapeHtml(tooltip)}" tabindex="0">${svg}${estimateHtml}</span>`;
+      }
+      return `<abbr title="${escapeHtml(tooltip)}">${escapeHtml(code)}${estimateHtml}</abbr>`;
     })
     .join(' ');
   return `<span class="disability-badges">${badges}</span>`;
@@ -890,11 +925,12 @@ function renderAxePatternsSection(topUrls = []) {
   }
 
   const topPatterns = patterns.slice(0, 10);
+  const prevalenceRates = getFpcPrevalenceRates();
 
   const rows = topPatterns
     .map(
       (p) =>
-        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${p.count}</td><td>${renderFpcCodes(p.id)}</td></tr>`
+        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${p.count}</td><td>${renderFpcCodes(p.id, p.total_page_loads, prevalenceRates)}</td></tr>`
     )
     .join('\n');
 
@@ -909,7 +945,7 @@ function renderAxePatternsSection(topUrls = []) {
           <th scope="col">Rule ID</th>
           <th scope="col">Description</th>
           <th scope="col">URLs affected</th>
-          <th scope="col">Disabilities Affected</th>
+          <th scope="col" class="wrap-header">Disabilities Affected <span style="font-weight:normal;font-size:0.8em">(hover/focus icons for estimated impact)</span></th>
         </tr>
       </thead>
       <tbody>
@@ -922,11 +958,15 @@ function renderAxePatternsSection(topUrls = []) {
         ${Object.entries(FPC_LABELS)
           .map(([code, label]) => {
             const svg = FPC_SVGS[code] ?? '';
-            return `<dt>${svg}</dt><dd>${escapeHtml(label)}</dd>`;
+            const description = FPC_DESCRIPTIONS[code] ?? '';
+            return `<dt>${svg}</dt><dd><strong>${escapeHtml(label)}</strong>${description ? ` &mdash; ${escapeHtml(description)}` : ''}</dd>`;
           })
           .join('\n        ')}
       </dl>
       <p>These icons show which groups of people with disabilities are excluded by each accessibility barrier.
+         Where page view data is available, each icon shows an estimated number of people potentially excluded
+         (page loads for affected URLs &times; disability prevalence rate from U.S. Census ACS 2022).
+         Hover over or focus an icon to see the full estimate and methodology.
          Icons follow the Section 508 Functional Performance Criteria and the equivalent EU EN 301 549 v3.2.1 Table B.2 categories.</p>
       <p>See the <a href="https://www.section508.gov/develop/mapping-wcag-to-fpc/" target="_blank" rel="noreferrer">Section 508 WCAG to FPC mapping</a>
          for additional detail on how accessibility requirements map to functional needs.</p>

@@ -1200,3 +1200,191 @@ test('renderDailyReportPage omits FPC section for unknown axe rules in URL modal
   assert.ok(modalMatch, 'Modal should be present for the URL');
   assert.ok(!modalMatch[0].includes('<strong>Disabilities affected:</strong>'), 'Should not show disability paragraph for unknown axe rule');
 });
+
+test('renderDailyReportPage disability badges have accessible tooltip attributes', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Elements must meet minimum color contrast ratio', description: 'Ensures text meets contrast requirements.', score: 0, tags: [], items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Badges should have role="img" for screen readers
+  assert.ok(html.includes('role="img"'), 'Disability badges should have role="img"');
+  // Badges should be keyboard-focusable
+  assert.ok(html.includes('tabindex="0"'), 'Disability badges should have tabindex="0" for keyboard access');
+  // Badge aria-label should include the disability label
+  assert.ok(html.includes('Limited Vision'), 'Badge aria-label should include disability name');
+  // Badge aria-label should include the disability description
+  assert.ok(html.includes('People with low vision'), 'Badge aria-label should include disability description');
+  // Badge should have title attribute for mouse hover tooltip
+  assert.ok(html.includes('title='), 'Disability badges should have title attribute for hover tooltip');
+});
+
+test('renderDailyReportPage disability badges show estimated impact when page_load_count is available', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 1000000,
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'target-size', title: 'Target size', description: 'Touch targets should be large enough.', score: 0, tags: [], items: [] }
+        ]
+      },
+      {
+        url: 'https://other.gov',
+        page_load_count: 500000,
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'target-size', title: 'Target size', description: 'Touch targets should be large enough.', score: 0, tags: [], items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // target-size maps to LM (2.2%) and LRS (5.8%)
+  // Total page loads = 1,500,000
+  // LM estimate: 1,500,000 * 0.022 = 33,000
+  // LRS estimate: 1,500,000 * 0.058 = 87,000
+  assert.ok(html.includes('disability-estimate'), 'Should include disability-estimate elements');
+  assert.ok(html.includes('~33'), 'Should show LM estimated impact (~33K)');
+  assert.ok(html.includes('~87'), 'Should show LRS estimated impact (~87K)');
+  // Tooltip should mention estimated excluded people
+  assert.ok(html.includes('potentially excluded'), 'Tooltip should mention people potentially excluded');
+  // Tooltip should mention prevalence
+  assert.ok(html.includes('prevalence'), 'Tooltip should mention prevalence rate');
+});
+
+test('renderDailyReportPage disability badges show no estimate when page_load_count is unavailable', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Elements must meet minimum color contrast ratio', description: 'Ensures text meets contrast requirements.', score: 0, tags: [], items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // No estimate shown when page_load_count is not available
+  assert.ok(!html.includes('<span class="disability-estimate"'), 'Should not show disability-estimate span when no page_load_count');
+  assert.ok(!html.includes('Estimated ~'), 'Badge tooltip should not include estimated count when no page data');
+  // But should still show disability label and description in aria-label
+  assert.ok(html.includes('Limited Vision'), 'Badge should still show disability name');
+  assert.ok(html.includes('People with low vision'), 'Badge should still include disability description');
+});
+
+test('renderDailyReportPage URL modal shows per-URL disability impact estimates', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 500000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'color-contrast',
+            title: 'Elements must meet minimum color contrast ratio',
+            description: 'Ensures text meets contrast requirements.',
+            score: 0,
+            tags: ['wcag143'],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // color-contrast maps to LV (2.4%) and WPC (4.3%)
+  // Page loads = 500,000
+  // LV estimate: 500,000 * 0.024 = 12,000 → ~12.0K
+  // WPC estimate: 500,000 * 0.043 = 21,500 → ~21.5K
+  const modalMatch = html.match(/<dialog id="modal-url-0"[\s\S]*?<\/dialog>/);
+  assert.ok(modalMatch, 'Modal should be present for the URL');
+  assert.ok(modalMatch[0].includes('disability-estimate'), 'Modal should show disability impact estimates');
+  assert.ok(modalMatch[0].includes('~12'), 'Modal should show LV estimate (~12K)');
+  assert.ok(modalMatch[0].includes('~21'), 'Modal should show WPC estimate (~21.5K)');
+});
+
+test('disability icon key legend includes descriptions', () => {
+  const report = {
+    run_date: '2026-03-09',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Color contrast', description: 'Contrast check.', score: 0, tags: [], items: [] }
+        ]
+      }
+    ],
+    generated_at: '2026-03-09T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Legend should include FPC descriptions
+  assert.ok(html.includes('People who are blind or have no functional vision'), 'Legend should include WV description');
+  assert.ok(html.includes('People with cognitive, learning, or language differences'), 'Legend should include LLCLA description');
+  // Legend should include methodology note about page loads
+  assert.ok(html.includes('page loads for affected URLs'), 'Legend should explain impact calculation methodology');
+});
