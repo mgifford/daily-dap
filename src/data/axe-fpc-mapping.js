@@ -35,6 +35,20 @@ export const FPC_LABELS = {
   LLCLA: 'Limited Language, Cognitive, and Learning Abilities'
 };
 
+// Short human-readable descriptions of each FPC disability category, used in
+// accessible tooltips to explain what each icon represents.
+export const FPC_DESCRIPTIONS = {
+  WV:    'People who are blind or have no functional vision',
+  LV:    'People with low vision who need magnification or high contrast',
+  WPC:   'People who cannot distinguish certain colors (color blindness)',
+  WH:    'People who are deaf and cannot hear audio content',
+  LH:    'People with hearing loss who may struggle with audio without accommodations',
+  WS:    'People who cannot use speech or voice-based input effectively',
+  LM:    'People with limited hand, finger, or fine motor dexterity',
+  LRS:   'People with limited reach, strength, or stamina',
+  LLCLA: 'People with cognitive, learning, or language differences',
+};
+
 // Inline SVG icons representing each FPC disability category.
 // Icons use a consistent 24x24 viewBox, stroke-based style.
 // Each SVG carries role="img", aria-label, and an inner <title> for full accessibility.
