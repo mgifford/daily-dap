@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   scan-pages:
@@ -25,6 +26,6 @@ jobs:
             https://mgifford.github.io/daily-dap/
             https://mgifford.github.io/daily-dap/reports/
           repository: mgifford/daily-dap
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ github.token }}
           cache_key: daily-dap-github-pages
           skip_copilot_assignment: true
