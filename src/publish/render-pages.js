@@ -521,6 +521,63 @@ function renderFpcExclusionSection(report) {
   </section>`;
 }
 
+function formatDuration(hours) {
+  if (hours >= 24) {
+    const days = Math.round((hours / 24) * 10) / 10;
+    return `${days.toLocaleString('en-US')} days`;
+  }
+  return `${hours.toLocaleString('en-US')} hours`;
+}
+
+function renderPerformanceImpactSection(report) {
+  const impact = report.performance_impact;
+  if (!impact || impact.url_count_with_timing === 0) {
+    return '';
+  }
+
+  const benchmarkLcpSec = (impact.benchmark_lcp_ms / 1000).toFixed(1);
+  const benchmarkWeightMb = (impact.benchmark_page_weight_bytes / 1_000_000).toFixed(1);
+  const extraHours = impact.total_extra_load_time_hours;
+  const extraGb = impact.total_extra_gigabytes;
+  const urlCount = impact.url_count_with_timing;
+
+  const timeRow = `<tr>
+      <td>Extra time waiting (vs ${benchmarkLcpSec}s LCP benchmark)</td>
+      <td>${formatDuration(extraHours)}</td>
+      <td>${Number(impact.total_extra_load_time_seconds).toLocaleString('en-US')} seconds</td>
+    </tr>`;
+
+  const weightRow =
+    impact.url_count_with_weight > 0
+      ? `<tr>
+      <td>Extra data transferred (vs ${benchmarkWeightMb} MB page weight benchmark)</td>
+      <td>${extraGb.toLocaleString('en-US')} GB</td>
+      <td>Across ${Number(impact.url_count_with_weight).toLocaleString('en-US')} URLs with weight data</td>
+    </tr>`
+      : '';
+
+  return `
+  <section aria-labelledby="performance-impact-heading">
+    <h2 id="performance-impact-heading">Performance Impact on Americans${renderAnchorLink('performance-impact-heading', 'Performance Impact on Americans')}</h2>
+    <p>Google defines a <strong>good</strong> Largest Contentful Paint (LCP) as under ${benchmarkLcpSec} seconds and recommends pages under ${benchmarkWeightMb} MB. The figures below estimate how much extra time Americans spend waiting, and how much extra data is transferred, because government websites fall short of these benchmarks. Calculations are based on ${Number(urlCount).toLocaleString('en-US')} successfully scanned URLs with Lighthouse timing data.</p>
+    ${wrapTable(`<table>
+      <caption>Estimated performance impact vs. Google benchmarks for today's scanned government URLs</caption>
+      <thead>
+        <tr>
+          <th scope="col">Metric</th>
+          <th scope="col">Estimated total (today)</th>
+          <th scope="col">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${timeRow}
+        ${weightRow}
+      </tbody>
+    </table>`)}
+    <p><small>Extra time is calculated as: for each scanned URL, <em>max(0, actual LCP &minus; ${benchmarkLcpSec}s) &times; page loads</em>. Extra data is calculated as: <em>max(0, actual page weight &minus; ${benchmarkWeightMb} MB) &times; page loads</em>. LCP and page weight are measured by Lighthouse. These are rough estimates based on a sample of the top government URLs by traffic.</small></p>
+  </section>`;
+}
+
 function hasNonZeroScores(entry) {
   const scores = entry.aggregate_scores;
   return scores.performance !== 0 || 
@@ -1098,6 +1155,8 @@ export function renderDailyReportPage(report) {
     ${renderEstimatedImpactSection(report)}
 
     ${renderFpcExclusionSection(report)}
+
+    ${renderPerformanceImpactSection(report)}
 
     <section aria-labelledby="history-heading">
       <h2 id="history-heading">History${renderAnchorLink('history-heading', 'History')}</h2>

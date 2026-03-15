@@ -64,6 +64,8 @@ function parseLighthouseResult(url, rawResult) {
     lighthouse_seo: toScorePercent(rawResult?.categories?.seo?.score),
     lighthouse_pwa: toScorePercent(rawResult?.categories?.pwa?.score),
     core_web_vitals_status: deriveCoreWebVitalsStatus(rawResult),
+    lcp_value_ms: rawResult?.audits?.['largest-contentful-paint']?.numericValue ?? null,
+    total_byte_weight: rawResult?.audits?.['total-byte-weight']?.numericValue ?? null,
     raw: rawResult
   };
 }
