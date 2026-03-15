@@ -123,16 +123,16 @@ test('renderDailyReportPage shows Lighthouse scores for top URLs with successful
   assert.ok(html.includes('>SEO<'), 'Should have SEO column header');
 
   // Scores for first URL should appear
-  assert.ok(html.includes('<td>39</td>'), 'Should include performance score 39 for tools.usps.com');
-  assert.ok(html.includes('<td>68</td>'), 'Should include accessibility score 68 for tools.usps.com');
-  assert.ok(html.includes('<td>77</td>'), 'Should include best_practices score 77 for tools.usps.com');
-  assert.ok(html.includes('<td>83</td>'), 'Should include seo score 83 for tools.usps.com');
+  assert.ok(html.includes('>39</td>'), 'Should include performance score 39 for tools.usps.com');
+  assert.ok(html.includes('>68</td>'), 'Should include accessibility score 68 for tools.usps.com');
+  assert.ok(html.includes('>77</td>'), 'Should include best_practices score 77 for tools.usps.com');
+  assert.ok(html.includes('>83</td>'), 'Should include seo score 83 for tools.usps.com');
 
   // Scores for second URL should appear
-  assert.ok(html.includes('<td>70</td>'), 'Should include performance score 70 for pmc.ncbi.nlm.nih.gov');
-  assert.ok(html.includes('<td>100</td>'), 'Should include accessibility score 100 for pmc.ncbi.nlm.nih.gov');
-  assert.ok(html.includes('<td>96</td>'), 'Should include best_practices score 96 for pmc.ncbi.nlm.nih.gov');
-  assert.ok(html.includes('<td>92</td>'), 'Should include seo score 92 for pmc.ncbi.nlm.nih.gov');
+  assert.ok(html.includes('>70</td>'), 'Should include performance score 70 for pmc.ncbi.nlm.nih.gov');
+  assert.ok(html.includes('>100</td>'), 'Should include accessibility score 100 for pmc.ncbi.nlm.nih.gov');
+  assert.ok(html.includes('>96</td>'), 'Should include best_practices score 96 for pmc.ncbi.nlm.nih.gov');
+  assert.ok(html.includes('>92</td>'), 'Should include seo score 92 for pmc.ncbi.nlm.nih.gov');
 });
 
 test('renderDailyReportPage shows dash for Lighthouse scores when scan failed', () => {
@@ -162,7 +162,7 @@ test('renderDailyReportPage shows dash for Lighthouse scores when scan failed', 
   const html = renderDailyReportPage(report);
 
   // Failed scan should show dash placeholders for Lighthouse scores
-  const dashCount = (html.match(/<td>—<\/td>/g) || []).length;
+  const dashCount = (html.match(/<td[^>]*>—<\/td>/g) || []).length;
   assert.ok(dashCount >= 4, 'Should show at least 4 dash placeholders for missing Lighthouse scores');
 });
 
