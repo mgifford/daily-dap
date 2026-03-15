@@ -13,6 +13,7 @@ import { buildSlowRiskRollup } from '../aggregation/slow-risk.js';
 import { estimateWeightedImpact } from '../aggregation/impact-estimation.js';
 import { estimateCategoryImpact } from '../aggregation/prevalence-impact.js';
 import { computeFpcExclusion } from '../aggregation/fpc-exclusion.js';
+import { buildPerformanceImpact } from '../aggregation/performance-impact.js';
 import { isCensusDataStale } from '../data/census-disability-stats.js';
 import { buildHistorySeries } from '../aggregation/history-series.js';
 import { buildDailyReport } from '../publish/build-daily-report.js';
@@ -199,9 +200,10 @@ function createMockScannerRunners(failNeedles = []) {
             pwa: { score: pwa }
           },
           audits: {
-            'largest-contentful-paint': { score: performance },
+            'largest-contentful-paint': { score: performance, numericValue: Math.round((1 - performance) * 8000 + 1000) },
             'cumulative-layout-shift': { score: seo },
             'interaction-to-next-paint': { score: bestPractices },
+            'total-byte-weight': { numericValue: Math.round((1 - performance) * 3000000 + 500000) },
             ...accessibilityAudits
           }
         };
@@ -439,6 +441,9 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     const fpcExclusion = computeFpcExclusion(scanExecution.results);
     logProgress('AGGREGATION', 'FPC exclusion computed');
 
+    const performanceImpact = buildPerformanceImpact(scanExecution.results);
+    logProgress('AGGREGATION', 'Performance impact calculated');
+
     if (isCensusDataStale()) {
       logProgress('AGGREGATION', 'WARNING: Census disability data may be stale. Review src/data/census-disability-stats.js and update with the latest ACS data.');
     }
@@ -473,7 +478,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       prevalenceImpact,
       fpcExclusion,
       historyWindow,
-      urlResults: scanExecution.results
+      urlResults: scanExecution.results,
+      performanceImpact
     });
 
     report.slow_risk_summary = slowRisk.summary;

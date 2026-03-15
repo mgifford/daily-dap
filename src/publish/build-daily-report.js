@@ -39,7 +39,8 @@ export function buildDailyReport({
   prevalenceImpact,
   fpcExclusion,
   historyWindow,
-  urlResults = []
+  urlResults = [],
+  performanceImpact = null
 }) {
   const succeeded = urlResults.filter((result) => result?.scan_status === 'success').length;
   const failed = urlResults.filter((result) => result?.scan_status === 'failed').length;
@@ -95,6 +96,7 @@ export function buildDailyReport({
       categories
     },
     fpc_exclusion: fpcExclusion ?? null,
+    performance_impact: performanceImpact ?? null,
     source_data_date: sourceDataDate,
     top_urls: topUrls,
     trend_window_days: historyWindow?.window_days ?? 30,
