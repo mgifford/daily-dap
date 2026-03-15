@@ -362,6 +362,41 @@ function renderSharedStyles() {
       }
       .site-main { padding: 1rem 0.75rem 2rem; }
       section { padding: 1rem; }
+
+      /* Stacked card layout for the wide top-URLs table */
+      #top-urls-table thead { display: none; }
+      #top-urls-table tbody tr {
+        display: block;
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        padding: 0.25rem 0;
+        background: #fff;
+      }
+      #top-urls-table tbody tr:nth-child(even) { background: #fafbfc; }
+      #top-urls-table td {
+        display: flex;
+        border: none;
+        border-bottom: 1px solid #eef0f3;
+        padding: 0.4rem 0.75rem;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+      #top-urls-table td:last-child { border-bottom: none; }
+      #top-urls-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+        min-width: 8.5rem;
+        flex-shrink: 0;
+        font-size: 0.8rem;
+      }
+      #top-urls-table .url-cell {
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
     }
   </style>`;
 }
@@ -645,15 +680,16 @@ function renderHistoryRows(historySeries = []) {
   return [...monthlyRows, ...dailyRows].join('\n');
 }
 
-function renderLighthouseScoreCell(scores, key) {
+function renderLighthouseScoreCell(scores, key, label = '') {
+  const labelAttr = label ? ` data-label="${escapeHtml(label)}"` : '';
   if (!scores) {
-    return '<td>—</td>';
+    return `<td${labelAttr}>—</td>`;
   }
   const value = scores[key];
   if (typeof value !== 'number' || !Number.isFinite(value)) {
-    return '<td>—</td>';
+    return `<td${labelAttr}>—</td>`;
   }
-  return `<td>${value}</td>`;
+  return `<td${labelAttr}>${value}</td>`;
 }
 
 function renderDescriptionHtml(description) {
@@ -841,18 +877,18 @@ function renderTopUrlRows(topUrls = []) {
     .slice(0, 100)
     .map(
       (entry, index) => `<tr>
-  <td class="url-cell"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
-  <td>${entry.page_load_count}</td>
-  <td>${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
-  <td>${escapeHtml((entry.core_web_vitals_status ?? 'unknown').replace(/_/g, ' '))}</td>
-  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance')}
-  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility')}
-  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices')}
-  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo')}
-  <td>${entry.findings_count}</td>
-  <td>${entry.severe_findings_count}</td>
-  <td>${entry.failure_reason ? escapeHtml(entry.failure_reason.replace(/_/g, ' ')) : ''}</td>
-  <td>${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
+  <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+  <td data-label="Traffic">${entry.page_load_count}</td>
+  <td data-label="Scan status">${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
+  <td data-label="CWV">${escapeHtml((entry.core_web_vitals_status ?? 'unknown').replace(/_/g, ' '))}</td>
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility', 'Accessibility')}
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices', 'Best Practices')}
+  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo', 'SEO')}
+  <td data-label="Total findings">${entry.findings_count}</td>
+  <td data-label="Critical/Serious">${entry.severe_findings_count}</td>
+  <td data-label="Failure reason">${entry.failure_reason ? escapeHtml(entry.failure_reason.replace(/_/g, ' ')) : ''}</td>
+  <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
 </tr>`
     )
     .join('\n');
