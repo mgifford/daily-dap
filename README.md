@@ -106,3 +106,38 @@ node src/cli/run-daily-scan.js --dry-run --limit 10
 
 - [ACCESSIBILITY.md](./ACCESSIBILITY.md) - Accessibility commitment, best practices, and guidelines
 - [AGENTS.md](./AGENTS.md) - AI agent instructions and project-specific rules
+
+## Disability icons and accessibility impact
+
+Each accessibility finding is annotated with icons representing the
+[Section 508 Functional Performance Criteria (FPC)](https://www.section508.gov/develop/mapping-wcag-to-fpc/)
+categories affected. These icons identify which disability groups are impacted by a given
+accessibility barrier. Where page-load data is available, each icon also shows an estimated
+number of people potentially excluded.
+
+The prevalence figures below are drawn from the
+[U.S. Census Bureau American Community Survey (ACS) 2022 1-Year Estimates, Table B18101](https://www.census.gov/topics/health/disability.html)
+and supplemental federal sources (CDC, NIDCD, AFB, NIH/NEI).
+U.S. resident population base: ~335.9 million (2022 estimate). Data is reviewed annually.
+
+| FPC Code | Disability Group | Description | U.S. Prevalence | ~U.S. Population | Source |
+|----------|-----------------|-------------|-----------------|-----------------|--------|
+| WV | Without Vision | People who are blind or have no functional vision | 1.0% | ~3.4 million | American Foundation for the Blind (AFB): Americans with severe visual impairment or blindness |
+| LV | Limited Vision | People with low vision who need magnification or high contrast | 2.4% | ~8.1 million | American Community Survey (ACS) 2022: vision difficulty (all severity levels) |
+| WPC | Without Perception of Color | People who cannot distinguish certain colors (color vision deficiency) | 4.3% | ~14.5 million | NIH/NEI: ~8% of males and ~0.5% of females have color vision deficiency |
+| WH | Without Hearing | People who are deaf and cannot hear audio content | 0.3% | ~1.1 million | NIDCD: ~1.1 million Americans with functional deafness |
+| LH | Limited Hearing | People with hearing loss who may struggle with audio without accommodations | 3.5% | ~11.9 million | ACS 2022: hearing difficulty (all severity levels) |
+| WS | Without Speech | People who cannot use speech or voice-based input effectively | 0.5% | ~1.7 million | NIDCD: severe non-verbal or speech-absent population |
+| LM | Limited Manipulation | People with limited hand, finger, or fine motor dexterity | 2.2% | ~7.6 million | ACS 2022: self-care difficulty (fine-motor/dexterity proxy) |
+| LRS | Limited Reach and Strength | People with limited reach, strength, or stamina | 5.8% | ~19.6 million | ACS 2022: ambulatory difficulty |
+| LLCLA | Limited Language, Cognitive, and Learning Abilities | People with cognitive, learning, or language differences | 4.7% | ~15.9 million | ACS 2022: cognitive difficulty |
+
+> **Note:** These rates are population-level estimates applied to web traffic counts. The resulting
+> "excluded users" figures are rough estimates intended to highlight the scale of accessibility
+> barriers, not precise measurements.
+
+**Supplemental sources:**
+- [CDC National Center on Birth Defects and Developmental Disabilities](https://www.cdc.gov/ncbddd/disabilityandhealth/features/disability-prevalence-rural-urban.html)
+- [National Institute on Deafness and Other Communication Disorders (NIDCD)](https://www.nidcd.nih.gov/health/statistics/quick-statistics-hearing)
+- [American Foundation for the Blind (AFB) statistical snapshots](https://www.afb.org/research-and-initiatives/statistics)
+- [National Eye Institute / NIH color vision deficiency estimates](https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness)
