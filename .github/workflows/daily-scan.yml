@@ -117,6 +117,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/reports
           git commit -m "chore: publish daily DAP report snapshots"
+          git pull --rebase origin main
           git push
 
       - name: Archive old reports
@@ -137,6 +138,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/reports/archive docs/reports/daily
           git commit -m "chore: archive DAP reports older than 14 days"
+          git pull --rebase origin main
           git push
 
       - name: Generate accessibility summary
