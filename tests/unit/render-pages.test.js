@@ -250,6 +250,16 @@ test('renderDailyReportPage includes Details button and modal dialog for each UR
   // Table should have Details column header
   assert.ok(html.includes('>Axe details<'), 'Should have Axe details column header');
 
+  // Axe details column should appear after Accessibility and before Best Practices in the table header
+  // Search within the top-urls table section specifically
+  const tableStart = html.indexOf('id="top-urls-table"');
+  const tableHeaderSection = html.substring(tableStart, tableStart + 2000);
+  const axeDetailsPos = tableHeaderSection.indexOf('>Axe details<');
+  const accessibilityPos = tableHeaderSection.indexOf('>Accessibility<');
+  const bestPracticesPos = tableHeaderSection.indexOf('>Best Practices<');
+  assert.ok(accessibilityPos < axeDetailsPos, 'Accessibility header should appear before Axe details header in table');
+  assert.ok(axeDetailsPos < bestPracticesPos, 'Axe details header should appear before Best Practices header in table');
+
   // Details button should be present
   assert.ok(html.includes('class="details-btn"'), 'Should have details button');
   assert.ok(html.includes('aria-haspopup="dialog"'), 'Details button should indicate dialog popup');
