@@ -1425,3 +1425,157 @@ test('disability icon key legend includes prevalence rates and source citations'
   assert.match(html, /href="https:\/\/www\.census\.gov/, 'Legend should link to census.gov source');
   assert.ok(html.includes('American Community Survey'), 'Legend should cite American Community Survey');
 });
+
+// ---------- Dark mode tests ----------
+
+function makeMinimalReport(overrides = {}) {
+  return {
+    run_date: '2026-03-16',
+    run_id: 'test-run',
+    url_counts: { processed: 5, succeeded: 5, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-16T00:00:00.000Z',
+    report_status: 'success',
+    ...overrides,
+  };
+}
+
+test('dark mode: all page types include color-scheme meta tag', () => {
+  const daily = renderDailyReportPage(makeMinimalReport());
+  const dashboard = renderDashboardPage({ latestReport: null, historyIndex: [] });
+  const archive = renderArchiveIndexPage();
+  const redirect = renderArchiveRedirectStub('2026-03-01');
+
+  for (const [name, html] of [['daily', daily], ['dashboard', dashboard], ['archive', archive], ['redirect', redirect]]) {
+    assert.ok(
+      html.includes('name="color-scheme" content="light dark"'),
+      `${name} page should include color-scheme meta tag`
+    );
+  }
+});
+
+test('dark mode: all page types include anti-FOWT inline script in head', () => {
+  const daily = renderDailyReportPage(makeMinimalReport());
+  const dashboard = renderDashboardPage({ latestReport: null, historyIndex: [] });
+  const archive = renderArchiveIndexPage();
+  const redirect = renderArchiveRedirectStub('2026-03-01');
+
+  for (const [name, html] of [['daily', daily], ['dashboard', dashboard], ['archive', archive], ['redirect', redirect]]) {
+    // The anti-FOWT script reads saved preference before styles are applied
+    assert.ok(
+      html.includes("localStorage.getItem('color-scheme')"),
+      `${name} page should include anti-FOWT localStorage script`
+    );
+    // The script must appear before </head>
+    const headEnd = html.indexOf('</head>');
+    const scriptPos = html.indexOf("localStorage.getItem('color-scheme')");
+    assert.ok(scriptPos < headEnd, `${name} page: anti-FOWT script must be inside <head>`);
+  }
+});
+
+test('dark mode: all page types include theme toggle button with aria attributes', () => {
+  const daily = renderDailyReportPage(makeMinimalReport());
+  const dashboard = renderDashboardPage({ latestReport: null, historyIndex: [] });
+  const archive = renderArchiveIndexPage();
+  const redirect = renderArchiveRedirectStub('2026-03-01');
+
+  for (const [name, html] of [['daily', daily], ['dashboard', dashboard], ['archive', archive], ['redirect', redirect]]) {
+    assert.ok(html.includes('id="theme-toggle"'), `${name} page should have theme-toggle button`);
+    assert.ok(html.includes('aria-pressed="false"'), `${name} page toggle should have aria-pressed`);
+    assert.ok(html.includes('aria-label="Enable dark mode"'), `${name} page toggle should have aria-label`);
+    assert.ok(html.includes('type="button"'), `${name} page toggle should have explicit type=button`);
+  }
+});
+
+test('dark mode: all page types include ARIA live region for announcements', () => {
+  const daily = renderDailyReportPage(makeMinimalReport());
+  const dashboard = renderDashboardPage({ latestReport: null, historyIndex: [] });
+  const archive = renderArchiveIndexPage();
+  const redirect = renderArchiveRedirectStub('2026-03-01');
+
+  for (const [name, html] of [['daily', daily], ['dashboard', dashboard], ['archive', archive], ['redirect', redirect]]) {
+    assert.ok(html.includes('id="theme-announcement"'), `${name} page should have announcement region`);
+    assert.ok(html.includes('role="status"'), `${name} page announcement should have role=status`);
+    assert.ok(html.includes('aria-live="polite"'), `${name} page announcement should have aria-live=polite`);
+    assert.ok(html.includes('aria-atomic="true"'), `${name} page announcement should have aria-atomic=true`);
+  }
+});
+
+test('dark mode: CSS includes custom properties in :root', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(html.includes(':root {'), 'CSS should have :root block');
+  assert.ok(html.includes('color-scheme: light dark'), ':root should declare color-scheme');
+  assert.ok(html.includes('--color-bg:'), 'CSS should define --color-bg variable');
+  assert.ok(html.includes('--color-text:'), 'CSS should define --color-text variable');
+  assert.ok(html.includes('--color-primary:'), 'CSS should define --color-primary variable');
+  assert.ok(html.includes('--color-focus-ring:'), 'CSS should define --color-focus-ring variable');
+});
+
+test('dark mode: CSS includes prefers-color-scheme dark media query', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('@media (prefers-color-scheme: dark)'),
+    'CSS should have dark mode media query'
+  );
+  // Uses :not() to respect explicit light preference
+  assert.ok(
+    html.includes(':root:not([data-color-scheme="light"])'),
+    'Dark media query should use :not() to respect explicit light preference'
+  );
+});
+
+test('dark mode: CSS includes explicit data-color-scheme overrides', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('html[data-color-scheme="dark"]'),
+    'CSS should support explicit dark mode via data attribute'
+  );
+  assert.ok(
+    html.includes('html[data-color-scheme="light"]'),
+    'CSS should support explicit light mode via data attribute'
+  );
+  assert.ok(
+    html.includes('color-scheme: dark'),
+    'CSS should set color-scheme: dark for dark mode'
+  );
+  assert.ok(
+    html.includes('color-scheme: light'),
+    'CSS should set color-scheme: light for explicit light mode'
+  );
+});
+
+test('dark mode: CSS uses var() references instead of hardcoded colors for body', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  // Body should use variables, not hardcoded values
+  assert.ok(html.includes('color: var(--color-text)'), 'body color should use CSS variable');
+  assert.ok(html.includes('background: var(--color-bg)'), 'body background should use CSS variable');
+  // Link colors should use variables
+  assert.ok(html.includes('color: var(--color-link)'), 'link color should use CSS variable');
+});
+
+test('dark mode: theme toggle script reads and writes localStorage', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes("localStorage.setItem('color-scheme'"),
+    'Theme script should persist preference to localStorage'
+  );
+  assert.ok(
+    html.includes('data-color-scheme'),
+    'Theme script should set data-color-scheme attribute'
+  );
+});
+
+test('dark mode: sr-only class is defined for visually hidden announcement region', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(html.includes('.sr-only'), 'CSS should define .sr-only class');
+  assert.ok(html.includes('class="sr-only"'), 'Announcement div should use sr-only class');
+});
