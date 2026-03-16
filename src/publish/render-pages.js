@@ -1133,12 +1133,12 @@ function renderTopUrlRows(topUrls = []) {
   <td data-label="CWV">${escapeHtml((entry.core_web_vitals_status ?? 'unknown').replace(/_/g, ' '))}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility', 'Accessibility')}
+  <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices', 'Best Practices')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo', 'SEO')}
   <td data-label="Total findings">${entry.findings_count}</td>
   <td data-label="Critical/Serious">${entry.severe_findings_count}</td>
   <td data-label="Failure reason">${entry.failure_reason ? escapeHtml(entry.failure_reason.replace(/_/g, ' ')) : ''}</td>
-  <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
 </tr>`
     )
     .join('\n');
@@ -1482,12 +1482,12 @@ export function renderDailyReportPage(report) {
             <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">CWV</button></th>
             <th scope="col" data-sort-col="4" aria-sort="none"><button class="sort-btn">Performance</button></th>
             <th scope="col" data-sort-col="5" aria-sort="none"><button class="sort-btn">Accessibility</button></th>
-            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
-            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
+            <th scope="col">Axe details</th>
+            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
+            <th scope="col" data-sort-col="8" aria-sort="none"><button class="sort-btn">SEO</button></th>
             <th scope="col" class="wrap-header">Total findings</th>
             <th scope="col" class="wrap-header">Critical/Serious</th>
             <th scope="col" class="wrap-header">Failure reason</th>
-            <th scope="col">Axe details</th>
           </tr>
         </thead>
         <tbody>
