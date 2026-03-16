@@ -12,9 +12,9 @@ function normalizeTopUrls(urlResults = []) {
       page_load_count: result.page_load_count ?? 0,
       scan_status: result.scan_status,
       failure_reason: result.failure_reason ?? null,
-      findings_count: Array.isArray(result.accessibility_findings) ? result.accessibility_findings.length : 0,
-      severe_findings_count: Array.isArray(result.accessibility_findings)
-        ? result.accessibility_findings.filter((finding) => finding.severity === 'critical' || finding.severity === 'serious').length
+      findings_count: Array.isArray(result.axe_findings) ? result.axe_findings.length : 0,
+      severe_findings_count: Array.isArray(result.axe_findings)
+        ? result.axe_findings.filter((f) => f.impact === 'critical' || f.impact === 'serious').length
         : 0,
       core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
       lighthouse_scores:
