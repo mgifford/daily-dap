@@ -120,7 +120,9 @@ jobs:
           # Rebase onto latest main to prevent non-fast-forward rejection when
           # a concurrent or sequential run (e.g. scheduled + manual dispatch)
           # has already pushed new commits to main since this job checked out.
-          git pull --rebase origin main
+          # Use -X theirs so that any add/add or content conflicts in docs/reports
+          # are resolved by preferring the freshly-generated files from this run.
+          git pull --rebase -X theirs origin main
           git push
 
       - name: Archive old reports
@@ -144,7 +146,9 @@ jobs:
           # Rebase onto latest main to prevent non-fast-forward rejection when
           # the preceding "Commit report snapshots" step (or any other push)
           # has advanced main since this job checked out.
-          git pull --rebase origin main
+          # Use -X theirs so that any add/add or content conflicts in docs/reports
+          # are resolved by preferring the freshly-generated files from this run.
+          git pull --rebase -X theirs origin main
           git push
 
       - name: Generate accessibility summary
