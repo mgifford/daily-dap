@@ -33,7 +33,8 @@ const sampleLighthouseRaw = {
               explanation: 'Fix any of the following:\n  Element has insufficient color contrast of 2.73.'
             }
           }
-        ]
+        ],
+        debugData: { type: 'debugdata', impact: 'serious' }
       }
     },
     'aria-required-attr': {
@@ -188,4 +189,66 @@ test('extractAxeFindings skips notApplicable audits', () => {
   };
   const findings = extractAxeFindings(raw);
   assert.equal(findings.length, 0, 'Should skip notApplicable audits');
+});
+
+test('extractAxeFindings includes impact from audit debugData', () => {
+  const findings = extractAxeFindings(sampleLighthouseRaw);
+
+  const colorContrast = findings.find((f) => f.id === 'color-contrast');
+  assert.ok(colorContrast, 'Should include color-contrast finding');
+  assert.equal(colorContrast.impact, 'serious', 'Should extract impact from debugData');
+
+  const ariaRequired = findings.find((f) => f.id === 'aria-required-attr');
+  assert.ok(ariaRequired, 'Should include aria-required-attr finding');
+  assert.equal(ariaRequired.impact, 'unknown', 'Should default to unknown when no debugData');
+});
+
+test('extractAxeFindings normalizes unrecognized impact values to unknown', () => {
+  const raw = {
+    categories: {
+      accessibility: {
+        auditRefs: [{ id: 'my-audit', weight: 5 }]
+      }
+    },
+    audits: {
+      'my-audit': {
+        id: 'my-audit',
+        title: 'Some audit',
+        description: 'Some description',
+        score: 0,
+        scoreDisplayMode: 'binary',
+        details: {
+          debugData: { type: 'debugdata', impact: 'blocker' }
+        }
+      }
+    }
+  };
+  const findings = extractAxeFindings(raw);
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].impact, 'unknown', 'Unrecognized impact should normalize to unknown');
+});
+
+test('extractAxeFindings includes critical impact for critical audits', () => {
+  const raw = {
+    categories: {
+      accessibility: {
+        auditRefs: [{ id: 'critical-audit', weight: 10 }]
+      }
+    },
+    audits: {
+      'critical-audit': {
+        id: 'critical-audit',
+        title: 'Critical issue',
+        description: 'A critical accessibility violation.',
+        score: 0,
+        scoreDisplayMode: 'binary',
+        details: {
+          debugData: { type: 'debugdata', impact: 'critical' }
+        }
+      }
+    }
+  };
+  const findings = extractAxeFindings(raw);
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].impact, 'critical');
 });

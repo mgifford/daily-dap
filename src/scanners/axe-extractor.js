@@ -4,6 +4,8 @@
  * represent axe-style violations with WCAG references, HTML snippets, and selectors.
  */
 
+import { normalizeSeverity } from './scangov-runner.js';
+
 function extractItemNodes(audit) {
   const items = audit?.details?.items;
   if (!Array.isArray(items) || items.length === 0) {
@@ -63,6 +65,7 @@ export function extractAxeFindings(lighthouseRaw) {
       title: audit.title ?? '',
       description: audit.description ?? '',
       score: audit.score,
+      impact: normalizeSeverity(audit.details?.debugData?.impact),
       tags: ref.tags ?? [],
       items: extractItemNodes(audit)
     });
