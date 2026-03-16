@@ -1,9 +1,9 @@
 {
   "run_date": "2026-03-16",
   "run_id": "run-2026-03-16-8aa0475fbd",
-  "generated_at": "2026-03-16T09:30:22.162Z",
+  "generated_at": "2026-03-16T10:30:40.519Z",
   "total_urls": 100,
-  "total_findings": 238,
+  "total_findings": 237,
   "urls": [
     {
       "url": "https://tools.usps.com",
@@ -2560,31 +2560,31 @@
           "items": [
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-dbi-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-wue-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "01",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-dbi-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-wue-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "02",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-dbi-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-wue-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "03",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-dbi-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-wue-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "04",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-dbi-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-wue-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "05",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             }
@@ -2599,7 +2599,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-dbi-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-wue-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -3007,7 +3007,7 @@
           "items": [
             {
               "selector": "div.container-fluid > div.row > div.col-md-6 > a.btn",
-              "snippet": "<a target=\"_blank\" class=\"btn btn-outline-light shadow my-3\" href=\"https://feedback.gsa.gov/jfe/form/SV_3sfuhuJcX2xAynH?AdvSessionID=OUEiciK9…\">",
+              "snippet": "<a target=\"_blank\" class=\"btn btn-outline-light shadow my-3\" href=\"https://feedback.gsa.gov/jfe/form/SV_3sfuhuJcX2xAynH?AdvSessionID=iao2vJYE…\">",
               "node_label": "Send us your feedback!",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 4.36 (foreground color: #f8f9fa, background color: #1976d2, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
             }
@@ -3189,8 +3189,23 @@
     {
       "url": "https://usitc.gov",
       "scan_status": "success",
-      "axe_findings_count": 2,
+      "axe_findings_count": 3,
       "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "tags": [],
+          "items": [
+            {
+              "selector": "body > div.dialog-off-canvas-main-canvas > section#search-dropdown",
+              "snippet": "<section aria-label=\"Search box\" id=\"search-dropdown\" aria-hidden=\"true\" class=\"search-dropdown desktop:display-none\">",
+              "node_label": "Search",
+              "explanation": "Fix all of the following:\n  Focusable content should be disabled or be removed from the DOM"
+            }
+          ]
+        },
         {
           "id": "heading-order",
           "title": "Heading elements are not in a sequentially-descending order",
@@ -3276,30 +3291,6 @@
               "snippet": "<a href=\"/products/fire_wx/fwdy1.html\">",
               "node_label": "details",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.4 (foreground color: #004a82, background color: #eb7e82, font size: 10.0pt (13.3333px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "tbody > tr > td > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "13 minutes ago",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.96 (foreground color: #ff0000, background color: #ffffef, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "tbody > tr > td > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "58 minutes ago",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.96 (foreground color: #ff0000, background color: #ffffef, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "tr > td > a > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "TORNADO 0063",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.92 (foreground color: #ff0000, background color: #f5ffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "tr > td > a > font",
-              "snippet": "<font color=\"#ff0000\">",
-              "node_label": "TORNADO 0059",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.92 (foreground color: #ff0000, background color: #f5ffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
             }
           ]
         },
@@ -3353,90 +3344,6 @@
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "tr > td > a > img.MDbg",
-              "snippet": "<img class=\"MDbg\" src=\"/products/md/mcd0264_thumb.gif\">",
-              "node_label": "tr > td > a > img.MDbg",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.WWbg",
-              "snippet": "<img class=\"WWbg\" src=\"/products/watch/ww0064_thumb.gif\">",
-              "node_label": "tr > td > a > img.WWbg",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.MDsm",
-              "snippet": "<img class=\"MDsm\" src=\"/products/md/mcd0263_thumb.gif\">",
-              "node_label": "tr > td > a > img.MDsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.WWsm",
-              "snippet": "<img class=\"WWsm\" src=\"/products/watch/ww0063_thumb.gif\">",
-              "node_label": "tr > td > a > img.WWsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/fire_wx/day2fireotlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/fire_wx/day1fireotlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/exper/day4-8/day48prob_small.gif\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day3otlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day2otlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day1otlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/exper/enhtstm/enh_small.gif\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.WWsm",
-              "snippet": "<img class=\"WWsm\" src=\"/products/watch/ww0062_thumb.gif\">",
-              "node_label": "tr > td > a > img.WWsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "tr > td > a > img.WWsm",
-              "snippet": "<img class=\"WWsm\" src=\"/products/watch/ww0059_thumb.gif\">",
-              "node_label": "tr > td > a > img.WWsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/exper/fire_wx/day3-8fireotlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
               "selector": "div.slides_control > div.slide > a > img",
               "snippet": "<img src=\"/climo/dataviewer/data/climo/conus/svr/svrday30/download/png_svrday30_conu…\" width=\"300\" style=\"height:auto;\">",
               "node_label": "div.slides_control > div.slide > a > img",
@@ -3450,13 +3357,13 @@
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/new/images/SPC_outlook_final_updated-sm.png?1773653946650\" height=\"174\" width=\"280\">",
+              "snippet": "<img src=\"/new/images/SPC_outlook_final_updated-sm.png?1773657566744\" height=\"174\" width=\"280\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/new/images/href_sm.png?1773653946665\" width=\"300\" height=\"212\">",
+              "snippet": "<img src=\"/new/images/href_sm.png?1773657566752\" width=\"300\" height=\"212\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -3487,90 +3394,6 @@
           "score": 0,
           "tags": [],
           "items": [
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/md/md0264.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/watch/ww0064.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/md/md0263.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/watch/ww0063.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/fire_wx/fwdy2.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/fire_wx/fwdy1.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/day4-8/\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day3otlk.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day2otlk.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day1otlk.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/enhtstm/\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/watch/ww0062.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/products/watch/ww0059.html\">",
-              "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/fire_wx/\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
             {
               "selector": "tbody > tr > td > a",
               "snippet": "<a href=\"/wcm/2026_torww_to_date.png\">",
@@ -4392,24 +4215,8 @@
     {
       "url": "https://egov.uscis.gov",
       "scan_status": "success",
-      "axe_findings_count": 1,
-      "axe_findings": [
-        {
-          "id": "meta-refresh",
-          "title": "The document uses `<meta http-equiv=\"refresh\">`",
-          "description": "Users do not expect a page to refresh automatically, and doing so will move focus back to the top of the page. This may create a frustrating or confusing experience. [Learn more about the refresh meta tag](https://dequeuniversity.com/rules/axe/4.11/meta-refresh).",
-          "score": 0,
-          "tags": [],
-          "items": [
-            {
-              "selector": "head > meta",
-              "snippet": "<meta http-equiv=\"refresh\" content=\"360\">",
-              "node_label": "head > meta",
-              "explanation": "Fix any of the following:\n  <meta> tag forces timed refresh of page (less than 20 hours)"
-            }
-          ]
-        }
-      ]
+      "axe_findings_count": 0,
+      "axe_findings": []
     },
     {
       "url": "https://effectivehealthcare.ahrq.gov",
@@ -4617,7 +4424,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n109\nDays\n14\nHours\n18\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n109\nDays\n13\nHours\n18\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
@@ -4758,7 +4565,7 @@
             {
               "selector": "div#footer > div#legal > span > span#ctl00_lblIP",
               "snippet": "<span id=\"ctl00_lblIP\" tabindex=\"6050\" class=\"lblIP\">",
-              "node_label": "(241)",
+              "node_label": "(223)",
               "explanation": "Fix any of the following:\n  Element has a tabindex greater than 0"
             }
           ]
@@ -5596,12 +5403,6 @@
             {
               "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
               "snippet": "<li class=\"dataset-item has-organization\">",
-              "node_label": "Federal\nNPS Visitor Use Statistics Data Package, 2024 \n\nDepartment of the Inter…",
-              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
-            },
-            {
-              "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
-              "snippet": "<li class=\"dataset-item has-organization\">",
               "node_label": "County\nWarehouse and Retail Sales \n\nMontgomery County of Maryland —\n\n This data…",
               "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
             },
@@ -5615,6 +5416,12 @@
               "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
               "snippet": "<li class=\"dataset-item has-organization\">",
               "node_label": "City\nSummer Meal Programs - All Summer Sites - Contact and Program Participatio…",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
+            },
+            {
+              "selector": "div.module-content > ul.dataset-list > strong > li.dataset-item",
+              "snippet": "<li class=\"dataset-item has-organization\">",
+              "node_label": "Federal\nNPS Visitor Use Statistics Data Package, 2024 \n\nDepartment of the Inter…",
               "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> parent element"
             },
             {
@@ -6521,7 +6328,7 @@
     {
       "url": "https://nhlbi.nih.gov",
       "scan_status": "success",
-      "axe_findings_count": 2,
+      "axe_findings_count": 1,
       "axe_findings": [
         {
           "id": "target-size",
@@ -6553,21 +6360,6 @@
               "snippet": "<a class=\"ext-icon\" href=\"#\">",
               "node_label": "(link is external)",
               "explanation": "Fix any of the following:\n  Target has insufficient size (24px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14px instead of at least 24px."
-            }
-          ]
-        },
-        {
-          "id": "label-content-name-mismatch",
-          "title": "Elements with visible text labels do not have matching accessible names.",
-          "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
-          "score": 0,
-          "tags": [],
-          "items": [
-            {
-              "selector": "div.field__item > div.nhlbi_news_cards > div.nhlbi_text_link_button > a",
-              "snippet": "<a href=\"/events/2026/mechanisms-interventions-paving-way-transformative-therapies-…\" aria-label=\"Continue Reading.\">",
-              "node_label": "View Event Details",
-              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
         }
