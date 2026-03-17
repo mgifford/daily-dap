@@ -167,6 +167,42 @@
       --color-copied-text: #56d364;
     }
 
+    /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) .score-performance {
+        background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-accessibility {
+        background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-best-practices {
+        background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-seo {
+        background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-cwv-good         { background-color: hsl(50 60% 22%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+    }
+
+    /* ---------- Dark mode score color gradient overrides (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] .score-performance {
+      background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-accessibility {
+      background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-best-practices {
+      background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-seo {
+      background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-cwv-good         { background-color: hsl(50 60% 22%); }
+    html[data-color-scheme="dark"] .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+    html[data-color-scheme="dark"] .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+
     /* ---------- Light mode (explicit user preference, overrides dark OS) ---------- */
     html[data-color-scheme="light"] { color-scheme: light; }
 
@@ -501,6 +537,27 @@
     .copy-finding-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
     .copy-finding-btn.copied { background: var(--color-copied-bg); border-color: var(--color-copied-border); color: var(--color-copied-text); }
 
+    /* ---------- Score color gradient cells ---------- */
+    /* Numeric score columns: background lightness driven by --score (0–100) */
+    /* Light mode: near-white at 0, vivid tint at 100 */
+    .score-performance {
+      background-color: hsl(270 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-accessibility {
+      background-color: hsl(140 50% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-best-practices {
+      background-color: hsl(210 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-seo {
+      background-color: hsl(28 80% calc((93 - var(--score, 0) * 0.15) * 1%));
+    }
+
+    /* CWV column: three fixed yellow tints (good → needs improvement → poor) */
+    .score-cwv-good         { background-color: hsl(50 75% 78%); }
+    .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
+    .score-cwv-poor         { background-color: hsl(50 50% 92%); }
+
     /* ---------- URL cells ---------- */
     .url-cell {
       white-space: nowrap;
@@ -619,32 +676,33 @@
 
     
   <section aria-labelledby="latest-scores-heading">
-    <h2 id="latest-scores-heading">Latest Scores (2026-03-16)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-16)"><span aria-hidden="true">#</span></a></h2>
+    <h2 id="latest-scores-heading">Latest Scores (2026-03-17)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-17)"><span aria-hidden="true">#</span></a></h2>
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
-        <div class="score-value">53.56</div>
+        <div class="score-value">54.43</div>
       </div>
       <div class="score-card">
         <div class="score-label">Accessibility</div>
-        <div class="score-value">91.33</div>
+        <div class="score-value">91.29</div>
       </div>
       <div class="score-card">
         <div class="score-label">Best Practices</div>
-        <div class="score-value">84.29</div>
+        <div class="score-value">84.55</div>
       </div>
       <div class="score-card">
         <div class="score-label">SEO</div>
-        <div class="score-value">89.34</div>
+        <div class="score-value">88.76</div>
       </div>
     </div>
-    <p><a href="./daily/2026-03-16/index.html">Open latest report &rarr;</a></p>
+    <p><a href="./daily/2026-03-17/index.html">Open latest report &rarr;</a></p>
   </section>
 
     <section aria-labelledby="recent-reports-heading">
       <h2 id="recent-reports-heading">Recent Reports<a href="#recent-reports-heading" class="heading-anchor" aria-label="Link to Recent Reports"><span aria-hidden="true">#</span></a></h2>
       <ul>
-        <li><a href="./daily/2026-03-16/index.html">2026-03-16</a> (run-2026-03-16-8aa0475fbd)</li>
+        <li><a href="./daily/2026-03-17/index.html">2026-03-17</a> (run-2026-03-17-ada490e9d8)</li>
+<li><a href="./daily/2026-03-16/index.html">2026-03-16</a> (run-2026-03-16-8aa0475fbd)</li>
 <li><a href="./daily/2026-03-15/index.html">2026-03-15</a> (run-2026-03-15-156cc6606f)</li>
 <li><a href="./daily/2026-03-14/index.html">2026-03-14</a> (run-2026-03-14-821e13b71e)</li>
 <li><a href="./daily/2026-03-13/index.html">2026-03-13</a> (run-2026-03-13-5f6ae08f52)</li>
@@ -657,7 +715,6 @@
 <li><a href="./daily/2026-03-06/index.html">2026-03-06</a> (run-2026-03-06-0969e8ad13)</li>
 <li><a href="./daily/2026-03-05/index.html">2026-03-05</a> (run-2026-03-05-dd92379117)</li>
 <li><a href="./daily/2026-03-04/index.html">2026-03-04</a> (run-2026-03-04-bb8bc2601d)</li>
-<li><a href="./daily/2026-03-03/index.html">2026-03-03</a> (run-2026-03-03-37a7ac22cf)</li>
       </ul>
     </section>
     
