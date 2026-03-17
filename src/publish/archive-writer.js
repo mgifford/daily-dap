@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { renderDailyReportPage, renderDashboardPage } from './render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, render404Page } from './render-pages.js';
 
 async function writeJson(filePath, payload) {
   await fs.writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
@@ -95,11 +95,13 @@ export async function writeCommittedSnapshot({
   historyIndex,
   dashboardContext
 }) {
-  const reportsRoot = path.join(repoRoot, 'docs', 'reports');
+  const docsRoot = path.join(repoRoot, 'docs');
+  const reportsRoot = path.join(docsRoot, 'reports');
   const dailyDir = path.join(reportsRoot, 'daily', report.run_date);
 
   await fs.mkdir(dailyDir, { recursive: true });
 
+  const notFoundPagePath = path.join(docsRoot, '404.html');
   const dailyReportPath = path.join(dailyDir, 'report.json');
   const dailyPagePath = path.join(dailyDir, 'index.html');
   const axeFindingsPath = path.join(dailyDir, 'axe-findings.json');
@@ -107,6 +109,7 @@ export async function writeCommittedSnapshot({
   const historyPath = path.join(reportsRoot, 'history.json');
   const dashboardPath = path.join(reportsRoot, 'index.html');
 
+  await fs.writeFile(notFoundPagePath, render404Page(), 'utf8');
   await writeJson(dailyReportPath, report);
   await fs.writeFile(dailyPagePath, renderDailyReportPage(report), 'utf8');
   const axeFindingsReport = buildAxeFindingsReport(report);
@@ -123,6 +126,8 @@ export async function writeCommittedSnapshot({
   await fs.writeFile(dashboardPath, dashboardHtml, 'utf8');
 
   return {
+    docs_root: docsRoot,
+    not_found_page_path: notFoundPagePath,
     reports_root: reportsRoot,
     report_json_path: dailyReportPath,
     report_page_path: dailyPagePath,
