@@ -1810,6 +1810,33 @@ export function renderArchiveIndexPage({ entries = [], generatedAt = null, displ
 </html>`;
 }
 
+export function render404Page() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Not Found - Daily DAP</title>
+  <meta name="description" content="The requested page could not be found. Return to the Daily DAP dashboard." />
+  ${renderColorSchemeSetup()}
+  ${renderSharedStyles()}
+</head>
+<body>
+  ${renderDashboardHeader()}
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1 id="page-title">404 &mdash; Page Not Found</h1>
+      <p>Sorry, the page you requested could not be found.</p>
+      <p><a href="./reports/">&larr; Back to dashboard</a></p>
+    </div>
+  </main>
+
+  ${renderSiteFooter()}
+  ${renderThemeScript()}
+</body>
+</html>`;
+}
+
 export function renderArchiveRedirectStub(runDate) {
   return `<!doctype html>
 <html lang="en">

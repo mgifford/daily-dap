@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, buildFindingCopyText, plainTextDescription } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, buildFindingCopyText, plainTextDescription } from '../../src/publish/render-pages.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {
@@ -1697,4 +1697,58 @@ test('score color gradients: dark mode CSS overrides are present', () => {
     html.includes('html[data-color-scheme="dark"] .score-performance'),
     'Explicit dark mode should override .score-performance'
   );
+});
+
+test('render404Page contains required landmark elements for accessibility', () => {
+  const html = render404Page();
+
+  // Must have a <main> element with id="main-content" for skip-link target
+  assert.ok(html.includes('<main id="main-content"'), 'Should have main landmark with id="main-content"');
+
+  // Must have a <header> element with role="banner" on the same element
+  assert.ok(/<header[^>]*role="banner"/.test(html), 'Should have header landmark with role="banner" on the same element');
+
+  // Must have a <footer> element with role="contentinfo" on the same element
+  assert.ok(/<footer[^>]*role="contentinfo"/.test(html), 'Should have footer landmark with role="contentinfo" on the same element');
+
+  // Must have a <nav> element with aria-label for navigation landmark
+  assert.ok(/<nav[^>]*aria-label="[^"]+"/.test(html), 'Should have nav landmark with a non-empty aria-label on the same element');
+
+  // Must have an <h1> inside main (not outside landmarks)
+  assert.ok(html.includes('<h1'), 'Should have an h1 heading');
+});
+
+test('render404Page h1 heading is inside the main landmark', () => {
+  const html = render404Page();
+
+  const mainStart = html.indexOf('<main');
+  const mainEnd = html.indexOf('</main>');
+  const h1Index = html.indexOf('<h1');
+
+  assert.ok(mainStart !== -1, 'Should have main element');
+  assert.ok(mainEnd !== -1, 'Should have closing main element');
+  assert.ok(h1Index !== -1, 'Should have h1 element');
+  assert.ok(h1Index > mainStart && h1Index < mainEnd, 'h1 should be inside the main landmark, not outside');
+});
+
+test('render404Page skip-link targets main content', () => {
+  const html = render404Page();
+
+  assert.ok(html.includes('href="#main-content"'), 'Should have skip-link pointing to #main-content');
+  assert.ok(html.includes('id="main-content"'), 'Should have element with id="main-content" as skip-link target');
+});
+
+test('render404Page has valid HTML structure', () => {
+  const html = render404Page();
+
+  assert.ok(html.startsWith('<!doctype html>'), 'Should start with doctype');
+  assert.ok(html.includes('<html lang="en">'), 'Should have html element with lang attribute');
+  assert.ok(html.includes('<title>'), 'Should have a title element');
+  assert.ok(html.includes('Page Not Found'), 'Title should include "Page Not Found"');
+});
+
+test('render404Page provides a link back to the dashboard', () => {
+  const html = render404Page();
+
+  assert.ok(html.includes('./reports/'), 'Should include a link back to the reports dashboard');
 });

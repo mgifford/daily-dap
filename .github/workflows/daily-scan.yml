@@ -108,14 +108,14 @@ jobs:
         if: always() && steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
         shell: bash
         run: |
-          if git diff --quiet -- docs/reports; then
+          if git diff --quiet -- docs/reports docs/404.html; then
             echo "No report snapshot changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/reports
+          git add docs/reports docs/404.html
           git commit -m "chore: publish daily DAP report snapshots"
           # Rebase onto latest main to prevent non-fast-forward rejection when
           # a concurrent or sequential run (e.g. scheduled + manual dispatch)
