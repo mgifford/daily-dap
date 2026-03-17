@@ -1590,6 +1590,26 @@ test('dark mode: sr-only class is defined for visually hidden announcement regio
   assert.ok(html.includes('class="sr-only"'), 'Announcement div should use sr-only class');
 });
 
+// ── Link accessibility (link-in-text-block) tests ───────────────────────────
+
+test('link-in-text-block: general links have text-decoration underline for distinguishability', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('a { color: var(--color-link); text-decoration: underline; }'),
+    'General link CSS must include text-decoration: underline so inline links are distinguishable from surrounding text without relying on color alone'
+  );
+});
+
+test('link-in-text-block: footer links have text-decoration underline for distinguishability', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('.site-footer a { color: var(--color-footer-link); text-decoration: underline; }'),
+    'Footer link CSS must include text-decoration: underline so footer links are distinguishable from surrounding footer text'
+  );
+});
+
 // ── Score color gradient tests ──────────────────────────────────────────────
 
 const makeScoreReport = (overrides = {}) => ({
