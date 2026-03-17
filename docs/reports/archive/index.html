@@ -167,6 +167,42 @@
       --color-copied-text: #56d364;
     }
 
+    /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) .score-performance {
+        background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-accessibility {
+        background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-best-practices {
+        background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-seo {
+        background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-cwv-good         { background-color: hsl(50 60% 22%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+    }
+
+    /* ---------- Dark mode score color gradient overrides (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] .score-performance {
+      background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-accessibility {
+      background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-best-practices {
+      background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-seo {
+      background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-cwv-good         { background-color: hsl(50 60% 22%); }
+    html[data-color-scheme="dark"] .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+    html[data-color-scheme="dark"] .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+
     /* ---------- Light mode (explicit user preference, overrides dark OS) ---------- */
     html[data-color-scheme="light"] { color-scheme: light; }
 
@@ -501,6 +537,27 @@
     .copy-finding-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
     .copy-finding-btn.copied { background: var(--color-copied-bg); border-color: var(--color-copied-border); color: var(--color-copied-text); }
 
+    /* ---------- Score color gradient cells ---------- */
+    /* Numeric score columns: background lightness driven by --score (0–100) */
+    /* Light mode: near-white at 0, vivid tint at 100 */
+    .score-performance {
+      background-color: hsl(270 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-accessibility {
+      background-color: hsl(140 50% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-best-practices {
+      background-color: hsl(210 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-seo {
+      background-color: hsl(28 80% calc((93 - var(--score, 0) * 0.15) * 1%));
+    }
+
+    /* CWV column: three fixed yellow tints (good → needs improvement → poor) */
+    .score-cwv-good         { background-color: hsl(50 75% 78%); }
+    .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
+    .score-cwv-poor         { background-color: hsl(50 50% 92%); }
+
     /* ---------- URL cells ---------- */
     .url-cell {
       white-space: nowrap;
@@ -608,17 +665,18 @@
     <section aria-labelledby="archives-heading">
       <h2 id="archives-heading">Available Archives<a href="#archives-heading" class="heading-anchor" aria-label="Link to Available Archives"><span aria-hidden="true">#</span></a></h2>
       <ul>
-        <li><a href="2026-03-02.zip" download>2026-03-02.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-03-01.zip" download>2026-03-01.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-28.zip" download>2026-02-28.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-27.zip" download>2026-02-27.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-26.zip" download>2026-02-26.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-25.zip" download>2026-02-25.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-24.zip" download>2026-02-24.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
-        <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-16)</span></li>
+        <li><a href="2026-03-03.zip" download>2026-03-03.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-03-02.zip" download>2026-03-02.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-03-01.zip" download>2026-03-01.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-28.zip" download>2026-02-28.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-27.zip" download>2026-02-27.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-26.zip" download>2026-02-26.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-25.zip" download>2026-02-25.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-24.zip" download>2026-02-24.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
+        <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-17)</span></li>
       </ul>
-      <p class="generated-note">Archive index generated: 2026-03-16T10:55:11.223Z</p>
+      <p class="generated-note">Archive index generated: 2026-03-17T09:59:47.869Z</p>
     </section>
   </main>
 
