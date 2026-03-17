@@ -18,6 +18,14 @@ function formatCompact(n) {
   return String(n);
 }
 
+let _fpcTooltipSeq = 0;
+
+function makeDecorativeSvg(svgStr) {
+  return svgStr
+    .replace(/ role="img"| aria-label="[^"]*"/g, '')
+    .replace('<svg ', '<svg aria-hidden="true" ');
+}
+
 function renderAnchorLink(id, label) {
   return `<a href="#${escapeHtml(id)}" class="heading-anchor" aria-label="${escapeHtml(`Link to ${label}`)}"><span aria-hidden="true">#</span></a>`;
 }
@@ -71,6 +79,24 @@ function renderThemeScript() {
         });
       }
     }());
+  </script>
+  <script>
+    (function () {
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var badge = document.activeElement;
+          if (badge && badge.classList.contains('disability-badge')) {
+            badge.dataset.tooltipDismissed = 'true';
+          }
+        }
+      });
+      document.addEventListener('focusout', function (e) {
+        var badge = e.target;
+        if (badge && badge.classList.contains('disability-badge')) {
+          delete badge.dataset.tooltipDismissed;
+        }
+      });
+    }());
   </script>`;
 }
 
@@ -118,6 +144,9 @@ function renderSharedStyles() {
       --color-badge-border: #c6d9ff;
       --color-badge-text: #003d8a;
       --color-badge-hover: #dde8f7;
+      --color-tooltip-bg: #1b1b2f;
+      --color-tooltip-text: #f0f3f8;
+      --color-tooltip-border: #555555;
       --color-copy-btn-bg: #f0f3f8;
       --color-copy-btn-border: #c6d9ff;
       --color-copy-btn-text: #0050b3;
@@ -168,6 +197,9 @@ function renderSharedStyles() {
         --color-badge-border: #30363d;
         --color-badge-text: #58a6ff;
         --color-badge-hover: #21262d;
+        --color-tooltip-bg: #f0f3f8;
+        --color-tooltip-text: #1b1b1b;
+        --color-tooltip-border: #8b949e;
         --color-copy-btn-bg: #1c2128;
         --color-copy-btn-border: #30363d;
         --color-copy-btn-text: #58a6ff;
@@ -218,6 +250,9 @@ function renderSharedStyles() {
       --color-badge-border: #30363d;
       --color-badge-text: #58a6ff;
       --color-badge-hover: #21262d;
+      --color-tooltip-bg: #f0f3f8;
+      --color-tooltip-text: #1b1b1b;
+      --color-tooltip-border: #8b949e;
       --color-copy-btn-bg: #1c2128;
       --color-copy-btn-border: #30363d;
       --color-copy-btn-text: #58a6ff;
@@ -556,6 +591,7 @@ function renderSharedStyles() {
       line-height: 1;
       cursor: help;
       text-decoration: none;
+      position: relative;
     }
     .disability-badge:hover { background: var(--color-badge-hover); }
     .disability-badge:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
@@ -565,6 +601,41 @@ function renderSharedStyles() {
       font-weight: 600;
       line-height: 1;
       white-space: nowrap;
+    }
+    /* ARIA tooltip for disability badges */
+    .disability-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 280px;
+      min-width: 160px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .disability-badge:hover .disability-tooltip,
+    .disability-badge:focus-within .disability-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .disability-badge[data-tooltip-dismissed] .disability-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .disability-tooltip { transition: opacity 0.15s ease; }
     }
     .disability-legend {
       display: grid;
@@ -820,7 +891,7 @@ function renderFpcExclusionSection(report) {
       const svg = FPC_SVGS[code];
       const label = escapeHtml(data.label ?? code);
       const icon = svg
-        ? `<span class="disability-badge" title="${label}">${svg}</span>`
+        ? `<span class="disability-badge" aria-hidden="true">${makeDecorativeSvg(svg)}</span>`
         : `<abbr title="${label}">${escapeHtml(code)}</abbr>`;
       const pop = data.estimated_population
         ? `~${Number(data.estimated_population).toLocaleString('en-US')}`
@@ -1304,7 +1375,7 @@ function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
       const svg = FPC_SVGS[code];
       const rate = prevalenceRates[code] ?? 0;
       const estimated = totalPageLoads > 0 && rate > 0 ? Math.round(totalPageLoads * rate) : null;
-      const tooltipParts = [label];
+      const tooltipParts = [];
       if (description) tooltipParts.push(description);
       if (estimated !== null) {
         tooltipParts.push(
@@ -1312,14 +1383,21 @@ function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
           `(${(rate * 100).toFixed(1)}% prevalence \u00d7 ${totalPageLoads.toLocaleString('en-US')} affected page loads)`
         );
       }
-      const tooltip = tooltipParts.join('. ');
+      const tooltipContent = tooltipParts.join('. ');
       const estimateHtml = estimated !== null
         ? `<span class="disability-estimate" aria-hidden="true">~${formatCompact(estimated)}</span>`
         : '';
       if (svg) {
-        return `<span class="disability-badge" role="img" aria-label="${escapeHtml(tooltip)}" title="${escapeHtml(tooltip)}" tabindex="0">${svg}${estimateHtml}</span>`;
+        const tooltipId = `fpc-tip-${code}-${_fpcTooltipSeq++}`;
+        const decorativeSvg = makeDecorativeSvg(svg);
+        const tooltipSpan = tooltipContent
+          ? `<span id="${tooltipId}" role="tooltip" class="disability-tooltip">${escapeHtml(tooltipContent)}</span>`
+          : '';
+        const describedBy = tooltipContent ? ` aria-describedby="${tooltipId}"` : '';
+        return `<span class="disability-badge" tabindex="0" aria-label="${escapeHtml(label)}"${describedBy}>${decorativeSvg}${estimateHtml}${tooltipSpan}</span>`;
       }
-      return `<abbr title="${escapeHtml(tooltip)}">${escapeHtml(code)}${estimateHtml}</abbr>`;
+      const abbr_tooltip = [label, description].filter(Boolean).join('. ');
+      return `<abbr title="${escapeHtml(abbr_tooltip)}">${escapeHtml(code)}${estimateHtml}</abbr>`;
     })
     .join(' ');
   return `<span class="disability-badges">${badges}</span>`;

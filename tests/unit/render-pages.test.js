@@ -1234,16 +1234,19 @@ test('renderDailyReportPage disability badges have accessible tooltip attributes
 
   const html = renderDailyReportPage(report);
 
-  // Badges should have role="img" for screen readers
-  assert.ok(html.includes('role="img"'), 'Disability badges should have role="img"');
   // Badges should be keyboard-focusable
   assert.ok(html.includes('tabindex="0"'), 'Disability badges should have tabindex="0" for keyboard access');
-  // Badge aria-label should include the disability label
-  assert.ok(html.includes('Limited Vision'), 'Badge aria-label should include disability name');
-  // Badge aria-label should include the disability description
-  assert.ok(html.includes('People with low vision'), 'Badge aria-label should include disability description');
-  // Badge should have title attribute for mouse hover tooltip
-  assert.ok(html.includes('title='), 'Disability badges should have title attribute for hover tooltip');
+  // Badge aria-label should include just the disability name (not description - that goes in tooltip)
+  assert.ok(html.includes('aria-label="Limited Vision"'), 'Badge aria-label should contain the disability name');
+  assert.ok(html.includes('aria-label="Without Perception of Color"'), 'Badge aria-label should contain the disability name');
+  // Description should be in role="tooltip" element referenced by aria-describedby
+  assert.ok(html.includes('role="tooltip"'), 'Tooltip element should have role="tooltip"');
+  assert.ok(html.includes('aria-describedby='), 'Badge should reference tooltip via aria-describedby');
+  assert.ok(html.includes('People with low vision'), 'Tooltip should include disability description');
+  // SVG icons inside badges should be decorative (aria-hidden)
+  assert.ok(html.includes('aria-hidden="true"'), 'SVG inside badge should be decorative (aria-hidden)');
+  // Badges should NOT have title= attribute (use role="tooltip" + aria-describedby instead)
+  assert.ok(!html.match(/<span[^<>]*class="disability-badge"[^<>]*title=/), 'Disability badge span should not have title attribute');
 });
 
 test('renderDailyReportPage disability badges show estimated impact when page_load_count is available', () => {
@@ -1317,9 +1320,10 @@ test('renderDailyReportPage disability badges show no estimate when page_load_co
   // No estimate shown when page_load_count is not available
   assert.ok(!html.includes('<span class="disability-estimate"'), 'Should not show disability-estimate span when no page_load_count');
   assert.ok(!html.includes('Estimated ~'), 'Badge tooltip should not include estimated count when no page data');
-  // But should still show disability label and description in aria-label
-  assert.ok(html.includes('Limited Vision'), 'Badge should still show disability name');
-  assert.ok(html.includes('People with low vision'), 'Badge should still include disability description');
+  // Should still show disability name in aria-label
+  assert.ok(html.includes('aria-label="Limited Vision"'), 'Badge aria-label should contain the disability name');
+  // Description should still appear in the role="tooltip" element
+  assert.ok(html.includes('People with low vision'), 'Tooltip should still include disability description');
 });
 
 test('renderDailyReportPage URL modal shows per-URL disability impact estimates', () => {
