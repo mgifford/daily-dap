@@ -1589,3 +1589,112 @@ test('dark mode: sr-only class is defined for visually hidden announcement regio
   assert.ok(html.includes('.sr-only'), 'CSS should define .sr-only class');
   assert.ok(html.includes('class="sr-only"'), 'Announcement div should use sr-only class');
 });
+
+// ── Score color gradient tests ──────────────────────────────────────────────
+
+const makeScoreReport = (overrides = {}) => ({
+  run_date: '2026-03-16',
+  run_id: 'test-run',
+  url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+  aggregate_scores: { performance: 50, accessibility: 80, best_practices: 85, seo: 90, pwa: 0 },
+  estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+  history_series: [],
+  generated_at: '2026-03-16T00:00:00.000Z',
+  report_status: 'success',
+  top_urls: [
+    {
+      url: 'https://example.gov',
+      page_load_count: 1000,
+      scan_status: 'success',
+      failure_reason: null,
+      findings_count: 0,
+      severe_findings_count: 0,
+      core_web_vitals_status: 'poor',
+      lighthouse_scores: { performance: 39, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+      axe_findings: []
+    }
+  ],
+  ...overrides
+});
+
+test('score color gradients: Lighthouse score cells carry CSS class and --score variable', () => {
+  const html = renderDailyReportPage(makeScoreReport());
+
+  // Each score cell should have a matching CSS class
+  assert.ok(html.includes('class="score-performance"'), 'Performance cell should have score-performance class');
+  assert.ok(html.includes('class="score-accessibility"'), 'Accessibility cell should have score-accessibility class');
+  assert.ok(html.includes('class="score-best-practices"'), 'Best Practices cell should have score-best-practices class');
+  assert.ok(html.includes('class="score-seo"'), 'SEO cell should have score-seo class');
+
+  // --score CSS variable should be set to the numeric value
+  assert.ok(html.includes('style="--score:39"'), 'Performance cell should set --score to 39');
+  assert.ok(html.includes('style="--score:68"'), 'Accessibility cell should set --score to 68');
+  assert.ok(html.includes('style="--score:77"'), 'Best Practices cell should set --score to 77');
+  assert.ok(html.includes('style="--score:83"'), 'SEO cell should set --score to 83');
+});
+
+test('score color gradients: CWV cell carries correct class based on status', () => {
+  const statusToClass = {
+    poor: 'score-cwv-poor',
+    needs_improvement: 'score-cwv-needs-improvement',
+    good: 'score-cwv-good'
+  };
+
+  for (const [status, expectedClass] of Object.entries(statusToClass)) {
+    const report = makeScoreReport({
+      top_urls: [{ ...makeScoreReport().top_urls[0], core_web_vitals_status: status }]
+    });
+    const html = renderDailyReportPage(report);
+    assert.ok(html.includes(`class="${expectedClass}"`), `CWV "${status}" should have class "${expectedClass}"`);
+  }
+});
+
+test('score color gradients: unknown CWV status has no score-cwv class', () => {
+  const report = makeScoreReport({
+    top_urls: [{ ...makeScoreReport().top_urls[0], core_web_vitals_status: 'unknown' }]
+  });
+  const html = renderDailyReportPage(report);
+
+  assert.ok(!html.includes('score-cwv-unknown'), 'Unknown CWV should not get a color class');
+  assert.ok(html.includes('>unknown<'), 'Unknown CWV text should still be rendered');
+});
+
+test('score color gradients: missing scores render dash with no color class', () => {
+  const report = makeScoreReport({
+    top_urls: [{ ...makeScoreReport().top_urls[0], lighthouse_scores: null }]
+  });
+  const html = renderDailyReportPage(report);
+
+  assert.ok(!html.includes('class="score-performance"'), 'Null scores should not have score-performance class');
+  assert.ok(!html.includes('style="--score:'), 'Null scores should not have --score CSS variable');
+
+  // Dash placeholders should still appear
+  const dashCount = (html.match(/<td[^>]*>—<\/td>/g) || []).length;
+  assert.ok(dashCount >= 4, 'Should show at least 4 dash placeholders for missing Lighthouse scores');
+});
+
+test('score color gradients: CSS defines rules for all five score columns', () => {
+  const html = renderDailyReportPage(makeScoreReport());
+
+  assert.ok(html.includes('.score-performance'), 'CSS should define .score-performance rule');
+  assert.ok(html.includes('.score-accessibility'), 'CSS should define .score-accessibility rule');
+  assert.ok(html.includes('.score-best-practices'), 'CSS should define .score-best-practices rule');
+  assert.ok(html.includes('.score-seo'), 'CSS should define .score-seo rule');
+  assert.ok(html.includes('.score-cwv-good'), 'CSS should define .score-cwv-good rule');
+  assert.ok(html.includes('.score-cwv-needs-improvement'), 'CSS should define .score-cwv-needs-improvement rule');
+  assert.ok(html.includes('.score-cwv-poor'), 'CSS should define .score-cwv-poor rule');
+});
+
+test('score color gradients: dark mode CSS overrides are present', () => {
+  const html = renderDailyReportPage(makeScoreReport());
+
+  // Both the @media and html[data-color-scheme="dark"] forms should be present
+  assert.ok(
+    html.includes(':root:not([data-color-scheme="light"]) .score-performance'),
+    'Dark mode @media block should override .score-performance'
+  );
+  assert.ok(
+    html.includes('html[data-color-scheme="dark"] .score-performance'),
+    'Explicit dark mode should override .score-performance'
+  );
+});
