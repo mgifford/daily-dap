@@ -227,6 +227,42 @@ function renderSharedStyles() {
       --color-copied-text: #56d364;
     }
 
+    /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) .score-performance {
+        background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-accessibility {
+        background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-best-practices {
+        background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-seo {
+        background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-cwv-good         { background-color: hsl(50 60% 22%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+    }
+
+    /* ---------- Dark mode score color gradient overrides (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] .score-performance {
+      background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-accessibility {
+      background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-best-practices {
+      background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-seo {
+      background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-cwv-good         { background-color: hsl(50 60% 22%); }
+    html[data-color-scheme="dark"] .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+    html[data-color-scheme="dark"] .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+
     /* ---------- Light mode (explicit user preference, overrides dark OS) ---------- */
     html[data-color-scheme="light"] { color-scheme: light; }
 
@@ -560,6 +596,27 @@ function renderSharedStyles() {
     .copy-finding-btn:hover { background: var(--color-copy-btn-hover); border-color: var(--color-primary); }
     .copy-finding-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
     .copy-finding-btn.copied { background: var(--color-copied-bg); border-color: var(--color-copied-border); color: var(--color-copied-text); }
+
+    /* ---------- Score color gradient cells ---------- */
+    /* Numeric score columns: background lightness driven by --score (0–100) */
+    /* Light mode: near-white at 0, vivid tint at 100 */
+    .score-performance {
+      background-color: hsl(270 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-accessibility {
+      background-color: hsl(140 50% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-best-practices {
+      background-color: hsl(210 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-seo {
+      background-color: hsl(28 80% calc((93 - var(--score, 0) * 0.15) * 1%));
+    }
+
+    /* CWV column: three fixed yellow tints (good → needs improvement → poor) */
+    .score-cwv-good         { background-color: hsl(50 75% 78%); }
+    .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
+    .score-cwv-poor         { background-color: hsl(50 50% 92%); }
 
     /* ---------- URL cells ---------- */
     .url-cell {
@@ -939,7 +996,14 @@ function renderLighthouseScoreCell(scores, key, label = '') {
   if (typeof value !== 'number' || !Number.isFinite(value)) {
     return `<td${labelAttr}>—</td>`;
   }
-  return `<td${labelAttr}>${value}</td>`;
+  const cssKey = key.replace(/_/g, '-');
+  return `<td${labelAttr} class="score-${cssKey}" style="--score:${value}">${value}</td>`;
+}
+
+function renderCwvCell(cwvStatus) {
+  const status = cwvStatus ?? 'unknown';
+  const classAttr = status !== 'unknown' ? ` class="score-cwv-${status.replace(/_/g, '-')}"` : '';
+  return `<td data-label="CWV"${classAttr}>${escapeHtml(status.replace(/_/g, ' '))}</td>`;
 }
 
 function renderDescriptionHtml(description) {
@@ -1130,7 +1194,7 @@ function renderTopUrlRows(topUrls = []) {
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td data-label="Traffic">${entry.page_load_count}</td>
   <td data-label="Scan status">${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
-  <td data-label="CWV">${escapeHtml((entry.core_web_vitals_status ?? 'unknown').replace(/_/g, ' '))}</td>
+  ${renderCwvCell(entry.core_web_vitals_status)}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility', 'Accessibility')}
   <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
