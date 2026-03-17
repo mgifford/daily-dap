@@ -22,8 +22,7 @@ let _fpcTooltipSeq = 0;
 
 function makeDecorativeSvg(svgStr) {
   return svgStr
-    .replace(' role="img"', '')
-    .replace(/ aria-label="[^"]*"/, '')
+    .replace(/ role="img"| aria-label="[^"]*"/g, '')
     .replace('<svg ', '<svg aria-hidden="true" ');
 }
 

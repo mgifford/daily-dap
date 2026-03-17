@@ -1246,7 +1246,7 @@ test('renderDailyReportPage disability badges have accessible tooltip attributes
   // SVG icons inside badges should be decorative (aria-hidden)
   assert.ok(html.includes('aria-hidden="true"'), 'SVG inside badge should be decorative (aria-hidden)');
   // Badges should NOT have title= attribute (use role="tooltip" + aria-describedby instead)
-  assert.ok(!html.match(/class="disability-badge"[^>]*title=/), 'Disability badge span should not have title attribute');
+  assert.ok(!html.match(/<span[^<>]*class="disability-badge"[^<>]*title=/), 'Disability badge span should not have title attribute');
 });
 
 test('renderDailyReportPage disability badges show estimated impact when page_load_count is available', () => {
