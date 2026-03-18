@@ -247,23 +247,31 @@ test('renderDailyReportPage includes Details button and modal dialog for each UR
 
   const html = renderDailyReportPage(report);
 
-  // Table should have Details column header
+  // Table should have Axe details column header
   assert.ok(html.includes('>Axe details<'), 'Should have Axe details column header');
 
-  // Axe details column should appear after Accessibility and before Best Practices in the table header
+  // Axe details column should appear after Accessibility / Important and before Best Practices in the table header
   // Search within the top-urls table section specifically
   const tableStart = html.indexOf('id="top-urls-table"');
-  const tableHeaderSection = html.substring(tableStart, tableStart + 2000);
+  const tableHeaderSection = html.substring(tableStart, tableStart + 2500);
   const axeDetailsPos = tableHeaderSection.indexOf('>Axe details<');
-  const accessibilityPos = tableHeaderSection.indexOf('>Accessibility<');
+  const accessibilityPos = tableHeaderSection.indexOf('Accessibility');
+  const importantPos = tableHeaderSection.indexOf('/ Important');
   const bestPracticesPos = tableHeaderSection.indexOf('>Best Practices<');
   assert.ok(accessibilityPos < axeDetailsPos, 'Accessibility header should appear before Axe details header in table');
+  assert.ok(importantPos < axeDetailsPos, 'Important sub-heading should appear before Axe details header in table');
   assert.ok(axeDetailsPos < bestPracticesPos, 'Axe details header should appear before Best Practices header in table');
 
-  // Details button should be present
+  // Removed columns should not appear in the table header
+  assert.ok(!tableHeaderSection.includes('>Total findings<'), 'Total findings column should be removed');
+  assert.ok(!tableHeaderSection.includes('>Critical/Serious<'), 'Critical/Serious column should be removed');
+  assert.ok(!tableHeaderSection.includes('>Failure reason<'), 'Failure reason column should be removed');
+
+  // Details button should show findings count
   assert.ok(html.includes('class="details-btn"'), 'Should have details button');
   assert.ok(html.includes('aria-haspopup="dialog"'), 'Details button should indicate dialog popup');
   assert.ok(html.includes('data-open-modal="modal-url-0"'), 'Details button should use data attribute to open modal');
+  assert.ok(html.includes('Details (1)'), 'Details button should show findings count when findings_count > 0');
 
   // Modal dialog should be present
   assert.ok(html.includes('<dialog'), 'Should include dialog element');
@@ -379,8 +387,64 @@ test('renderDailyReportPage shows Details button when accessibility score is bel
   const html = renderDailyReportPage(report);
 
   assert.ok(html.includes('class="details-btn"'), 'Should show Details button when accessibility score is 99');
+  assert.ok(html.includes('Details (1)'), 'Should show findings count in Details button');
   assert.ok(html.includes('data-open-modal="modal-url-0"'), 'Should include modal open attribute');
   assert.ok(html.includes('<dialog'), 'Should render modal dialog');
+});
+
+test('renderDailyReportPage shows combined Accessibility/Important cell with score and severe count', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 90, accessibility: 85, best_practices: 95, seo: 95, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://www.example.gov',
+        page_load_count: 3000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 3,
+        severe_findings_count: 2,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 90, accessibility: 85, best_practices: 95, seo: 95, pwa: 0 },
+        axe_findings: []
+      },
+      {
+        url: 'https://www.other.gov',
+        page_load_count: 1000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 95, accessibility: 100, best_practices: 98, seo: 99, pwa: 0 },
+        axe_findings: []
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Column header should show combined label with tooltip
+  assert.ok(html.includes('Accessibility'), 'Should have Accessibility in header');
+  assert.ok(html.includes('/ Important'), 'Should have / Important sub-heading in header');
+  assert.ok(html.includes('role="tooltip"'), 'Should have tooltip element for header');
+  assert.ok(html.includes('tip-acc-important'), 'Should have tooltip ID for accessibility column');
+
+  // Cell with severe findings should include data-sort-value with just the score
+  assert.ok(html.includes('data-sort-value="85"'), 'Cell should carry numeric sort value');
+  // The severe count span should be present
+  assert.ok(html.includes('class="severe-count"'), 'Should render severe count with its CSS class');
+
+  // Removed columns should not appear
+  assert.ok(!html.includes('data-label="Total findings"'), 'Total findings column should be removed');
+  assert.ok(!html.includes('data-label="Critical/Serious"'), 'Critical/Serious column should be removed');
+  assert.ok(!html.includes('data-label="Failure reason"'), 'Failure reason column should be removed');
 });
 
 test('renderDailyReportPage handles missing axe_findings field gracefully', () => {

@@ -694,8 +694,64 @@ function renderSharedStyles() {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 320px;
+      max-width: 180px;
+      transition: max-width 0.2s ease;
     }
+    .url-cell:hover,
+    .url-cell:focus-within {
+      max-width: 400px;
+      white-space: normal;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* ---------- Column header info tooltips ---------- */
+    .col-has-info { position: relative; }
+    .col-info-anchor {
+      display: inline-block;
+      position: relative;
+      margin-left: 0.25rem;
+      color: var(--color-text-muted);
+      font-size: 0.85em;
+      cursor: help;
+      vertical-align: middle;
+    }
+    .col-info-anchor:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; border-radius: 50%; }
+    .col-info-icon { font-style: normal; }
+    .col-subhead { font-size: 0.85em; font-weight: normal; white-space: nowrap; }
+    .col-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 260px;
+      min-width: 160px;
+      z-index: 200;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .col-info-anchor:hover .col-tooltip,
+    .col-info-anchor:focus-within .col-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .col-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Severe count styling inside accessibility cell */
+    .severe-count { color: var(--color-text-muted); font-size: 0.9em; }
 
     /* ---------- Site footer ---------- */
     .site-footer {
@@ -1071,6 +1127,25 @@ function renderLighthouseScoreCell(scores, key, label = '') {
   return `<td${labelAttr} class="score-${cssKey}" style="--score:${value}">${value}</td>`;
 }
 
+function renderAccessibilityImportantCell(entry) {
+  const label = 'Accessibility / Important';
+  const labelAttr = ` data-label="${escapeHtml(label)}"`;
+  const scores = entry.lighthouse_scores;
+  if (!scores) {
+    return `<td${labelAttr}>—</td>`;
+  }
+  const value = scores.accessibility;
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return `<td${labelAttr}>—</td>`;
+  }
+  const severeCount = entry.severe_findings_count ?? 0;
+  const findingWord = severeCount === 1 ? 'finding' : 'findings';
+  const display = severeCount > 0
+    ? `${value}&thinsp;/&thinsp;<span class="severe-count" aria-label="${severeCount} critical or serious ${findingWord}">${severeCount}</span>`
+    : `${value}`;
+  return `<td${labelAttr} class="score-accessibility" style="--score:${value}" data-sort-value="${value}">${display}</td>`;
+}
+
 function renderCwvCell(cwvStatus) {
   const status = cwvStatus ?? 'unknown';
   const classAttr = status !== 'unknown' ? ` class="score-cwv-${status.replace(/_/g, '-')}"` : '';
@@ -1261,20 +1336,21 @@ function renderTopUrlRows(topUrls = []) {
   return topUrls
     .slice(0, 100)
     .map(
-      (entry, index) => `<tr>
+      (entry, index) => {
+        const findingsCount = entry.findings_count ?? 0;
+        const btnLabel = findingsCount > 0 ? `Details (${findingsCount})` : 'Details';
+        return `<tr>
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td data-label="Traffic">${entry.page_load_count}</td>
   <td data-label="Scan status">${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
   ${renderCwvCell(entry.core_web_vitals_status)}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
-  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'accessibility', 'Accessibility')}
-  <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details</button>`}</td>
+  ${renderAccessibilityImportantCell(entry)}
+  <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">${escapeHtml(btnLabel)}</button>`}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices', 'Best Practices')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo', 'SEO')}
-  <td data-label="Total findings">${entry.findings_count}</td>
-  <td data-label="Critical/Serious">${entry.severe_findings_count}</td>
-  <td data-label="Failure reason">${entry.failure_reason ? escapeHtml(entry.failure_reason.replace(/_/g, ' ')) : ''}</td>
-</tr>`
+</tr>`;
+      }
     )
     .join('\n');
 }
@@ -1612,7 +1688,7 @@ export function renderDailyReportPage(report) {
     <section aria-labelledby="top-urls-heading">
       <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)${renderAnchorLink('top-urls-heading', 'Top URLs by Traffic (Scanned)')}</h2>
       <p>Showing up to ${Math.min((report.top_urls ?? []).length, 100)} highest-traffic URLs from the latest available DAP day in this run.</p>
-      <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). Click <strong>Details</strong> to view WCAG accessibility findings for each URL.</p>
+      <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). The <strong>Accessibility / Important</strong> column shows the Lighthouse accessibility score; if Critical or Serious axe findings exist the count appears after the slash (e.g.&nbsp;94&thinsp;/&thinsp;2). Click <strong>Details&nbsp;(N)</strong> to view WCAG accessibility findings for each URL.</p>
       <p><a href="axe-findings.json">Download axe findings JSON for this day</a> | <a href="axe-findings.csv">Download axe findings CSV for this day</a></p>
       ${wrapTable(`<table id="top-urls-table">
         <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
@@ -1623,13 +1699,10 @@ export function renderDailyReportPage(report) {
             <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">Scan status</button></th>
             <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">CWV</button></th>
             <th scope="col" data-sort-col="4" aria-sort="none"><button class="sort-btn">Performance</button></th>
-            <th scope="col" data-sort-col="5" aria-sort="none"><button class="sort-btn">Accessibility</button></th>
+            <th scope="col" data-sort-col="5" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility<br><span class="col-subhead">/ Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
             <th scope="col">Axe details</th>
             <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
             <th scope="col" data-sort-col="8" aria-sort="none"><button class="sort-btn">SEO</button></th>
-            <th scope="col" class="wrap-header">Total findings</th>
-            <th scope="col" class="wrap-header">Critical/Serious</th>
-            <th scope="col" class="wrap-header">Failure reason</th>
           </tr>
         </thead>
         <tbody>
@@ -1698,12 +1771,16 @@ export function renderDailyReportPage(report) {
         var tbody = table.querySelector('tbody');
         var currentCol = -1;
         var currentDir = 'none';
-        // Columns whose values are numeric (Traffic, Performance, Accessibility, Best Practices, SEO)
-        var numericCols = [1, 4, 5, 6, 7];
+        // Columns whose values are numeric (Traffic, Performance, Accessibility/Important, Best Practices, SEO)
+        var numericCols = [1, 4, 5, 7, 8];
 
         function getCellText(row, col) {
           var cells = row.querySelectorAll('td');
-          return cells[col] ? cells[col].textContent.trim() : '';
+          if (!cells[col]) { return ''; }
+          // Prefer explicit sort value when present (e.g. combined accessibility/important cell)
+          var sortVal = cells[col].dataset.sortValue;
+          if (sortVal !== undefined) { return sortVal; }
+          return cells[col].textContent.trim();
         }
 
         function sortTable(col, dir) {
