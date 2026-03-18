@@ -406,7 +406,7 @@
       color: inherit;
       padding: 0;
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.3em;
       white-space: inherit;
     }
@@ -609,15 +609,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 180px;
-      transition: max-width 0.2s ease;
+      position: relative;
     }
     .url-cell:hover,
     .url-cell:focus-within {
-      max-width: 400px;
-      white-space: normal;
       overflow: visible;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      position: relative;
+      z-index: 2;
+    }
+    .url-cell:hover a,
+    .url-cell:focus-within a {
+      background: var(--color-table-row-hover);
+      padding-right: 0.25rem;
+      box-shadow: 2px 0 4px var(--color-shadow);
     }
 
     /* ---------- Column header info tooltips ---------- */
@@ -778,7 +782,7 @@
         <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-18)</span></li>
         <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-18)</span></li>
       </ul>
-      <p class="generated-note">Archive index generated: 2026-03-18T15:29:29.397Z</p>
+      <p class="generated-note">Archive index generated: 2026-03-18T18:53:02.304Z</p>
     </section>
   </main>
 

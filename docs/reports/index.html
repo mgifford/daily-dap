@@ -406,7 +406,7 @@
       color: inherit;
       padding: 0;
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.3em;
       white-space: inherit;
     }
@@ -609,15 +609,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 180px;
-      transition: max-width 0.2s ease;
+      position: relative;
     }
     .url-cell:hover,
     .url-cell:focus-within {
-      max-width: 400px;
-      white-space: normal;
       overflow: visible;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      position: relative;
+      z-index: 2;
+    }
+    .url-cell:hover a,
+    .url-cell:focus-within a {
+      background: var(--color-table-row-hover);
+      padding-right: 0.25rem;
+      box-shadow: 2px 0 4px var(--color-shadow);
     }
 
     /* ---------- Column header info tooltips ---------- */
@@ -781,19 +785,19 @@
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
-        <div class="score-value">54.68</div>
+        <div class="score-value">55.32</div>
       </div>
       <div class="score-card">
         <div class="score-label">Accessibility</div>
-        <div class="score-value">92.12</div>
+        <div class="score-value">92.66</div>
       </div>
       <div class="score-card">
         <div class="score-label">Best Practices</div>
-        <div class="score-value">84.85</div>
+        <div class="score-value">85.4</div>
       </div>
       <div class="score-card">
         <div class="score-label">SEO</div>
-        <div class="score-value">88.69</div>
+        <div class="score-value">88.87</div>
       </div>
     </div>
     <p><a href="./daily/2026-03-18/index.html">Open latest report &rarr;</a></p>
