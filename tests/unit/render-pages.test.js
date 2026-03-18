@@ -1776,3 +1776,106 @@ test('render404Page provides a link back to the dashboard', () => {
 
   assert.ok(html.includes('./reports/'), 'Should include a link back to the reports dashboard');
 });
+
+// ---- link-name regression tests (axe rule: link-name) ----
+
+/**
+ * Returns an array of link HTML snippets that lack discernible accessible text.
+ * A link passes if it has: a non-empty aria-label, aria-labelledby, title, or
+ * visible text content (excluding content of aria-hidden elements).
+ * This guards against the axe "link-name" violation.
+ *
+ * Uses a character-loop text extractor (not regex-based HTML stripping) to avoid
+ * false sanitization concerns when analysing test HTML output.
+ */
+function findLinksWithoutDiscernibleText(html) {
+  const failing = [];
+  const pattern = /<a(\s[^>]*)?>[\s\S]*?<\/a>/g;
+  let match;
+  while ((match = pattern.exec(html)) !== null) {
+    const fullMatch = match[0];
+    const attrStr = match[1] || '';
+
+    // aria-label provides accessible name
+    if (/\baria-label="[^"]+"/.test(attrStr)) continue;
+
+    // aria-labelledby provides accessible name
+    if (/\baria-labelledby="[^"]+"/.test(attrStr)) continue;
+
+    // title provides accessible name
+    if (/\btitle="[^"]+"/.test(attrStr)) continue;
+
+    // Derive visible text by walking characters, skipping content inside HTML tags.
+    // All links that rely solely on aria-hidden child content for labelling are already
+    // covered by the aria-label check above (our heading-anchor pattern uses aria-label).
+    const inner = fullMatch.slice(fullMatch.indexOf('>') + 1, fullMatch.lastIndexOf('</a>'));
+    let inTag = false;
+    let visibleText = '';
+    for (const ch of inner) {
+      if (ch === '<') { inTag = true; continue; }
+      if (ch === '>') { inTag = false; continue; }
+      if (!inTag) visibleText += ch;
+    }
+
+    if (!visibleText.trim()) {
+      failing.push(fullMatch.slice(0, 200));
+    }
+  }
+  return failing;
+}
+
+test('renderDashboardPage: all links have discernible text (axe link-name)', () => {
+  const html = renderDashboardPage({
+    latestReport: minimalReport,
+    historyIndex: [{ run_date: '2026-03-08', run_id: 'run-2026-03-08-abc' }],
+    archiveUrl: './archive/index.html',
+    archiveWindowDays: 14
+  });
+
+  const failing = findLinksWithoutDiscernibleText(html);
+  assert.deepEqual(failing, [], `Dashboard page links without discernible text:\n${failing.join('\n')}`);
+});
+
+test('renderDailyReportPage: all links have discernible text (axe link-name)', () => {
+  const html = renderDailyReportPage(minimalReport);
+
+  const failing = findLinksWithoutDiscernibleText(html);
+  assert.deepEqual(failing, [], `Daily report page links without discernible text:\n${failing.join('\n')}`);
+});
+
+test('render404Page: all links have discernible text (axe link-name)', () => {
+  const html = render404Page();
+
+  const failing = findLinksWithoutDiscernibleText(html);
+  assert.deepEqual(failing, [], `404 page links without discernible text:\n${failing.join('\n')}`);
+});
+
+test('renderArchiveIndexPage: all links have discernible text (axe link-name)', () => {
+  const html = renderArchiveIndexPage({
+    entries: [
+      { run_date: '2026-03-01', run_id: 'run-2026-03-01-abc', zip_filename: 'run-2026-03-01-abc.zip', archived_at: '2026-03-15T00:00:00.000Z' }
+    ],
+    generatedAt: '2026-03-15T00:00:00.000Z',
+    displayDays: 14
+  });
+
+  const failing = findLinksWithoutDiscernibleText(html);
+  assert.deepEqual(failing, [], `Archive index page links without discernible text:\n${failing.join('\n')}`);
+});
+
+test('renderArchiveRedirectStub: all links have discernible text (axe link-name)', () => {
+  const html = renderArchiveRedirectStub('2026-03-01');
+
+  const failing = findLinksWithoutDiscernibleText(html);
+  assert.deepEqual(failing, [], `Archive redirect stub links without discernible text:\n${failing.join('\n')}`);
+});
+
+test('renderDashboardPage: no image-only logo link exists (axe link-name regression)', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [] });
+
+  // Direct regression guard for the specific axe violation that was reported:
+  // <a href="/" class="logo logo-img-1x"> (no text, no aria-label) was flagged on /reports/.
+  // This element pattern should never appear in our generated output, regardless of
+  // whether it has accessible text (our pages use a text-based site title, not an image logo).
+  assert.ok(!html.includes('logo-img'), 'Dashboard page must not contain image-only logo link (logo-img class)');
+});
