@@ -256,7 +256,7 @@ test('renderDailyReportPage includes Details button and modal dialog for each UR
   const tableHeaderSection = html.substring(tableStart, tableStart + 2500);
   const axeDetailsPos = tableHeaderSection.indexOf('>Axe details<');
   const accessibilityPos = tableHeaderSection.indexOf('Accessibility');
-  const importantPos = tableHeaderSection.indexOf('/ Important');
+  const importantPos = tableHeaderSection.indexOf('>Important<');
   const bestPracticesPos = tableHeaderSection.indexOf('>Best Practices<');
   assert.ok(accessibilityPos < axeDetailsPos, 'Accessibility header should appear before Axe details header in table');
   assert.ok(importantPos < axeDetailsPos, 'Important sub-heading should appear before Axe details header in table');
@@ -432,7 +432,7 @@ test('renderDailyReportPage shows combined Accessibility/Important cell with sco
 
   // Column header should show combined label with tooltip
   assert.ok(html.includes('Accessibility'), 'Should have Accessibility in header');
-  assert.ok(html.includes('/ Important'), 'Should have / Important sub-heading in header');
+  assert.ok(html.includes('>Important<'), 'Should have Important sub-heading in header');
   assert.ok(html.includes('role="tooltip"'), 'Should have tooltip element for header');
   assert.ok(html.includes('tip-acc-important'), 'Should have tooltip ID for accessibility column');
 

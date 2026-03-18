@@ -492,7 +492,7 @@ function renderSharedStyles() {
       color: inherit;
       padding: 0;
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.3em;
       white-space: inherit;
     }
@@ -695,15 +695,19 @@ function renderSharedStyles() {
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 180px;
-      transition: max-width 0.2s ease;
+      position: relative;
     }
     .url-cell:hover,
     .url-cell:focus-within {
-      max-width: 400px;
-      white-space: normal;
       overflow: visible;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      position: relative;
+      z-index: 2;
+    }
+    .url-cell:hover a,
+    .url-cell:focus-within a {
+      background: var(--color-table-row-hover);
+      padding-right: 0.25rem;
+      box-shadow: 2px 0 4px var(--color-shadow);
     }
 
     /* ---------- Column header info tooltips ---------- */
@@ -1342,7 +1346,7 @@ function renderTopUrlRows(topUrls = []) {
         return `<tr>
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td data-label="Traffic">${entry.page_load_count}</td>
-  <td data-label="Scan status">${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
+  <td data-label="Status">${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
   ${renderCwvCell(entry.core_web_vitals_status)}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
   ${renderAccessibilityImportantCell(entry)}
@@ -1696,10 +1700,10 @@ export function renderDailyReportPage(report) {
           <tr>
             <th scope="col" data-sort-col="0" aria-sort="none"><button class="sort-btn">URL</button></th>
             <th scope="col" data-sort-col="1" aria-sort="none"><button class="sort-btn">Traffic</button></th>
-            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">Scan status</button></th>
+            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">Status</button></th>
             <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">CWV</button></th>
             <th scope="col" data-sort-col="4" aria-sort="none"><button class="sort-btn">Performance</button></th>
-            <th scope="col" data-sort-col="5" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility<br><span class="col-subhead">/ Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
+            <th scope="col" data-sort-col="5" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
             <th scope="col">Axe details</th>
             <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
             <th scope="col" data-sort-col="8" aria-sort="none"><button class="sort-btn">SEO</button></th>
