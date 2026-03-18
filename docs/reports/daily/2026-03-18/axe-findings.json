@@ -1,9 +1,9 @@
 {
   "run_date": "2026-03-18",
   "run_id": "run-2026-03-18-2590a9970e",
-  "generated_at": "2026-03-18T09:28:04.227Z",
+  "generated_at": "2026-03-18T09:51:11.152Z",
   "total_urls": 100,
-  "total_findings": 213,
+  "total_findings": 214,
   "urls": [
     {
       "url": "https://tools.usps.com",
@@ -2235,31 +2235,31 @@
           "items": [
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-bff-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "01",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-bff-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "02",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-bff-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "03",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-bff-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "04",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-bff-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "05",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             }
@@ -2275,7 +2275,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-bff-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-kjo-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -2855,6 +2855,22 @@
       "axe_findings_count": 4,
       "axe_findings": [
         {
+          "id": "aria-dialog-name",
+          "title": "Elements with `role=\"dialog\"` or `role=\"alertdialog\"` do not have accessible names.",
+          "description": "ARIA dialog elements without accessible names may prevent screen readers users from discerning the purpose of these elements. [Learn how to make ARIA dialog elements more accessible](https://dequeuniversity.com/rules/axe/4.11/aria-dialog-name).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "body > div.QSIWebResponsive > div.QSIWebResponsive-creative-container-fade > div.QSIWebResponsiveDialog-Layout1-SI_3P4z2eDgSVwaaFd_content",
+              "snippet": "<div class=\"QSIWebResponsiveDialog-Layout1-SI_3P4z2eDgSVwaaFd_content QSIWebResponsive…\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"QSIWebResponsiveDialog-Layout1-SI_3P4z2eDgSVwaaFd-headline\" aria-describedby=\"QSIWebResponsiveDialog-Layout1-SI_3P4z2eDgSVwaaFd-description\" style=\"background-color: rgb(255, 255, 255); opacity: 1;\">",
+              "node_label": "Help us improve the Trademark Status and Document Retrieval (TSDR) by providing…",
+              "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        },
+        {
           "id": "color-contrast",
           "title": "Background and foreground colors do not have a sufficient contrast ratio.",
           "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
@@ -2941,22 +2957,6 @@
               "snippet": "<a href=\"javascript:void(0);\" class=\"subNav2Link\">",
               "node_label": " Trademark Ownership",
               "explanation": "Fix any of the following:\n  Target has insufficient size (117.4px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21.2px instead of at least 24px."
-            }
-          ]
-        },
-        {
-          "id": "landmark-one-main",
-          "title": "Document does not have a main landmark.",
-          "description": "One main landmark helps screen reader users navigate a web page. [Learn more about landmarks](https://dequeuniversity.com/rules/axe/4.11/landmark-one-main).",
-          "score": 0,
-          "impact": "moderate",
-          "tags": [],
-          "items": [
-            {
-              "selector": "html",
-              "snippet": "<html xmlns:tsdr=\"http://tsdr.uspto.gov\" lang=\"en\">",
-              "node_label": "html",
-              "explanation": "Fix all of the following:\n  Document does not have a main landmark"
             }
           ]
         }
@@ -3315,8 +3315,24 @@
     {
       "url": "https://usitc.gov",
       "scan_status": "success",
-      "axe_findings_count": 2,
+      "axe_findings_count": 3,
       "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "body > div.dialog-off-canvas-main-canvas > section#search-dropdown",
+              "snippet": "<section aria-label=\"Search box\" id=\"search-dropdown\" aria-hidden=\"true\" class=\"search-dropdown desktop:display-none\">",
+              "node_label": "Search",
+              "explanation": "Fix all of the following:\n  Focusable content should be disabled or be removed from the DOM"
+            }
+          ]
+        },
         {
           "id": "heading-order",
           "title": "Heading elements are not in a sequentially-descending order",
@@ -4479,7 +4495,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n107\nDays\n14\nHours\n20\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n107\nDays\n13\nHours\n54\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
