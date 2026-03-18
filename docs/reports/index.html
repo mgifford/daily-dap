@@ -58,6 +58,9 @@
       --color-badge-border: #c6d9ff;
       --color-badge-text: #003d8a;
       --color-badge-hover: #dde8f7;
+      --color-tooltip-bg: #1b1b2f;
+      --color-tooltip-text: #f0f3f8;
+      --color-tooltip-border: #555555;
       --color-copy-btn-bg: #f0f3f8;
       --color-copy-btn-border: #c6d9ff;
       --color-copy-btn-text: #0050b3;
@@ -108,6 +111,9 @@
         --color-badge-border: #30363d;
         --color-badge-text: #58a6ff;
         --color-badge-hover: #21262d;
+        --color-tooltip-bg: #f0f3f8;
+        --color-tooltip-text: #1b1b1b;
+        --color-tooltip-border: #8b949e;
         --color-copy-btn-bg: #1c2128;
         --color-copy-btn-border: #30363d;
         --color-copy-btn-text: #58a6ff;
@@ -158,6 +164,9 @@
       --color-badge-border: #30363d;
       --color-badge-text: #58a6ff;
       --color-badge-hover: #21262d;
+      --color-tooltip-bg: #f0f3f8;
+      --color-tooltip-text: #1b1b1b;
+      --color-tooltip-border: #8b949e;
       --color-copy-btn-bg: #1c2128;
       --color-copy-btn-border: #30363d;
       --color-copy-btn-text: #58a6ff;
@@ -496,6 +505,7 @@
       line-height: 1;
       cursor: help;
       text-decoration: none;
+      position: relative;
     }
     .disability-badge:hover { background: var(--color-badge-hover); }
     .disability-badge:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
@@ -505,6 +515,41 @@
       font-weight: 600;
       line-height: 1;
       white-space: nowrap;
+    }
+    /* ARIA tooltip for disability badges */
+    .disability-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 280px;
+      min-width: 160px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .disability-badge:hover .disability-tooltip,
+    .disability-badge:focus-within .disability-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .disability-badge[data-tooltip-dismissed] .disability-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .disability-tooltip { transition: opacity 0.15s ease; }
     }
     .disability-legend {
       display: grid;
@@ -676,32 +721,33 @@
 
     
   <section aria-labelledby="latest-scores-heading">
-    <h2 id="latest-scores-heading">Latest Scores (2026-03-17)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-17)"><span aria-hidden="true">#</span></a></h2>
+    <h2 id="latest-scores-heading">Latest Scores (2026-03-18)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-18)"><span aria-hidden="true">#</span></a></h2>
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
-        <div class="score-value">54.43</div>
+        <div class="score-value">55.46</div>
       </div>
       <div class="score-card">
         <div class="score-label">Accessibility</div>
-        <div class="score-value">91.29</div>
+        <div class="score-value">92.31</div>
       </div>
       <div class="score-card">
         <div class="score-label">Best Practices</div>
-        <div class="score-value">84.55</div>
+        <div class="score-value">84.97</div>
       </div>
       <div class="score-card">
         <div class="score-label">SEO</div>
-        <div class="score-value">88.76</div>
+        <div class="score-value">88.94</div>
       </div>
     </div>
-    <p><a href="./daily/2026-03-17/index.html">Open latest report &rarr;</a></p>
+    <p><a href="./daily/2026-03-18/index.html">Open latest report &rarr;</a></p>
   </section>
 
     <section aria-labelledby="recent-reports-heading">
       <h2 id="recent-reports-heading">Recent Reports<a href="#recent-reports-heading" class="heading-anchor" aria-label="Link to Recent Reports"><span aria-hidden="true">#</span></a></h2>
       <ul>
-        <li><a href="./daily/2026-03-17/index.html">2026-03-17</a> (run-2026-03-17-ada490e9d8)</li>
+        <li><a href="./daily/2026-03-18/index.html">2026-03-18</a> (run-2026-03-18-2590a9970e)</li>
+<li><a href="./daily/2026-03-17/index.html">2026-03-17</a> (run-2026-03-17-ada490e9d8)</li>
 <li><a href="./daily/2026-03-16/index.html">2026-03-16</a> (run-2026-03-16-8aa0475fbd)</li>
 <li><a href="./daily/2026-03-15/index.html">2026-03-15</a> (run-2026-03-15-156cc6606f)</li>
 <li><a href="./daily/2026-03-14/index.html">2026-03-14</a> (run-2026-03-14-821e13b71e)</li>
@@ -714,7 +760,6 @@
 <li><a href="./daily/2026-03-07/index.html">2026-03-07</a> (run-2026-03-07-597d5e633a)</li>
 <li><a href="./daily/2026-03-06/index.html">2026-03-06</a> (run-2026-03-06-0969e8ad13)</li>
 <li><a href="./daily/2026-03-05/index.html">2026-03-05</a> (run-2026-03-05-dd92379117)</li>
-<li><a href="./daily/2026-03-04/index.html">2026-03-04</a> (run-2026-03-04-bb8bc2601d)</li>
       </ul>
     </section>
     
@@ -766,6 +811,24 @@
           if (!html.hasAttribute('data-color-scheme')) { updateButton(); }
         });
       }
+    }());
+  </script>
+  <script>
+    (function () {
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var badge = document.activeElement;
+          if (badge && badge.classList.contains('disability-badge')) {
+            badge.dataset.tooltipDismissed = 'true';
+          }
+        }
+      });
+      document.addEventListener('focusout', function (e) {
+        var badge = e.target;
+        if (badge && badge.classList.contains('disability-badge')) {
+          delete badge.dataset.tooltipDismissed;
+        }
+      });
     }());
   </script>
 </body>
