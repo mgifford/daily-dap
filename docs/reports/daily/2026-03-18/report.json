@@ -9,10 +9,10 @@
     "excluded": 0
   },
   "aggregate_scores": {
-    "performance": 53.96,
-    "accessibility": 92.26,
-    "best_practices": 84.73,
-    "seo": 88.79,
+    "performance": 54.68,
+    "accessibility": 92.12,
+    "best_practices": 84.85,
+    "seo": 88.69,
     "pwa": 0
   },
   "estimated_impact": {
@@ -161,10 +161,10 @@
     "benchmark_page_weight_bytes": 1600000,
     "url_count_with_timing": 98,
     "url_count_with_weight": 98,
-    "total_extra_load_time_seconds": 358515664,
-    "total_extra_load_time_hours": 99587.68,
-    "total_extra_bytes": 62659083509487,
-    "total_extra_gigabytes": 62659.08
+    "total_extra_load_time_seconds": 327056835,
+    "total_extra_load_time_hours": 90849.12,
+    "total_extra_bytes": 62496822185778,
+    "total_extra_gigabytes": 62496.82
   },
   "source_data_date": "2026-03-16",
   "top_urls": [
@@ -177,7 +177,7 @@
       "severe_findings_count": 8,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 33,
+        "performance": 41,
         "accessibility": 68,
         "best_practices": 77,
         "seo": 83,
@@ -565,7 +565,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 87,
+        "performance": 89,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -582,7 +582,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 71,
+        "performance": 77,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 92,
@@ -599,7 +599,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 46,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -612,12 +612,12 @@
       "page_load_count": 3268432,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 5,
-      "severe_findings_count": 4,
+      "findings_count": 6,
+      "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 63,
-        "accessibility": 67,
+        "performance": 71,
+        "accessibility": 61,
         "best_practices": 85,
         "seo": 73,
         "pwa": 0
@@ -684,6 +684,22 @@
           ]
         },
         {
+          "id": "select-name",
+          "title": "Select elements do not have associated label elements.",
+          "description": "Form elements without effective labels can create frustrating experiences for screen reader users. [Learn more about the `select` element](https://dequeuniversity.com/rules/axe/4.11/select-name).",
+          "score": 0,
+          "impact": "critical",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.warningArea > div#stateListings > form > select",
+              "snippet": "<select size=\"1\" name=\"menu\">",
+              "node_label": "Warnings By State\nWarnings By County\nAlabama\nAlaska\nArizona\nArkansas\nCalifornia…",
+              "explanation": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
           "id": "target-size",
           "title": "Touch targets do not have sufficient size or spacing.",
           "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
@@ -711,12 +727,6 @@
             },
             {
               "selector": "div#wwaleft > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Blizzard%20W…\">",
-              "node_label": "Blizzard Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (75.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Heavy%20Free…\">",
               "node_label": "Heavy Freezing Spray Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
@@ -725,13 +735,7 @@
               "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
               "node_label": "Winter Storm Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaleft > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Lake%20Effec…\">",
-              "node_label": "Lake Effect Snow Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (77.7px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.8px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -752,7 +756,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20He…\">",
               "node_label": "Extreme Heat Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (100.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -761,25 +765,25 @@
               "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Gale%20Warni…\">",
               "node_label": "Gale Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_l > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Freeze%20War…\">",
-              "node_label": "Freeze Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (70.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Red%20Flag%2…\">",
               "node_label": "Red Flag Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (80.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (80.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Wea…\">",
               "node_label": "Winter Weather Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (109.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (109.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwacenter_l > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Cold%20Weath…\">",
+              "node_label": "Cold Weather Advisory",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (101.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
@@ -797,7 +801,13 @@
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=High%20Surf%…\">",
               "node_label": "High Surf Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (82.3px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (82.3px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.8px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwacenter_r > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Dense%20Fog%…\">",
+              "node_label": "Dense Fog Advisory",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (89.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -815,13 +825,7 @@
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Wind%20Advis…\">",
               "node_label": "Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_r > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Frost%20Advi…\">",
-              "node_label": "Frost Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16.6px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -830,7 +834,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_r > ul > li > a",
+              "selector": "div#wwaright > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Watch\">",
               "node_label": "Flood Watch",
               "explanation": "Fix any of the following:\n  Target has insufficient size (55.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -948,7 +952,7 @@
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 62,
         "accessibility": 68,
         "best_practices": 54,
         "seo": 85,
@@ -1314,7 +1318,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 77,
+        "performance": 75,
         "accessibility": 92,
         "best_practices": 96,
         "seo": 92,
@@ -1408,9 +1412,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "good",
       "lighthouse_scores": {
-        "performance": 92,
+        "performance": 94,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -1423,12 +1427,12 @@
       "page_load_count": 2007675,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 5,
-      "severe_findings_count": 4,
+      "findings_count": 6,
+      "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 69,
-        "accessibility": 67,
+        "performance": 72,
+        "accessibility": 61,
         "best_practices": 85,
         "seo": 73,
         "pwa": 0
@@ -1495,6 +1499,22 @@
           ]
         },
         {
+          "id": "select-name",
+          "title": "Select elements do not have associated label elements.",
+          "description": "Form elements without effective labels can create frustrating experiences for screen reader users. [Learn more about the `select` element](https://dequeuniversity.com/rules/axe/4.11/select-name).",
+          "score": 0,
+          "impact": "critical",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.warningArea > div#stateListings > form > select",
+              "snippet": "<select size=\"1\" name=\"menu\">",
+              "node_label": "Warnings By State\nWarnings By County\nAlabama\nAlaska\nArizona\nArkansas\nCalifornia…",
+              "explanation": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
           "id": "target-size",
           "title": "Touch targets do not have sufficient size or spacing.",
           "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
@@ -1522,12 +1542,6 @@
             },
             {
               "selector": "div#wwaleft > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Blizzard%20W…\">",
-              "node_label": "Blizzard Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (75.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Heavy%20Free…\">",
               "node_label": "Heavy Freezing Spray Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
@@ -1536,13 +1550,7 @@
               "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
               "node_label": "Winter Storm Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaleft > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Lake%20Effec…\">",
-              "node_label": "Lake Effect Snow Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (77.7px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.8px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -1563,7 +1571,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20He…\">",
               "node_label": "Extreme Heat Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (100.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -1572,25 +1580,25 @@
               "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Gale%20Warni…\">",
               "node_label": "Gale Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_l > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Freeze%20War…\">",
-              "node_label": "Freeze Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (70.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (60.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Red%20Flag%2…\">",
               "node_label": "Red Flag Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (80.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (80.2px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.4px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Wea…\">",
               "node_label": "Winter Weather Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (109.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (109.9px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwacenter_l > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Cold%20Weath…\">",
+              "node_label": "Cold Weather Advisory",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (101.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
@@ -1608,7 +1616,13 @@
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=High%20Surf%…\">",
               "node_label": "High Surf Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (82.3px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (82.3px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.8px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwacenter_r > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Dense%20Fog%…\">",
+              "node_label": "Dense Fog Advisory",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (89.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1626,13 +1640,7 @@
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Wind%20Advis…\">",
               "node_label": "Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_r > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Frost%20Advi…\">",
-              "node_label": "Frost Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16.6px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1641,7 +1649,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_r > ul > li > a",
+              "selector": "div#wwaright > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Flood%20Watch\">",
               "node_label": "Flood Watch",
               "explanation": "Fix any of the following:\n  Target has insufficient size (55.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -1759,7 +1767,7 @@
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 34,
+        "performance": 29,
         "accessibility": 71,
         "best_practices": 54,
         "seo": 92,
@@ -2089,7 +2097,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 60,
+        "performance": 66,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 85,
@@ -2231,7 +2239,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 33,
+        "performance": 30,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -2248,7 +2256,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 58,
+        "performance": 57,
         "accessibility": 90,
         "best_practices": 73,
         "seo": 85,
@@ -2390,7 +2398,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 26,
+        "performance": 27,
         "accessibility": 93,
         "best_practices": 50,
         "seo": 82,
@@ -2440,7 +2448,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 57,
         "accessibility": 77,
         "best_practices": 100,
         "seo": 82,
@@ -2490,7 +2498,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 67,
+        "performance": 66,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 85,
@@ -2568,7 +2576,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 7,
+        "performance": 6,
         "accessibility": 87,
         "best_practices": 54,
         "seo": 92,
@@ -2585,31 +2593,31 @@
           "items": [
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-ucv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "01",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-ucv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "02",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-ucv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "03",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-ucv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "04",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-kjo-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-ucv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "05",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             }
@@ -2625,7 +2633,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-kjo-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-ucv-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -2680,7 +2688,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 29,
+        "performance": 35,
         "accessibility": 97,
         "best_practices": 73,
         "seo": 100,
@@ -2714,7 +2722,7 @@
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 49,
+        "performance": 40,
         "accessibility": 81,
         "best_practices": 92,
         "seo": 58,
@@ -2812,7 +2820,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 23,
+        "performance": 25,
         "accessibility": 96,
         "best_practices": 73,
         "seo": 85,
@@ -2846,7 +2854,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 82,
+        "performance": 66,
         "accessibility": 95,
         "best_practices": 96,
         "seo": 92,
@@ -3020,7 +3028,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 43,
         "accessibility": 98,
         "best_practices": 81,
         "seo": 83,
@@ -3088,7 +3096,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 54,
+        "performance": 50,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -3103,9 +3111,9 @@
       "failure_reason": null,
       "findings_count": 3,
       "severe_findings_count": 2,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 81,
+        "performance": 85,
         "accessibility": 94,
         "best_practices": 92,
         "seo": 100,
@@ -3289,7 +3297,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 78,
+        "performance": 81,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 40,
@@ -3323,9 +3331,9 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 46,
         "accessibility": 100,
-        "best_practices": 100,
+        "best_practices": 96,
         "seo": 100,
         "pwa": 0
       },
@@ -3340,7 +3348,7 @@
       "severe_findings_count": 4,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 76,
         "accessibility": 87,
         "best_practices": 96,
         "seo": 82,
@@ -3464,7 +3472,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 37,
+        "performance": 45,
         "accessibility": 93,
         "best_practices": 73,
         "seo": 92,
@@ -3576,7 +3584,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 27,
+        "performance": 34,
         "accessibility": 99,
         "best_practices": 73,
         "seo": 92,
@@ -3610,7 +3618,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 84,
+        "performance": 80,
         "accessibility": 96,
         "best_practices": 92,
         "seo": 85,
@@ -3644,7 +3652,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 83,
+        "performance": 84,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 66,
@@ -3661,9 +3669,9 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 46,
         "accessibility": 95,
-        "best_practices": 77,
+        "best_practices": 96,
         "seo": 92,
         "pwa": 0
       },
@@ -3711,9 +3719,9 @@
       "failure_reason": null,
       "findings_count": 1,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 67,
+        "performance": 82,
         "accessibility": 99,
         "best_practices": 100,
         "seo": 83,
@@ -3747,7 +3755,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 58,
         "accessibility": 98,
         "best_practices": 96,
         "seo": 92,
@@ -3781,7 +3789,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 56,
+        "performance": 60,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -3815,7 +3823,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 81,
+        "performance": 82,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 83,
@@ -3873,7 +3881,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 54,
+        "performance": 49,
         "accessibility": 95,
         "best_practices": 100,
         "seo": 100,
@@ -3931,33 +3939,17 @@
       "page_load_count": 350573,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 3,
-      "severe_findings_count": 2,
+      "findings_count": 2,
+      "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 28,
-        "accessibility": 95,
+        "performance": 23,
+        "accessibility": 99,
         "best_practices": 100,
         "seo": 83,
         "pwa": 0
       },
       "axe_findings": [
-        {
-          "id": "aria-hidden-focus",
-          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
-          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "body > div.dialog-off-canvas-main-canvas > section#search-dropdown",
-              "snippet": "<section aria-label=\"Search box\" id=\"search-dropdown\" aria-hidden=\"true\" class=\"search-dropdown desktop:display-none\">",
-              "node_label": "Search",
-              "explanation": "Fix all of the following:\n  Focusable content should be disabled or be removed from the DOM"
-            }
-          ]
-        },
         {
           "id": "heading-order",
           "title": "Heading elements are not in a sequentially-descending order",
@@ -4019,7 +4011,7 @@
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 56,
+        "performance": 60,
         "accessibility": 53,
         "best_practices": 65,
         "seo": 33,
@@ -4114,6 +4106,18 @@
             },
             {
               "selector": "td > div > a > img.ACsm",
+              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day1otlk_sm.png\">",
+              "node_label": "td > div > a > img.ACsm",
+              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "selector": "td > div > a > img.ACsm",
+              "snippet": "<img class=\"ACsm\" src=\"/products/exper/enhtstm/enh_small.gif\">",
+              "node_label": "td > div > a > img.ACsm",
+              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "selector": "td > div > a > img.ACsm",
               "snippet": "<img class=\"ACsm\" src=\"/products/exper/day4-8/day48prob_small.gif\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
@@ -4132,12 +4136,6 @@
             },
             {
               "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day1otlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
               "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day3otlk_sm.png\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
@@ -4145,12 +4143,6 @@
             {
               "selector": "td > div > a > img.ACsm",
               "snippet": "<img class=\"ACsm\" src=\"/products/outlook/day2otlk_sm.png\">",
-              "node_label": "td > div > a > img.ACsm",
-              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "selector": "td > div > a > img.ACsm",
-              "snippet": "<img class=\"ACsm\" src=\"/products/exper/enhtstm/enh_small.gif\">",
               "node_label": "td > div > a > img.ACsm",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -4214,6 +4206,18 @@
           "items": [
             {
               "selector": "tr > td > div > a",
+              "snippet": "<a href=\"/products/outlook/day1otlk.html\">",
+              "node_label": "tr > td > div > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "tr > td > div > a",
+              "snippet": "<a href=\"/products/exper/enhtstm/\">",
+              "node_label": "tr > td > div > a",
+              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            },
+            {
+              "selector": "tr > td > div > a",
               "snippet": "<a href=\"/products/exper/day4-8/\">",
               "node_label": "tr > td > div > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
@@ -4232,12 +4236,6 @@
             },
             {
               "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/outlook/day1otlk.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
               "snippet": "<a href=\"/products/outlook/day3otlk.html\">",
               "node_label": "tr > td > div > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
@@ -4245,12 +4243,6 @@
             {
               "selector": "tr > td > div > a",
               "snippet": "<a href=\"/products/outlook/day2otlk.html\">",
-              "node_label": "tr > td > div > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "tr > td > div > a",
-              "snippet": "<a href=\"/products/exper/enhtstm/\">",
               "node_label": "tr > td > div > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
             },
@@ -4651,7 +4643,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 60,
+        "performance": 61,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -4668,7 +4660,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 76,
+        "performance": 75,
         "accessibility": 94,
         "best_practices": 46,
         "seo": 91,
@@ -4708,7 +4700,7 @@
             {
               "selector": "div#footer > div#legal > span > span#ctl00_lblIP",
               "snippet": "<span id=\"ctl00_lblIP\" tabindex=\"6050\" class=\"lblIP\">",
-              "node_label": "(227)",
+              "node_label": "(223)",
               "explanation": "Fix any of the following:\n  Element has a tabindex greater than 0"
             }
           ]
@@ -4724,7 +4716,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 55,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 100,
@@ -4774,7 +4766,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 42,
         "accessibility": 97,
         "best_practices": 54,
         "seo": 92,
@@ -4808,7 +4800,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 42,
+        "performance": 40,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 92,
@@ -4823,9 +4815,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
+      "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 73,
+        "performance": 81,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -4842,7 +4834,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 43,
         "accessibility": 93,
         "best_practices": 100,
         "seo": 73,
@@ -4882,7 +4874,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 58,
         "accessibility": 91,
         "best_practices": 96,
         "seo": 100,
@@ -4944,7 +4936,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 62,
+        "performance": 58,
         "accessibility": 89,
         "best_practices": 77,
         "seo": 100,
@@ -5056,7 +5048,7 @@
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 43,
         "accessibility": 85,
         "best_practices": 92,
         "seo": 73,
@@ -5168,7 +5160,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 50,
+        "performance": 54,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 100,
@@ -5185,7 +5177,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 74,
+        "performance": 60,
         "accessibility": 99,
         "best_practices": 92,
         "seo": 83,
@@ -5219,7 +5211,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 27,
+        "performance": 28,
         "accessibility": 93,
         "best_practices": 54,
         "seo": 100,
@@ -5285,7 +5277,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n107\nDays\n13\nHours\n54\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n107\nDays\n8\nHours\n40\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
@@ -5299,9 +5291,9 @@
       "failure_reason": null,
       "findings_count": 2,
       "severe_findings_count": 2,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 76,
+        "performance": 74,
         "accessibility": 97,
         "best_practices": 100,
         "seo": 77,
@@ -5385,7 +5377,7 @@
       "failure_reason": null,
       "findings_count": 1,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
         "performance": 70,
         "accessibility": 98,
@@ -5421,7 +5413,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 50,
         "accessibility": 98,
         "best_practices": 92,
         "seo": 92,
@@ -5471,7 +5463,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 32,
+        "performance": 43,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 83,
@@ -5547,7 +5539,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 56,
         "accessibility": 90,
         "best_practices": 73,
         "seo": 85,
@@ -5563,33 +5555,33 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-427520812",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-427520812\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-427520812\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-427520812",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1837491480",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1837491480\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1837491480\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1837491480",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2022476685",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-2022476685\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-2022476685\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2022476685",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-985386435",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-985386435\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-985386435\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-985386435",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-983834050",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-983834050\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-983834050\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-983834050",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-420153200",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-420153200\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-420153200\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-420153200",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1086269968",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1086269968\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1086269968\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1086269968",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1793107628",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1793107628\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1793107628\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1793107628",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1230003092",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1230003092\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1230003092\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1230003092",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-348407382",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-348407382\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-348407382\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-348407382",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             }
           ]
@@ -5603,33 +5595,33 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-427520812",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-427520812\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-427520812\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-427520812",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1837491480",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1837491480\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1837491480\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1837491480",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2022476685",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-2022476685\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-2022476685\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2022476685",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-985386435",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-985386435\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-985386435\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-985386435",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-983834050",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-983834050\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-983834050\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-983834050",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-420153200",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-420153200\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-420153200\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-420153200",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1086269968",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1086269968\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1086269968\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1086269968",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1793107628",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1793107628\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1793107628\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1793107628",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1230003092",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1230003092\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1230003092\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1230003092",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-348407382",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-348407382\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-348407382\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-348407382",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             }
           ]
@@ -5645,7 +5637,7 @@
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 56,
+        "performance": 60,
         "accessibility": 70,
         "best_practices": 50,
         "seo": 92,
@@ -6023,7 +6015,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 47,
         "accessibility": 97,
         "best_practices": 96,
         "seo": 77,
@@ -6063,7 +6055,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 84,
+        "performance": 85,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -6137,7 +6129,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 35,
+        "performance": 37,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 92,
@@ -6154,7 +6146,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 38,
+        "performance": 43,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 83,
@@ -6222,7 +6214,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 42,
+        "performance": 41,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -6239,7 +6231,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 78,
+        "performance": 77,
         "accessibility": 69,
         "best_practices": 96,
         "seo": 100,
@@ -6345,7 +6337,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 86,
+        "performance": 95,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 91,
@@ -6360,9 +6352,9 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
+      "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 92,
+        "performance": 72,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -6379,7 +6371,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 52,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 100,
@@ -6392,11 +6384,11 @@
       "page_load_count": 176898,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 2,
-      "severe_findings_count": 2,
+      "findings_count": 1,
+      "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 23,
+        "performance": 24,
         "accessibility": 96,
         "best_practices": 73,
         "seo": 92,
@@ -6436,22 +6428,6 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (24px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14px instead of at least 24px."
             }
           ]
-        },
-        {
-          "id": "label-content-name-mismatch",
-          "title": "Elements with visible text labels do not have matching accessible names.",
-          "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "div.field__item > div.nhlbi_news_cards > div.nhlbi_text_link_button > a",
-              "snippet": "<a href=\"/events/2026/mechanisms-interventions-paving-way-transformative-therapies-…\" aria-label=\"Continue Reading.\">",
-              "node_label": "View Event Details",
-              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
-            }
-          ]
         }
       ]
     },
@@ -6464,9 +6440,9 @@
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 54,
         "accessibility": 85,
-        "best_practices": 54,
+        "best_practices": 50,
         "seo": 100,
         "pwa": 0
       },
@@ -6596,7 +6572,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 66,
+        "performance": 68,
         "accessibility": 100,
         "best_practices": 58,
         "seo": 100,
@@ -6613,7 +6589,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 25,
+        "performance": 22,
         "accessibility": 89,
         "best_practices": 54,
         "seo": 75,
@@ -6707,7 +6683,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 35,
+        "performance": 39,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 75,
@@ -6724,7 +6700,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 30,
+        "performance": 29,
         "accessibility": 97,
         "best_practices": 69,
         "seo": 100,
@@ -6770,7 +6746,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 76,
         "accessibility": 92,
         "best_practices": 96,
         "seo": 100,
@@ -6872,7 +6848,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 42,
         "accessibility": 87,
         "best_practices": 65,
         "seo": 100,
@@ -6974,7 +6950,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 39,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 82,
@@ -7057,7 +7033,7 @@
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 73,
         "accessibility": 94,
         "best_practices": 96,
         "seo": 91,
@@ -7103,17 +7079,33 @@
       "page_load_count": 145766,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 3,
-      "severe_findings_count": 3,
+      "findings_count": 4,
+      "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 39,
-        "accessibility": 88,
+        "performance": 35,
+        "accessibility": 83,
         "best_practices": 88,
-        "seo": 92,
+        "seo": 83,
         "pwa": 0
       },
       "axe_findings": [
+        {
+          "id": "image-alt",
+          "title": "Image elements do not have `[alt]` attributes",
+          "description": "Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt attribute. [Learn more about the `alt` attribute](https://dequeuniversity.com/rules/axe/4.11/image-alt).",
+          "score": 0,
+          "impact": "critical",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div#hero-callout > p > a > img.align-center",
+              "snippet": "<img aalt=\"OSHA Cares\" src=\"/sites/default/files/inline-images/OSHA-Cares_logo.png\" style=\"margin:0 auto; display: block; object-fit: initial;\" width=\"400\" class=\"align-center\">",
+              "node_label": "div#hero-callout > p > a > img.align-center",
+              "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
         {
           "id": "list",
           "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
@@ -7293,7 +7285,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 60,
+        "performance": 55,
         "accessibility": 99,
         "best_practices": 96,
         "seo": 92,
@@ -7309,9 +7301,9 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.use-float-friendly-lists > div.grid-row > div.desktop:grid-col-4 > h3.searchText",
-              "snippet": "<h3 class=\"searchText\">",
-              "node_label": "SEARCH NSOPW",
+              "selector": "label#offlinejurisdictions > div.usa-alert > div.usa-alert__body > h3.usa-alert__heading",
+              "snippet": "<h3 class=\"usa-alert__heading\">",
+              "node_label": "Services Down",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             },
             {
@@ -7333,7 +7325,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 47,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 92,
@@ -7367,7 +7359,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 65,
+        "performance": 55,
         "accessibility": 100,
         "best_practices": 88,
         "seo": 100,
@@ -7384,7 +7376,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 67,
+        "performance": 68,
         "accessibility": 87,
         "best_practices": 100,
         "seo": 100,
@@ -7485,7 +7477,7 @@
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 46,
         "accessibility": 85,
         "best_practices": 50,
         "seo": 92,
@@ -7567,7 +7559,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 58,
+        "performance": 59,
         "accessibility": 100,
         "best_practices": 69,
         "seo": 82,
@@ -7584,7 +7576,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 44,
         "accessibility": 79,
         "best_practices": 77,
         "seo": 54,
@@ -7986,7 +7978,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 37,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 100,
@@ -8096,7 +8088,7 @@
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 52,
+        "performance": 53,
         "accessibility": 88,
         "best_practices": 77,
         "seo": 92,
@@ -8192,7 +8184,7 @@
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 41,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 92,
@@ -8209,7 +8201,7 @@
       "severe_findings_count": 5,
       "core_web_vitals_status": "needs_improvement",
       "lighthouse_scores": {
-        "performance": 82,
+        "performance": 81,
         "accessibility": 79,
         "best_practices": 100,
         "seo": 83,
@@ -8295,6 +8287,18 @@
               "snippet": "<a href=\"/documents/search?conditions%5Bpublication_date%5D%5Bis%5D=2026-03-18\">",
               "node_label": "107 documents",
               "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.78:1 with the surrounding text. (Minimum contrast is 3:1, link text: #4d5e30, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
+            },
+            {
+              "selector": "li > div.public-inspection-list-stats > div.filings-summary > a",
+              "snippet": "<a href=\"/public-inspection/search?conditions%5Bspecial_filing%5D=1\">",
+              "node_label": "1 document",
+              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.46:1 with the surrounding text. (Minimum contrast is 3:1, link text: #803333, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
+            },
+            {
+              "selector": "li > div.public-inspection-list-stats > div.filings-summary > a",
+              "snippet": "<a href=\"/public-inspection/search?conditions%5Bspecial_filing%5D=0\">",
+              "node_label": "124 documents",
+              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.46:1 with the surrounding text. (Minimum contrast is 3:1, link text: #803333, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
             },
             {
               "selector": "div.content-block > div#home-aid-tagline > p > a",
@@ -8425,7 +8429,7 @@
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 35,
         "accessibility": 79,
         "best_practices": 81,
         "seo": 77,
@@ -8930,22 +8934,22 @@
     {
       "date": "2026-03-18",
       "aggregate_scores": {
-        "performance": 0,
-        "accessibility": 0,
-        "best_practices": 0,
-        "seo": 0,
+        "performance": 53.96,
+        "accessibility": 92.26,
+        "best_practices": 84.73,
+        "seo": 88.79,
         "pwa": 0
       }
     }
   ],
-  "generated_at": "2026-03-18T09:51:11.152Z",
+  "generated_at": "2026-03-18T15:06:45.821Z",
   "report_status": "success",
   "slow_risk_summary": {
     "successful_url_count": 100,
     "slow_risk_url_count": 84,
     "successful_page_load_count": 71561640,
-    "slow_risk_page_load_count": 53360385,
-    "slow_risk_traffic_share_percent": 74.57
+    "slow_risk_page_load_count": 52817187,
+    "slow_risk_traffic_share_percent": 73.81
   },
   "warning_events": [],
   "scan_diagnostics": {
@@ -8954,7 +8958,7 @@
     "failed_count": 0,
     "excluded_count": 0,
     "timeout_count": 0,
-    "retry_count": 8,
+    "retry_count": 3,
     "failure_reasons": {}
   },
   "scan_mode": "live",

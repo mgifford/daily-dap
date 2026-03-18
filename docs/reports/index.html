@@ -608,8 +608,64 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 320px;
+      max-width: 180px;
+      transition: max-width 0.2s ease;
     }
+    .url-cell:hover,
+    .url-cell:focus-within {
+      max-width: 400px;
+      white-space: normal;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* ---------- Column header info tooltips ---------- */
+    .col-has-info { position: relative; }
+    .col-info-anchor {
+      display: inline-block;
+      position: relative;
+      margin-left: 0.25rem;
+      color: var(--color-text-muted);
+      font-size: 0.85em;
+      cursor: help;
+      vertical-align: middle;
+    }
+    .col-info-anchor:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; border-radius: 50%; }
+    .col-info-icon { font-style: normal; }
+    .col-subhead { font-size: 0.85em; font-weight: normal; white-space: nowrap; }
+    .col-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 260px;
+      min-width: 160px;
+      z-index: 200;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .col-info-anchor:hover .col-tooltip,
+    .col-info-anchor:focus-within .col-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .col-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Severe count styling inside accessibility cell */
+    .severe-count { color: var(--color-text-muted); font-size: 0.9em; }
 
     /* ---------- Site footer ---------- */
     .site-footer {
@@ -725,19 +781,19 @@
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
-        <div class="score-value">53.96</div>
+        <div class="score-value">54.68</div>
       </div>
       <div class="score-card">
         <div class="score-label">Accessibility</div>
-        <div class="score-value">92.26</div>
+        <div class="score-value">92.12</div>
       </div>
       <div class="score-card">
         <div class="score-label">Best Practices</div>
-        <div class="score-value">84.73</div>
+        <div class="score-value">84.85</div>
       </div>
       <div class="score-card">
         <div class="score-label">SEO</div>
-        <div class="score-value">88.79</div>
+        <div class="score-value">88.69</div>
       </div>
     </div>
     <p><a href="./daily/2026-03-18/index.html">Open latest report &rarr;</a></p>
