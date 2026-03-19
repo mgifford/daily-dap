@@ -107,6 +107,35 @@ node src/cli/run-daily-scan.js --dry-run --limit 10
 - [ACCESSIBILITY.md](./ACCESSIBILITY.md) - Accessibility commitment, best practices, and guidelines
 - [AGENTS.md](./AGENTS.md) - AI agent instructions and project-specific rules
 
+## AI Disclosure
+
+This project is transparent about how AI tools have been used throughout its development and operation.
+
+### Building the project
+
+| LLM / AI Tool | Version | Role |
+|---------------|---------|------|
+| GitHub Copilot | (current) | Primary implementation agent: wrote source code, tests, and documentation for all work packages (WP01-WP05) via the spec-kitty workflow |
+| Claude (Anthropic) | claude-sonnet-4.5 | Code review, documentation updates, and incremental feature implementation via GitHub Copilot coding agent |
+
+### Runtime operation
+
+No LLMs or AI models are invoked when the program runs. The scanning pipeline uses:
+
+- **Lighthouse** (Google) - automated performance, accessibility, SEO, and best-practices auditing
+- **axe-core** (Deque Systems) - rule-based accessibility testing engine (bundled inside Lighthouse)
+- **ScanGov** (GSA) - government website quality scanning
+
+None of these tools use large language models.
+
+### Browser-based AI
+
+No browser-based AI features are enabled in any part of this application. The published HTML reports are static files with no AI-powered components.
+
+### Keeping this section current
+
+Per the [AGENTS.md](./AGENTS.md) instructions, any AI agent that contributes to this project is required to update this section with its name, version (if known), and the nature of its contribution.
+
 ## Disability icons and accessibility impact
 
 Each accessibility finding is annotated with icons representing the
