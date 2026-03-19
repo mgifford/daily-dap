@@ -13,6 +13,7 @@ When working on this project, always:
 3. **Maintain Accessibility**: This project benchmarks accessibility - ensure all generated HTML follows WCAG 2.2 AA standards
 4. **Preserve Security**: Always use `escapeHtml()` when rendering user-controlled content in HTML
 5. **Follow Testing Practices**: Run `npm test` before committing changes
+6. **Disclose AI Usage**: When you contribute to this project, update the `## AI Disclosure` section in `README.md` to identify the LLM used, the version (if known), and the nature of your contribution (e.g., code implementation, documentation, planning). Do not list tools that were not used.
 
 ## Project-Specific Context
 
