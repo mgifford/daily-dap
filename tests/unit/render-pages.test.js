@@ -2049,3 +2049,95 @@ test('renderDailyReportPage: performance impact shows GB and Wikipedia copies fo
   // Should still show Wikipedia copies
   assert.ok(html.includes('copies of Wikipedia'), 'Should show Wikipedia copy count for moderate data');
 });
+
+test('renderDailyReportPage URL count cell has tooltip with affected hostnames', () => {
+  const report = {
+    ...minimalReport,
+    top_urls: [
+      {
+        url: 'https://example.gov/page',
+        page_load_count: 100000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 70, accessibility: 80, best_practices: 85, seo: 90 },
+        axe_findings: [{ id: 'color-contrast', title: 'Color contrast', description: '', tags: [], items: [] }]
+      },
+      {
+        url: 'https://other.gov/home',
+        page_load_count: 50000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 65, accessibility: 75, best_practices: 80, seo: 85 },
+        axe_findings: [{ id: 'color-contrast', title: 'Color contrast', description: '', tags: [], items: [] }]
+      }
+    ]
+  };
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('class="url-count-trigger"'), 'URL count should use url-count-trigger span');
+  assert.ok(html.includes('role="tooltip"'), 'URL count cell should include a tooltip element');
+  assert.ok(html.includes('Affected sites:'), 'Tooltip should list affected sites');
+  // Check that the tooltip contains the expected hostnames within the tooltip text
+  assert.ok(html.includes('Affected sites: example.gov, other.gov') || html.includes('Affected sites: other.gov, example.gov'), 'Tooltip should list both affected hostnames');
+  assert.ok(html.includes('aria-describedby="url-tip-'), 'URL count trigger should reference tooltip by ID');
+  assert.ok(html.includes('class="url-count-tooltip"'), 'Tooltip should have url-count-tooltip class');
+});
+
+test('renderDailyReportPage URL count keyboard handler handles url-count-trigger', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('url-count-trigger'), 'JS handler should reference url-count-trigger class');
+});
+
+test('formatCompact floors K values without decimal', () => {
+  // Validate via rendered output: disability estimates use formatCompact
+  const report = {
+    ...minimalReport,
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 578400,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 70, accessibility: 80, best_practices: 85, seo: 90 },
+        axe_findings: [{ id: 'color-contrast', title: 'Color contrast', description: '', tags: [], items: [] }]
+      }
+    ]
+  };
+  const html = renderDailyReportPage(report);
+  // Should not include decimal K values like "578.4K" - must be floored to "578K"
+  assert.ok(!html.includes('.4K'), 'formatCompact should not produce decimal K values');
+  assert.ok(!html.includes('.5K'), 'formatCompact should not produce decimal K values');
+  assert.ok(html.includes('K'), 'formatCompact should produce K notation');
+});
+
+test('renderDailyReportPage disability SVG icons include title and desc elements', () => {
+  const report = {
+    ...minimalReport,
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 100000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 70, accessibility: 80, best_practices: 85, seo: 90 },
+        axe_findings: [{ id: 'color-contrast', title: 'Color contrast', description: '', tags: [], items: [] }]
+      }
+    ]
+  };
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('<title>Limited Vision</title>'), 'SVG should include title element for Limited Vision');
+  assert.ok(html.includes('<desc>People with low vision'), 'SVG should include desc element for Limited Vision');
+  assert.ok(html.includes('<title>Without Perception of Color</title>'), 'SVG should include title element for Without Perception of Color');
+});

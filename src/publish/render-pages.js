@@ -13,12 +13,13 @@ function escapeHtml(value) {
 }
 
 function formatCompact(n) {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  if (n >= 1_000_000) return `${(Math.floor(n / 100_000) / 10).toFixed(1)}M`;
+  if (n >= 1_000) return `${Math.floor(n / 1_000)}K`;
   return String(n);
 }
 
 let _fpcTooltipSeq = 0;
+let _urlCountTooltipSeq = 0;
 
 function makeDecorativeSvg(svgStr) {
   return svgStr
@@ -84,16 +85,16 @@ function renderThemeScript() {
     (function () {
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-          var badge = document.activeElement;
-          if (badge && badge.classList.contains('disability-badge')) {
-            badge.dataset.tooltipDismissed = 'true';
+          var el = document.activeElement;
+          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger'))) {
+            el.dataset.tooltipDismissed = 'true';
           }
         }
       });
       document.addEventListener('focusout', function (e) {
-        var badge = e.target;
-        if (badge && badge.classList.contains('disability-badge')) {
-          delete badge.dataset.tooltipDismissed;
+        var el = e.target;
+        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger'))) {
+          delete el.dataset.tooltipDismissed;
         }
       });
     }());
@@ -636,6 +637,50 @@ function renderSharedStyles() {
     }
     @media (prefers-reduced-motion: no-preference) {
       .disability-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* URL count tooltip (URLs affected column in axe patterns table) */
+    .url-count-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .url-count-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .url-count-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .url-count-trigger:hover .url-count-tooltip,
+    .url-count-trigger:focus-within .url-count-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .url-count-trigger[data-tooltip-dismissed] .url-count-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .url-count-tooltip { transition: opacity 0.15s ease; }
     }
     .disability-legend {
       display: grid;
@@ -1479,18 +1524,33 @@ function buildAxePatternCounts(topUrls = []) {
   const counts = new Map();
   for (const entry of topUrls) {
     const pageLoads = entry.page_load_count ?? 0;
+    const url = entry.url ?? '';
     for (const finding of entry.axe_findings ?? []) {
       const existing = counts.get(finding.id);
       if (existing) {
         existing.count += 1;
         existing.total_page_loads += pageLoads;
         existing.title = finding.title;
+        if (url) existing.affected_urls.push(url);
       } else {
-        counts.set(finding.id, { id: finding.id, title: finding.title, count: 1, total_page_loads: pageLoads });
+        counts.set(finding.id, { id: finding.id, title: finding.title, count: 1, total_page_loads: pageLoads, affected_urls: url ? [url] : [] });
       }
     }
   }
   return [...counts.values()].sort((a, b) => b.count - a.count);
+}
+
+function renderUrlCountCell(p) {
+  const count = p.count;
+  if (!p.affected_urls || p.affected_urls.length === 0) {
+    return String(count);
+  }
+  const tooltipId = `url-tip-${_urlCountTooltipSeq++}`;
+  const domains = p.affected_urls.map((u) => {
+    try { return new URL(u).hostname; } catch { return ''; }
+  }).filter(Boolean);
+  const tooltipText = `Affected sites: ${domains.join(', ')}`;
+  return `<span class="url-count-trigger" tabindex="0" aria-label="${escapeHtml(String(count))} URLs affected" aria-describedby="${tooltipId}">${escapeHtml(String(count))}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
 }
 
 function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
@@ -1546,7 +1606,7 @@ function renderAxePatternsSection(topUrls = []) {
   const rows = topPatterns
     .map(
       (p) =>
-        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${p.count}</td><td>${renderFpcCodes(p.id, p.total_page_loads, prevalenceRates)}</td></tr>`
+        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${renderUrlCountCell(p)}</td><td>${renderFpcCodes(p.id, p.total_page_loads, prevalenceRates)}</td></tr>`
     )
     .join('\n');
 
