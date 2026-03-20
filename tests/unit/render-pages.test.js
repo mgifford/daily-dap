@@ -1684,6 +1684,47 @@ test('link-in-text-block: footer links have text-decoration underline for distin
   );
 });
 
+test('link-in-text-block: daily report page general links have text-decoration underline', () => {
+  const html = renderDailyReportPage({
+    run_date: '2026-03-20', run_id: 'test', url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 90, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [], top_urls: [], generated_at: '2026-03-20T00:00:00.000Z', report_status: 'success'
+  });
+
+  assert.ok(
+    html.includes('a { color: var(--color-link); text-decoration: underline; }'),
+    'Daily report page link CSS must include text-decoration: underline for link-in-text-block compliance'
+  );
+});
+
+test('link-in-text-block: 404 page general links have text-decoration underline', () => {
+  const html = render404Page();
+
+  assert.ok(
+    html.includes('a { color: var(--color-link); text-decoration: underline; }'),
+    '404 page link CSS must include text-decoration: underline for link-in-text-block compliance'
+  );
+});
+
+test('link-in-text-block: light mode link color uses high-contrast value', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('--color-link: #0050b3'),
+    'Light mode link color must be #0050b3 which has sufficient contrast (>4.5:1) against the light page background'
+  );
+});
+
+test('link-in-text-block: dark mode link color uses high-contrast value', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('--color-link: #58a6ff'),
+    'Dark mode link color must be #58a6ff which has sufficient contrast against the dark page background'
+  );
+});
+
 // ── Score color gradient tests ──────────────────────────────────────────────
 
 const makeScoreReport = (overrides = {}) => ({
