@@ -2459,3 +2459,58 @@ test('renderDayComparisonSection is hidden when no prior history exists', () => 
   const html = renderDailyReportPage(report);
   assert.ok(!html.includes('id="day-comparison-heading"'), 'Day-comparison section should not appear when there is no history');
 });
+
+test('renderDailyReportPage includes Print / Save as PDF button in header', () => {
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('class="print-btn"'), 'Should include print button with class print-btn');
+  assert.ok(html.includes('window.print()'), 'Print button should call window.print()');
+  assert.ok(html.includes('Print / Save as PDF'), 'Print button should have descriptive label');
+});
+
+test('renderDailyReportPage includes print-only dashboard URL notice', () => {
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('class="print-only print-dashboard-notice"'), 'Should include print-only dashboard notice element');
+  assert.ok(html.includes('mgifford.github.io/daily-dap'), 'Dashboard URL should appear in print-only notice');
+});
+
+test('renderSharedStyles includes @media print CSS', () => {
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('@media print'), 'HTML should include @media print CSS');
+  assert.ok(html.includes('.print-only'), 'CSS should define .print-only class');
+});
