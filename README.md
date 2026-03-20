@@ -116,7 +116,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | LLM / AI Tool | Version | Role |
 |---------------|---------|------|
 | GitHub Copilot | (current) | Primary implementation agent: wrote source code, tests, and documentation for all work packages (WP01-WP05) via the spec-kitty workflow |
-| Claude (Anthropic) | claude-sonnet-4.5 | Code review, documentation updates, and incremental feature implementation via GitHub Copilot coding agent |
+| Claude (Anthropic) | claude-sonnet-4.5 | Code review, documentation updates, and incremental feature implementation via GitHub Copilot coding agent; added NN/g usability heuristics alignment feature |
 
 ### Runtime operation
 
