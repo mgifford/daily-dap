@@ -1865,7 +1865,6 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
   <section aria-labelledby="usability-heuristics-heading">
     <h2 id="usability-heuristics-heading">Usability Heuristics Summary${renderAnchorLink('usability-heuristics-heading', 'Usability Heuristics Summary')}</h2>
     <p>The most common accessibility violations map to <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" target="_blank" rel="noreferrer">Nielsen Norman Group's 10 usability heuristics</a>. This table shows which heuristics are most affected by today's top axe-core violations, helping to identify where systemic usability barriers exist.</p>
-    <p>The mapping from WCAG Success Criteria to usability heuristics is sourced from <a href="https://github.com/CivicActions/accessibility-data-reference/blob/main/NNg-usability-heuristics-wcag.csv" target="_blank" rel="noreferrer">CivicActions accessibility-data-reference</a>.</p>
     ${wrapTable(`<table>
       <caption>NN/g usability heuristics affected by today's top accessibility violations</caption>
       <thead>
