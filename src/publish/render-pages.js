@@ -1686,7 +1686,7 @@ function renderAxePatternsSection(topUrls = []) {
       </dl>
       <p>These icons show which groups of people with disabilities are excluded by each accessibility barrier.
          Where page view data is available, each icon shows an estimated number of people potentially excluded
-         (page loads for affected URLs &times; disability prevalence rate from U.S. Census ACS 2022).
+         (page loads for affected URLs &times; disability prevalence rate from U.S. Census ACS ${CENSUS_DISABILITY_STATS.vintage_year}).
          Hover over or focus an icon to see the full estimate and methodology.
          Icons follow the Section 508 Functional Performance Criteria and the equivalent EU EN 301 549 v3.2.1 Table B.2 categories.</p>
       <p>Prevalence data: <a href="${escapeHtml(CENSUS_DISABILITY_STATS.source_url)}" target="_blank" rel="noreferrer">${escapeHtml(CENSUS_DISABILITY_STATS.source)}</a>;
