@@ -18,6 +18,33 @@ function csvEscape(value) {
   return str;
 }
 
+/**
+ * Builds a CSV string of daily aggregate Lighthouse scores from the report history series.
+ * Columns: date, performance, accessibility, best_practices, seo
+ * @param {Array} historySeries - Array of { date, aggregate_scores } objects from report.history_series
+ * @returns {string} CSV content with header row and one data row per history entry
+ */
+function buildHistoryCsv(historySeries = []) {
+  const headers = ['date', 'performance', 'accessibility', 'best_practices', 'seo'];
+  const rows = [headers.join(',')];
+
+  for (const entry of historySeries) {
+    if (!entry.date || !entry.aggregate_scores) continue;
+    const { performance, accessibility, best_practices, seo } = entry.aggregate_scores;
+    rows.push(
+      [
+        csvEscape(entry.date),
+        csvEscape(performance ?? ''),
+        csvEscape(accessibility ?? ''),
+        csvEscape(best_practices ?? ''),
+        csvEscape(seo ?? '')
+      ].join(',')
+    );
+  }
+
+  return `${rows.join('\n')}\n`;
+}
+
 function buildAxeFindingsCsv(axeFindingsReport) {
   const headers = [
     'url',
@@ -107,6 +134,7 @@ export async function writeCommittedSnapshot({
   const dailyPagePath = path.join(dailyDir, 'index.html');
   const axeFindingsPath = path.join(dailyDir, 'axe-findings.json');
   const axeFindingsCsvPath = path.join(dailyDir, 'axe-findings.csv');
+  const lighthouseHistoryCsvPath = path.join(dailyDir, 'lighthouse-history.csv');
   const pressReleasePath = path.join(dailyDir, 'press-release.md');
   const historyPath = path.join(reportsRoot, 'history.json');
   const dashboardPath = path.join(reportsRoot, 'index.html');
@@ -117,6 +145,7 @@ export async function writeCommittedSnapshot({
   const axeFindingsReport = buildAxeFindingsReport(report);
   await writeJson(axeFindingsPath, axeFindingsReport);
   await fs.writeFile(axeFindingsCsvPath, buildAxeFindingsCsv(axeFindingsReport), 'utf8');
+  await fs.writeFile(lighthouseHistoryCsvPath, buildHistoryCsv(report.history_series ?? []), 'utf8');
   const pressReleaseMarkdown = buildPressRelease(report, axeFindingsReport);
   await fs.writeFile(pressReleasePath, `${pressReleaseMarkdown}\n`, 'utf8');
   await writeJson(historyPath, historyIndex);
@@ -137,6 +166,7 @@ export async function writeCommittedSnapshot({
     report_page_path: dailyPagePath,
     axe_findings_path: axeFindingsPath,
     axe_findings_csv_path: axeFindingsCsvPath,
+    lighthouse_history_csv_path: lighthouseHistoryCsvPath,
     press_release_path: pressReleasePath,
     history_index_path: historyPath,
     dashboard_page_path: dashboardPath

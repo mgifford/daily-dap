@@ -67,7 +67,8 @@ test('renderDailyReportPage reverses history order (most recent first)', () => {
   };
 
   const html = renderDailyReportPage(report);
-  const historyTableMatch = html.match(/id="history-heading"[^>]*>History[\s\S]*?<\/table>/);
+  // Match only the history TABLE (skip the SVG chart which may also reference dates)
+  const historyTableMatch = html.match(/<caption>Daily aggregate Lighthouse scores[\s\S]*?<\/table>/);
   assert.ok(historyTableMatch, 'History table should exist');
   
   const historyTable = historyTableMatch[0];
@@ -166,43 +167,47 @@ test('renderDailyReportPage shows dash for Lighthouse scores when scan failed', 
   assert.ok(dashCount >= 4, 'Should show at least 4 dash placeholders for missing Lighthouse scores');
 });
 
-test('renderDailyReportPage includes monthly averages', () => {
+test('renderDailyReportPage renders history chart and truncates table to 14 days', () => {
+  // Build 20 history entries (more than the 14-day table limit)
+  const history_series = Array.from({ length: 20 }, (_, i) => {
+    const d = new Date('2026-01-01');
+    d.setUTCDate(d.getUTCDate() + i);
+    return {
+      date: d.toISOString().slice(0, 10),
+      aggregate_scores: { performance: 70 + i, accessibility: 80 + i, best_practices: 75 + i, seo: 78 + i, pwa: 0 }
+    };
+  });
   const report = {
-    run_date: '2026-02-15',
+    run_date: '2026-01-20',
     run_id: 'test-run',
     url_counts: { processed: 10, succeeded: 10, failed: 0, excluded: 0 },
-    aggregate_scores: {
-      performance: 80,
-      accessibility: 90,
-      best_practices: 85,
-      seo: 88,
-      pwa: 0
-    },
-    estimated_impact: {
-      traffic_window_mode: 'daily',
-      affected_share_percent: 10,
-      categories: []
-    },
-    history_series: [
-      { date: '2026-01-28', aggregate_scores: { performance: 70, accessibility: 80, best_practices: 75, seo: 78, pwa: 0 } },
-      { date: '2026-01-29', aggregate_scores: { performance: 72, accessibility: 82, best_practices: 77, seo: 80, pwa: 0 } },
-      { date: '2026-02-10', aggregate_scores: { performance: 75, accessibility: 85, best_practices: 80, seo: 82, pwa: 0 } },
-      { date: '2026-02-11', aggregate_scores: { performance: 77, accessibility: 87, best_practices: 82, seo: 84, pwa: 0 } },
-      { date: '2026-02-15', aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 } }
-    ],
+    aggregate_scores: { performance: 89, accessibility: 99, best_practices: 94, seo: 97, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 10, categories: [] },
+    history_series,
     top_urls: [],
-    generated_at: '2026-02-15T00:00:00.000Z',
+    generated_at: '2026-01-20T00:00:00.000Z',
     report_status: 'success'
   };
 
   const html = renderDailyReportPage(report);
-  
-  // Should contain monthly average rows
-  assert.ok(html.includes('2026-02 (avg)'), 'Should include February average');
-  assert.ok(html.includes('2026-01 (avg)'), 'Should include January average');
-  
-  // Monthly averages should have special styling (check for style attribute presence)
-  assert.ok(html.includes('style=') && html.includes('(avg)'), 'Monthly averages should have styling');
+
+  // History section should include an SVG chart
+  assert.ok(html.includes('history-chart-figure'), 'History section should render an SVG chart');
+  assert.ok(html.includes('<polyline'), 'Chart should include polyline elements for score lines');
+
+  // Table should show at most 14 entries (oldest entry 2026-01-01 is entry 0, newest is 2026-01-20)
+  // With 20 entries and 14-day limit, 2026-01-01 to 2026-01-06 should NOT appear in the table
+  const tableMatch = html.match(/<caption>Daily aggregate Lighthouse scores[\s\S]*?<\/table>/);
+  assert.ok(tableMatch, 'History table should exist');
+  const tableHtml = tableMatch[0];
+  assert.ok(!tableHtml.includes('2026-01-01'), 'Table should not show entries older than 14 days');
+  assert.ok(tableHtml.includes('2026-01-20'), 'Table should show the most recent entry');
+
+  // Monthly-average rows should not appear
+  assert.ok(!tableHtml.includes('(avg)'), 'Table should not contain monthly average rows');
+
+  // CSV download link should be present
+  assert.ok(html.includes('href="lighthouse-history.csv"'), 'History section should link to the Lighthouse history CSV');
 });
 
 test('renderDailyReportPage includes Details button and modal dialog for each URL', () => {
@@ -2294,4 +2299,84 @@ test('renderDailyReportPage CTA shows generic message when no fpc_exclusion data
     html.includes('Here is how you can help improve accessibility'),
     'CTA should show generic message when no exclusion data'
   );
+});
+
+test('renderDayComparisonSection uses N-day average instead of previous-day scores', () => {
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 5, succeeded: 5, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 5, categories: [] },
+    history_series: [
+      { date: '2026-03-17', aggregate_scores: { performance: 50, accessibility: 90, best_practices: 82, seo: 86 } },
+      { date: '2026-03-18', aggregate_scores: { performance: 54, accessibility: 94, best_practices: 86, seo: 90 } },
+      { date: '2026-03-19', aggregate_scores: { performance: 56, accessibility: 92, best_practices: 88, seo: 92 } }
+    ],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Heading should mention N-day average (3 history entries)
+  assert.ok(html.includes('3-Day Average'), 'Heading should show the number of history days');
+  assert.ok(html.includes('id="day-comparison-heading"'), 'Section should retain the day-comparison-heading id');
+
+  // Caption should describe comparison with the N-day average
+  assert.ok(html.includes('3-day average'), 'Caption should reference the N-day average');
+
+  // Table header should show the current date and N-day avg columns (not a previous date)
+  assert.ok(html.includes('2026-03-20'), 'Table should show current run date');
+  assert.ok(html.includes('3-day avg'), 'Table should include the N-day avg column header');
+  assert.ok(!html.includes('2026-03-19</th>'), 'Table should not use the previous day as a column header');
+
+  // Cross-reference to history section should be present
+  assert.ok(html.includes('href="#history-heading"'), 'Day-comparison section should link to the history section');
+});
+
+test('renderDayComparisonSection shows correct average values', () => {
+  // avg performance = (50+54+56)/3 = 53.33, avg accessibility = (90+94+92)/3 = 92
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [
+      { date: '2026-03-17', aggregate_scores: { performance: 50, accessibility: 90, best_practices: 82, seo: 86 } },
+      { date: '2026-03-18', aggregate_scores: { performance: 54, accessibility: 94, best_practices: 86, seo: 90 } },
+      { date: '2026-03-19', aggregate_scores: { performance: 53, accessibility: 92, best_practices: 84, seo: 88 } }
+    ],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  const compMatch = html.match(/id="day-comparison-heading"[\s\S]*?<\/section>/);
+  assert.ok(compMatch, 'Day-comparison section should be present');
+
+  // avg performance = (50+54+53)/3 = 52.33
+  assert.ok(compMatch[0].includes('52.33'), 'Average performance should be 52.33');
+  // avg accessibility = (90+94+92)/3 = 92
+  assert.ok(compMatch[0].includes('>92<'), 'Average accessibility should be 92');
+});
+
+test('renderDayComparisonSection is hidden when no prior history exists', () => {
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  assert.ok(!html.includes('id="day-comparison-heading"'), 'Day-comparison section should not appear when there is no history');
 });

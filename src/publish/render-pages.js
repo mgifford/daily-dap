@@ -696,6 +696,10 @@ function renderSharedStyles() {
     .fpc-prevalence { font-size: 0.85em; color: var(--color-text-muted); white-space: nowrap; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
 
+    /* ---------- History chart ---------- */
+    .history-chart-figure { margin: 0.5rem 0 1rem; overflow-x: auto; }
+    .history-chart-figure svg { min-width: 320px; }
+
     /* ---------- Axe policy narratives ---------- */
     .axe-narratives-details { margin: 1rem 0; }
     .axe-narratives-details > summary { font-weight: 600; }
@@ -1192,6 +1196,92 @@ function roundScore(value) {
   return Math.round(value * 100) / 100;
 }
 
+const HISTORY_CHART_COLORS = {
+  performance: '#e07800',
+  accessibility: '#0057b8',
+  best_practices: '#1a7f37',
+  seo: '#7b3fbe'
+};
+
+function renderHistoryChart(historySeries = []) {
+  const data = historySeries.filter(hasNonZeroScores);
+  if (data.length === 0) return '';
+
+  const n = data.length;
+  // SVG layout constants
+  const svgW = 700;
+  const svgH = 270;
+  const pLeft = 45;
+  const pTop = 15;
+  const pRight = 590;
+  const pBottom = 220;
+  const pW = pRight - pLeft;
+  const pH = pBottom - pTop;
+  // Chart style constants
+  const MAX_X_LABELS = 6;
+  const X_LABEL_OFFSET = 16;
+  const X_LABEL_FONT_SIZE = 9;
+  const POINT_RADIUS = 4;
+  const LEGEND_X = 600;
+  const LEGEND_SWATCH_END_X = 620;
+  const LEGEND_LABEL_X = 625;
+  const LEGEND_LINE_HEIGHT = 24;
+
+  const xFor = (i) => (n === 1 ? pLeft + pW / 2 : pLeft + (i / (n - 1)) * pW);
+  const yFor = (score) => pBottom - (Math.max(0, Math.min(100, score)) / 100) * pH;
+
+  const categories = [
+    { key: 'performance', label: 'Performance' },
+    { key: 'accessibility', label: 'Accessibility' },
+    { key: 'best_practices', label: 'Best Practices' },
+    { key: 'seo', label: 'SEO' }
+  ];
+
+  const gridLines = [0, 20, 40, 60, 80, 100].map((score) => {
+    const y = yFor(score).toFixed(1);
+    return `<line x1="${pLeft}" y1="${y}" x2="${pRight}" y2="${y}" style="stroke:var(--color-table-border);stroke-width:1"/><text x="${pLeft - 4}" y="${(yFor(score) + 4).toFixed(1)}" text-anchor="end" font-size="10" style="fill:var(--color-text-muted)">${score}</text>`;
+  }).join('\n');
+
+  const labelStep = Math.max(1, Math.ceil(n / MAX_X_LABELS));
+  const xLabels = data.map((entry, i) => {
+    if (i % labelStep !== 0 && i !== n - 1) return '';
+    return `<text x="${xFor(i).toFixed(1)}" y="${(pBottom + X_LABEL_OFFSET).toFixed(1)}" text-anchor="middle" font-size="${X_LABEL_FONT_SIZE}" style="fill:var(--color-text-muted)">${escapeHtml(entry.date.slice(5))}</text>`;
+  }).join('');
+
+  const lines = categories.map((cat) => {
+    const color = HISTORY_CHART_COLORS[cat.key];
+    if (n === 1) {
+      const x = xFor(0).toFixed(1);
+      const y = yFor(data[0].aggregate_scores[cat.key]).toFixed(1);
+      return `<circle cx="${x}" cy="${y}" r="${POINT_RADIUS}" style="fill:${color}"/>`;
+    }
+    const points = data.map((entry, i) => `${xFor(i).toFixed(1)},${yFor(entry.aggregate_scores[cat.key]).toFixed(1)}`).join(' ');
+    return `<polyline points="${points}" style="fill:none;stroke:${color};stroke-width:2;stroke-linejoin:round"/>`;
+  }).join('\n');
+
+  const legend = categories.map((cat, i) => {
+    const color = HISTORY_CHART_COLORS[cat.key];
+    const ly = pTop + i * LEGEND_LINE_HEIGHT;
+    return `<line x1="${LEGEND_X}" y1="${ly + 5}" x2="${LEGEND_SWATCH_END_X}" y2="${ly + 5}" style="stroke:${color};stroke-width:2"/><text x="${LEGEND_LABEL_X}" y="${ly + 9}" font-size="11" style="fill:var(--color-text)">${escapeHtml(cat.label)}</text>`;
+  }).join('\n');
+
+  const firstDate = data[0].date;
+  const lastDate = data[n - 1].date;
+  const title = `Daily aggregate Lighthouse scores from ${firstDate} to ${lastDate}`;
+
+  return `<figure class="history-chart-figure">
+  <svg role="img" aria-label="${escapeHtml(title)}" viewBox="0 0 ${svgW} ${svgH}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:${svgW}px;height:auto;display:block;overflow:visible">
+    <title>${escapeHtml(title)}</title>
+    ${gridLines}
+    ${xLabels}
+    <line x1="${pLeft}" y1="${pTop}" x2="${pLeft}" y2="${pBottom}" style="stroke:var(--color-table-border);stroke-width:1"/>
+    <line x1="${pLeft}" y1="${pBottom}" x2="${pRight}" y2="${pBottom}" style="stroke:var(--color-table-border);stroke-width:1"/>
+    ${lines}
+    ${legend}
+  </svg>
+</figure>`;
+}
+
 function calculateMonthlyAverages(historySeries = []) {
   const monthlyData = {};
   
@@ -1229,21 +1319,14 @@ function calculateMonthlyAverages(historySeries = []) {
 }
 
 function renderHistoryRows(historySeries = []) {
+  const HISTORY_TABLE_DAYS = 14;
   const filteredSeries = historySeries.filter(hasNonZeroScores);
-  const reversedSeries = [...filteredSeries].reverse();
-  const monthlyAverages = calculateMonthlyAverages(historySeries);
-  
-  const dailyRows = reversedSeries.map(
+  // Show the most-recent HISTORY_TABLE_DAYS entries, newest first
+  const truncated = filteredSeries.slice(-HISTORY_TABLE_DAYS);
+  return [...truncated].reverse().map(
     (entry) =>
       `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
-  );
-  
-  const monthlyRows = monthlyAverages.map(
-    (entry) =>
-      `<tr class="monthly-avg"><td>${escapeHtml(entry.date)} (avg)</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
-  );
-  
-  return [...monthlyRows, ...dailyRows].join('\n');
+  ).join('\n');
 }
 
 function renderLighthouseScoreCell(scores, key, label = '') {
@@ -1580,23 +1663,39 @@ function renderDayComparisonSection(report) {
   const currentDate = report.run_date;
   const historySeries = report.history_series ?? [];
 
-  const prevEntry = [...historySeries]
-    .reverse()
-    .find((entry) => {
-      if (entry.date >= currentDate) return false;
-      const s = entry.aggregate_scores;
-      return s && (s.performance !== 0 || s.accessibility !== 0 || s.best_practices !== 0 || s.seo !== 0);
-    });
+  // Collect all history entries with non-zero scores, excluding the current run date
+  const historyEntries = historySeries.filter((entry) => {
+    if (entry.date >= currentDate) return false;
+    const s = entry.aggregate_scores;
+    return s && (s.performance !== 0 || s.accessibility !== 0 || s.best_practices !== 0 || s.seo !== 0);
+  });
 
-  if (!prevEntry) {
+  if (historyEntries.length === 0) {
     return '';
   }
 
-  const curr = report.aggregate_scores;
-  const prev = prevEntry.aggregate_scores;
+  const dayCount = historyEntries.length;
 
-  function scoreDelta(current, previous) {
-    const delta = Math.round((current - previous) * 100) / 100;
+  // Calculate historical averages across all available history days
+  const totals = { performance: 0, accessibility: 0, best_practices: 0, seo: 0 };
+  for (const entry of historyEntries) {
+    totals.performance += entry.aggregate_scores.performance;
+    totals.accessibility += entry.aggregate_scores.accessibility;
+    totals.best_practices += entry.aggregate_scores.best_practices;
+    totals.seo += entry.aggregate_scores.seo;
+  }
+  const avg = {
+    performance: roundScore(totals.performance / dayCount),
+    accessibility: roundScore(totals.accessibility / dayCount),
+    best_practices: roundScore(totals.best_practices / dayCount),
+    seo: roundScore(totals.seo / dayCount)
+  };
+
+  const curr = report.aggregate_scores;
+  const heading = `Comparison with ${dayCount}-Day Average`;
+
+  function scoreDelta(current, average) {
+    const delta = Math.round((current - average) * 100) / 100;
     if (delta > 0) return `<span style="color:#2e7d32" aria-label="increased by ${delta}">+${delta}</span>`;
     if (delta < 0) return `<span style="color:#c62828" aria-label="decreased by ${Math.abs(delta)}">${delta}</span>`;
     return `<span style="color:#555" aria-label="no change">0</span>`;
@@ -1604,24 +1703,25 @@ function renderDayComparisonSection(report) {
 
   return `
   <section aria-labelledby="day-comparison-heading">
-    <h2 id="day-comparison-heading">Day-over-Day Comparison (vs ${escapeHtml(prevEntry.date)})${renderAnchorLink('day-comparison-heading', `Day-over-Day Comparison (vs ${prevEntry.date})`)}</h2>
+    <h2 id="day-comparison-heading">${escapeHtml(heading)}${renderAnchorLink('day-comparison-heading', heading)}</h2>
     ${wrapTable(`<table>
-      <caption>Score comparison between ${escapeHtml(prevEntry.date)} and ${escapeHtml(currentDate)}</caption>
+      <caption>Score comparison between ${escapeHtml(currentDate)} and the ${dayCount}-day average</caption>
       <thead>
         <tr>
           <th scope="col">Metric</th>
-          <th scope="col">${escapeHtml(prevEntry.date)}</th>
           <th scope="col">${escapeHtml(currentDate)}</th>
+          <th scope="col">${dayCount}-day avg</th>
           <th scope="col">Change</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Performance</td><td>${prev.performance}</td><td>${curr.performance}</td><td>${scoreDelta(curr.performance, prev.performance)}</td></tr>
-        <tr><td>Accessibility</td><td>${prev.accessibility}</td><td>${curr.accessibility}</td><td>${scoreDelta(curr.accessibility, prev.accessibility)}</td></tr>
-        <tr><td>Best Practices</td><td>${prev.best_practices}</td><td>${curr.best_practices}</td><td>${scoreDelta(curr.best_practices, prev.best_practices)}</td></tr>
-        <tr><td>SEO</td><td>${prev.seo}</td><td>${curr.seo}</td><td>${scoreDelta(curr.seo, prev.seo)}</td></tr>
+        <tr><td>Performance</td><td>${curr.performance}</td><td>${avg.performance}</td><td>${scoreDelta(curr.performance, avg.performance)}</td></tr>
+        <tr><td>Accessibility</td><td>${curr.accessibility}</td><td>${avg.accessibility}</td><td>${scoreDelta(curr.accessibility, avg.accessibility)}</td></tr>
+        <tr><td>Best Practices</td><td>${curr.best_practices}</td><td>${avg.best_practices}</td><td>${scoreDelta(curr.best_practices, avg.best_practices)}</td></tr>
+        <tr><td>SEO</td><td>${curr.seo}</td><td>${avg.seo}</td><td>${scoreDelta(curr.seo, avg.seo)}</td></tr>
       </tbody>
     </table>`)}
+    <p>See the full score trend in the <a href="#history-heading">History</a> section below.</p>
   </section>`;
 }
 
@@ -2059,8 +2159,10 @@ export function renderDailyReportPage(report) {
 
     <section aria-labelledby="history-heading">
       <h2 id="history-heading">History${renderAnchorLink('history-heading', 'History')}</h2>
+      ${renderHistoryChart(report.history_series)}
+      <p><a href="lighthouse-history.csv">Download full Lighthouse history CSV</a> &middot; For the average comparison, see the <a href="#day-comparison-heading">Comparison with Average</a> section above.</p>
       ${wrapTable(`<table>
-        <caption>Daily aggregate Lighthouse scores over the past 31 days</caption>
+        <caption>Daily aggregate Lighthouse scores (14 most-recent days)</caption>
         <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
         <tbody>
           ${renderHistoryRows(report.history_series)}
