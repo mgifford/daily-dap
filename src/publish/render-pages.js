@@ -318,6 +318,9 @@ function renderSharedStyles() {
     }
     a { color: var(--color-link); text-decoration: underline; }
     a:hover { color: var(--color-link-hover); }
+    /* Explicit inherit prevents any injected theme CSS (e.g. legacy GitHub Pages Jekyll Minima
+       color: #797979) from producing insufficient contrast on bold/strong text. */
+    strong, b { color: inherit; }
     h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.25rem; }

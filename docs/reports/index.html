@@ -227,6 +227,9 @@
     }
     a { color: var(--color-link); text-decoration: underline; }
     a:hover { color: var(--color-link-hover); }
+    /* Explicit inherit prevents any injected theme CSS (e.g. legacy GitHub Pages Jekyll Minima
+       color: #797979) from producing insufficient contrast on bold/strong text. */
+    strong, b { color: inherit; }
     h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.25rem; }
@@ -307,7 +310,8 @@
     .github-link::before { content: ""; }
 
     /* ---------- Theme toggle ---------- */
-    .theme-toggle {
+    .theme-toggle,
+    .print-btn {
       background: transparent;
       border: 1px solid var(--color-header-nav);
       border-radius: 4px;
@@ -322,12 +326,14 @@
       white-space: nowrap;
     }
     .theme-toggle:hover,
-    .theme-toggle[aria-pressed="true"] {
+    .theme-toggle[aria-pressed="true"],
+    .print-btn:hover {
       background: rgba(255, 255, 255, 0.15);
       color: var(--color-header-text);
       border-color: var(--color-header-text);
     }
-    .theme-toggle:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .theme-toggle:focus-visible,
+    .print-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
 
     /* ---------- Main wrapper ---------- */
     .site-main {
@@ -595,6 +601,50 @@
     @media (prefers-reduced-motion: no-preference) {
       .url-count-tooltip { transition: opacity 0.15s ease; }
     }
+    /* Performance load-time tooltip (Performance column in top-URLs table) */
+    .perf-time-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .perf-time-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .perf-time-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .perf-time-trigger:hover .perf-time-tooltip,
+    .perf-time-trigger:focus-within .perf-time-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .perf-time-trigger[data-tooltip-dismissed] .perf-time-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .perf-time-tooltip { transition: opacity 0.15s ease; }
+    }
     .disability-legend {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -606,6 +656,10 @@
     .disability-legend dd { margin: 0; }
     .fpc-prevalence { font-size: 0.85em; color: var(--color-text-muted); white-space: nowrap; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- History chart ---------- */
+    .history-chart-figure { margin: 0.5rem 0 1rem; overflow-x: auto; }
+    .history-chart-figure svg { min-width: 320px; }
 
     /* ---------- Axe policy narratives ---------- */
     .axe-narratives-details { margin: 1rem 0; }
@@ -659,6 +713,24 @@
     .score-cwv-good         { background-color: hsl(50 75% 78%); }
     .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
     .score-cwv-poor         { background-color: hsl(50 50% 92%); }
+
+    /* ---------- Technology badges ---------- */
+    .tech-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.1em 0.4em;
+      border-radius: 0.25em;
+      white-space: nowrap;
+    }
+    .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="light"] .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    html[data-color-scheme="light"] .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
 
     /* ---------- URL cells ---------- */
     .url-cell {
@@ -801,6 +873,74 @@
         word-break: break-word;
       }
     }
+
+    /* ---------- Print / Save as PDF ---------- */
+    .print-only { display: none; }
+    .print-dashboard-notice {
+      background: #f0f4ff;
+      border: 1px solid #c0ccee;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+
+    @media print {
+      /* Hide interactive / navigational chrome */
+      .skip-link,
+      .site-header nav,
+      .theme-toggle,
+      .print-btn,
+      .details-btn,
+      .sort-btn,
+      .copy-finding-btn,
+      dialog,
+      .axe-modal,
+      .anchor-link { display: none !important; }
+
+      /* Show print-only elements (e.g., dashboard URL notice) */
+      .print-only { display: block !important; }
+
+      /* Basic page setup */
+      @page { margin: 1.5cm; }
+
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+      }
+
+      /* Make the header readable in black-and-white */
+      .site-header {
+        background: #000 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Keep score cards readable */
+      .score-card {
+        border: 1px solid #ccc;
+        background: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Avoid page breaks inside key content blocks */
+      section, .score-grid, .page-intro { break-inside: avoid; }
+
+      /* Expand truncated URL cells for print */
+      .url-cell {
+        max-width: none !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+      }
+
+      /* Remove table hover styles that rely on color */
+      tr:hover { background: inherit !important; }
+
+      a[href]::after { content: none; }
+    }
   </style>
 </head>
 <body>
@@ -877,6 +1017,19 @@
 <li><a href="./daily/2026-03-09/index.html">2026-03-09</a> (run-2026-03-09-5fce007f3e)</li>
 <li><a href="./daily/2026-03-08/index.html">2026-03-08</a> (run-2026-03-08-77c71b7dbd)</li>
 <li><a href="./daily/2026-03-07/index.html">2026-03-07</a> (run-2026-03-07-597d5e633a)</li>
+<li><a href="./daily/2026-03-06/index.html">2026-03-06</a> (run-2026-03-06-0969e8ad13)</li>
+<li><a href="./daily/2026-03-05/index.html">2026-03-05</a> (run-2026-03-05-dd92379117)</li>
+<li><a href="./daily/2026-03-04/index.html">2026-03-04</a> (run-2026-03-04-bb8bc2601d)</li>
+<li><a href="./daily/2026-03-03/index.html">2026-03-03</a> (run-2026-03-03-37a7ac22cf)</li>
+<li><a href="./daily/2026-03-02/index.html">2026-03-02</a> (run-2026-03-02-91d77dd91c)</li>
+<li><a href="./daily/2026-03-01/index.html">2026-03-01</a> (run-2026-03-01-348011ed17)</li>
+<li><a href="./daily/2026-02-28/index.html">2026-02-28</a> (run-2026-02-28-8873dfe685)</li>
+<li><a href="./daily/2026-02-27/index.html">2026-02-27</a> (run-2026-02-27-5761a4a127)</li>
+<li><a href="./daily/2026-02-26/index.html">2026-02-26</a> (run-2026-02-26-ec23e51f7f)</li>
+<li><a href="./daily/2026-02-25/index.html">2026-02-25</a> (run-2026-02-25-53f9c6e0ce)</li>
+<li><a href="./daily/2026-02-24/index.html">2026-02-24</a> (run-2026-02-24-d4985c9143)</li>
+<li><a href="./daily/2026-02-23/index.html">2026-02-23</a> (run-2026-02-23-ab199e9f5d)</li>
+<li><a href="./daily/2026-02-22/index.html">2026-02-22</a> (run-2026-02-22-2c4d9392f1)</li>
       </ul>
     </section>
     
@@ -935,14 +1088,14 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           var el = document.activeElement;
-          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger'))) {
+          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
             el.dataset.tooltipDismissed = 'true';
           }
         }
       });
       document.addEventListener('focusout', function (e) {
         var el = e.target;
-        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger'))) {
+        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
           delete el.dataset.tooltipDismissed;
         }
       });
