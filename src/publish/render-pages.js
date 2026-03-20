@@ -21,6 +21,15 @@ function formatCompact(n) {
   return String(n);
 }
 
+// Round estimated people counts down conservatively to avoid false precision.
+// Numbers >= 10M round to nearest 100K; numbers >= 100K round to nearest 10K;
+// smaller numbers are returned as-is (already low-precision).
+function roundDownConservatively(n) {
+  if (n >= 10_000_000) return Math.floor(n / 100_000) * 100_000;
+  if (n >= 100_000) return Math.floor(n / 10_000) * 10_000;
+  return Math.round(n);
+}
+
 let _fpcTooltipSeq = 0;
 let _urlCountTooltipSeq = 0;
 let _perfTimeTooltipSeq = 0;
@@ -1089,7 +1098,7 @@ function renderCategoryRows(categories = []) {
   return categories
     .map(
       (category) =>
-        `<tr><td data-label="Category">${escapeHtml(category.name)}</td><td data-label="Prevalence">${category.prevalence_rate}</td><td data-label="Estimated impacted users">${category.estimated_impacted_users}</td></tr>`
+        `<tr><td data-label="Category">${escapeHtml(category.name)}</td><td data-label="Prevalence">${category.prevalence_rate}</td><td data-label="Estimated impacted users">${roundDownConservatively(category.estimated_impacted_users).toLocaleString('en-US')}</td></tr>`
     )
     .join('\n');
 }
@@ -1162,8 +1171,8 @@ function renderFpcExclusionSection(report) {
         ? `~${Number(data.estimated_population).toLocaleString('en-US')}`
         : 'N/A';
       const rate = `${(data.prevalence_rate * 100).toFixed(1)}%`;
-      const affectedLoads = Number(data.affected_page_loads).toLocaleString('en-US');
-      const excluded = Math.round(data.estimated_excluded_users).toLocaleString('en-US');
+      const affectedLoads = roundDownConservatively(data.affected_page_loads).toLocaleString('en-US');
+      const excluded = roundDownConservatively(data.estimated_excluded_users).toLocaleString('en-US');
       return `<tr>
       <td data-label="Icon">${icon}</td>
       <td data-label="Disability Group">${label}</td>
@@ -1178,7 +1187,7 @@ function renderFpcExclusionSection(report) {
   return `
   <section aria-labelledby="fpc-exclusion-heading">
     <h2 id="fpc-exclusion-heading">Americans Excluded by Disability Today${renderAnchorLink('fpc-exclusion-heading', 'Americans Excluded by Disability Today')}</h2>
-    <p>Based on <strong>${Number(totalPageLoads).toLocaleString('en-US')}</strong> page loads across successfully scanned government URLs and U.S. disability prevalence rates from the <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(source)}</a> (${escapeHtml(String(vintageYear))}), an estimated <strong>${Math.round(totalExcluded).toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on a government website today.</p>
+    <p>Based on <strong>${Number(totalPageLoads).toLocaleString('en-US')}</strong> page loads across successfully scanned government URLs and U.S. disability prevalence rates from the <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(source)}</a> (${escapeHtml(String(vintageYear))}), an estimated <strong>${roundDownConservatively(totalExcluded).toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on a government website today.</p>
     <p>Each row shows the number of people in a disability group who visited a page with at least one accessibility issue that affects their group. Prevalence rates and U.S. population estimates are derived from the American Community Survey (ACS) and supplemental sources. These figures are rough estimates intended to illustrate the scale of accessibility barriers.</p>
     ${wrapTable(`<table>
       <caption>Estimated Americans excluded today by disability category (${escapeHtml(String(vintageYear))} Census data)</caption>
@@ -2285,7 +2294,7 @@ function formatTimestamp(value) {
 function renderCallToActionSection(report) {
   const exclusion = report.fpc_exclusion;
   const totalExcluded = exclusion?.categories
-    ? Math.round(Object.values(exclusion.categories).reduce((sum, d) => sum + (d.estimated_excluded_users ?? 0), 0))
+    ? roundDownConservatively(Object.values(exclusion.categories).reduce((sum, d) => sum + (d.estimated_excluded_users ?? 0), 0))
     : null;
 
   const totalFindings = (report.top_urls ?? []).reduce((sum, u) => sum + (u.axe_findings?.length ?? 0), 0);
