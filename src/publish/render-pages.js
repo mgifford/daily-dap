@@ -22,6 +22,7 @@ function formatCompact(n) {
 
 let _fpcTooltipSeq = 0;
 let _urlCountTooltipSeq = 0;
+let _perfTimeTooltipSeq = 0;
 
 function makeDecorativeSvg(svgStr) {
   return svgStr
@@ -88,14 +89,14 @@ function renderThemeScript() {
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           var el = document.activeElement;
-          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger'))) {
+          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
             el.dataset.tooltipDismissed = 'true';
           }
         }
       });
       document.addEventListener('focusout', function (e) {
         var el = e.target;
-        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger'))) {
+        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
           delete el.dataset.tooltipDismissed;
         }
       });
@@ -683,6 +684,50 @@ function renderSharedStyles() {
     }
     @media (prefers-reduced-motion: no-preference) {
       .url-count-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Performance load-time tooltip (Performance column in top-URLs table) */
+    .perf-time-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .perf-time-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .perf-time-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .perf-time-trigger:hover .perf-time-tooltip,
+    .perf-time-trigger:focus-within .perf-time-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .perf-time-trigger[data-tooltip-dismissed] .perf-time-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .perf-time-tooltip { transition: opacity 0.15s ease; }
     }
     .disability-legend {
       display: grid;
@@ -1342,6 +1387,48 @@ function renderLighthouseScoreCell(scores, key, label = '') {
   return `<td${labelAttr} class="score-${cssKey}" style="--score:${value}">${value}</td>`;
 }
 
+function formatTotalLoadTime(lcpValueMs, pageLoadCount) {
+  if (
+    typeof lcpValueMs !== 'number' || !Number.isFinite(lcpValueMs) || lcpValueMs <= 0 ||
+    typeof pageLoadCount !== 'number' || !Number.isFinite(pageLoadCount) || pageLoadCount <= 0
+  ) {
+    return null;
+  }
+  const totalSeconds = (lcpValueMs / 1000) * pageLoadCount;
+  const totalHours = totalSeconds / 3600;
+  const totalDays = totalHours / 24;
+  if (totalDays >= 2) {
+    return { value: Math.round(totalDays), unit: 'days' };
+  }
+  if (totalHours >= 1) {
+    return { value: Math.round(totalHours), unit: 'hours' };
+  }
+  return { value: Math.max(1, Math.round(totalSeconds / 60)), unit: 'minutes' };
+}
+
+function renderPerformanceCell(entry) {
+  const label = 'Performance';
+  const labelAttr = ` data-label="${escapeHtml(label)}"`;
+  const scores = entry.lighthouse_scores;
+  if (!scores) {
+    return `<td${labelAttr}>—</td>`;
+  }
+  const value = scores.performance;
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return `<td${labelAttr}>—</td>`;
+  }
+  const loadTime = formatTotalLoadTime(entry.lcp_value_ms, entry.page_load_count);
+  if (!loadTime) {
+    return `<td${labelAttr} class="score-performance" style="--score:${value}" data-sort-value="${value}">${value}</td>`;
+  }
+  const timeLabel = `${loadTime.value} ${loadTime.unit}`;
+  const tooltipId = `perf-tip-${_perfTimeTooltipSeq++}`;
+  const lcpSeconds = (entry.lcp_value_ms / 1000).toFixed(1);
+  const tooltipText = `Total time users spent waiting for this page to load: ${lcpSeconds}s LCP \u00d7 ${entry.page_load_count.toLocaleString()} page loads.`;
+  const timeSpan = `<span class="perf-time-trigger" tabindex="0" aria-label="${escapeHtml(timeLabel)} of total page-load time" aria-describedby="${tooltipId}">${escapeHtml(timeLabel)}<span id="${tooltipId}" role="tooltip" class="perf-time-tooltip">${escapeHtml(tooltipText)}</span></span>`;
+  return `<td${labelAttr} class="score-performance" style="--score:${value}" data-sort-value="${value}">${value}&thinsp;/&thinsp;${timeSpan}</td>`;
+}
+
 function renderAccessibilityImportantCell(entry) {
   const label = 'Accessibility / Important';
   const labelAttr = ` data-label="${escapeHtml(label)}"`;
@@ -1630,7 +1717,7 @@ function renderTopUrlRows(topUrls = []) {
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td data-label="Traffic">${entry.page_load_count}</td>
   ${renderCwvCell(entry.core_web_vitals_status)}
-  ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
+  ${renderPerformanceCell(entry)}
   ${renderAccessibilityImportantCell(entry)}
   <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">${escapeHtml(btnLabel)}</button>`}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices', 'Best Practices')}
