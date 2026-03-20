@@ -1455,7 +1455,6 @@ function renderTopUrlRows(topUrls = []) {
         return `<tr>
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td data-label="Traffic">${entry.page_load_count}</td>
-  <td data-label="Status">${escapeHtml(entry.scan_status.replace(/_/g, ' '))}</td>
   ${renderCwvCell(entry.core_web_vitals_status)}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'performance', 'Performance')}
   ${renderAccessibilityImportantCell(entry)}
@@ -1852,13 +1851,12 @@ export function renderDailyReportPage(report) {
           <tr>
             <th scope="col" data-sort-col="0" aria-sort="none"><button class="sort-btn">URL</button></th>
             <th scope="col" data-sort-col="1" aria-sort="none"><button class="sort-btn">Traffic</button></th>
-            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">Status</button></th>
-            <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">CWV</button></th>
-            <th scope="col" data-sort-col="4" aria-sort="none"><button class="sort-btn">Performance</button></th>
-            <th scope="col" data-sort-col="5" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
+            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">CWV</button></th>
+            <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">Performance</button></th>
+            <th scope="col" data-sort-col="4" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
             <th scope="col">Axe details</th>
-            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
-            <th scope="col" data-sort-col="8" aria-sort="none"><button class="sort-btn">SEO</button></th>
+            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
+            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
           </tr>
         </thead>
         <tbody>
@@ -1928,7 +1926,7 @@ export function renderDailyReportPage(report) {
         var currentCol = -1;
         var currentDir = 'none';
         // Columns whose values are numeric (Traffic, Performance, Accessibility/Important, Best Practices, SEO)
-        var numericCols = [1, 4, 5, 7, 8];
+        var numericCols = [1, 3, 4, 6, 7];
 
         function getCellText(row, col) {
           var cells = row.querySelectorAll('td');
