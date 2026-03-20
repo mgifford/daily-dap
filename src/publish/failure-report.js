@@ -35,12 +35,19 @@ export function renderFailurePage(failureReport) {
   <title>Daily DAP Failure ${escapeHtml(failureReport.run_date)}</title>
 </head>
 <body>
-  <h1>Daily DAP Run Failure</h1>
-  <p>Run date: ${escapeHtml(failureReport.run_date)}</p>
-  <p>Run ID: ${escapeHtml(failureReport.run_id)}</p>
-  <p>Status: failed</p>
-  <h2>Error</h2>
-  <pre>${escapeHtml(failureReport.error.message)}</pre>
+  <header role="banner">
+    <h1>Daily DAP Run Failure</h1>
+  </header>
+  <main id="main-content">
+    <p>Run date: ${escapeHtml(failureReport.run_date)}</p>
+    <p>Run ID: ${escapeHtml(failureReport.run_id)}</p>
+    <p>Status: failed</p>
+    <h2>Error</h2>
+    <pre>${escapeHtml(failureReport.error.message)}</pre>
+  </main>
+  <footer role="contentinfo">
+    <p><a href="../../index.html">&larr; Back to dashboard</a></p>
+  </footer>
 </body>
 </html>`;
 }

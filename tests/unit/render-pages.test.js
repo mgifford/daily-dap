@@ -1847,6 +1847,64 @@ test('render404Page provides a link back to the dashboard', () => {
   assert.ok(html.includes('./reports/'), 'Should include a link back to the reports dashboard');
 });
 
+// ---- landmark-one-main regression tests (axe rule: landmark-one-main) ----
+
+test('renderDashboardPage contains required landmark elements for accessibility', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  // Must have exactly one <main> element with id="main-content" for skip-link target
+  assert.ok(html.includes('<main id="main-content"'), 'Should have main landmark with id="main-content"');
+  assert.equal((html.match(/<main[\s>]/g) || []).length, 1, 'Should have exactly one main element');
+
+  // Must have a <header> element with role="banner" on the same element
+  assert.ok(/<header[^>]*role="banner"/.test(html), 'Should have header landmark with role="banner"');
+
+  // Must have a <footer> element with role="contentinfo" on the same element
+  assert.ok(/<footer[^>]*role="contentinfo"/.test(html), 'Should have footer landmark with role="contentinfo"');
+
+  // Must have a <nav> element with aria-label for navigation landmark
+  assert.ok(/<nav[^>]*aria-label="[^"]+"/.test(html), 'Should have nav landmark with a non-empty aria-label');
+
+  // Must have an <h1> heading
+  assert.ok(html.includes('<h1'), 'Should have an h1 heading');
+});
+
+test('renderDashboardPage h1 heading is inside the main landmark', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  const mainStart = html.indexOf('<main');
+  const mainEnd = html.indexOf('</main>');
+  const h1Index = html.indexOf('<h1');
+
+  assert.ok(mainStart !== -1, 'Should have main element');
+  assert.ok(mainEnd !== -1, 'Should have closing main element');
+  assert.ok(h1Index !== -1, 'Should have h1 element');
+  assert.ok(h1Index > mainStart && h1Index < mainEnd, 'h1 should be inside the main landmark, not outside');
+});
+
+test('renderDashboardPage skip-link targets main content', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(html.includes('href="#main-content"'), 'Should have skip-link pointing to #main-content');
+  assert.ok(html.includes('id="main-content"'), 'Should have element with id="main-content" as skip-link target');
+});
+
+test('all page types have exactly one main landmark (axe landmark-one-main)', () => {
+  const pages = [
+    ['renderDailyReportPage', renderDailyReportPage(makeMinimalReport())],
+    ['renderDashboardPage', renderDashboardPage({ latestReport: null, historyIndex: [] })],
+    ['renderArchiveIndexPage', renderArchiveIndexPage()],
+    ['renderArchiveRedirectStub', renderArchiveRedirectStub('2026-03-01')],
+    ['render404Page', render404Page()],
+    ['renderFailurePage', renderFailurePage({ run_date: '2026-03-01', run_id: 'test-run', error: { message: 'err' } })],
+  ];
+
+  for (const [name, html] of pages) {
+    const mainCount = (html.match(/<main[\s>]/g) || []).length;
+    assert.equal(mainCount, 1, `${name}: must have exactly one <main> element (axe landmark-one-main)`);
+  }
+});
+
 // ---- html-has-lang regression tests (axe rule: html-has-lang) ----
 
 test('all page types have lang="en" on the html element (axe html-has-lang)', () => {
