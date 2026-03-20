@@ -926,9 +926,9 @@ function renderSharedStyles() {
       .site-main { padding: 1rem 0.75rem 2rem; }
       section { padding: 1rem; }
 
-      /* Stacked card layout for the wide top-URLs table */
-      #top-urls-table thead { display: none; }
-      #top-urls-table tbody tr {
+      /* Stacked card layout for all scrollable tables */
+      .table-scroll table thead { display: none; }
+      .table-scroll table tbody tr {
         display: block;
         border: 1px solid var(--color-table-border);
         border-radius: 6px;
@@ -936,8 +936,8 @@ function renderSharedStyles() {
         padding: 0.25rem 0;
         background: var(--color-surface);
       }
-      #top-urls-table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
-      #top-urls-table td {
+      .table-scroll table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+      .table-scroll table td {
         display: flex;
         border: none;
         border-bottom: 1px solid var(--color-table-row-sep);
@@ -945,8 +945,8 @@ function renderSharedStyles() {
         align-items: baseline;
         gap: 0.5rem;
       }
-      #top-urls-table td:last-child { border-bottom: none; }
-      #top-urls-table td::before {
+      .table-scroll table td:last-child { border-bottom: none; }
+      .table-scroll table td::before {
         content: attr(data-label);
         font-weight: 600;
         color: var(--color-text-muted);
@@ -954,7 +954,7 @@ function renderSharedStyles() {
         flex-shrink: 0;
         font-size: 0.8rem;
       }
-      #top-urls-table .url-cell {
+      .table-scroll .url-cell {
         max-width: 100%;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -1086,7 +1086,7 @@ function renderCategoryRows(categories = []) {
   return categories
     .map(
       (category) =>
-        `<tr><td>${escapeHtml(category.name)}</td><td>${category.prevalence_rate}</td><td>${category.estimated_impacted_users}</td></tr>`
+        `<tr><td data-label="Category">${escapeHtml(category.name)}</td><td data-label="Prevalence">${category.prevalence_rate}</td><td data-label="Estimated impacted users">${category.estimated_impacted_users}</td></tr>`
     )
     .join('\n');
 }
@@ -1162,12 +1162,12 @@ function renderFpcExclusionSection(report) {
       const affectedLoads = Number(data.affected_page_loads).toLocaleString('en-US');
       const excluded = Math.round(data.estimated_excluded_users).toLocaleString('en-US');
       return `<tr>
-      <td>${icon}</td>
-      <td>${label}</td>
-      <td>${rate}</td>
-      <td>${pop}</td>
-      <td>${affectedLoads}</td>
-      <td><strong>${excluded}</strong></td>
+      <td data-label="Icon">${icon}</td>
+      <td data-label="Disability Group">${label}</td>
+      <td data-label="U.S. Prevalence">${rate}</td>
+      <td data-label="U.S. Population">${pop}</td>
+      <td data-label="Page Loads with Barriers">${affectedLoads}</td>
+      <td data-label="Est. Excluded Today"><strong>${excluded}</strong></td>
     </tr>`;
     })
     .join('\n');
@@ -1268,17 +1268,17 @@ function renderPerformanceImpactSection(report) {
   const scanDate = escapeHtml(formatScanDate(report.run_date));
 
   const timeRow = `<tr>
-      <td>Extra time waiting (vs ${benchmarkLcpSec}s LCP benchmark)</td>
-      <td>${formatDuration(extraHours)}</td>
-      <td>${Number(impact.total_extra_load_time_seconds).toLocaleString('en-US')} seconds</td>
+      <td data-label="Metric">Extra time waiting (vs ${benchmarkLcpSec}s LCP benchmark)</td>
+      <td data-label="Estimated total">${formatDuration(extraHours)}</td>
+      <td data-label="Notes">${Number(impact.total_extra_load_time_seconds).toLocaleString('en-US')} seconds</td>
     </tr>`;
 
   const weightRow =
     impact.url_count_with_weight > 0
       ? `<tr>
-      <td>Extra data transferred (vs ${benchmarkWeightMb} MB page weight benchmark)</td>
-      <td>${formatDataSize(extraGb)}</td>
-      <td>Across ${Number(impact.url_count_with_weight).toLocaleString('en-US')} URLs with weight data</td>
+      <td data-label="Metric">Extra data transferred (vs ${benchmarkWeightMb} MB page weight benchmark)</td>
+      <td data-label="Estimated total">${formatDataSize(extraGb)}</td>
+      <td data-label="Notes">Across ${Number(impact.url_count_with_weight).toLocaleString('en-US')} URLs with weight data</td>
     </tr>`
       : '';
 
@@ -1445,7 +1445,7 @@ function renderHistoryRows(historySeries = []) {
   const truncated = filteredSeries.slice(-HISTORY_TABLE_DAYS);
   return [...truncated].reverse().map(
     (entry) =>
-      `<tr><td>${escapeHtml(entry.date)}</td><td>${entry.aggregate_scores.performance}</td><td>${entry.aggregate_scores.accessibility}</td><td>${entry.aggregate_scores.best_practices}</td><td>${entry.aggregate_scores.seo}</td></tr>`
+      `<tr><td data-label="Date">${escapeHtml(entry.date)}</td><td data-label="Performance">${entry.aggregate_scores.performance}</td><td data-label="Accessibility">${entry.aggregate_scores.accessibility}</td><td data-label="Best Practices">${entry.aggregate_scores.best_practices}</td><td data-label="SEO">${entry.aggregate_scores.seo}</td></tr>`
   ).join('\n');
 }
 
@@ -1806,7 +1806,7 @@ function renderTechSummarySection(report) {
   const cmsRows = cmsEntries
     .map(
       ([name, count]) =>
-        `<tr><td>${escapeHtml(name)}</td><td>${count}</td><td>${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%</td></tr>`
+        `<tr><td data-label="CMS">${escapeHtml(name)}</td><td data-label="URLs">${count}</td><td data-label="Share">${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%</td></tr>`
     )
     .join('\n');
 
@@ -1926,10 +1926,10 @@ function renderDayComparisonSection(report) {
         </tr>
       </thead>
       <tbody>
-        <tr><td>Performance</td><td>${curr.performance}</td><td>${avg.performance}</td><td>${scoreDelta(curr.performance, avg.performance)}</td></tr>
-        <tr><td>Accessibility</td><td>${curr.accessibility}</td><td>${avg.accessibility}</td><td>${scoreDelta(curr.accessibility, avg.accessibility)}</td></tr>
-        <tr><td>Best Practices</td><td>${curr.best_practices}</td><td>${avg.best_practices}</td><td>${scoreDelta(curr.best_practices, avg.best_practices)}</td></tr>
-        <tr><td>SEO</td><td>${curr.seo}</td><td>${avg.seo}</td><td>${scoreDelta(curr.seo, avg.seo)}</td></tr>
+        <tr><td data-label="Metric">Performance</td><td data-label="Today">${curr.performance}</td><td data-label="${dayCount}-day avg">${avg.performance}</td><td data-label="Change">${scoreDelta(curr.performance, avg.performance)}</td></tr>
+        <tr><td data-label="Metric">Accessibility</td><td data-label="Today">${curr.accessibility}</td><td data-label="${dayCount}-day avg">${avg.accessibility}</td><td data-label="Change">${scoreDelta(curr.accessibility, avg.accessibility)}</td></tr>
+        <tr><td data-label="Metric">Best Practices</td><td data-label="Today">${curr.best_practices}</td><td data-label="${dayCount}-day avg">${avg.best_practices}</td><td data-label="Change">${scoreDelta(curr.best_practices, avg.best_practices)}</td></tr>
+        <tr><td data-label="Metric">SEO</td><td data-label="Today">${curr.seo}</td><td data-label="${dayCount}-day avg">${avg.seo}</td><td data-label="Change">${scoreDelta(curr.seo, avg.seo)}</td></tr>
       </tbody>
     </table>`)}
     <p>See the full score trend in the <a href="#history-heading">History</a> section below.</p>
@@ -2049,7 +2049,7 @@ function renderAxePatternsSection(topUrls = []) {
   const rows = topPatterns
     .map(
       (p) =>
-        `<tr><td><code>${escapeHtml(p.id)}</code></td><td>${escapeHtml(p.title)}</td><td>${renderUrlCountCell(p)}</td><td>${renderFpcCodes(p.id, p.total_page_loads, prevalenceRates)}</td></tr>`
+        `<tr><td data-label="Rule ID"><code>${escapeHtml(p.id)}</code></td><td data-label="Description">${escapeHtml(p.title)}</td><td data-label="URLs affected">${renderUrlCountCell(p)}</td><td data-label="Disabilities Affected">${renderFpcCodes(p.id, p.total_page_loads, prevalenceRates)}</td></tr>`
     )
     .join('\n');
 
@@ -2153,11 +2153,11 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
       const h = entry.heuristic;
       const ruleList = entry.rule_ids.map((id) => `<code>${escapeHtml(id)}</code>`).join(', ');
       return `<tr>
-        <td>${escapeHtml(String(h.id))}</td>
-        <td><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
-        <td>${escapeHtml(String(entry.pattern_count))}</td>
-        <td>${escapeHtml(String(entry.url_count))}</td>
-        <td>${ruleList}</td>
+        <td data-label="#">${escapeHtml(String(h.id))}</td>
+        <td data-label="Heuristic"><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
+        <td data-label="Issue patterns">${escapeHtml(String(entry.pattern_count))}</td>
+        <td data-label="URL violations">${escapeHtml(String(entry.url_count))}</td>
+        <td data-label="Related axe rules">${ruleList}</td>
       </tr>`;
     })
     .join('\n');
@@ -2166,9 +2166,11 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
     const found = counts.find((c) => c.heuristic.id === h.id);
     if (found) return null;
     return `<tr>
-      <td>${escapeHtml(String(h.id))}</td>
-      <td><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
-      <td>0</td><td>0</td><td>&#x2014;</td>
+      <td data-label="#">${escapeHtml(String(h.id))}</td>
+      <td data-label="Heuristic"><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
+      <td data-label="Issue patterns">0</td>
+      <td data-label="URL violations">0</td>
+      <td data-label="Related axe rules">&#x2014;</td>
     </tr>`;
   }).filter(Boolean).join('\n');
 
