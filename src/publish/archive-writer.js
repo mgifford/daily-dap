@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { renderDailyReportPage, renderDashboardPage, render404Page } from './render-pages.js';
+import { buildPressRelease } from '../cli/generate-press-release.js';
 
 async function writeJson(filePath, payload) {
   await fs.writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
@@ -106,6 +107,7 @@ export async function writeCommittedSnapshot({
   const dailyPagePath = path.join(dailyDir, 'index.html');
   const axeFindingsPath = path.join(dailyDir, 'axe-findings.json');
   const axeFindingsCsvPath = path.join(dailyDir, 'axe-findings.csv');
+  const pressReleasePath = path.join(dailyDir, 'press-release.md');
   const historyPath = path.join(reportsRoot, 'history.json');
   const dashboardPath = path.join(reportsRoot, 'index.html');
 
@@ -115,6 +117,8 @@ export async function writeCommittedSnapshot({
   const axeFindingsReport = buildAxeFindingsReport(report);
   await writeJson(axeFindingsPath, axeFindingsReport);
   await fs.writeFile(axeFindingsCsvPath, buildAxeFindingsCsv(axeFindingsReport), 'utf8');
+  const pressReleaseMarkdown = buildPressRelease(report, axeFindingsReport);
+  await fs.writeFile(pressReleasePath, `${pressReleaseMarkdown}\n`, 'utf8');
   await writeJson(historyPath, historyIndex);
 
   const dashboardHtml = renderDashboardPage({
@@ -133,6 +137,7 @@ export async function writeCommittedSnapshot({
     report_page_path: dailyPagePath,
     axe_findings_path: axeFindingsPath,
     axe_findings_csv_path: axeFindingsCsvPath,
+    press_release_path: pressReleasePath,
     history_index_path: historyPath,
     dashboard_page_path: dashboardPath
   };
