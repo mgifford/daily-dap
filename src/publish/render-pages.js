@@ -1547,10 +1547,10 @@ function renderUrlCountCell(p) {
   }
   const tooltipId = `url-tip-${_urlCountTooltipSeq++}`;
   const domains = p.affected_urls.map((u) => {
-    try { return new URL(u).hostname; } catch { return u; }
+    try { return new URL(u).hostname; } catch { return ''; }
   }).filter(Boolean);
   const tooltipText = `Affected sites: ${domains.join(', ')}`;
-  return `<span class="url-count-trigger" tabindex="0" aria-label="${count} URLs affected" aria-describedby="${tooltipId}">${count}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
+  return `<span class="url-count-trigger" tabindex="0" aria-label="${escapeHtml(String(count))} URLs affected" aria-describedby="${tooltipId}">${escapeHtml(String(count))}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
 }
 
 function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {

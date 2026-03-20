@@ -2083,8 +2083,8 @@ test('renderDailyReportPage URL count cell has tooltip with affected hostnames',
   assert.ok(html.includes('class="url-count-trigger"'), 'URL count should use url-count-trigger span');
   assert.ok(html.includes('role="tooltip"'), 'URL count cell should include a tooltip element');
   assert.ok(html.includes('Affected sites:'), 'Tooltip should list affected sites');
-  assert.ok(html.includes('example.gov'), 'Tooltip should include first affected hostname');
-  assert.ok(html.includes('other.gov'), 'Tooltip should include second affected hostname');
+  // Check that the tooltip contains the expected hostnames within the tooltip text
+  assert.ok(html.includes('Affected sites: example.gov, other.gov') || html.includes('Affected sites: other.gov, example.gov'), 'Tooltip should list both affected hostnames');
   assert.ok(html.includes('aria-describedby="url-tip-'), 'URL count trigger should reference tooltip by ID');
   assert.ok(html.includes('class="url-count-tooltip"'), 'Tooltip should have url-count-tooltip class');
 });
