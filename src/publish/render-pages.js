@@ -1876,6 +1876,33 @@ function formatTimestamp(value) {
   return escapeHtml(date.toISOString());
 }
 
+function renderCallToActionSection(report) {
+  const exclusion = report.fpc_exclusion;
+  const totalExcluded = exclusion?.categories
+    ? Math.round(Object.values(exclusion.categories).reduce((sum, d) => sum + (d.estimated_excluded_users ?? 0), 0))
+    : null;
+
+  const totalFindings = (report.top_urls ?? []).reduce((sum, u) => sum + (u.axe_findings?.length ?? 0), 0);
+
+  const statsIntro =
+    totalExcluded !== null && totalExcluded > 0
+      ? `<p>Today's scan identified <strong>${totalFindings.toLocaleString('en-US')} accessibility barrier${totalFindings !== 1 ? 's' : ''}</strong> across the most-visited U.S. government websites, affecting an estimated <strong>${totalExcluded.toLocaleString('en-US')} Americans with disabilities</strong>. Here is how you can help.</p>`
+      : `<p>Here is how you can help improve accessibility on U.S. government websites.</p>`;
+
+  return `
+  <section aria-labelledby="cta-heading">
+    <h2 id="cta-heading">Take Action${renderAnchorLink('cta-heading', 'Take Action')}</h2>
+    ${statsIntro}
+    <ul>
+      <li><strong>Read the federal accessibility report.</strong> The <a href="https://www.section508.gov/manage/section-508-assessment/2025/message-from-gsa-administrator/" target="_blank" rel="noreferrer">2025 Governmentwide Section 508 Assessment</a> from the GSA Administrator details the state of federal accessibility compliance and the steps agencies are taking to improve.</li>
+      <li><strong>Submit URLs you care about.</strong> Want specific government pages included in future scans? <a href="https://mgifford.github.io/open-scans/" target="_blank" rel="noreferrer">Submit them to the Open Scans project</a> to help broaden coverage.</li>
+      <li><strong>Test with free tools.</strong> Do your own automated and manual accessibility testing with <a href="https://accessibilityinsights.io/" target="_blank" rel="noreferrer">Accessibility Insights</a> and <a href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?pli=1" target="_blank" rel="noreferrer">Google Lighthouse</a>. Automated tools catch a significant portion of WCAG failures quickly; manual review with assistive technologies catches the rest.</li>
+      <li><strong>Adopt and update the U.S. Web Design System (USWDS).</strong> The <a href="https://designsystem.digital.gov/" target="_blank" rel="noreferrer">USWDS</a> is already a strong foundation for accessible, consistent federal websites, but many agencies have not adopted it or are running outdated versions. Encourage your agency to adopt or upgrade so every American benefits from its accessibility work.</li>
+      <li><strong>Hire people with disabilities.</strong> People with disabilities are the ultimate experts on digital barriers. Bringing them into design, engineering, and testing teams &mdash; not just as consultants but as full-time employees &mdash; leads to more accessible products and services for everyone.</li>
+    </ul>
+  </section>`;
+}
+
 export function renderDailyReportPage(report) {
   return `<!doctype html>
 <html lang="en">
@@ -1975,6 +2002,8 @@ export function renderDailyReportPage(report) {
         </tbody>
       </table>`)}
     </section>
+
+    ${renderCallToActionSection(report)}
   </main>
 
   ${renderTopUrlModals(report.top_urls)}

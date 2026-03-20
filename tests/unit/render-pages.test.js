@@ -2225,3 +2225,73 @@ test('renderDailyReportPage does not include usability heuristics section when n
   const html = renderDailyReportPage(report);
   assert.ok(!html.includes('usability-heuristics-heading'), 'Page should not include usability heuristics section when no findings');
 });
+
+test('renderDailyReportPage includes call-to-action section with required links', () => {
+  const report = makeMinimalReport();
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('cta-heading'), 'Page should include call-to-action section');
+  assert.ok(html.includes('Take Action'), 'CTA heading should read "Take Action"');
+  assert.ok(
+    html.includes('href="https://www.section508.gov/manage/section-508-assessment/2025/message-from-gsa-administrator/"'),
+    'CTA should link to Section 508 Annual Assessment'
+  );
+  assert.ok(
+    html.includes('href="https://mgifford.github.io/open-scans/"'),
+    'CTA should link to Open Scans project'
+  );
+  assert.ok(
+    html.includes('href="https://accessibilityinsights.io/"'),
+    'CTA should link to Accessibility Insights'
+  );
+  assert.ok(
+    html.includes('href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk'),
+    'CTA should link to Google Lighthouse'
+  );
+  assert.ok(
+    html.includes('href="https://designsystem.digital.gov/"'),
+    'CTA should link to USWDS'
+  );
+});
+
+test('renderDailyReportPage CTA shows stats when fpc_exclusion data is present', () => {
+  const report = makeMinimalReport({
+    fpc_exclusion: {
+      total_page_loads: 1000000,
+      census_vintage_year: 2023,
+      census_source: 'U.S. Census Bureau',
+      census_source_url: 'https://data.census.gov/',
+      categories: {
+        LV: { label: 'Limited Vision', prevalence_rate: 0.024, estimated_population: 8100000, affected_page_loads: 500000, estimated_excluded_users: 12000 },
+        WH: { label: 'Without Hearing', prevalence_rate: 0.003, estimated_population: 1100000, affected_page_loads: 200000, estimated_excluded_users: 600 }
+      }
+    },
+    top_urls: [
+      {
+        url: 'https://example.gov/',
+        page_load_count: 500000,
+        failure_reason: null,
+        findings_count: 2,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 70, accessibility: 80, best_practices: 85, seo: 90 },
+        axe_findings: [
+          { id: 'color-contrast', title: 'Color contrast', description: '', tags: [], items: [] },
+          { id: 'image-alt', title: 'Image alt', description: '', tags: [], items: [] }
+        ]
+      }
+    ]
+  });
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('12,600'), 'CTA should show total estimated excluded users (12000 + 600)');
+  assert.ok(html.includes('2 accessibility barriers'), 'CTA should show total axe findings count');
+});
+
+test('renderDailyReportPage CTA shows generic message when no fpc_exclusion data', () => {
+  const report = makeMinimalReport({ fpc_exclusion: null });
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('cta-heading'), 'CTA section should still appear without fpc_exclusion data');
+  assert.ok(
+    html.includes('Here is how you can help improve accessibility'),
+    'CTA should show generic message when no exclusion data'
+  );
+});
