@@ -5,19 +5,19 @@ scan:
   traffic_window_mode: daily
 
 impact:
-  # Section 508 FPC-aligned prevalence rates derived from U.S. Census Bureau ACS 2022.
+  # Section 508 FPC-aligned prevalence rates derived from U.S. Census Bureau ACS 2023.
   # See src/data/census-disability-stats.js for full citations and per-category notes.
-  # Review annually; next review: 2026-01-01
+  # Review annually; next review: 2027-01-01
   prevalence_rates:
     WV: 0.010
-    LV: 0.024
+    LV: 0.023
     WPC: 0.043
     WH: 0.003
-    LH: 0.035
+    LH: 0.034
     WS: 0.005
-    LM: 0.022
+    LM: 0.023
     LRS: 0.058
-    LLCLA: 0.047
+    LLCLA: 0.049
   severity_weights:
     critical: 1.0
     serious: 0.6

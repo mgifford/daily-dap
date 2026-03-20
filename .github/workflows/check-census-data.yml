@@ -79,6 +79,11 @@ jobs:
               return;
             }
 
+            // ACS 1-year estimates are released each September for the prior calendar year.
+            // Subtract 2 to get the most recently released vintage year.
+            const latestAcsYear = new Date().getFullYear() - 2;
+            const acsTableUrl = `https://data.census.gov/table/ACSDT1Y${latestAcsYear}.B18101`;
+
             const { data: issue } = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -91,21 +96,27 @@ jobs:
             ### Action Required
 
             1. Check the latest disability statistics from the U.S. Census Bureau:
-               - [ACS Disability Statistics](https://www.census.gov/topics/health/disability.html)
-               - [ACS Table B18101 - Sex by Age by Disability Status](https://data.census.gov/table/ACSDT1Y2023.B18101)
+               - [ACS Disability Topic Page](https://www.census.gov/topics/health/disability.html)
+               - [ACS Table B18101 - Sex by Age by Disability Status (${latestAcsYear})](${acsTableUrl})
+               - [ACS Subject Table S1810 - Disability Characteristics](https://data.census.gov/table/ACSST1Y${latestAcsYear}.S1810)
 
             2. Review supplemental sources:
-               - [CDC Disability and Health Data System](https://www.cdc.gov/ncbddd/disabilityandhealth/features/disability-prevalence-rural-urban.html)
+               - [CDC Disability and Health Data System (DHDS)](https://dhds.cdc.gov/)
+               - [CDC National Center on Birth Defects and Developmental Disabilities](https://www.cdc.gov/ncbddd/disabilityandhealth/features/disability-prevalence-rural-urban.html)
                - [NIDCD Quick Statistics (Hearing)](https://www.nidcd.nih.gov/health/statistics/quick-statistics-hearing)
                - [AFB Statistical Snapshots (Vision)](https://www.afb.org/research-and-initiatives/statistics)
+               - [NIH/NEI Color Blindness](https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness)
 
             3. Update \`src/data/census-disability-stats.js\`:
-               - Update \`vintage_year\` to the new data year
+               - Update \`vintage_year\` to the new data year (${latestAcsYear})
                - Update \`next_review_date\` to one year from today
-               - Update \`us_population\` to the latest estimate
+               - Update \`us_population\` to the latest ACS estimate
                - Update the \`fpc_rates\` entries with new prevalence figures
 
-            4. Update the comment block in \`src/config/prevalence.yaml\` to reflect the new vintage year and next review date.
+            4. Update the comment block in \`src/config/prevalence.yaml\` to reflect the new vintage year, next review date, and updated rates.
+
+            > **Note:** ACS 1-year estimates are typically released each September for the prior calendar year.
+            > The most recently released vintage year is estimated to be **${latestAcsYear}**.
 
             See [\`src/data/census-disability-stats.js\`](../blob/main/src/data/census-disability-stats.js) for current vintage year, next review date, and per-category source notes.
             `
