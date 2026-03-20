@@ -3,11 +3,218 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="refresh" content="0; url=../../archive/index.html" />
-  <title>Report Archived - 2026-02-25</title>
-  <meta name="description" content="The Daily DAP report for 2026-02-25 has been archived." />
+  <title>Daily DAP Report - 2026-02-25</title>
+  <meta name="description" content="Daily accessibility and performance scan results for the top U.S. government URLs on 2026-02-25, powered by Lighthouse and axe-core." />
+  
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    (function () {
+      var s = localStorage.getItem('color-scheme');
+      if (s === 'dark' || s === 'light') {
+        document.documentElement.setAttribute('data-color-scheme', s);
+      }
+    }());
+  </script>
   
   <style>
+    /* ---------- Color tokens ---------- */
+    :root {
+      color-scheme: light dark;
+      --color-bg: #f5f7fa;
+      --color-surface: #ffffff;
+      --color-text: #1b1b1b;
+      --color-text-muted: #555555;
+      --color-primary: #0050b3;
+      --color-primary-hover: #003d8a;
+      --color-link: #0050b3;
+      --color-link-hover: #003d8a;
+      --color-focus-ring: #ffbe2e;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --color-header-bg: #0050b3;
+      --color-header-text: #ffffff;
+      --color-header-nav: #d4e4ff;
+      --color-footer-bg: #1b1b2f;
+      --color-footer-text: #cccccc;
+      --color-footer-link: #a8c8ff;
+      --color-table-header-bg: #f0f3f8;
+      --color-table-border: #d0d7de;
+      --color-table-row-alt: #fafbfc;
+      --color-table-row-hover: #f0f5ff;
+      --color-table-row-monthly: #eef3fa;
+      --color-table-row-monthly-hover: #dde8f7;
+      --color-table-row-sep: #eef0f3;
+      --color-score-bg: #f0f5ff;
+      --color-score-border: #c6d9ff;
+      --color-score-value: #0050b3;
+      --color-score-label: #555555;
+      --color-code-bg: #eef0f3;
+      --color-modal-border: #cccccc;
+      --color-axe-item-bg: #fef9f9;
+      --color-axe-item-border: #d9534f;
+      --color-axe-pre-bg: #f5f5f5;
+      --color-finding-border: #e0e0e0;
+      --color-wcag-text: #444444;
+      --color-badge-bg: #f0f3f8;
+      --color-badge-border: #c6d9ff;
+      --color-badge-text: #003d8a;
+      --color-badge-hover: #dde8f7;
+      --color-tooltip-bg: #1b1b2f;
+      --color-tooltip-text: #f0f3f8;
+      --color-tooltip-border: #555555;
+      --color-copy-btn-bg: #f0f3f8;
+      --color-copy-btn-border: #c6d9ff;
+      --color-copy-btn-text: #0050b3;
+      --color-copy-btn-hover: #dde8f7;
+      --color-copied-bg: #d4edda;
+      --color-copied-border: #28a745;
+      --color-copied-text: #155724;
+    }
+
+    /* ---------- Dark mode (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) {
+        color-scheme: dark;
+        --color-bg: #0d1117;
+        --color-surface: #161b22;
+        --color-text: #e6edf3;
+        --color-text-muted: #8b949e;
+        --color-primary: #58a6ff;
+        --color-primary-hover: #79b8ff;
+        --color-link: #58a6ff;
+        --color-link-hover: #79b8ff;
+        --color-shadow: rgba(0, 0, 0, 0.3);
+        --color-header-bg: #161b22;
+        --color-header-text: #e6edf3;
+        --color-header-nav: #8b949e;
+        --color-footer-bg: #0d1117;
+        --color-footer-text: #8b949e;
+        --color-footer-link: #58a6ff;
+        --color-table-header-bg: #21262d;
+        --color-table-border: #30363d;
+        --color-table-row-alt: #161b22;
+        --color-table-row-hover: #1c2128;
+        --color-table-row-monthly: #1c2128;
+        --color-table-row-monthly-hover: #21262d;
+        --color-table-row-sep: #21262d;
+        --color-score-bg: #1c2128;
+        --color-score-border: #30363d;
+        --color-score-value: #58a6ff;
+        --color-score-label: #8b949e;
+        --color-code-bg: #21262d;
+        --color-modal-border: #30363d;
+        --color-axe-item-bg: #1a0d0d;
+        --color-axe-item-border: #f85149;
+        --color-axe-pre-bg: #161b22;
+        --color-finding-border: #30363d;
+        --color-wcag-text: #8b949e;
+        --color-badge-bg: #1c2128;
+        --color-badge-border: #30363d;
+        --color-badge-text: #58a6ff;
+        --color-badge-hover: #21262d;
+        --color-tooltip-bg: #f0f3f8;
+        --color-tooltip-text: #1b1b1b;
+        --color-tooltip-border: #8b949e;
+        --color-copy-btn-bg: #1c2128;
+        --color-copy-btn-border: #30363d;
+        --color-copy-btn-text: #58a6ff;
+        --color-copy-btn-hover: #21262d;
+        --color-copied-bg: #1a3728;
+        --color-copied-border: #2ea043;
+        --color-copied-text: #56d364;
+      }
+    }
+
+    /* ---------- Dark mode (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] {
+      color-scheme: dark;
+      --color-bg: #0d1117;
+      --color-surface: #161b22;
+      --color-text: #e6edf3;
+      --color-text-muted: #8b949e;
+      --color-primary: #58a6ff;
+      --color-primary-hover: #79b8ff;
+      --color-link: #58a6ff;
+      --color-link-hover: #79b8ff;
+      --color-shadow: rgba(0, 0, 0, 0.3);
+      --color-header-bg: #161b22;
+      --color-header-text: #e6edf3;
+      --color-header-nav: #8b949e;
+      --color-footer-bg: #0d1117;
+      --color-footer-text: #8b949e;
+      --color-footer-link: #58a6ff;
+      --color-table-header-bg: #21262d;
+      --color-table-border: #30363d;
+      --color-table-row-alt: #161b22;
+      --color-table-row-hover: #1c2128;
+      --color-table-row-monthly: #1c2128;
+      --color-table-row-monthly-hover: #21262d;
+      --color-table-row-sep: #21262d;
+      --color-score-bg: #1c2128;
+      --color-score-border: #30363d;
+      --color-score-value: #58a6ff;
+      --color-score-label: #8b949e;
+      --color-code-bg: #21262d;
+      --color-modal-border: #30363d;
+      --color-axe-item-bg: #1a0d0d;
+      --color-axe-item-border: #f85149;
+      --color-axe-pre-bg: #161b22;
+      --color-finding-border: #30363d;
+      --color-wcag-text: #8b949e;
+      --color-badge-bg: #1c2128;
+      --color-badge-border: #30363d;
+      --color-badge-text: #58a6ff;
+      --color-badge-hover: #21262d;
+      --color-tooltip-bg: #f0f3f8;
+      --color-tooltip-text: #1b1b1b;
+      --color-tooltip-border: #8b949e;
+      --color-copy-btn-bg: #1c2128;
+      --color-copy-btn-border: #30363d;
+      --color-copy-btn-text: #58a6ff;
+      --color-copy-btn-hover: #21262d;
+      --color-copied-bg: #1a3728;
+      --color-copied-border: #2ea043;
+      --color-copied-text: #56d364;
+    }
+
+    /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) .score-performance {
+        background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-accessibility {
+        background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-best-practices {
+        background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-seo {
+        background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-cwv-good         { background-color: hsl(50 60% 22%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+    }
+
+    /* ---------- Dark mode score color gradient overrides (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] .score-performance {
+      background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-accessibility {
+      background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-best-practices {
+      background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-seo {
+      background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-cwv-good         { background-color: hsl(50 60% 22%); }
+    html[data-color-scheme="dark"] .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+    html[data-color-scheme="dark"] .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+
+    /* ---------- Light mode (explicit user preference, overrides dark OS) ---------- */
+    html[data-color-scheme="light"] { color-scheme: light; }
+
     /* ---------- Reset / base ---------- */
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -15,11 +222,14 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
       font-size: 1rem;
       line-height: 1.6;
-      color: #1b1b1b;
-      background: #f5f7fa;
+      color: var(--color-text);
+      background: var(--color-bg);
     }
-    a { color: #0050b3; }
-    a:hover { color: #003d8a; }
+    a { color: var(--color-link); text-decoration: underline; }
+    a:hover { color: var(--color-link-hover); }
+    /* Explicit inherit prevents any injected theme CSS (e.g. legacy GitHub Pages Jekyll Minima
+       color: #797979) from producing insufficient contrast on bold/strong text. */
+    strong, b { color: inherit; }
     h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.25rem; }
@@ -42,16 +252,29 @@
     .heading-anchor:focus { opacity: 1; }
 
     ul { padding-left: 1.5rem; }
-    code { font-size: 0.875em; background: #eef0f3; padding: 0.1em 0.35em; border-radius: 3px; }
+    code { font-size: 0.875em; background: var(--color-code-bg); padding: 0.1em 0.35em; border-radius: 3px; }
     pre code { background: none; padding: 0; }
+
+    /* ---------- Screen-reader only utility ---------- */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
     /* ---------- Skip link ---------- */
     .skip-link {
       position: absolute;
       top: -100%;
       left: 0;
-      background: #0050b3;
-      color: #fff;
+      background: var(--color-primary);
+      color: var(--color-header-text);
       padding: 0.5rem 1rem;
       z-index: 9999;
       font-weight: bold;
@@ -60,8 +283,8 @@
 
     /* ---------- Site header ---------- */
     .site-header {
-      background: #0050b3;
-      color: #fff;
+      background: var(--color-header-bg);
+      color: var(--color-header-text);
       padding: 0.75rem 1rem;
     }
     .site-header-inner {
@@ -76,15 +299,41 @@
     .site-header .site-title {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--color-header-text);
       text-decoration: none;
       letter-spacing: 0.01em;
     }
     .site-header .site-title:hover { text-decoration: underline; }
     .site-header nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-    .site-header nav a { color: #d4e4ff; text-decoration: none; font-size: 0.9rem; }
-    .site-header nav a:hover { color: #fff; text-decoration: underline; }
+    .site-header nav a { color: var(--color-header-nav); text-decoration: none; font-size: 0.9rem; }
+    .site-header nav a:hover { color: var(--color-header-text); text-decoration: underline; }
     .github-link::before { content: ""; }
+
+    /* ---------- Theme toggle ---------- */
+    .theme-toggle,
+    .print-btn {
+      background: transparent;
+      border: 1px solid var(--color-header-nav);
+      border-radius: 4px;
+      color: var(--color-header-nav);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.6rem;
+      min-height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover,
+    .theme-toggle[aria-pressed="true"],
+    .print-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--color-header-text);
+      border-color: var(--color-header-text);
+    }
+    .theme-toggle:focus-visible,
+    .print-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
 
     /* ---------- Main wrapper ---------- */
     .site-main {
@@ -93,22 +342,22 @@
       padding: 1.5rem 1rem 3rem;
     }
     .page-intro {
-      background: #fff;
+      background: var(--color-surface);
       border-radius: 6px;
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.5rem;
-      border-left: 4px solid #0050b3;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border-left: 4px solid var(--color-primary);
+      box-shadow: 0 1px 3px var(--color-shadow);
     }
     .page-intro h1 { margin-top: 0; }
 
     /* ---------- Content cards ---------- */
     section {
-      background: #fff;
+      background: var(--color-surface);
       border-radius: 6px;
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.25rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      box-shadow: 0 1px 3px var(--color-shadow);
     }
     section > h2:first-of-type { margin-top: 0; }
 
@@ -120,14 +369,14 @@
       margin: 1rem 0;
     }
     .score-card {
-      background: #f0f5ff;
-      border: 1px solid #c6d9ff;
+      background: var(--color-score-bg);
+      border: 1px solid var(--color-score-border);
       border-radius: 6px;
       padding: 0.75rem 1rem;
       text-align: center;
     }
-    .score-card .score-label { font-size: 0.78rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
-    .score-card .score-value { font-size: 2rem; font-weight: 700; color: #0050b3; line-height: 1.1; }
+    .score-card .score-label { font-size: 0.78rem; color: var(--color-score-label); text-transform: uppercase; letter-spacing: 0.05em; }
+    .score-card .score-value { font-size: 2rem; font-weight: 700; color: var(--color-score-value); line-height: 1.1; }
 
     /* ---------- Tables ---------- */
     .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -139,19 +388,19 @@
     th, td {
       text-align: left;
       padding: 0.5rem 0.75rem;
-      border: 1px solid #d0d7de;
+      border: 1px solid var(--color-table-border);
       vertical-align: top;
     }
     th {
-      background: #f0f3f8;
+      background: var(--color-table-header-bg);
       font-weight: 600;
       white-space: nowrap;
     }
     th.wrap-header { white-space: normal; min-width: 5rem; overflow-wrap: anywhere; }
-    tbody tr:nth-child(even) { background: #fafbfc; }
-    tbody tr:hover { background: #f0f5ff; }
-    tr.monthly-avg { background: #eef3fa; font-weight: 600; }
-    tr.monthly-avg:hover { background: #dde8f7; }
+    tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+    tbody tr:hover { background: var(--color-table-row-hover); }
+    tr.monthly-avg { background: var(--color-table-row-monthly); font-weight: 600; }
+    tr.monthly-avg:hover { background: var(--color-table-row-monthly-hover); }
 
     /* ---------- Sortable column headers ---------- */
     .sort-btn {
@@ -163,7 +412,7 @@
       color: inherit;
       padding: 0;
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.3em;
       white-space: inherit;
     }
@@ -171,14 +420,14 @@
     th[aria-sort="ascending"] .sort-btn::after { content: '↑'; opacity: 1; }
     th[aria-sort="descending"] .sort-btn::after { content: '↓'; opacity: 1; }
     .sort-btn:hover { text-decoration: underline; }
-    .sort-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; border-radius: 2px; }
+    .sort-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; border-radius: 2px; }
 
     /* ---------- Buttons ---------- */
     .details-btn {
-      background: #0050b3;
+      background: var(--color-primary);
       border: none;
       border-radius: 4px;
-      color: #fff;
+      color: var(--color-header-text);
       cursor: pointer;
       font-size: 0.875rem;
       padding: 0.5rem 0.75rem;
@@ -187,18 +436,20 @@
       display: inline-flex;
       align-items: center;
     }
-    .details-btn:hover { background: #003d8a; }
-    .details-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .details-btn:hover { background: var(--color-primary-hover); }
+    .details-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
 
     /* ---------- Modals ---------- */
     .axe-modal {
-      border: 1px solid #ccc;
+      border: 1px solid var(--color-modal-border);
       border-radius: 6px;
       padding: 1.5rem;
       max-width: 800px;
       width: 90vw;
       max-height: 85vh;
       overflow-y: auto;
+      background: var(--color-surface);
+      color: var(--color-text);
     }
     .axe-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
     .modal-header {
@@ -211,7 +462,7 @@
     .modal-header h2 { margin: 0; }
     .modal-close {
       background: none;
-      border: 1px solid #ccc;
+      border: 1px solid var(--color-modal-border);
       border-radius: 4px;
       cursor: pointer;
       font-size: 1.2rem;
@@ -221,37 +472,214 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      color: var(--color-text);
     }
-    .modal-close:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
+    .modal-close:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
     .modal-footer { margin-top: 1rem; text-align: right; }
     .axe-item {
-      border-left: 3px solid #d9534f;
+      border-left: 3px solid var(--color-axe-item-border);
       margin: 0.5rem 0;
       padding: 0.5rem 0.75rem;
-      background: #fef9f9;
+      background: var(--color-axe-item-bg);
     }
     .axe-item pre {
-      background: #f5f5f5;
+      background: var(--color-axe-pre-bg);
       padding: 0.5rem;
       overflow-x: auto;
       font-size: 0.85em;
     }
     .finding-detail {
       padding: 0.5rem 1rem;
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--color-finding-border);
       margin-top: 0.25rem;
     }
     .fix-list { margin: 0.25rem 0 0.5rem 1.5rem; padding: 0; }
     .fix-list li { margin: 0.2rem 0; }
-    .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: #444; }
+    .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: var(--color-wcag-text); }
+    /* Disability icon badges (replacing FPC abbreviation codes) */
+    .disability-badges { display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center; }
+    .disability-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      padding: 0.15rem 0.3rem;
+      border-radius: 4px;
+      background: var(--color-badge-bg);
+      border: 1px solid var(--color-badge-border);
+      color: var(--color-badge-text);
+      line-height: 1;
+      cursor: help;
+      text-decoration: none;
+      position: relative;
+    }
+    .disability-badge:hover { background: var(--color-badge-hover); }
+    .disability-badge:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .disability-icon { display: block; vertical-align: middle; }
+    .disability-estimate {
+      font-size: 0.65rem;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    /* ARIA tooltip for disability badges */
+    .disability-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 280px;
+      min-width: 160px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .disability-badge:hover .disability-tooltip,
+    .disability-badge:focus-within .disability-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .disability-badge[data-tooltip-dismissed] .disability-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .disability-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* URL count tooltip (URLs affected column in axe patterns table) */
+    .url-count-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .url-count-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .url-count-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .url-count-trigger:hover .url-count-tooltip,
+    .url-count-trigger:focus-within .url-count-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .url-count-trigger[data-tooltip-dismissed] .url-count-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .url-count-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Performance load-time tooltip (Performance column in top-URLs table) */
+    .perf-time-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .perf-time-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .perf-time-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .perf-time-trigger:hover .perf-time-tooltip,
+    .perf-time-trigger:focus-within .perf-time-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .perf-time-trigger[data-tooltip-dismissed] .perf-time-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .perf-time-tooltip { transition: opacity 0.15s ease; }
+    }
+    .disability-legend {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.4rem 0.75rem;
+      align-items: center;
+      margin: 0.5rem 0;
+    }
+    .disability-legend dt { display: flex; align-items: center; justify-content: center; }
+    .disability-legend dd { margin: 0; }
+    .fpc-prevalence { font-size: 0.85em; color: var(--color-text-muted); white-space: nowrap; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- History chart ---------- */
+    .history-chart-figure { margin: 0.5rem 0 1rem; overflow-x: auto; }
+    .history-chart-figure svg { min-width: 320px; }
+
+    /* ---------- Axe policy narratives ---------- */
+    .axe-narratives-details { margin: 1rem 0; }
+    .axe-narratives-details > summary { font-weight: 600; }
+    .axe-narrative {
+      border-left: 4px solid var(--color-focus-ring);
+      margin: 1rem 0;
+      padding: 0.5rem 0 0.5rem 1rem;
+    }
+    .axe-narrative-title { margin: 0 0 0.4rem; font-size: 1rem; }
+    .axe-narrative-body { margin: 0 0 0.5rem; }
+    .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
+    .axe-demographics li { margin-bottom: 0.15rem; }
 
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
-      background: #f0f3f8;
-      border: 1px solid #c6d9ff;
+      background: var(--color-copy-btn-bg);
+      border: 1px solid var(--color-copy-btn-border);
       border-radius: 4px;
-      color: #0050b3;
+      color: var(--color-copy-btn-text);
       cursor: pointer;
       font-size: 0.875rem;
       padding: 0.5rem 0.75rem;
@@ -261,22 +689,121 @@
       display: inline-flex;
       align-items: center;
     }
-    .copy-finding-btn:hover { background: #dde8f7; border-color: #0050b3; }
-    .copy-finding-btn:focus-visible { outline: 3px solid #ffbe2e; outline-offset: 2px; }
-    .copy-finding-btn.copied { background: #d4edda; border-color: #28a745; color: #155724; }
+    .copy-finding-btn:hover { background: var(--color-copy-btn-hover); border-color: var(--color-primary); }
+    .copy-finding-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .copy-finding-btn.copied { background: var(--color-copied-bg); border-color: var(--color-copied-border); color: var(--color-copied-text); }
+
+    /* ---------- Score color gradient cells ---------- */
+    /* Numeric score columns: background lightness driven by --score (0–100) */
+    /* Light mode: near-white at 0, vivid tint at 100 */
+    .score-performance {
+      background-color: hsl(270 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-accessibility {
+      background-color: hsl(140 50% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-best-practices {
+      background-color: hsl(210 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-seo {
+      background-color: hsl(28 80% calc((93 - var(--score, 0) * 0.15) * 1%));
+    }
+
+    /* CWV column: three fixed yellow tints (good → needs improvement → poor) */
+    .score-cwv-good         { background-color: hsl(50 75% 78%); }
+    .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
+    .score-cwv-poor         { background-color: hsl(50 50% 92%); }
+
+    /* ---------- Technology badges ---------- */
+    .tech-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.1em 0.4em;
+      border-radius: 0.25em;
+      white-space: nowrap;
+    }
+    .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="light"] .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    html[data-color-scheme="light"] .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
 
     /* ---------- URL cells ---------- */
     .url-cell {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 320px;
+      max-width: 180px;
+      position: relative;
     }
+    .url-cell:hover,
+    .url-cell:focus-within {
+      overflow: visible;
+      position: relative;
+      z-index: 2;
+    }
+    .url-cell:hover a,
+    .url-cell:focus-within a {
+      background: var(--color-table-row-hover);
+      padding-right: 0.25rem;
+      box-shadow: 2px 0 4px var(--color-shadow);
+    }
+
+    /* ---------- Column header info tooltips ---------- */
+    .col-has-info { position: relative; }
+    .col-info-anchor {
+      display: inline-block;
+      position: relative;
+      margin-left: 0.25rem;
+      color: var(--color-text-muted);
+      font-size: 0.85em;
+      cursor: help;
+      vertical-align: middle;
+    }
+    .col-info-anchor:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; border-radius: 50%; }
+    .col-info-icon { font-style: normal; }
+    .col-subhead { font-size: 0.85em; font-weight: normal; white-space: nowrap; }
+    .col-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 260px;
+      min-width: 160px;
+      z-index: 200;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .col-info-anchor:hover .col-tooltip,
+    .col-info-anchor:focus-within .col-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .col-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Severe count styling inside accessibility cell */
+    .severe-count { color: var(--color-text-muted); font-size: 0.9em; }
 
     /* ---------- Site footer ---------- */
     .site-footer {
-      background: #1b1b2f;
-      color: #ccc;
+      background: var(--color-footer-bg);
+      color: var(--color-footer-text);
       padding: 1.5rem 1rem;
       font-size: 0.875rem;
     }
@@ -289,8 +816,8 @@
       justify-content: space-between;
       align-items: center;
     }
-    .site-footer a { color: #a8c8ff; }
-    .site-footer a:hover { color: #fff; }
+    .site-footer a { color: var(--color-footer-link); text-decoration: underline; }
+    .site-footer a:hover { color: var(--color-header-text); }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 640px) {
@@ -310,6 +837,109 @@
       }
       .site-main { padding: 1rem 0.75rem 2rem; }
       section { padding: 1rem; }
+
+      /* Stacked card layout for the wide top-URLs table */
+      #top-urls-table thead { display: none; }
+      #top-urls-table tbody tr {
+        display: block;
+        border: 1px solid var(--color-table-border);
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        padding: 0.25rem 0;
+        background: var(--color-surface);
+      }
+      #top-urls-table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+      #top-urls-table td {
+        display: flex;
+        border: none;
+        border-bottom: 1px solid var(--color-table-row-sep);
+        padding: 0.4rem 0.75rem;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+      #top-urls-table td:last-child { border-bottom: none; }
+      #top-urls-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--color-text-muted);
+        min-width: 8.5rem;
+        flex-shrink: 0;
+        font-size: 0.8rem;
+      }
+      #top-urls-table .url-cell {
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+    }
+
+    /* ---------- Print / Save as PDF ---------- */
+    .print-only { display: none; }
+    .print-dashboard-notice {
+      background: #f0f4ff;
+      border: 1px solid #c0ccee;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+
+    @media print {
+      /* Hide interactive / navigational chrome */
+      .skip-link,
+      .site-header nav,
+      .theme-toggle,
+      .print-btn,
+      .details-btn,
+      .sort-btn,
+      .copy-finding-btn,
+      dialog,
+      .axe-modal,
+      .anchor-link { display: none !important; }
+
+      /* Show print-only elements (e.g., dashboard URL notice) */
+      .print-only { display: block !important; }
+
+      /* Basic page setup */
+      @page { margin: 1.5cm; }
+
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+      }
+
+      /* Make the header readable in black-and-white */
+      .site-header {
+        background: #000 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Keep score cards readable */
+      .score-card {
+        border: 1px solid #ccc;
+        background: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Avoid page breaks inside key content blocks */
+      section, .score-grid, .page-intro { break-inside: avoid; }
+
+      /* Expand truncated URL cells for print */
+      .url-cell {
+        max-width: none !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+      }
+
+      /* Remove table hover styles that rely on color */
+      tr:hover { background: inherit !important; }
+
+      a[href]::after { content: none; }
     }
   </style>
 </head>
@@ -318,20 +948,2742 @@
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="site-header" role="banner">
   <div class="site-header-inner">
-    <span class="site-title">Daily DAP</span>
+    <a class="site-title" href="../../index.html">Daily DAP</a>
     <nav aria-label="Site navigation">
+      <a href="../../index.html">Dashboard</a>
       <a class="github-link" href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">GitHub</a>
+      <button class="print-btn" type="button" onclick="window.print()" aria-label="Print or save as PDF">
+        <span aria-hidden="true">&#128424;</span> Print / Save as PDF
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Enable dark mode">
+        <span aria-hidden="true">&#127769;</span> Dark mode
+      </button>
     </nav>
   </div>
 </header>
-  <main id="main-content" class="site-main" data-archived="true">
+  <div class="print-only print-dashboard-notice">
+    <p>This report was generated by Daily DAP. For the latest report and interactive dashboard, visit: <a href="https://mgifford.github.io/daily-dap/docs/reports/index.html">https://mgifford.github.io/daily-dap/docs/reports/index.html</a></p>
+  </div>
+  <main id="main-content" class="site-main">
     <div class="page-intro">
-      <h1 id="page-title">Report Archived</h1>
-      <p>The Daily DAP report for <strong>2026-02-25</strong> has been archived and is available as a downloadable zip file.</p>
-      <p><a href="../../archive/index.html">View report archives &rarr;</a></p>
-      <p><a href="../../index.html">&larr; Back to dashboard</a></p>
+      <h1 id="page-title">Daily DAP Accessibility Report &mdash; 2026-02-25<a href="#page-title" class="heading-anchor" aria-label="Link to Daily DAP Accessibility Report — 2026-02-25"><span aria-hidden="true">#</span></a></h1>
+      <p>Run ID: run-2026-02-25-53f9c6e0ce &middot; Status: partial &middot; Source data: 2026-02-24 &middot; Generated: 2026-02-25T20:21:40.830Z</p>
     </div>
+
+    
+  <section aria-labelledby="dap-context-heading">
+    <h2 id="dap-context-heading">About These Reports<a href="#dap-context-heading" class="heading-anchor" aria-label="Link to About These Reports"><span aria-hidden="true">#</span></a></h2>
+    <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
+    <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
+    <ul>
+      <li><strong>Performance</strong> - How fast pages load for users (scores 0-100, higher is better)</li>
+      <li><strong>Accessibility</strong> - How well pages work for users with disabilities, following WCAG guidelines (scores 0-100, higher is better)</li>
+      <li><strong>Best Practices</strong> - Whether pages follow modern web development standards (scores 0-100, higher is better)</li>
+      <li><strong>SEO</strong> - How well pages are optimized for search engines (scores 0-100, higher is better)</li>
+    </ul>
+    <p>Accessibility findings come from <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>, the industry-standard accessibility testing engine embedded in Lighthouse. The <strong>axe findings</strong> surface specific WCAG violations such as missing alternative text, insufficient color contrast, and missing form labels that make government websites harder to use for people with disabilities.</p>
+    <p>Traffic data reflects daily visitor counts from DAP. URLs are ranked by page load count, ensuring the most-used government pages are prioritized for quality measurement.</p>
+  </section>
+
+    
+
+    
+
+    
+
+    
+
+    <section aria-labelledby="scores-heading">
+      <h2 id="scores-heading">Aggregate Scores<a href="#scores-heading" class="heading-anchor" aria-label="Link to Aggregate Scores"><span aria-hidden="true">#</span></a></h2>
+      <p><strong>Scanner notice:</strong> All scans failed with execution errors, so Lighthouse scores are unavailable for this run. This usually indicates the runtime browser dependency for Lighthouse was unavailable during execution.</p>
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-label">Performance</div>
+          <div class="score-value">0</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Accessibility</div>
+          <div class="score-value">0</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Best Practices</div>
+          <div class="score-value">0</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">SEO</div>
+          <div class="score-value">0</div>
+        </div>
+      </div>
+      <ul>
+        <li>Processed: 500</li>
+        <li>Succeeded: 0</li>
+        <li>Failed: 500</li>
+        <li>Excluded: 0</li>
+      </ul>
+    </section>
+
+    
+  <h2 id="estimated-impact-heading">Estimated Impact (daily)<a href="#estimated-impact-heading" class="heading-anchor" aria-label="Link to Estimated Impact (daily)"><span aria-hidden="true">#</span></a></h2>
+  <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>
+
+    
+
+    
+
+    <section aria-labelledby="history-heading">
+      <h2 id="history-heading">History<a href="#history-heading" class="heading-anchor" aria-label="Link to History"><span aria-hidden="true">#</span></a></h2>
+      
+      <p><a href="lighthouse-history.csv">Download full Lighthouse history CSV</a> &middot; For the average comparison, see the <a href="#day-comparison-heading">Comparison with Average</a> section above.</p>
+      <div class="table-scroll"><table>
+        <caption>Daily aggregate Lighthouse scores (14 most-recent days)</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
+        <tbody>
+          
+        </tbody>
+      </table></div>
+    </section>
+
+    <section aria-labelledby="top-urls-heading">
+      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)<a href="#top-urls-heading" class="heading-anchor" aria-label="Link to Top URLs by Traffic (Scanned)"><span aria-hidden="true">#</span></a></h2>
+      <p>Showing up to 100 highest-traffic URLs from the latest available DAP day in this run.</p>
+      <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). The <strong>Accessibility / Important</strong> column shows the Lighthouse accessibility score; if Critical or Serious axe findings exist the count appears after the slash (e.g.&nbsp;94&thinsp;/&thinsp;2). Click <strong>Details&nbsp;(N)</strong> to view WCAG accessibility findings for each URL.</p>
+      <p><a href="axe-findings.json">Download axe findings JSON for this day</a> | <a href="axe-findings.csv">Download axe findings CSV for this day</a></p>
+      <div class="table-scroll"><table id="top-urls-table">
+        <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
+        <thead>
+          <tr>
+            <th scope="col" data-sort-col="0" aria-sort="none"><button class="sort-btn">URL</button></th>
+            <th scope="col" data-sort-col="1" aria-sort="none"><button class="sort-btn">Traffic</button></th>
+            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">CWV</button></th>
+            <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">Performance</button></th>
+            <th scope="col" data-sort-col="4" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
+            <th scope="col">Axe details</th>
+            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
+            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
+            <th scope="col">Technologies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+  <td class="url-cell" data-label="URL"><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></td>
+  <td data-label="Traffic">10936888</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-0">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://irs.gov" target="_blank" rel="noreferrer">https://irs.gov</a></td>
+  <td data-label="Traffic">5658032</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-1">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://pmc.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pmc.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">5236601</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-2">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubmed.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">5006367</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-3">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://(other)" target="_blank" rel="noreferrer">https://(other)</a></td>
+  <td data-label="Traffic">3517669</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-4">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">2948979</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-5">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://forecast.weather.gov" target="_blank" rel="noreferrer">https://forecast.weather.gov</a></td>
+  <td data-label="Traffic">2267349</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-6">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://secure.login.gov" target="_blank" rel="noreferrer">https://secure.login.gov</a></td>
+  <td data-label="Traffic">2115424</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-7">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usps.com" target="_blank" rel="noreferrer">https://usps.com</a></td>
+  <td data-label="Traffic">2101091</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-8">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://informeddelivery.usps.com" target="_blank" rel="noreferrer">https://informeddelivery.usps.com</a></td>
+  <td data-label="Traffic">1809723</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-9">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://tsdr.uspto.gov" target="_blank" rel="noreferrer">https://tsdr.uspto.gov</a></td>
+  <td data-label="Traffic">1699558</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-10">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://justice.gov" target="_blank" rel="noreferrer">https://justice.gov</a></td>
+  <td data-label="Traffic">1530011</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-11">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ssa.gov" target="_blank" rel="noreferrer">https://ssa.gov</a></td>
+  <td data-label="Traffic">1363434</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-12">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://va.gov" target="_blank" rel="noreferrer">https://va.gov</a></td>
+  <td data-label="Traffic">1206600</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-13">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://secure.ssa.gov" target="_blank" rel="noreferrer">https://secure.ssa.gov</a></td>
+  <td data-label="Traffic">1135462</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-14">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></td>
+  <td data-label="Traffic">1046082</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-15">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://weather.gov" target="_blank" rel="noreferrer">https://weather.gov</a></td>
+  <td data-label="Traffic">881550</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-16">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cdc.gov" target="_blank" rel="noreferrer">https://cdc.gov</a></td>
+  <td data-label="Traffic">876442</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-17">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></td>
+  <td data-label="Traffic">868671</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-18">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></td>
+  <td data-label="Traffic">645546</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-19">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://medlineplus.gov" target="_blank" rel="noreferrer">https://medlineplus.gov</a></td>
+  <td data-label="Traffic">634780</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-20">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usajobs.gov" target="_blank" rel="noreferrer">https://usajobs.gov</a></td>
+  <td data-label="Traffic">594500</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-21">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://science.nasa.gov" target="_blank" rel="noreferrer">https://science.nasa.gov</a></td>
+  <td data-label="Traffic">581627</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-22">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nps.gov" target="_blank" rel="noreferrer">https://nps.gov</a></td>
+  <td data-label="Traffic">562536</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-23">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://reg.usps.com" target="_blank" rel="noreferrer">https://reg.usps.com</a></td>
+  <td data-label="Traffic">492840</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-24">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.va.gov" target="_blank" rel="noreferrer">https://www.va.gov</a></td>
+  <td data-label="Traffic">477851</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-25">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://myaccount.uscis.gov" target="_blank" rel="noreferrer">https://myaccount.uscis.gov</a></td>
+  <td data-label="Traffic">476776</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-26">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ais.usvisa-info.com" target="_blank" rel="noreferrer">https://ais.usvisa-info.com</a></td>
+  <td data-label="Traffic">475218</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-27">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://webbook.nist.gov" target="_blank" rel="noreferrer">https://webbook.nist.gov</a></td>
+  <td data-label="Traffic">455466</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-28">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://egov.uscis.gov" target="_blank" rel="noreferrer">https://egov.uscis.gov</a></td>
+  <td data-label="Traffic">441605</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-29">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ofac.treasury.gov" target="_blank" rel="noreferrer">https://ofac.treasury.gov</a></td>
+  <td data-label="Traffic">407882</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-30">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://sec.gov" target="_blank" rel="noreferrer">https://sec.gov</a></td>
+  <td data-label="Traffic">371990</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-31">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></td>
+  <td data-label="Traffic">362796</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-32">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://tsp.gov" target="_blank" rel="noreferrer">https://tsp.gov</a></td>
+  <td data-label="Traffic">362208</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-33">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fda.gov" target="_blank" rel="noreferrer">https://fda.gov</a></td>
+  <td data-label="Traffic">355788</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-34">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nasa.gov" target="_blank" rel="noreferrer">https://nasa.gov</a></td>
+  <td data-label="Traffic">347982</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-35">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://americanenglish.state.gov" target="_blank" rel="noreferrer">https://americanenglish.state.gov</a></td>
+  <td data-label="Traffic">343678</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-36">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://medicare.gov" target="_blank" rel="noreferrer">https://medicare.gov</a></td>
+  <td data-label="Traffic">320107</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-37">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://mx.usembassy.gov" target="_blank" rel="noreferrer">https://mx.usembassy.gov</a></td>
+  <td data-label="Traffic">316352</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-38">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ecfr.gov" target="_blank" rel="noreferrer">https://ecfr.gov</a></td>
+  <td data-label="Traffic">310312</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-39">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://catalog.data.gov" target="_blank" rel="noreferrer">https://catalog.data.gov</a></td>
+  <td data-label="Traffic">306068</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-40">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fas.usda.gov" target="_blank" rel="noreferrer">https://fas.usda.gov</a></td>
+  <td data-label="Traffic">294669</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-41">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://radar.weather.gov" target="_blank" rel="noreferrer">https://radar.weather.gov</a></td>
+  <td data-label="Traffic">277430</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-42">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://clinicaltrials.gov" target="_blank" rel="noreferrer">https://clinicaltrials.gov</a></td>
+  <td data-label="Traffic">274099</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-43">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://esta.cbp.dhs.gov" target="_blank" rel="noreferrer">https://esta.cbp.dhs.gov</a></td>
+  <td data-label="Traffic">263208</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-44">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fsa.usda.gov" target="_blank" rel="noreferrer">https://fsa.usda.gov</a></td>
+  <td data-label="Traffic">262694</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-45">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cisa.gov" target="_blank" rel="noreferrer">https://cisa.gov</a></td>
+  <td data-label="Traffic">259242</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-46">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://my.uscis.gov" target="_blank" rel="noreferrer">https://my.uscis.gov</a></td>
+  <td data-label="Traffic">254040</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-47">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://tsa.gov" target="_blank" rel="noreferrer">https://tsa.gov</a></td>
+  <td data-label="Traffic">248299</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-48">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usa.gov" target="_blank" rel="noreferrer">https://usa.gov</a></td>
+  <td data-label="Traffic">238487</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-49">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://home.treasury.gov" target="_blank" rel="noreferrer">https://home.treasury.gov</a></td>
+  <td data-label="Traffic">225551</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-50">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://healthcare.gov" target="_blank" rel="noreferrer">https://healthcare.gov</a></td>
+  <td data-label="Traffic">224820</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-51">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usitc.gov" target="_blank" rel="noreferrer">https://usitc.gov</a></td>
+  <td data-label="Traffic">217821</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-52">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ncei.noaa.gov" target="_blank" rel="noreferrer">https://ncei.noaa.gov</a></td>
+  <td data-label="Traffic">216468</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-53">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://bls.gov" target="_blank" rel="noreferrer">https://bls.gov</a></td>
+  <td data-label="Traffic">212931</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-54">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://dea.gov" target="_blank" rel="noreferrer">https://dea.gov</a></td>
+  <td data-label="Traffic">212420</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-55">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://epa.gov" target="_blank" rel="noreferrer">https://epa.gov</a></td>
+  <td data-label="Traffic">212309</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-56">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cms.gov" target="_blank" rel="noreferrer">https://cms.gov</a></td>
+  <td data-label="Traffic">210987</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-57">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.usajobs.gov" target="_blank" rel="noreferrer">https://www.usajobs.gov</a></td>
+  <td data-label="Traffic">200650</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-58">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://opm.gov" target="_blank" rel="noreferrer">https://opm.gov</a></td>
+  <td data-label="Traffic">196577</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-59">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubchem.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">194795</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-60">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://login.gov" target="_blank" rel="noreferrer">https://login.gov</a></td>
+  <td data-label="Traffic">191083</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-61">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://sam.gov" target="_blank" rel="noreferrer">https://sam.gov</a></td>
+  <td data-label="Traffic">190086</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-62">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://acis.eoir.justice.gov" target="_blank" rel="noreferrer">https://acis.eoir.justice.gov</a></td>
+  <td data-label="Traffic">187263</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-63">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cbp.gov" target="_blank" rel="noreferrer">https://cbp.gov</a></td>
+  <td data-label="Traffic">187106</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-64">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://dhs.gov" target="_blank" rel="noreferrer">https://dhs.gov</a></td>
+  <td data-label="Traffic">187099</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-65">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://blast.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://blast.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">185144</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-66">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></td>
+  <td data-label="Traffic">184363</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-67">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></td>
+  <td data-label="Traffic">182490</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-68">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fs.usda.gov" target="_blank" rel="noreferrer">https://fs.usda.gov</a></td>
+  <td data-label="Traffic">173490</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-69">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://acquisition.gov" target="_blank" rel="noreferrer">https://acquisition.gov</a></td>
+  <td data-label="Traffic">167378</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-70">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://store.usps.com" target="_blank" rel="noreferrer">https://store.usps.com</a></td>
+  <td data-label="Traffic">167280</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-71">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fbi.gov" target="_blank" rel="noreferrer">https://fbi.gov</a></td>
+  <td data-label="Traffic">166845</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-72">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nsopw.gov" target="_blank" rel="noreferrer">https://nsopw.gov</a></td>
+  <td data-label="Traffic">163300</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-73">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://search.usa.gov" target="_blank" rel="noreferrer">https://search.usa.gov</a></td>
+  <td data-label="Traffic">159741</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-74">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://eeoc.gov" target="_blank" rel="noreferrer">https://eeoc.gov</a></td>
+  <td data-label="Traffic">157734</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-75">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://accessdata.fda.gov" target="_blank" rel="noreferrer">https://accessdata.fda.gov</a></td>
+  <td data-label="Traffic">157728</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-76">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://archives.gov" target="_blank" rel="noreferrer">https://archives.gov</a></td>
+  <td data-label="Traffic">157678</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-77">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://osha.gov" target="_blank" rel="noreferrer">https://osha.gov</a></td>
+  <td data-label="Traffic">155107</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-78">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://earthquake.usgs.gov" target="_blank" rel="noreferrer">https://earthquake.usgs.gov</a></td>
+  <td data-label="Traffic">152780</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-79">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cancer.gov" target="_blank" rel="noreferrer">https://cancer.gov</a></td>
+  <td data-label="Traffic">152770</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-80">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.dol.gov" target="_blank" rel="noreferrer">https://www.dol.gov</a></td>
+  <td data-label="Traffic">149684</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-81">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://historyhub.history.gov" target="_blank" rel="noreferrer">https://historyhub.history.gov</a></td>
+  <td data-label="Traffic">148147</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-82">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://mynasadata.larc.nasa.gov" target="_blank" rel="noreferrer">https://mynasadata.larc.nasa.gov</a></td>
+  <td data-label="Traffic">148032</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-83">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fec.gov" target="_blank" rel="noreferrer">https://fec.gov</a></td>
+  <td data-label="Traffic">146663</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-84">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://federalregister.gov" target="_blank" rel="noreferrer">https://federalregister.gov</a></td>
+  <td data-label="Traffic">144798</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-85">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></td>
+  <td data-label="Traffic">143962</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-86">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://search.justice.gov" target="_blank" rel="noreferrer">https://search.justice.gov</a></td>
+  <td data-label="Traffic">141332</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-87">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://sandia.gov" target="_blank" rel="noreferrer">https://sandia.gov</a></td>
+  <td data-label="Traffic">141267</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-88">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usgs.gov" target="_blank" rel="noreferrer">https://usgs.gov</a></td>
+  <td data-label="Traffic">140943</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-89">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://state.gov" target="_blank" rel="noreferrer">https://state.gov</a></td>
+  <td data-label="Traffic">138831</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-90">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://gsa.gov" target="_blank" rel="noreferrer">https://gsa.gov</a></td>
+  <td data-label="Traffic">138325</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-91">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ttp.cbp.dhs.gov" target="_blank" rel="noreferrer">https://ttp.cbp.dhs.gov</a></td>
+  <td data-label="Traffic">137071</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-92">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://osti.gov" target="_blank" rel="noreferrer">https://osti.gov</a></td>
+  <td data-label="Traffic">132974</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-93">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://uspto.gov" target="_blank" rel="noreferrer">https://uspto.gov</a></td>
+  <td data-label="Traffic">128118</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-94">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://i94.cbp.dhs.gov" target="_blank" rel="noreferrer">https://i94.cbp.dhs.gov</a></td>
+  <td data-label="Traffic">127571</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-95">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://about.usps.com" target="_blank" rel="noreferrer">https://about.usps.com</a></td>
+  <td data-label="Traffic">126803</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-96">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://aviationweather.gov" target="_blank" rel="noreferrer">https://aviationweather.gov</a></td>
+  <td data-label="Traffic">126064</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-97">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://portal.cms.gov" target="_blank" rel="noreferrer">https://portal.cms.gov</a></td>
+  <td data-label="Traffic">126063</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-98">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ornl.gov" target="_blank" rel="noreferrer">https://ornl.gov</a></td>
+  <td data-label="Traffic">124161</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-99">Details</button></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    
+
+    
+  <section aria-labelledby="cta-heading">
+    <h2 id="cta-heading">Take Action<a href="#cta-heading" class="heading-anchor" aria-label="Link to Take Action"><span aria-hidden="true">#</span></a></h2>
+    <p>Here is how you can help improve accessibility on U.S. government websites.</p>
+    <ul>
+      <li><strong>Read the federal accessibility report.</strong> The <a href="https://www.section508.gov/manage/section-508-assessment/2025/message-from-gsa-administrator/" target="_blank" rel="noreferrer">2025 Governmentwide Section 508 Assessment</a> from the GSA Administrator details the state of federal accessibility compliance and the steps agencies are taking to improve.</li>
+      <li><strong>Submit URLs you care about.</strong> Want specific government pages included in future scans? <a href="https://mgifford.github.io/open-scans/" target="_blank" rel="noreferrer">Submit them to the Open Scans project</a> to help broaden coverage.</li>
+      <li><strong>Test with free tools.</strong> Do your own automated and manual accessibility testing with <a href="https://accessibilityinsights.io/" target="_blank" rel="noreferrer">Accessibility Insights</a> and <a href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?pli=1" target="_blank" rel="noreferrer">Google Lighthouse</a>. Automated tools catch a significant portion of WCAG failures quickly; manual review with assistive technologies catches the rest.</li>
+      <li><strong>Adopt and update the U.S. Web Design System (USWDS).</strong> The <a href="https://designsystem.digital.gov/" target="_blank" rel="noreferrer">USWDS</a> is already a strong foundation for accessible, consistent federal websites, but many agencies have not adopted it or are running outdated versions. Encourage your agency to adopt or upgrade so every American benefits from its accessibility work.</li>
+      <li><strong>Hire people with disabilities.</strong> People with disabilities are the ultimate experts on digital barriers. Bringing them into design, engineering, and testing teams &mdash; not just as consultants but as full-time employees &mdash; leads to more accessible products and services for everyone.</li>
+    </ul>
+  </section>
   </main>
+
+  
+<dialog id="modal-url-0" aria-labelledby="modal-url-0-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-0-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-0">&#x2715;</button>
+  </div>
+  <p><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-0">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-1" aria-labelledby="modal-url-1-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-1-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-1">&#x2715;</button>
+  </div>
+  <p><a href="https://irs.gov" target="_blank" rel="noreferrer">https://irs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-1">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-2" aria-labelledby="modal-url-2-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-2-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-2">&#x2715;</button>
+  </div>
+  <p><a href="https://pmc.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pmc.ncbi.nlm.nih.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-2">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-3" aria-labelledby="modal-url-3-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-3-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-3">&#x2715;</button>
+  </div>
+  <p><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubmed.ncbi.nlm.nih.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-3">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-4" aria-labelledby="modal-url-4-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-4-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-4">&#x2715;</button>
+  </div>
+  <p><a href="https://(other)" target="_blank" rel="noreferrer">https://(other)</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-4">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-5" aria-labelledby="modal-url-5-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-5-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-5">&#x2715;</button>
+  </div>
+  <p><a href="https://ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://ncbi.nlm.nih.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-5">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-6" aria-labelledby="modal-url-6-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-6-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-6">&#x2715;</button>
+  </div>
+  <p><a href="https://forecast.weather.gov" target="_blank" rel="noreferrer">https://forecast.weather.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-6">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-7" aria-labelledby="modal-url-7-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-7-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-7">&#x2715;</button>
+  </div>
+  <p><a href="https://secure.login.gov" target="_blank" rel="noreferrer">https://secure.login.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-7">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-8" aria-labelledby="modal-url-8-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-8-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-8">&#x2715;</button>
+  </div>
+  <p><a href="https://usps.com" target="_blank" rel="noreferrer">https://usps.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-8">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-9" aria-labelledby="modal-url-9-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-9-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-9">&#x2715;</button>
+  </div>
+  <p><a href="https://informeddelivery.usps.com" target="_blank" rel="noreferrer">https://informeddelivery.usps.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-9">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-10" aria-labelledby="modal-url-10-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-10-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-10">&#x2715;</button>
+  </div>
+  <p><a href="https://tsdr.uspto.gov" target="_blank" rel="noreferrer">https://tsdr.uspto.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-10">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-11" aria-labelledby="modal-url-11-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-11-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-11">&#x2715;</button>
+  </div>
+  <p><a href="https://justice.gov" target="_blank" rel="noreferrer">https://justice.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-11">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-12" aria-labelledby="modal-url-12-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-12-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-12">&#x2715;</button>
+  </div>
+  <p><a href="https://ssa.gov" target="_blank" rel="noreferrer">https://ssa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-12">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-13" aria-labelledby="modal-url-13-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-13-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-13">&#x2715;</button>
+  </div>
+  <p><a href="https://va.gov" target="_blank" rel="noreferrer">https://va.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-13">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-14" aria-labelledby="modal-url-14-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-14-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-14">&#x2715;</button>
+  </div>
+  <p><a href="https://secure.ssa.gov" target="_blank" rel="noreferrer">https://secure.ssa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-14">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-15" aria-labelledby="modal-url-15-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-15-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-15">&#x2715;</button>
+  </div>
+  <p><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-15">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-16" aria-labelledby="modal-url-16-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-16-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-16">&#x2715;</button>
+  </div>
+  <p><a href="https://weather.gov" target="_blank" rel="noreferrer">https://weather.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-16">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-17" aria-labelledby="modal-url-17-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-17-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-17">&#x2715;</button>
+  </div>
+  <p><a href="https://cdc.gov" target="_blank" rel="noreferrer">https://cdc.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-17">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-18" aria-labelledby="modal-url-18-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-18-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-18">&#x2715;</button>
+  </div>
+  <p><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-18">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-19" aria-labelledby="modal-url-19-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-19-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-19">&#x2715;</button>
+  </div>
+  <p><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-19">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-20" aria-labelledby="modal-url-20-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-20-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-20">&#x2715;</button>
+  </div>
+  <p><a href="https://medlineplus.gov" target="_blank" rel="noreferrer">https://medlineplus.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-20">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-21" aria-labelledby="modal-url-21-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-21-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-21">&#x2715;</button>
+  </div>
+  <p><a href="https://usajobs.gov" target="_blank" rel="noreferrer">https://usajobs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-21">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-22" aria-labelledby="modal-url-22-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-22-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-22">&#x2715;</button>
+  </div>
+  <p><a href="https://science.nasa.gov" target="_blank" rel="noreferrer">https://science.nasa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-22">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-23" aria-labelledby="modal-url-23-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-23-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-23">&#x2715;</button>
+  </div>
+  <p><a href="https://nps.gov" target="_blank" rel="noreferrer">https://nps.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-23">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-24" aria-labelledby="modal-url-24-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-24-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-24">&#x2715;</button>
+  </div>
+  <p><a href="https://reg.usps.com" target="_blank" rel="noreferrer">https://reg.usps.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-24">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-25" aria-labelledby="modal-url-25-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-25-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-25">&#x2715;</button>
+  </div>
+  <p><a href="https://www.va.gov" target="_blank" rel="noreferrer">https://www.va.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-25">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-26" aria-labelledby="modal-url-26-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-26-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-26">&#x2715;</button>
+  </div>
+  <p><a href="https://myaccount.uscis.gov" target="_blank" rel="noreferrer">https://myaccount.uscis.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-26">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-27" aria-labelledby="modal-url-27-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-27-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-27">&#x2715;</button>
+  </div>
+  <p><a href="https://ais.usvisa-info.com" target="_blank" rel="noreferrer">https://ais.usvisa-info.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-27">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-28" aria-labelledby="modal-url-28-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-28-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-28">&#x2715;</button>
+  </div>
+  <p><a href="https://webbook.nist.gov" target="_blank" rel="noreferrer">https://webbook.nist.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-28">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-29" aria-labelledby="modal-url-29-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-29-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-29">&#x2715;</button>
+  </div>
+  <p><a href="https://egov.uscis.gov" target="_blank" rel="noreferrer">https://egov.uscis.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-29">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-30" aria-labelledby="modal-url-30-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-30-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-30">&#x2715;</button>
+  </div>
+  <p><a href="https://ofac.treasury.gov" target="_blank" rel="noreferrer">https://ofac.treasury.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-30">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-31" aria-labelledby="modal-url-31-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-31-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-31">&#x2715;</button>
+  </div>
+  <p><a href="https://sec.gov" target="_blank" rel="noreferrer">https://sec.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-31">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-32" aria-labelledby="modal-url-32-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-32-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-32">&#x2715;</button>
+  </div>
+  <p><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-32">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-33" aria-labelledby="modal-url-33-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-33-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-33">&#x2715;</button>
+  </div>
+  <p><a href="https://tsp.gov" target="_blank" rel="noreferrer">https://tsp.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-33">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-34" aria-labelledby="modal-url-34-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-34-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-34">&#x2715;</button>
+  </div>
+  <p><a href="https://fda.gov" target="_blank" rel="noreferrer">https://fda.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-34">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-35" aria-labelledby="modal-url-35-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-35-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-35">&#x2715;</button>
+  </div>
+  <p><a href="https://nasa.gov" target="_blank" rel="noreferrer">https://nasa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-35">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-36" aria-labelledby="modal-url-36-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-36-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-36">&#x2715;</button>
+  </div>
+  <p><a href="https://americanenglish.state.gov" target="_blank" rel="noreferrer">https://americanenglish.state.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-36">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-37" aria-labelledby="modal-url-37-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-37-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-37">&#x2715;</button>
+  </div>
+  <p><a href="https://medicare.gov" target="_blank" rel="noreferrer">https://medicare.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-37">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-38" aria-labelledby="modal-url-38-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-38-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-38">&#x2715;</button>
+  </div>
+  <p><a href="https://mx.usembassy.gov" target="_blank" rel="noreferrer">https://mx.usembassy.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-38">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-39" aria-labelledby="modal-url-39-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-39-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-39">&#x2715;</button>
+  </div>
+  <p><a href="https://ecfr.gov" target="_blank" rel="noreferrer">https://ecfr.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-39">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-40" aria-labelledby="modal-url-40-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-40-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-40">&#x2715;</button>
+  </div>
+  <p><a href="https://catalog.data.gov" target="_blank" rel="noreferrer">https://catalog.data.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-40">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-41" aria-labelledby="modal-url-41-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-41-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-41">&#x2715;</button>
+  </div>
+  <p><a href="https://fas.usda.gov" target="_blank" rel="noreferrer">https://fas.usda.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-41">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-42" aria-labelledby="modal-url-42-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-42-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-42">&#x2715;</button>
+  </div>
+  <p><a href="https://radar.weather.gov" target="_blank" rel="noreferrer">https://radar.weather.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-42">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-43" aria-labelledby="modal-url-43-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-43-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-43">&#x2715;</button>
+  </div>
+  <p><a href="https://clinicaltrials.gov" target="_blank" rel="noreferrer">https://clinicaltrials.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-43">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-44" aria-labelledby="modal-url-44-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-44-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-44">&#x2715;</button>
+  </div>
+  <p><a href="https://esta.cbp.dhs.gov" target="_blank" rel="noreferrer">https://esta.cbp.dhs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-44">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-45" aria-labelledby="modal-url-45-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-45-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-45">&#x2715;</button>
+  </div>
+  <p><a href="https://fsa.usda.gov" target="_blank" rel="noreferrer">https://fsa.usda.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-45">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-46" aria-labelledby="modal-url-46-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-46-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-46">&#x2715;</button>
+  </div>
+  <p><a href="https://cisa.gov" target="_blank" rel="noreferrer">https://cisa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-46">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-47" aria-labelledby="modal-url-47-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-47-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-47">&#x2715;</button>
+  </div>
+  <p><a href="https://my.uscis.gov" target="_blank" rel="noreferrer">https://my.uscis.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-47">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-48" aria-labelledby="modal-url-48-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-48-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-48">&#x2715;</button>
+  </div>
+  <p><a href="https://tsa.gov" target="_blank" rel="noreferrer">https://tsa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-48">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-49" aria-labelledby="modal-url-49-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-49-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-49">&#x2715;</button>
+  </div>
+  <p><a href="https://usa.gov" target="_blank" rel="noreferrer">https://usa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-49">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-50" aria-labelledby="modal-url-50-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-50-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-50">&#x2715;</button>
+  </div>
+  <p><a href="https://home.treasury.gov" target="_blank" rel="noreferrer">https://home.treasury.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-50">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-51" aria-labelledby="modal-url-51-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-51-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-51">&#x2715;</button>
+  </div>
+  <p><a href="https://healthcare.gov" target="_blank" rel="noreferrer">https://healthcare.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-51">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-52" aria-labelledby="modal-url-52-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-52-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-52">&#x2715;</button>
+  </div>
+  <p><a href="https://usitc.gov" target="_blank" rel="noreferrer">https://usitc.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-52">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-53" aria-labelledby="modal-url-53-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-53-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-53">&#x2715;</button>
+  </div>
+  <p><a href="https://ncei.noaa.gov" target="_blank" rel="noreferrer">https://ncei.noaa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-53">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-54" aria-labelledby="modal-url-54-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-54-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-54">&#x2715;</button>
+  </div>
+  <p><a href="https://bls.gov" target="_blank" rel="noreferrer">https://bls.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-54">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-55" aria-labelledby="modal-url-55-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-55-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-55">&#x2715;</button>
+  </div>
+  <p><a href="https://dea.gov" target="_blank" rel="noreferrer">https://dea.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-55">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-56" aria-labelledby="modal-url-56-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-56-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-56">&#x2715;</button>
+  </div>
+  <p><a href="https://epa.gov" target="_blank" rel="noreferrer">https://epa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-56">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-57" aria-labelledby="modal-url-57-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-57-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-57">&#x2715;</button>
+  </div>
+  <p><a href="https://cms.gov" target="_blank" rel="noreferrer">https://cms.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-57">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-58" aria-labelledby="modal-url-58-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-58-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-58">&#x2715;</button>
+  </div>
+  <p><a href="https://www.usajobs.gov" target="_blank" rel="noreferrer">https://www.usajobs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-58">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-59" aria-labelledby="modal-url-59-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-59-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-59">&#x2715;</button>
+  </div>
+  <p><a href="https://opm.gov" target="_blank" rel="noreferrer">https://opm.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-59">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-60" aria-labelledby="modal-url-60-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-60-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-60">&#x2715;</button>
+  </div>
+  <p><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubchem.ncbi.nlm.nih.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-60">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-61" aria-labelledby="modal-url-61-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-61-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-61">&#x2715;</button>
+  </div>
+  <p><a href="https://login.gov" target="_blank" rel="noreferrer">https://login.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-61">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-62" aria-labelledby="modal-url-62-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-62-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-62">&#x2715;</button>
+  </div>
+  <p><a href="https://sam.gov" target="_blank" rel="noreferrer">https://sam.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-62">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-63" aria-labelledby="modal-url-63-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-63-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-63">&#x2715;</button>
+  </div>
+  <p><a href="https://acis.eoir.justice.gov" target="_blank" rel="noreferrer">https://acis.eoir.justice.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-63">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-64" aria-labelledby="modal-url-64-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-64-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-64">&#x2715;</button>
+  </div>
+  <p><a href="https://cbp.gov" target="_blank" rel="noreferrer">https://cbp.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-64">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-65" aria-labelledby="modal-url-65-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-65-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-65">&#x2715;</button>
+  </div>
+  <p><a href="https://dhs.gov" target="_blank" rel="noreferrer">https://dhs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-65">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-66" aria-labelledby="modal-url-66-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-66-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-66">&#x2715;</button>
+  </div>
+  <p><a href="https://blast.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://blast.ncbi.nlm.nih.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-66">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-67" aria-labelledby="modal-url-67-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-67-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-67">&#x2715;</button>
+  </div>
+  <p><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-67">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-68" aria-labelledby="modal-url-68-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-68-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-68">&#x2715;</button>
+  </div>
+  <p><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-68">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-69" aria-labelledby="modal-url-69-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-69-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-69">&#x2715;</button>
+  </div>
+  <p><a href="https://fs.usda.gov" target="_blank" rel="noreferrer">https://fs.usda.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-69">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-70" aria-labelledby="modal-url-70-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-70-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-70">&#x2715;</button>
+  </div>
+  <p><a href="https://acquisition.gov" target="_blank" rel="noreferrer">https://acquisition.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-70">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-71" aria-labelledby="modal-url-71-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-71-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-71">&#x2715;</button>
+  </div>
+  <p><a href="https://store.usps.com" target="_blank" rel="noreferrer">https://store.usps.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-71">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-72" aria-labelledby="modal-url-72-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-72-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-72">&#x2715;</button>
+  </div>
+  <p><a href="https://fbi.gov" target="_blank" rel="noreferrer">https://fbi.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-72">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-73" aria-labelledby="modal-url-73-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-73-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-73">&#x2715;</button>
+  </div>
+  <p><a href="https://nsopw.gov" target="_blank" rel="noreferrer">https://nsopw.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-73">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-74" aria-labelledby="modal-url-74-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-74-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-74">&#x2715;</button>
+  </div>
+  <p><a href="https://search.usa.gov" target="_blank" rel="noreferrer">https://search.usa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-74">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-75" aria-labelledby="modal-url-75-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-75-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-75">&#x2715;</button>
+  </div>
+  <p><a href="https://eeoc.gov" target="_blank" rel="noreferrer">https://eeoc.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-75">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-76" aria-labelledby="modal-url-76-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-76-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-76">&#x2715;</button>
+  </div>
+  <p><a href="https://accessdata.fda.gov" target="_blank" rel="noreferrer">https://accessdata.fda.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-76">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-77" aria-labelledby="modal-url-77-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-77-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-77">&#x2715;</button>
+  </div>
+  <p><a href="https://archives.gov" target="_blank" rel="noreferrer">https://archives.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-77">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-78" aria-labelledby="modal-url-78-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-78-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-78">&#x2715;</button>
+  </div>
+  <p><a href="https://osha.gov" target="_blank" rel="noreferrer">https://osha.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-78">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-79" aria-labelledby="modal-url-79-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-79-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-79">&#x2715;</button>
+  </div>
+  <p><a href="https://earthquake.usgs.gov" target="_blank" rel="noreferrer">https://earthquake.usgs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-79">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-80" aria-labelledby="modal-url-80-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-80-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-80">&#x2715;</button>
+  </div>
+  <p><a href="https://cancer.gov" target="_blank" rel="noreferrer">https://cancer.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-80">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-81" aria-labelledby="modal-url-81-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-81-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-81">&#x2715;</button>
+  </div>
+  <p><a href="https://www.dol.gov" target="_blank" rel="noreferrer">https://www.dol.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-81">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-82" aria-labelledby="modal-url-82-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-82-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-82">&#x2715;</button>
+  </div>
+  <p><a href="https://historyhub.history.gov" target="_blank" rel="noreferrer">https://historyhub.history.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-82">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-83" aria-labelledby="modal-url-83-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-83-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-83">&#x2715;</button>
+  </div>
+  <p><a href="https://mynasadata.larc.nasa.gov" target="_blank" rel="noreferrer">https://mynasadata.larc.nasa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-83">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-84" aria-labelledby="modal-url-84-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-84-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-84">&#x2715;</button>
+  </div>
+  <p><a href="https://fec.gov" target="_blank" rel="noreferrer">https://fec.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-84">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-85" aria-labelledby="modal-url-85-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-85-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-85">&#x2715;</button>
+  </div>
+  <p><a href="https://federalregister.gov" target="_blank" rel="noreferrer">https://federalregister.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-85">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-86" aria-labelledby="modal-url-86-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-86-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-86">&#x2715;</button>
+  </div>
+  <p><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-86">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-87" aria-labelledby="modal-url-87-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-87-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-87">&#x2715;</button>
+  </div>
+  <p><a href="https://search.justice.gov" target="_blank" rel="noreferrer">https://search.justice.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-87">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-88" aria-labelledby="modal-url-88-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-88-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-88">&#x2715;</button>
+  </div>
+  <p><a href="https://sandia.gov" target="_blank" rel="noreferrer">https://sandia.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-88">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-89" aria-labelledby="modal-url-89-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-89-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-89">&#x2715;</button>
+  </div>
+  <p><a href="https://usgs.gov" target="_blank" rel="noreferrer">https://usgs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-89">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-90" aria-labelledby="modal-url-90-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-90-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-90">&#x2715;</button>
+  </div>
+  <p><a href="https://state.gov" target="_blank" rel="noreferrer">https://state.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-90">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-91" aria-labelledby="modal-url-91-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-91-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-91">&#x2715;</button>
+  </div>
+  <p><a href="https://gsa.gov" target="_blank" rel="noreferrer">https://gsa.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-91">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-92" aria-labelledby="modal-url-92-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-92-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-92">&#x2715;</button>
+  </div>
+  <p><a href="https://ttp.cbp.dhs.gov" target="_blank" rel="noreferrer">https://ttp.cbp.dhs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-92">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-93" aria-labelledby="modal-url-93-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-93-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-93">&#x2715;</button>
+  </div>
+  <p><a href="https://osti.gov" target="_blank" rel="noreferrer">https://osti.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-93">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-94" aria-labelledby="modal-url-94-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-94-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-94">&#x2715;</button>
+  </div>
+  <p><a href="https://uspto.gov" target="_blank" rel="noreferrer">https://uspto.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-94">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-95" aria-labelledby="modal-url-95-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-95-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-95">&#x2715;</button>
+  </div>
+  <p><a href="https://i94.cbp.dhs.gov" target="_blank" rel="noreferrer">https://i94.cbp.dhs.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-95">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-96" aria-labelledby="modal-url-96-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-96-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-96">&#x2715;</button>
+  </div>
+  <p><a href="https://about.usps.com" target="_blank" rel="noreferrer">https://about.usps.com</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-96">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-97" aria-labelledby="modal-url-97-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-97-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-97">&#x2715;</button>
+  </div>
+  <p><a href="https://aviationweather.gov" target="_blank" rel="noreferrer">https://aviationweather.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-97">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-98" aria-labelledby="modal-url-98-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-98-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-98">&#x2715;</button>
+  </div>
+  <p><a href="https://portal.cms.gov" target="_blank" rel="noreferrer">https://portal.cms.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-98">Close</button>
+  </div>
+</dialog>
+
+<dialog id="modal-url-99" aria-labelledby="modal-url-99-title" aria-modal="true" class="axe-modal">
+  <div class="modal-header">
+    <h2 id="modal-url-99-title">Accessibility Findings</h2>
+    <button class="modal-close" aria-label="Close dialog" data-close-modal="modal-url-99">&#x2715;</button>
+  </div>
+  <p><a href="https://ornl.gov" target="_blank" rel="noreferrer">https://ornl.gov</a></p>
+  <p>Lighthouse Accessibility Score: —</p>
+  <p>Axe findings: 0</p>
+  <p>No accessibility findings from this scan.</p>
+  <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
+  <div class="modal-footer">
+    <button aria-label="Close dialog" data-close-modal="modal-url-99">Close</button>
+  </div>
+</dialog>
 
   
 <footer class="site-footer" role="contentinfo">
@@ -340,5 +3692,168 @@
     <p><a href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="https://github.com/mgifford/daily-dap/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
   </div>
 </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var dialog = document.getElementById(btn.dataset.openModal);
+          if (dialog) { dialog.showModal(); }
+        });
+      });
+      document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var modalId = btn.dataset.closeModal;
+          var dialog = document.getElementById(modalId);
+          if (dialog) {
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      // Close modal when clicking the backdrop (outside the dialog content)
+      document.querySelectorAll('.axe-modal').forEach(function (dialog) {
+        dialog.addEventListener('click', function (e) {
+          if (e.target === dialog) {
+            var modalId = dialog.id;
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      document.querySelectorAll('[data-copy-text]').forEach(function (btn) {
+        // The 'click' event fires for both mouse clicks and keyboard activation (Enter/Space)
+        // on <button> elements, so keyboard users receive the same visual feedback.
+        btn.addEventListener('click', function () {
+          var text = btn.dataset.copyText;
+          if (!navigator.clipboard) { return; }
+          navigator.clipboard.writeText(text).then(function () {
+            var original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = original;
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+        });
+      });
+
+      // Sortable top-URLs table
+      (function () {
+        var table = document.getElementById('top-urls-table');
+        if (!table) { return; }
+        var tbody = table.querySelector('tbody');
+        var currentCol = -1;
+        var currentDir = 'none';
+        // Columns whose values are numeric (Traffic, Performance, Accessibility/Important, Best Practices, SEO)
+        var numericCols = [1, 3, 4, 6, 7];
+
+        function getCellText(row, col) {
+          var cells = row.querySelectorAll('td');
+          if (!cells[col]) { return ''; }
+          // Prefer explicit sort value when present (e.g. combined accessibility/important cell)
+          var sortVal = cells[col].dataset.sortValue;
+          if (sortVal !== undefined) { return sortVal; }
+          return cells[col].textContent.trim();
+        }
+
+        function sortTable(col, dir) {
+          table.querySelectorAll('th[data-sort-col]').forEach(function (th) {
+            th.setAttribute('aria-sort', 'none');
+          });
+          var th = table.querySelector('th[data-sort-col="' + col + '"]');
+          if (th) { th.setAttribute('aria-sort', dir); }
+          currentCol = col;
+          currentDir = dir;
+
+          var isNumeric = numericCols.indexOf(col) !== -1;
+          var rows = Array.from(tbody.querySelectorAll('tr'));
+          rows.sort(function (a, b) {
+            var aVal = getCellText(a, col);
+            var bVal = getCellText(b, col);
+            var cmp;
+            if (isNumeric) {
+              var aNum = parseFloat(aVal.replace(/[^0-9.-]/g, ''));
+              var bNum = parseFloat(bVal.replace(/[^0-9.-]/g, ''));
+              aNum = isNaN(aNum) ? -Infinity : aNum;
+              bNum = isNaN(bNum) ? -Infinity : bNum;
+              cmp = aNum - bNum;
+            } else {
+              cmp = aVal.localeCompare(bVal);
+            }
+            return dir === 'ascending' ? cmp : -cmp;
+          });
+          rows.forEach(function (row) { tbody.appendChild(row); });
+        }
+
+        table.querySelectorAll('th[data-sort-col]').forEach(function (th) {
+          var btn = th.querySelector('.sort-btn');
+          if (!btn) { return; }
+          btn.addEventListener('click', function () {
+            var col = parseInt(th.dataset.sortCol, 10);
+            var dir = (currentCol === col && currentDir === 'ascending') ? 'descending' : 'ascending';
+            sortTable(col, dir);
+          });
+        });
+      }());
+    });
+  </script>
+  
+  <div id="theme-announcement" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <script>
+    (function () {
+      var html = document.documentElement;
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) { return; }
+      function isDark() {
+        var scheme = html.getAttribute('data-color-scheme');
+        if (scheme === 'dark') { return true; }
+        if (scheme === 'light') { return false; }
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      function updateButton() {
+        var dark = isDark();
+        btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+        btn.setAttribute('aria-label', dark ? 'Disable dark mode' : 'Enable dark mode');
+      }
+      updateButton();
+      btn.addEventListener('click', function () {
+        var next = isDark() ? 'light' : 'dark';
+        html.setAttribute('data-color-scheme', next);
+        localStorage.setItem('color-scheme', next);
+        updateButton();
+        var announcement = document.getElementById('theme-announcement');
+        if (announcement) {
+          announcement.textContent = next === 'dark' ? 'Dark mode enabled.' : 'Light mode enabled.';
+        }
+      });
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+          if (!html.hasAttribute('data-color-scheme')) { updateButton(); }
+        });
+      }
+    }());
+  </script>
+  <script>
+    (function () {
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var el = document.activeElement;
+          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
+            el.dataset.tooltipDismissed = 'true';
+          }
+        }
+      });
+      document.addEventListener('focusout', function (e) {
+        var el = e.target;
+        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
+          delete el.dataset.tooltipDismissed;
+        }
+      });
+    }());
+  </script>
 </body>
 </html>

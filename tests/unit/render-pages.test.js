@@ -1725,7 +1725,56 @@ test('link-in-text-block: dark mode link color uses high-contrast value', () => 
   );
 });
 
-// ── Score color gradient tests ──────────────────────────────────────────────
+// ── color-contrast: strong/bold text color regression tests ─────────────────
+// Regression guard for: <strong>File not found</strong> with foreground #797979 on
+// background #f1f1f1 (contrast 3.85:1 < WCAG AA 4.5:1 for bold 16 px text).
+// Root cause: the legacy GitHub Pages Jekyll Minima theme applied color: #797979
+// to all text including <strong> elements, with background #f1f1f1.
+// Fix: (a) .nojekyll disables Jekyll so no theme CSS is injected; (b) our inline
+// CSS sets body { color: var(--color-text) } with --color-text: #1b1b1b (~17:1 on
+// light backgrounds); (c) strong, b { color: inherit } prevents any injected
+// theme rule from overriding the inherited high-contrast color.
+
+test('color-contrast: dashboard page light-mode --color-text is high-contrast dark value', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('--color-text: #1b1b1b'),
+    'Light mode --color-text must be #1b1b1b (contrast >4.5:1 against all light backgrounds) to prevent regression to low-contrast Minima theme #797979'
+  );
+});
+
+test('color-contrast: daily report page light-mode --color-text is high-contrast dark value', () => {
+  const html = renderDailyReportPage({
+    run_date: '2026-03-20', run_id: 'test', url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 90, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [], top_urls: [], generated_at: '2026-03-20T00:00:00.000Z', report_status: 'success'
+  });
+
+  assert.ok(
+    html.includes('--color-text: #1b1b1b'),
+    'Daily report page light mode --color-text must be #1b1b1b to prevent low-contrast strong element regression'
+  );
+});
+
+test('color-contrast: 404 page light-mode --color-text is high-contrast dark value', () => {
+  const html = render404Page();
+
+  assert.ok(
+    html.includes('--color-text: #1b1b1b'),
+    '404 page light mode --color-text must be #1b1b1b to prevent low-contrast strong element regression'
+  );
+});
+
+test('color-contrast: strong elements use color:inherit to prevent theme override', () => {
+  const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
+
+  assert.ok(
+    html.includes('strong, b { color: inherit; }'),
+    'CSS must include strong, b { color: inherit } to prevent legacy Jekyll Minima theme #797979 from overriding strong element color'
+  );
+});
 
 const makeScoreReport = (overrides = {}) => ({
   run_date: '2026-03-16',
