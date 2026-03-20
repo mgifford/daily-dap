@@ -1,5 +1,6 @@
 import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-fpc-mapping.js';
 import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
+import { getPolicyNarrative } from '../data/axe-impact-loader.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 
@@ -693,6 +694,19 @@ function renderSharedStyles() {
     .disability-legend dd { margin: 0; }
     .fpc-prevalence { font-size: 0.85em; color: var(--color-text-muted); white-space: nowrap; }
     details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- Axe policy narratives ---------- */
+    .axe-narratives-details { margin: 1rem 0; }
+    .axe-narratives-details > summary { font-weight: 600; }
+    .axe-narrative {
+      border-left: 4px solid var(--color-focus-ring);
+      margin: 1rem 0;
+      padding: 0.5rem 0 0.5rem 1rem;
+    }
+    .axe-narrative-title { margin: 0 0 0.4rem; font-size: 1rem; }
+    .axe-narrative-body { margin: 0 0 0.5rem; }
+    .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
+    .axe-demographics li { margin-bottom: 0.15rem; }
 
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
@@ -1593,6 +1607,33 @@ function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
   return `<span class="disability-badges">${badges}</span>`;
 }
 
+function renderAxePolicyNarratives(topPatterns) {
+  const entries = topPatterns
+    .map((p) => {
+      const narrative = getPolicyNarrative(p.id);
+      if (!narrative) return '';
+      const demographics = Array.isArray(narrative.affected_demographics)
+        ? `<ul class="axe-demographics">${narrative.affected_demographics.map((d) => `<li>${escapeHtml(d)}</li>`).join('')}</ul>`
+        : '';
+      return `<div class="axe-narrative">
+      <h3 class="axe-narrative-title"><code>${escapeHtml(p.id)}</code>: ${escapeHtml(narrative.title)}</h3>
+      <p class="axe-narrative-body">${escapeHtml(narrative.why_it_matters.trim())}</p>
+      ${demographics ? `<p><strong>Affected groups:</strong></p>${demographics}` : ''}
+    </div>`;
+    })
+    .filter(Boolean)
+    .join('\n');
+
+  if (!entries) return '';
+
+  return `
+    <details class="axe-narratives-details">
+      <summary>Human impact narratives for top issues</summary>
+      <p>The following narratives describe the real-world impact of each accessibility barrier on people with disabilities. These barriers are not abstract technical failures; they prevent citizens from independently accessing government services.</p>
+      ${entries}
+    </details>`;
+}
+
 function renderAxePatternsSection(topUrls = []) {
   const patterns = buildAxePatternCounts(topUrls);
 
@@ -1628,6 +1669,7 @@ function renderAxePatternsSection(topUrls = []) {
         ${rows}
       </tbody>
     </table>`)}
+    ${renderAxePolicyNarratives(topPatterns)}
     <details>
       <summary>Disability icon key</summary>
       <dl class="disability-legend">

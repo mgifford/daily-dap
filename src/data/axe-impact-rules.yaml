@@ -1,0 +1,1367 @@
+# Axe-core accessibility rule impact mappings.
+#
+# This file maps each axe-core rule ID to a technical summary and a policy narrative
+# describing the human impact of the accessibility barrier.
+#
+# Sources:
+#   - axe-core 4.11 rules: https://dequeuniversity.com/rules/axe/html/4.11
+#   - U.S. Census Bureau ACS 2022 disability prevalence data
+#   - Section 508 Functional Performance Criteria: https://www.section508.gov/develop/mapping-wcag-to-fpc/
+#
+# Review schedule: This data should be checked every 6 months to verify
+# alignment with the latest axe-core release.
+#
+# Current axe-core version: 4.11
+# Last updated: 2026-03-20
+# Next review date: 2026-09-20
+
+metadata:
+  axe_version: "4.11"
+  last_updated: "2026-03-20"
+  next_review_date: "2026-09-20"
+  source_url: "https://dequeuniversity.com/rules/axe/html/4.11"
+
+rules:
+  - rule_id: "area-alt"
+    technical_summary: "Active <area> elements in image maps must have alternative text."
+    policy_narrative:
+      title: "Image Map Navigation Access"
+      why_it_matters: >
+        Image maps without alternative text are completely invisible to screen readers
+        and keyboard-only users. Citizens who are blind or deaf-blind cannot discover,
+        read, or activate these links, effectively locking them out of that page's
+        navigation or content entirely.
+      affected_demographics:
+        - People who are blind or have severe visual impairment
+        - People who are deaf-blind using braille displays
+        - People who use keyboard-only navigation
+
+  - rule_id: "aria-allowed-attr"
+    technical_summary: "Elements must only use ARIA attributes that are valid for their role."
+    policy_narrative:
+      title: "Assistive Technology Reliability"
+      why_it_matters: >
+        Invalid ARIA attributes cause assistive technologies to misinterpret or
+        malfunction on interactive controls. For screen reader users navigating
+        complex government forms or applications, broken ARIA creates unpredictable
+        behavior that can make tasks impossible to complete, denying access to
+        essential services.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text assistive tools
+        - People with motor disabilities using switch access or voice control
+
+  - rule_id: "aria-allowed-role"
+    technical_summary: "Elements must only use ARIA roles appropriate for their HTML element type."
+    policy_narrative:
+      title: "Semantic Interface Integrity"
+      why_it_matters: >
+        Mismatched ARIA roles mislead assistive technologies about an element's
+        function, causing users with disabilities to interact with controls
+        incorrectly. When a button is announced as a link, or a heading as a
+        paragraph, screen reader users lose their mental model of the page,
+        increasing cognitive load and preventing task completion.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "aria-command-name"
+    technical_summary: "Every ARIA button, link, and menuitem must have an accessible name."
+    policy_narrative:
+      title: "Interactive Control Labeling"
+      why_it_matters: >
+        Unnamed interactive controls leave blind users unable to determine what
+        a button, link, or menu item does. On government websites with complex
+        navigation or application interfaces, unlabeled controls force users into
+        a guessing game that often ends in failure, preventing them from accessing
+        benefits, forms, or essential information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using voice control software
+
+  - rule_id: "aria-hidden-body"
+    technical_summary: "aria-hidden=\"true\" must not be present on the document body element."
+    policy_narrative:
+      title: "Total Page Access"
+      why_it_matters: >
+        When the entire document body is hidden from assistive technology, the
+        page becomes completely inaccessible to screen reader users. This single
+        defect effectively makes an entire government website invisible to millions
+        of blind Americans, denying them access to every service and resource
+        on that site.
+      affected_demographics:
+        - People who are blind using screen readers
+
+  - rule_id: "aria-hidden-focus"
+    technical_summary: "Elements with aria-hidden must not be focusable or contain focusable elements."
+    policy_narrative:
+      title: "Focus Trap Prevention"
+      why_it_matters: >
+        Hidden focusable elements create invisible keyboard traps where users
+        navigate to elements that are announced as nothing or receive no feedback.
+        Blind users and keyboard-only users can become stuck on these phantom
+        elements, unable to reach content or controls they need, effectively
+        preventing them from completing critical tasks on government websites.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with low vision relying on keyboard navigation
+        - People who are deaf using keyboard-only navigation
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "aria-input-field-name"
+    technical_summary: "Every ARIA input field must have an accessible name."
+    policy_narrative:
+      title: "Form Field Identification"
+      why_it_matters: >
+        Unnamed ARIA input fields make forms unusable for screen reader users
+        who cannot see the visual labels. On government benefit applications,
+        tax forms, or registration pages, a single unlabeled field can block
+        form submission entirely, denying citizens access to essential services
+        they depend on.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using voice control or keyboard navigation
+
+  - rule_id: "aria-required-attr"
+    technical_summary: "Elements with ARIA roles must include all required ARIA attributes."
+    policy_narrative:
+      title: "ARIA Role Completeness"
+      why_it_matters: >
+        ARIA roles without their required attributes create incomplete semantic
+        information for assistive technologies. Screen reader users navigating
+        custom widgets on government websites receive partial or incorrect
+        information about the state and function of controls, making accurate
+        interaction impossible and eroding trust in the digital service.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "aria-required-children"
+    technical_summary: "Elements with certain ARIA roles must contain the appropriate child roles."
+    policy_narrative:
+      title: "Widget Structure Integrity"
+      why_it_matters: >
+        ARIA composite widgets without the correct child roles create structurally
+        broken interfaces for screen reader users. Menus without menu items, lists
+        without list items, and grids without cells all degrade to incoherent
+        structures, making navigation impossible and forcing blind users to abandon
+        complex interactive government tools.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "aria-required-parent"
+    technical_summary: "Elements with certain ARIA roles must be contained by the appropriate parent roles."
+    policy_narrative:
+      title: "Widget Context Integrity"
+      why_it_matters: >
+        ARIA elements without their required parent context lose semantic meaning
+        for screen readers. A list item without a list, or a tab panel without
+        a tab list, strips away the structural context that screen reader users
+        depend on to understand and navigate government websites. This disorientation
+        forces repeated and often futile navigation attempts.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "aria-roledescription"
+    technical_summary: "aria-roledescription must only be applied to elements with an explicit or implicit role."
+    policy_narrative:
+      title: "Role Description Validity"
+      why_it_matters: >
+        Placing aria-roledescription on elements without a semantic role produces
+        meaningless announcements for screen reader users. This technical error
+        creates confusion and noise in the screen reader output, degrading the
+        experience for blind users navigating government websites and increasing
+        the cognitive effort needed to parse page content.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using voice control
+
+  - rule_id: "aria-roles"
+    technical_summary: "All elements with a role attribute must use a valid ARIA role value."
+    policy_narrative:
+      title: "ARIA Vocabulary Compliance"
+      why_it_matters: >
+        Invalid ARIA roles are ignored or misinterpreted by assistive technologies,
+        erasing the intended semantic structure of the page. For screen reader users,
+        this means interactive elements may be announced incorrectly or not at all,
+        making navigation through government websites unreliable and preventing
+        task completion for citizens with disabilities.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "aria-toggle-field-name"
+    technical_summary: "Every ARIA toggle field (checkbox, switch) must have an accessible name."
+    policy_narrative:
+      title: "Toggle Control Labeling"
+      why_it_matters: >
+        Unnamed checkboxes and toggle switches are functionally opaque to screen
+        reader users. In government applications where consent, preferences, or
+        eligibility options are presented as toggles, an unlabeled control prevents
+        informed decision-making, potentially leading citizens to submit incorrect
+        information or be unable to complete enrollment processes.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using voice control or keyboard navigation
+
+  - rule_id: "aria-valid-attr"
+    technical_summary: "All attributes that begin with \"aria-\" must be valid ARIA attribute names."
+    policy_narrative:
+      title: "ARIA Attribute Validity"
+      why_it_matters: >
+        Misspelled or non-existent ARIA attributes are silently ignored by browsers
+        and assistive technologies, meaning the intended accessibility enhancement
+        never takes effect. This leaves screen reader users without the semantic
+        information developers thought they were providing, degrading the overall
+        accessibility of government web pages.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "aria-valid-attr-value"
+    technical_summary: "All ARIA attributes must have valid values appropriate to their attribute type."
+    policy_narrative:
+      title: "ARIA State Accuracy"
+      why_it_matters: >
+        Invalid ARIA attribute values cause assistive technologies to misreport
+        or ignore the state and properties of interactive elements. A button whose
+        expanded or pressed state is incorrectly communicated leaves blind users
+        without accurate feedback about the interface, leading to repeated incorrect
+        interactions and frustration on government digital services.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "autocomplete-valid"
+    technical_summary: "The autocomplete attribute must be used correctly and match the form field's purpose."
+    policy_narrative:
+      title: "Form Auto-Fill Assistance"
+      why_it_matters: >
+        Incorrect autocomplete attributes prevent browsers and assistive technologies
+        from auto-filling form fields, eliminating a critical accommodation for users
+        with cognitive disabilities, motor impairments, or memory difficulties. For
+        citizens who struggle to remember or manually enter personal information,
+        broken autocomplete means longer, more error-prone government form completion,
+        risking application rejections due to data entry mistakes.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with low vision who use magnification tools
+        - People who are deaf using keyboard navigation
+        - People with motor disabilities who benefit from reduced typing
+        - People with cognitive or learning disabilities who rely on auto-fill
+
+  - rule_id: "avoid-inline-spacing"
+    technical_summary: "Text spacing set through inline style attributes must be overridable by custom stylesheets."
+    policy_narrative:
+      title: "Text Spacing Adaptability"
+      why_it_matters: >
+        Hardcoded inline text spacing prevents users from applying their own
+        stylesheets to improve readability. People with dyslexia, low vision,
+        or cognitive disabilities frequently customize letter spacing, line height,
+        and word spacing to make text readable for them. Locking these values
+        through inline styles forces these users to struggle with inaccessible
+        text presentation they cannot adapt.
+      affected_demographics:
+        - People who are blind using screen readers needing specific formatting
+        - People with low vision who customize text spacing
+        - People who are deaf using custom display preferences
+        - People with motor disabilities using custom accessibility settings
+        - People with cognitive or learning disabilities such as dyslexia
+
+  - rule_id: "blink"
+    technical_summary: "<blink> elements are deprecated and cause accessibility barriers."
+    policy_narrative:
+      title: "Seizure and Distraction Prevention"
+      why_it_matters: >
+        Blinking text is a known seizure trigger for people with photosensitive
+        epilepsy and is also profoundly distracting for people with attention
+        disorders or cognitive disabilities. Beyond the health risk, blinking
+        content is impossible to read for many users. Using deprecated blink
+        elements on government websites is both a safety hazard and a barrier
+        to information access.
+      affected_demographics:
+        - People with low vision who are distracted by motion
+        - People with motor disabilities who cannot quickly navigate away
+        - People with cognitive or learning disabilities who are sensitive to motion
+
+  - rule_id: "button-name"
+    technical_summary: "All button elements must have discernible text visible to assistive technologies."
+    policy_narrative:
+      title: "Button Discoverability"
+      why_it_matters: >
+        Unlabeled buttons are silent black holes in the government digital
+        experience. When a screen reader announces a button with no name,
+        blind users cannot know what action it will perform. Submit, cancel,
+        search, and navigation buttons without accessible names prevent citizens
+        from completing applications, accessing benefits, or finding essential
+        government resources independently.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "bypass"
+    technical_summary: "Each page must provide at least one mechanism to skip repeated navigation blocks."
+    policy_narrative:
+      title: "Navigation Efficiency"
+      why_it_matters: >
+        Without skip navigation links, screen reader and keyboard users must
+        tab through the same header, navigation menus, and repeated elements
+        on every single page of a government website. For citizens who visit
+        multiple pages to find information or complete multi-step processes,
+        this imposes a severe and cumulative time cost, making the digital
+        experience exhausting and discouraging continued engagement with
+        government services.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on keyboard-only navigation
+
+  - rule_id: "color-contrast"
+    technical_summary: "Text must meet minimum contrast ratios against background colors (WCAG AA: 4.5:1 normal, 3:1 large text)."
+    policy_narrative:
+      title: "Visual Information Access"
+      why_it_matters: >
+        Low contrast text is one of the most pervasive barriers on government
+        websites, rendering critical information invisible to the approximately
+        26 million Americans with low vision or color blindness. When agency
+        announcements, form instructions, error messages, or legal notices are
+        displayed in insufficient contrast, affected citizens are denied equal
+        access to the information they need to exercise their rights and access
+        public services.
+      affected_demographics:
+        - People with low vision including age-related vision loss
+        - People who are color blind (approximately 8% of men, 0.5% of women)
+
+  - rule_id: "css-orientation-lock"
+    technical_summary: "CSS media queries must not lock the display to a specific orientation (portrait or landscape)."
+    policy_narrative:
+      title: "Device Orientation Freedom"
+      why_it_matters: >
+        Orientation-locked pages deny access to users whose devices are
+        mounted in fixed positions due to their disability. Many wheelchair
+        users, people with motor impairments who use mounted tablets, or
+        individuals with limited reach must interact with their device in
+        a specific orientation. Forcing portrait-only or landscape-only
+        display can make entire government websites completely unusable
+        for these citizens.
+      affected_demographics:
+        - People with low vision who use a specific orientation for readability
+        - People with motor disabilities whose devices are fixed in position
+        - People with cognitive or learning disabilities who rely on a specific layout
+
+  - rule_id: "definition-list"
+    technical_summary: "<dl> definition list elements must contain only properly-ordered <dt>/<dd> groups."
+    policy_narrative:
+      title: "Definition Structure Clarity"
+      why_it_matters: >
+        Malformed definition lists strip semantic meaning from key-value
+        information that governments frequently use for glossaries, metadata,
+        and data displays. Screen reader users lose the structural context
+        that distinguishes terms from their definitions, making it difficult
+        to understand policy definitions, form requirements, or eligibility
+        criteria presented in this format.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "dlitem"
+    technical_summary: "<dt> and <dd> elements must be contained within a <dl> parent element."
+    policy_narrative:
+      title: "Definition Item Context"
+      why_it_matters: >
+        Orphaned definition terms and descriptions lose their semantic
+        relationships when not contained in a proper <dl> element. Screen
+        reader users cannot identify these elements as part of a definition
+        structure, causing confusion when reading government content that
+        uses these elements to present regulatory terms, eligibility criteria,
+        or other paired information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "document-title"
+    technical_summary: "Every HTML document must have a non-empty <title> element."
+    policy_narrative:
+      title: "Page Identity and Navigation"
+      why_it_matters: >
+        Page titles are the first piece of information screen reader users
+        receive when navigating to a new page. Without a meaningful title,
+        blind users cannot determine which government page they are on,
+        making it impossible to maintain orientation while navigating
+        multi-page processes. For citizens completing benefit applications
+        or multi-step forms, missing titles create profound disorientation.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf using keyboard-only navigation
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "duplicate-id"
+    technical_summary: "Every HTML id attribute value must be unique within the document."
+    policy_narrative:
+      title: "Element Reference Integrity"
+      why_it_matters: >
+        Duplicate IDs cause unpredictable behavior in assistive technologies
+        that rely on ID references for labels, descriptions, and ARIA
+        relationships. When a form label references a duplicated ID, the
+        label may be associated with the wrong field, causing screen reader
+        users to fill in incorrect information on government forms, potentially
+        resulting in benefits denials or application errors.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "duplicate-id-active"
+    technical_summary: "Active interactive elements must have unique id attribute values."
+    policy_narrative:
+      title: "Interactive Element Uniqueness"
+      why_it_matters: >
+        Duplicate IDs on active elements like buttons and links cause
+        assistive technology focus management to become unpredictable.
+        Screen reader users and keyboard navigators may find themselves
+        sent to the wrong element, causing misfired form submissions or
+        navigation errors that are difficult to detect and correct, especially
+        on complex government applications.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "duplicate-id-aria"
+    technical_summary: "ID values used in ARIA relationships and label associations must be unique."
+    policy_narrative:
+      title: "ARIA Reference Accuracy"
+      why_it_matters: >
+        ARIA relationships depend entirely on unique ID values to connect
+        labels, descriptions, and live regions to their target elements.
+        When IDs are duplicated in these contexts, screen readers may
+        associate incorrect labels with form fields or announce outdated
+        live region content, creating misinformation that can lead citizens
+        to make incorrect choices on government applications or miss
+        critical status updates.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "empty-heading"
+    technical_summary: "Headings must contain discernible text content."
+    policy_narrative:
+      title: "Heading Navigation Reliability"
+      why_it_matters: >
+        Empty headings create ghost entries in the screen reader heading
+        navigation list, forcing blind users to stop and investigate each
+        empty heading to determine if they have missed content. This
+        disrupts the efficient heading-based navigation strategy that
+        screen reader users rely on to quickly orient themselves and
+        find relevant sections on long government web pages.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "focus-order-semantics"
+    technical_summary: "Elements in the tab focus order must have roles appropriate for interactive content."
+    policy_narrative:
+      title: "Keyboard Navigation Logic"
+      why_it_matters: >
+        Non-interactive elements in the focus order confuse keyboard users
+        who expect tab focus to land only on actionable controls. When
+        decorative or static elements are focusable, screen reader users
+        receive announcements for content that does not respond to activation,
+        creating confusion and slowing navigation through government websites
+        that require completing multi-step processes.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on keyboard-only navigation
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "form-field-multiple-labels"
+    technical_summary: "Form fields must not have more than one associated label element."
+    policy_narrative:
+      title: "Form Field Label Clarity"
+      why_it_matters: >
+        Multiple labels on a form field create conflicting announcements
+        for screen reader users who may hear two different descriptions
+        for the same field. This ambiguity is especially harmful on
+        government forms where precise data entry is required for
+        benefits applications, tax filings, or voter registration,
+        as uncertain field descriptions can lead to costly data entry errors.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with low vision relying on assistive technology
+        - People who are deaf using keyboard navigation
+        - People with motor disabilities using voice control
+
+  - rule_id: "frame-tested"
+    technical_summary: "<iframe> and <frame> elements should be accessible and testable by axe-core."
+    policy_narrative:
+      title: "Embedded Content Accessibility"
+      why_it_matters: >
+        Inaccessible iframes hide significant content and interactive
+        features from accessibility testing and from assistive technology
+        users. Government pages frequently use iframes for payment
+        processors, chat widgets, or embedded forms; if these frames
+        are inaccessible, citizens with disabilities may be unable to
+        make payments, seek help, or submit required information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "frame-title"
+    technical_summary: "<iframe> and <frame> elements must have accessible names."
+    policy_narrative:
+      title: "Embedded Frame Identification"
+      why_it_matters: >
+        Untitled frames are opaque to screen reader users who cannot
+        determine the purpose or content of the embedded section before
+        entering it. On government websites, unlabeled iframes containing
+        forms, maps, or interactive tools prevent blind users from
+        understanding the page structure and making informed decisions
+        about where to navigate.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "frame-title-unique"
+    technical_summary: "<iframe> and <frame> elements must have unique title attributes."
+    policy_narrative:
+      title: "Embedded Frame Distinctness"
+      why_it_matters: >
+        Duplicate frame titles make it impossible for screen reader
+        users to distinguish between multiple embedded sections on a
+        government page. When two iframes share the same title, users
+        must enter each one to discover its actual content, wasting
+        effort and creating significant navigation overhead for users
+        who have difficulty with physical or cognitive fatigue.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "heading-order"
+    technical_summary: "Heading levels must increase sequentially without skipping levels (e.g., h1 > h2, not h1 > h3)."
+    policy_narrative:
+      title: "Document Structure Navigation"
+      why_it_matters: >
+        Screen reader users navigate complex government websites primarily
+        through heading structure, using headings as a table of contents
+        to jump between sections. Skipped heading levels break the logical
+        document outline, causing confusion about the hierarchy of
+        information and forcing users to re-read sections to understand
+        the relationship between topics, adding significant time and effort
+        to information-gathering tasks.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "hidden-content"
+    technical_summary: "Hidden content should be reviewed to ensure it does not contain accessibility barriers."
+    policy_narrative:
+      title: "Hidden Content Accessibility Awareness"
+      why_it_matters: >
+        Content hidden from visual display may still be read by screen
+        readers if not properly hidden from the accessibility tree.
+        Alternatively, accessible content may be hidden from assistive
+        technologies by mistake, creating gaps in information that only
+        affect users with disabilities. Government pages with dynamic
+        content, modal dialogs, or expandable sections are particularly
+        prone to these inconsistencies.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with color blindness who may miss color-coded status indicators
+
+  - rule_id: "html-has-lang"
+    technical_summary: "The <html> element must have a lang attribute identifying the document's language."
+    policy_narrative:
+      title: "Language Identification"
+      why_it_matters: >
+        Without a language attribute, screen readers default to the
+        user's system language settings, which may cause government
+        content to be read in the wrong language with incorrect
+        pronunciation. This is particularly harmful for multilingual
+        citizens accessing government services in their non-primary
+        language, and for users of braille displays that depend on
+        language metadata for proper rendering.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with cognitive or language differences
+
+  - rule_id: "html-lang-valid"
+    technical_summary: "The lang attribute on the <html> element must use a valid BCP 47 language code."
+    policy_narrative:
+      title: "Language Code Accuracy"
+      why_it_matters: >
+        An invalid language code is as harmful as no language code at all,
+        causing screen readers to default to incorrect language settings.
+        For blind citizens who need accurate pronunciation of government
+        content or for those using text-to-speech translation tools,
+        an invalid language tag can make content unintelligible or
+        inaccessible in their preferred language.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with cognitive or language differences
+
+  - rule_id: "html-xml-lang-mismatch"
+    technical_summary: "When both lang and xml:lang are present, they must specify the same base language."
+    policy_narrative:
+      title: "Language Attribute Consistency"
+      why_it_matters: >
+        Conflicting lang and xml:lang attributes create ambiguous language
+        metadata that different assistive technologies may resolve
+        differently. This inconsistency can cause some screen readers to
+        mispronounce or misinterpret government content, particularly
+        affecting blind users who rely on accurate audio rendering of
+        the page language for comprehension.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with cognitive or language differences
+
+  - rule_id: "identical-links-same-purpose"
+    technical_summary: "Links with the same accessible name must navigate to the same destination or serve the same purpose."
+    policy_narrative:
+      title: "Link Naming Consistency"
+      why_it_matters: >
+        Identically-named links that go to different destinations confuse
+        screen reader users who navigate government pages by jumping
+        between links. When two links both say "Learn more" but lead to
+        different benefit programs or services, blind users cannot make
+        informed choices without reading the surrounding context for each
+        link, dramatically slowing information-seeking on government websites.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "image-alt"
+    technical_summary: "All <img> elements must have alternative text or a role of none/presentation."
+    policy_narrative:
+      title: "Visual Content Access"
+      why_it_matters: >
+        Images without alternative text are completely invisible to blind
+        users and to search engines. On government websites, informational
+        images, diagrams, infographics, and document screenshots without
+        alt text deprive blind citizens of the same information available
+        to sighted visitors. Critical details like emergency instructions,
+        benefit eligibility charts, or form procedure diagrams can be
+        entirely inaccessible, putting these citizens at a disadvantage
+        in accessing government services and information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "image-redundant-alt"
+    technical_summary: "Image alternative text must not duplicate adjacent visible text."
+    policy_narrative:
+      title: "Redundant Announcement Reduction"
+      why_it_matters: >
+        When an image's alt text repeats adjacent visible text, screen
+        reader users hear the same information twice for every such image.
+        On government pages with multiple images alongside text captions,
+        this duplication significantly lengthens the listening experience,
+        increasing fatigue for users with motor impairments who must wait
+        through the repetition before reaching new content.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "input-button-name"
+    technical_summary: "Input buttons of type button, submit, and reset must have discernible text."
+    policy_narrative:
+      title: "Form Submission Clarity"
+      why_it_matters: >
+        Unnamed input buttons leave screen reader users unable to confirm
+        the action they are about to perform. The risk is especially high
+        on government forms where an unnamed submit button might trigger
+        an irreversible action such as filing a tax return, submitting
+        an application, or confirming a benefits election. Adequate
+        labeling ensures informed consent before consequential actions.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "input-image-alt"
+    technical_summary: "Image input elements (<input type=\"image\">) must have alternative text."
+    policy_narrative:
+      title: "Image Button Identification"
+      why_it_matters: >
+        Image-based submit buttons without alt text are completely
+        unnamed for screen reader users, who cannot determine the
+        button's purpose before activating it. This is a barrier on
+        any government form using graphical submit buttons, preventing
+        blind users from confirming or denying the action they are
+        about to take, risking unintended form submissions.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "label"
+    technical_summary: "Every form element must have a programmatically associated label."
+    policy_narrative:
+      title: "Form Field Identification"
+      why_it_matters: >
+        Unlabeled form fields are the most common barrier preventing
+        blind and low-vision citizens from completing government forms.
+        When input fields lack programmatic labels, screen reader users
+        cannot determine what information is being requested, making it
+        impossible to apply for benefits, file taxes, register to vote,
+        or access virtually any government digital service that requires
+        form input. This single failure can block an entire service
+        interaction.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with low vision relying on assistive technology
+        - People who are deaf using keyboard navigation
+        - People with motor disabilities using voice control
+
+  - rule_id: "label-content-name-mismatch"
+    technical_summary: "Elements with visible text labels must include that visible text in their accessible name."
+    policy_narrative:
+      title: "Voice Control Activation"
+      why_it_matters: >
+        When the accessible name of an element does not match its visible
+        text, voice control users cannot activate it using the words they
+        see on screen. Saying "click Submit" to a button whose visual
+        label is "Submit" but whose accessible name is "submitbtn" results
+        in no action. This mismatch silently breaks voice control for
+        citizens with motor disabilities who depend on this input method
+        to interact with government websites.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with low vision relying on screen magnifiers
+        - People who are deaf using keyboard navigation
+        - People with motor disabilities using voice control software
+
+  - rule_id: "label-title-only"
+    technical_summary: "Form elements should have visible labels, not just title or aria-describedby attributes."
+    policy_narrative:
+      title: "Visible Form Labeling"
+      why_it_matters: >
+        Form fields labeled only via tooltip-style title attributes may
+        be invisible to many users who do not hover or who use touch
+        devices. Citizens with cognitive disabilities benefit especially
+        from persistent visible labels that remain visible during input.
+        Relying on transient labels increases form completion errors and
+        confusion, particularly on government applications where accurate
+        data entry is critical.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "landmark-banner-is-top-level"
+    technical_summary: "The banner landmark (<header>) should not be nested inside another landmark."
+    policy_narrative:
+      title: "Site Header Navigation"
+      why_it_matters: >
+        A banner landmark nested inside another landmark loses its
+        meaning as a site-level header in screen reader navigation.
+        Citizens using screen reader landmark navigation to quickly
+        orient themselves on government websites rely on the banner
+        landmark to find the site identity, main navigation, and
+        skip links. A malpositioned banner disrupts this orientation
+        and forces slower, less efficient page exploration.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "landmark-complementary-is-top-level"
+    technical_summary: "Complementary landmark (<aside>) should be at the top level of the page structure."
+    policy_narrative:
+      title: "Sidebar Content Navigation"
+      why_it_matters: >
+        Nested complementary landmarks lose their role as distinct
+        supplemental content areas in screen reader navigation.
+        When government pages contain related links, contextual help,
+        or supplementary information in aside elements, proper landmark
+        placement allows screen reader users to quickly locate and
+        jump to this content without reading through the entire page.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "landmark-contentinfo-is-top-level"
+    technical_summary: "The contentinfo landmark (<footer>) should not be nested inside another landmark."
+    policy_narrative:
+      title: "Site Footer Navigation"
+      why_it_matters: >
+        The footer landmark is where screen reader users expect to
+        find contact information, legal disclaimers, accessibility
+        statements, and navigation to key government resources. A
+        footer nested inside another landmark cannot be reliably
+        reached via landmark navigation, hiding this information
+        from blind users who need it to find help or report
+        accessibility issues.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "landmark-main-is-top-level"
+    technical_summary: "The main landmark (<main>) should not be nested inside another landmark."
+    policy_narrative:
+      title: "Primary Content Access"
+      why_it_matters: >
+        The main landmark is the primary destination for screen reader
+        users who skip navigation and jump directly to page content.
+        A main landmark nested inside another landmark fails to function
+        correctly for this purpose, forcing blind citizens to navigate
+        through header and navigation content every time they access
+        a government page rather than jumping directly to the
+        information they need.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "landmark-no-duplicate-banner"
+    technical_summary: "Each page must have at most one banner landmark."
+    policy_narrative:
+      title: "Site Header Uniqueness"
+      why_it_matters: >
+        Multiple banner landmarks create ambiguity in screen reader
+        landmark navigation, as users expect exactly one site-level
+        header to exist. Duplicate banners force users to investigate
+        which banner contains the primary navigation and branding,
+        increasing disorientation on government websites and slowing
+        the navigation tasks that landmark structures are designed
+        to accelerate.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "landmark-no-duplicate-contentinfo"
+    technical_summary: "Each page must have at most one contentinfo landmark."
+    policy_narrative:
+      title: "Site Footer Uniqueness"
+      why_it_matters: >
+        Multiple footer landmarks create the same navigation ambiguity
+        as multiple banners, forcing screen reader users to investigate
+        which footer is authoritative. Government pages with contact
+        information, legal notices, or accessibility help links in
+        footers need a single, clearly identified content-info landmark
+        so blind users can reliably locate this information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "landmark-no-duplicate-main"
+    technical_summary: "Each page must have at most one main landmark."
+    policy_narrative:
+      title: "Primary Content Uniqueness"
+      why_it_matters: >
+        Duplicate main landmarks undermine the reliability of the
+        screen reader skip-to-main shortcut that is the primary
+        strategy for efficient government website navigation. When
+        multiple main regions exist, some screen readers jump to
+        only the first occurrence, potentially skipping the actual
+        primary content and leaving blind users reading navigation
+        or sidebar content thinking it is the main page content.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "landmark-one-main"
+    technical_summary: "Each page or frame should contain exactly one main landmark."
+    policy_narrative:
+      title: "Primary Content Identification"
+      why_it_matters: >
+        Without a main landmark, screen reader users lose their most
+        efficient way to skip to the primary content of a government
+        page. Every page visit requires tabbing through the entire
+        navigation structure to reach the actual content, a significant
+        time and effort burden that accumulates across repeated visits
+        to government websites for citizens managing ongoing benefit
+        cases or legal matters.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "landmark-unique"
+    technical_summary: "Landmarks with the same role must be uniquely labeled to distinguish them."
+    policy_narrative:
+      title: "Landmark Distinctness"
+      why_it_matters: >
+        Multiple navigation landmarks with identical names prevent
+        screen reader users from distinguishing between the primary
+        navigation, secondary navigation, breadcrumbs, and in-page
+        navigation that government websites commonly provide. Without
+        unique labels, citizens navigating by landmark cannot
+        efficiently locate the navigation they need, slowing their
+        ability to move around complex government information
+        architectures.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "link-in-text-block"
+    technical_summary: "Links within text blocks must be distinguishable from surrounding text without relying on color alone."
+    policy_narrative:
+      title: "Color-Independent Link Identification"
+      why_it_matters: >
+        When links are distinguished only by color, people with color
+        vision deficiency cannot identify them as links and may miss
+        critical references to additional information, forms, or
+        resources. On government websites, overlooked links in
+        informational content can mean missing essential instructions,
+        deadlines, or procedures that affect a citizen's ability to
+        access services or comply with requirements.
+      affected_demographics:
+        - People with low vision who may not perceive color differences
+        - People who are color blind (approximately 8% of men, 0.5% of women)
+
+  - rule_id: "link-name"
+    technical_summary: "All links must have discernible text accessible to assistive technologies."
+    policy_narrative:
+      title: "Link Purpose Clarity"
+      why_it_matters: >
+        Links without accessible names are completely useless to screen
+        reader users who navigate government pages by jumping between
+        links. An unnamed link could lead anywhere, and activating
+        it unknowingly could trigger downloads, open unexpected pages,
+        or initiate unintended processes. On government websites,
+        unnamed links undermine the informed consent principle by
+        preventing citizens from knowing where a link will take them.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "list"
+    technical_summary: "<ul> and <ol> list elements must directly contain only valid list child elements."
+    policy_narrative:
+      title: "List Structure Integrity"
+      why_it_matters: >
+        Malformed lists lose their semantic identity as lists for screen
+        reader users, who then cannot use list navigation shortcuts to
+        jump through and count items. Government websites use lists
+        extensively for navigation menus, steps in processes, eligibility
+        requirements, and service options. Broken list structure forces
+        linear navigation through this content, significantly slowing
+        information-gathering for citizens with disabilities.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "listitem"
+    technical_summary: "<li> elements must be contained within a <ul>, <ol>, or <menu> parent element."
+    policy_narrative:
+      title: "List Item Semantic Context"
+      why_it_matters: >
+        Orphaned list items outside of list containers lose their
+        semantic meaning and list navigation properties. Screen reader
+        users rely on list structure to understand that a set of items
+        is related and to count the total number of items. Government
+        navigation menus, step lists, and option groups presented
+        as invalid lists are harder to parse and navigate efficiently.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "marquee"
+    technical_summary: "<marquee> elements are deprecated and cause accessibility barriers."
+    policy_narrative:
+      title: "Moving Content Barrier"
+      why_it_matters: >
+        Scrolling marquee text is one of the most universally
+        inaccessible elements on the web: it moves too fast for
+        some users to read, cannot be paused without assistive
+        technology, creates distractions for users with attention
+        disorders, and is announced poorly or not at all by screen
+        readers. On government websites, marquee elements presenting
+        important announcements or alerts are effectively inaccessible
+        to most users with disabilities.
+      affected_demographics:
+        - People with low vision who cannot track moving text
+        - People with motor disabilities who cannot chase scrolling content
+        - People with cognitive or learning disabilities distracted by motion
+
+  - rule_id: "meta-refresh"
+    technical_summary: "Pages must not use <meta http-equiv=\"refresh\"> for delayed automatic page refresh."
+    policy_narrative:
+      title: "Page Stability"
+      why_it_matters: >
+        Automatic page refreshes interrupt the flow of screen reader
+        and keyboard navigation, disorienting users who are in the
+        middle of reading or filling out a form. For citizens with
+        slow reading speeds, cognitive disabilities, or motor
+        impairments that require extra time to complete forms,
+        a timed refresh that resets the page can destroy their
+        progress and require them to restart, creating a cruel and
+        exclusionary barrier on government websites.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf using keyboard navigation
+        - People with motor disabilities who need extra completion time
+
+  - rule_id: "meta-viewport"
+    technical_summary: "The viewport meta tag must not disable user scaling or text resizing."
+    policy_narrative:
+      title: "Text Magnification Access"
+      why_it_matters: >
+        Disabling pinch-to-zoom and text scaling via the viewport meta
+        tag is one of the most impactful accessibility barriers for
+        users with low vision. The approximately 7.7 million Americans
+        with low vision depend on the ability to zoom text to 200% or
+        more to read government content. When websites disable this
+        fundamental browser feature, they effectively render their
+        content inaccessible to a large population of citizens with
+        visual impairments.
+      affected_demographics:
+        - People with low vision who require text magnification
+
+  - rule_id: "meta-viewport-large"
+    technical_summary: "The viewport must allow users to scale text up to at least 500%."
+    policy_narrative:
+      title: "Extreme Magnification Support"
+      why_it_matters: >
+        Users with severe low vision may require text magnification
+        far beyond the 200% standard minimum, sometimes needing 300%
+        to 500% zoom to read content comfortably. Government websites
+        that restrict maximum scale through viewport meta tags deny
+        these citizens the ability to read critical information about
+        their benefits, rights, and obligations, creating a profound
+        barrier to equitable service access.
+      affected_demographics:
+        - People with low vision who require high levels of magnification
+
+  - rule_id: "no-autoplay-audio"
+    technical_summary: "Audio and video must not autoplay for more than 3 seconds without user control."
+    policy_narrative:
+      title: "Audio Control for Screen Reader Users"
+      why_it_matters: >
+        Autoplaying audio immediately overwhelms screen reader users
+        whose assistive technology audio is drowned out by the page
+        audio. Without the ability to quickly stop the audio, blind
+        users cannot hear their screen reader and cannot navigate
+        to the stop control. This digital booby trap prevents screen
+        reader users from using the page at all until the audio ends,
+        a significant barrier on government sites with video or audio
+        content.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf who may be startled by unexpected sound
+        - People with cognitive or learning disabilities distracted by audio
+
+  - rule_id: "object-alt"
+    technical_summary: "<object> elements must have alternative text for their visual content."
+    policy_narrative:
+      title: "Embedded Object Content Access"
+      why_it_matters: >
+        Object elements embedding Flash, PDFs, or other visual content
+        without alternative text leave the embedded content completely
+        invisible to screen reader users. On government websites,
+        critical information embedded in object elements is inaccessible
+        to blind citizens, creating an information gap that may affect
+        their ability to understand their rights, eligibility, or
+        next steps in government processes.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "p-as-heading"
+    technical_summary: "Paragraph elements styled as headings must not replace actual heading elements."
+    policy_narrative:
+      title: "Fake Heading Detection"
+      why_it_matters: >
+        Bold or enlarged paragraph text that visually mimics headings
+        does not register as headings for screen reader users navigating
+        by heading structure. This means large sections of government
+        content may appear to have no internal structure, forcing
+        screen reader users to read every line sequentially rather
+        than jumping between sections, dramatically increasing the
+        time needed to find relevant information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "page-has-heading-one"
+    technical_summary: "Each page or frame should have at least one level-1 heading (<h1>)."
+    policy_narrative:
+      title: "Page Title Heading Structure"
+      why_it_matters: >
+        The h1 heading is the single most important structural element
+        for screen reader users, serving as the page's primary title
+        and the starting point for understanding its content. Government
+        pages without an h1 force blind users to navigate the entire
+        page structure without a clear anchor, increasing disorientation
+        and the time required to confirm what page they are on and
+        what its primary purpose is.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People with low vision navigating with zoom
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "region"
+    technical_summary: "All visible page content should be contained within landmark regions."
+    policy_narrative:
+      title: "Landmark-Based Navigation Coverage"
+      why_it_matters: >
+        Content outside of landmark regions is invisible to landmark
+        navigation, the primary strategy screen reader users use to
+        quickly orient themselves on government pages. Important
+        announcements, primary content, and interactive sections
+        that fall outside landmarks force blind users into linear
+        page navigation, significantly increasing the time and
+        effort required to locate and access the information
+        or service they need.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "role-img-alt"
+    technical_summary: "Elements with role=\"img\" must have accessible alternative text."
+    policy_narrative:
+      title: "SVG and CSS Image Access"
+      why_it_matters: >
+        Images implemented as SVG or CSS with an explicit img role
+        without alternative text are invisible to screen reader users,
+        just as a missing alt attribute on an <img> tag creates a
+        barrier. Government websites increasingly use SVG for icons,
+        charts, and infographics; without proper alternative text,
+        the information conveyed by these graphics is entirely
+        inaccessible to citizens who are blind.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "scope-attr-valid"
+    technical_summary: "The scope attribute on table cells must use only valid values (row, col, rowgroup, colgroup)."
+    policy_narrative:
+      title: "Table Header Scope Accuracy"
+      why_it_matters: >
+        Invalid scope attributes on table headers cause screen readers
+        to misassociate header cells with data cells, garbling the
+        announced relationship between data and its label. On government
+        websites with data tables presenting benefits amounts, tax rates,
+        or eligibility matrices, incorrect scope values cause blind users
+        to receive incorrect information about which values correspond
+        to which categories, potentially leading to critical
+        misunderstandings.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "scrollable-region-focusable"
+    technical_summary: "Scrollable content containers must be keyboard-focusable to allow keyboard scrolling."
+    policy_narrative:
+      title: "Keyboard Scrollable Content Access"
+      why_it_matters: >
+        Scrollable containers that cannot receive keyboard focus are
+        inaccessible to keyboard-only users who cannot use a mouse
+        to scroll the content. Government websites with scrollable
+        data tables, terms and conditions panels, or chat interfaces
+        that cannot be scrolled by keyboard create barriers that
+        prevent citizens with motor disabilities from reading all
+        available content and making fully informed decisions.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf using keyboard-only navigation
+        - People with motor disabilities who rely on keyboard navigation
+
+  - rule_id: "server-side-image-map"
+    technical_summary: "Server-side image maps must not be used; client-side image maps are accessible."
+    policy_narrative:
+      title: "Image Map Keyboard Accessibility"
+      why_it_matters: >
+        Server-side image maps require precise mouse coordinates to
+        navigate and are completely inaccessible to keyboard-only users
+        and screen reader users. When government websites use server-side
+        image maps for navigation or interactive geographic data, citizens
+        with motor disabilities or visual impairments cannot access that
+        content or functionality, creating a categorical exclusion.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf using keyboard-only navigation
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "skip-link"
+    technical_summary: "Skip link targets must exist in the page and must be keyboard-focusable."
+    policy_narrative:
+      title: "Skip Link Functional Effectiveness"
+      why_it_matters: >
+        A skip link that points to a non-existent or non-focusable
+        target provides no actual benefit and may confuse keyboard
+        users who activate it and experience no apparent result.
+        For screen reader and keyboard users on government websites
+        with extensive navigation, a broken skip link means they
+        must navigate through the entire repeated header every time,
+        negating the accessibility feature entirely and creating a
+        cruel illusion of accessibility that does not function.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf using keyboard-only navigation
+        - People with motor disabilities using keyboard navigation
+
+  - rule_id: "svg-img-alt"
+    technical_summary: "<svg> elements with an img, graphics-document, or graphics-symbol role must have accessible text."
+    policy_narrative:
+      title: "SVG Image Content Access"
+      why_it_matters: >
+        SVG graphics used as images without accessible text labels
+        are invisible to screen reader users, just as missing image
+        alt text creates barriers for raster images. Government
+        agencies increasingly use SVG for agency seals, organizational
+        charts, data visualizations, and process diagrams; without
+        proper accessible labels or descriptions, blind citizens
+        miss the information these graphics convey.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with motor disabilities navigating by keyboard
+
+  - rule_id: "table-duplicate-name"
+    technical_summary: "Table captions must not duplicate the table summary attribute content."
+    policy_narrative:
+      title: "Table Description Efficiency"
+      why_it_matters: >
+        When a table's visible caption duplicates its summary attribute,
+        screen reader users hear the same table description twice,
+        increasing the time and effort needed to process each table
+        on a government page. This redundancy is particularly burdensome
+        on data-heavy government pages with many tables presenting
+        statistics, eligibility criteria, or program information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "table-fake-caption"
+    technical_summary: "Tables must use the <caption> element for captions, not merged header cells."
+    policy_narrative:
+      title: "Table Caption Structure"
+      why_it_matters: >
+        Fake table captions created by merging header cells are not
+        identified as captions by screen readers and do not provide
+        the navigation and context benefits of a proper <caption>
+        element. Government data tables with fake captions leave
+        blind users without a proper summary of the table's purpose
+        before they begin navigating its data, reducing their ability
+        to assess the table's relevance efficiently.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "tabindex"
+    technical_summary: "Elements must not have tabindex values greater than 0."
+    policy_narrative:
+      title: "Focus Order Predictability"
+      why_it_matters: >
+        Positive tabindex values create unpredictable focus sequences
+        that jump around the page in ways that differ from the visual
+        reading order. For keyboard users and screen reader users on
+        government websites, an erratic tab order makes it difficult
+        to reliably navigate forms and interactive content, increasing
+        errors and the time needed to complete tasks, and creating
+        particular frustration for users with cognitive disabilities
+        who need a predictable, logical interaction flow.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf using keyboard-only navigation
+        - People with motor disabilities using keyboard or switch access
+
+  - rule_id: "target-size"
+    technical_summary: "All touch targets must be at least 24x24 CSS pixels, or have sufficient spacing from adjacent targets."
+    policy_narrative:
+      title: "Digital Motor Access"
+      why_it_matters: >
+        Small touch targets act as a digital gatekeeper, excluding
+        individuals with tremors, arthritis, or limited dexterity
+        from accessing essential services independently. These
+        technical failures transform a routine interaction into a
+        source of failure, stripping away the autonomy of citizens
+        who require a frictionless, accessible interface to participate
+        in digital life. The approximately 58 million Americans with
+        ambulatory or self-care disabilities are disproportionately
+        impacted by inadequate touch target sizing on government
+        mobile websites.
+      affected_demographics:
+        - People with Parkinson's disease, arthritis, or hand tremors
+        - Older adults with reduced fine motor control
+        - People with motor disabilities using alternative pointing devices
+        - People in situational impairment contexts (e.g., commuting, holding a child)
+
+  - rule_id: "td-has-header"
+    technical_summary: "Non-empty data cells in tables larger than 3x3 must have associated header cells."
+    policy_narrative:
+      title: "Data Cell Context"
+      why_it_matters: >
+        Data cells without associated headers are meaningless in
+        isolation for screen reader users who cannot see the visual
+        context of rows and columns. On government websites presenting
+        benefit amounts, tax brackets, program eligibility tables, or
+        statistical data, unheadered cells force blind users to
+        manually navigate to the relevant headers to understand
+        what a value represents, a slow and error-prone process.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "td-headers-attr"
+    technical_summary: "Table cells using the headers attribute must reference valid <th> elements in the same table."
+    policy_narrative:
+      title: "Table Header Reference Accuracy"
+      why_it_matters: >
+        Invalid headers attribute references break the cell-to-header
+        association that screen readers use to announce the context
+        of data cells. When government data tables have broken header
+        associations, blind users receive either no header context
+        or incorrect header context when navigating table data,
+        potentially causing them to misread critical benefit, tax,
+        or eligibility information.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "th-has-data-cells"
+    technical_summary: "Table header cells must describe at least one data cell in the same table."
+    policy_narrative:
+      title: "Table Header Relevance"
+      why_it_matters: >
+        Header cells that do not describe any data cells create
+        structural confusion in screen reader table navigation.
+        Orphaned headers may be announced out of context, misleading
+        blind users about the structure of the data they are reviewing.
+        On government websites where accurate data interpretation is
+        essential for citizens making decisions about benefits or
+        compliance, structural table errors carry real-world consequences.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+
+  - rule_id: "valid-lang"
+    technical_summary: "lang attributes on any element must use valid BCP 47 language codes."
+    policy_narrative:
+      title: "Inline Language Identification"
+      why_it_matters: >
+        Invalid language codes on inline elements prevent screen readers
+        from switching to the correct language voice and pronunciation
+        rules for embedded foreign language content. Government websites
+        that include legal citations, multilingual notices, or content
+        in other languages with invalid lang attributes will be
+        mispronounced or incomprehensible for blind users, denying
+        them equal access to language-specific content.
+      affected_demographics:
+        - People who are blind using screen readers
+        - People who are deaf and rely on visual-to-text tools
+        - People with cognitive or language differences
