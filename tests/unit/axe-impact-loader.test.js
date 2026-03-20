@@ -6,7 +6,8 @@ import {
   getPolicyNarrative,
   getTechnicalSummary,
   getAxeImpactMetadata,
-  isAxeImpactDataStale
+  isAxeImpactDataStale,
+  getHeuristicsForAxeRule
 } from '../../src/data/axe-impact-loader.js';
 
 test('getAxeImpactMetadata returns metadata with required fields', () => {
@@ -129,4 +130,33 @@ test('rule IDs in YAML are unique', () => {
   }
 
   assert.deepEqual(duplicates, [], `Duplicate rule IDs in YAML: ${duplicates.join(', ')}`);
+});
+
+test('getHeuristicsForAxeRule returns heuristics for color-contrast', () => {
+  // color-contrast maps to WCAG SC 1.4.3
+  // SC 1.4.3 appears in heuristics 1, 6, 8, 9, 10
+  const heuristics = getHeuristicsForAxeRule('color-contrast');
+  assert.ok(Array.isArray(heuristics), 'should return an array');
+  assert.ok(heuristics.length > 0, 'color-contrast should map to at least one heuristic');
+  for (const h of heuristics) {
+    assert.ok(typeof h.id === 'number', 'heuristic id should be a number');
+    assert.ok(typeof h.name === 'string' && h.name.length > 0, 'heuristic name should be non-empty');
+    assert.ok(typeof h.url === 'string', 'heuristic url should be a string');
+    assert.ok(Array.isArray(h.wcag_sc), 'heuristic wcag_sc should be an array');
+  }
+});
+
+test('getHeuristicsForAxeRule returns empty array for unknown rule', () => {
+  const heuristics = getHeuristicsForAxeRule('non-existent-rule-xyz');
+  assert.deepEqual(heuristics, []);
+});
+
+test('getHeuristicsForAxeRule returns no duplicates for any rule', () => {
+  const { rules } = getAxeImpactRules();
+  for (const rule of rules) {
+    const heuristics = getHeuristicsForAxeRule(rule.rule_id);
+    const ids = heuristics.map((h) => h.id);
+    const unique = [...new Set(ids)];
+    assert.deepEqual(ids.sort(), unique.sort(), `Duplicate heuristics returned for rule ${rule.rule_id}`);
+  }
 });

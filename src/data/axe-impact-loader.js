@@ -18,6 +18,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { load as yamlLoad } from 'js-yaml';
+import { NNG_HEURISTICS, getHeuristicIdsForWcagSc } from './nng-heuristics.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const YAML_PATH = join(__dirname, 'axe-impact-rules.yaml');
@@ -155,4 +156,26 @@ export function isAxeImpactDataStale(checkDate) {
   const { next_review_date } = getAxeImpactMetadata();
   if (!next_review_date) return false;
   return today >= next_review_date;
+}
+
+/**
+ * Returns the NN/g usability heuristics that relate to a given axe rule,
+ * determined by matching the rule's WCAG Success Criteria against the
+ * NNG_HEURISTICS WCAG SC mappings.
+ *
+ * Returns an empty array if the rule has no WCAG SC data or no matching heuristics.
+ *
+ * @param {string} ruleId - axe-core rule ID (e.g. "color-contrast")
+ * @returns {Array<{id: number, name: string, url: string, description: string, wcag_sc: string[]}>}
+ */
+export function getHeuristicsForAxeRule(ruleId) {
+  const scInfo = getRuleWcagSc(ruleId);
+  if (!scInfo?.sc || scInfo.sc.length === 0) return [];
+  const matchedIds = new Set();
+  for (const sc of scInfo.sc) {
+    for (const hId of getHeuristicIdsForWcagSc(sc)) {
+      matchedIds.add(hId);
+    }
+  }
+  return NNG_HEURISTICS.filter((h) => matchedIds.has(h.id));
 }

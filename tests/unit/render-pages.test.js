@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, buildFindingCopyText, plainTextDescription } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, buildFindingCopyText, plainTextDescription, buildUsabilityHeuristicsCounts } from '../../src/publish/render-pages.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {
@@ -2140,4 +2140,88 @@ test('renderDailyReportPage disability SVG icons include title and desc elements
   assert.ok(html.includes('<title>Limited Vision</title>'), 'SVG should include title element for Limited Vision');
   assert.ok(html.includes('<desc>People with low vision'), 'SVG should include desc element for Limited Vision');
   assert.ok(html.includes('<title>Without Perception of Color</title>'), 'SVG should include title element for Without Perception of Color');
+});
+
+test('buildUsabilityHeuristicsCounts returns empty array for no top URLs', () => {
+  const counts = buildUsabilityHeuristicsCounts([]);
+  assert.deepEqual(counts, []);
+});
+
+test('buildUsabilityHeuristicsCounts returns heuristics for urls with color-contrast findings', () => {
+  const topUrls = [
+    {
+      url: 'https://example.gov/',
+      page_load_count: 1000,
+      axe_findings: [{ id: 'color-contrast', title: 'Color contrast' }]
+    }
+  ];
+  const counts = buildUsabilityHeuristicsCounts(topUrls);
+  assert.ok(Array.isArray(counts), 'should return an array');
+  assert.ok(counts.length > 0, 'color-contrast should map to at least one heuristic');
+  for (const entry of counts) {
+    assert.ok(typeof entry.heuristic === 'object', 'entry should have a heuristic object');
+    assert.ok(typeof entry.heuristic.id === 'number', 'heuristic id should be a number');
+    assert.ok(typeof entry.pattern_count === 'number', 'pattern_count should be a number');
+    assert.ok(typeof entry.url_count === 'number', 'url_count should be a number');
+    assert.ok(Array.isArray(entry.rule_ids), 'rule_ids should be an array');
+    assert.ok(entry.rule_ids.includes('color-contrast'), 'rule_ids should include color-contrast');
+  }
+});
+
+test('buildUsabilityHeuristicsCounts accumulates url_count across patterns sharing a heuristic', () => {
+  // image-alt and color-contrast both touch heuristic 8 (Aesthetic and minimalist design)
+  // via 1.1.1 and 1.4.3 respectively
+  const topUrls = [
+    { url: 'https://a.gov/', page_load_count: 500, axe_findings: [{ id: 'color-contrast', title: 'Color contrast' }] },
+    { url: 'https://b.gov/', page_load_count: 300, axe_findings: [{ id: 'image-alt', title: 'Image alt' }] },
+  ];
+  const counts = buildUsabilityHeuristicsCounts(topUrls);
+  // Find heuristic 8
+  const h8 = counts.find((c) => c.heuristic.id === 8);
+  assert.ok(h8, 'Heuristic 8 (Aesthetic and minimalist design) should be present');
+  assert.equal(h8.pattern_count, 2, 'pattern_count should count both rules exactly');
+});
+
+test('renderDailyReportPage includes usability heuristics section when there are axe findings', () => {
+  const report = {
+    run_date: '2026-03-01',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 10, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov/',
+        page_load_count: 1000,
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'good',
+        lighthouse_scores: { performance: 70, accessibility: 80, best_practices: 85, seo: 90 },
+        axe_findings: [{ id: 'color-contrast', title: 'Color contrast', description: '', tags: [], items: [] }]
+      }
+    ],
+    generated_at: '2026-03-01T00:00:00.000Z',
+    report_status: 'success'
+  };
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('usability-heuristics-heading'), 'Page should include usability heuristics section');
+  assert.ok(html.includes('usability heuristic'), 'Page should include usability heuristics text');
+});
+
+test('renderDailyReportPage does not include usability heuristics section when no axe findings', () => {
+  const report = {
+    run_date: '2026-03-01',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 10, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-01T00:00:00.000Z',
+    report_status: 'success'
+  };
+  const html = renderDailyReportPage(report);
+  assert.ok(!html.includes('usability-heuristics-heading'), 'Page should not include usability heuristics section when no findings');
 });

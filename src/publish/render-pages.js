@@ -1,6 +1,7 @@
 import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-fpc-mapping.js';
 import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
-import { getPolicyNarrative } from '../data/axe-impact-loader.js';
+import { getPolicyNarrative, getHeuristicsForAxeRule } from '../data/axe-impact-loader.js';
+import { NNG_HEURISTICS } from '../data/nng-heuristics.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 
@@ -1702,6 +1703,114 @@ function renderAxePatternsSection(topUrls = []) {
   </section>`;
 }
 
+/**
+ * Builds a frequency map of NN/g usability heuristics across the top axe patterns.
+ * Each pattern is mapped to its relevant heuristics via WCAG SC, and the total
+ * URL count for each pattern is accumulated per heuristic.
+ *
+ * @param {Array} topUrls - array of top URL scan result objects
+ * @returns {Array<{heuristic: object, pattern_count: number, url_count: number, rule_ids: string[]}>}
+ */
+export function buildUsabilityHeuristicsCounts(topUrls = []) {
+  const patterns = buildAxePatternCounts(topUrls);
+  const topPatterns = patterns.slice(0, 10);
+
+  // Map heuristic id -> accumulated data
+  const heuristicMap = new Map();
+  for (const p of topPatterns) {
+    const heuristics = getHeuristicsForAxeRule(p.id);
+    for (const h of heuristics) {
+      const existing = heuristicMap.get(h.id);
+      if (existing) {
+        existing.pattern_count += 1;
+        existing.url_count += p.count;
+        if (!existing.rule_ids.includes(p.id)) existing.rule_ids.push(p.id);
+      } else {
+        heuristicMap.set(h.id, {
+          heuristic: h,
+          pattern_count: 1,
+          url_count: p.count,
+          rule_ids: [p.id],
+        });
+      }
+    }
+  }
+
+  return [...heuristicMap.values()].sort((a, b) => b.url_count - a.url_count || b.pattern_count - a.pattern_count);
+}
+
+function renderUsabilityHeuristicsSection(topUrls = []) {
+  const counts = buildUsabilityHeuristicsCounts(topUrls);
+
+  if (counts.length === 0) {
+    return '';
+  }
+
+  const rows = counts
+    .map((entry) => {
+      const h = entry.heuristic;
+      const ruleList = entry.rule_ids.map((id) => `<code>${escapeHtml(id)}</code>`).join(', ');
+      return `<tr>
+        <td>${escapeHtml(String(h.id))}</td>
+        <td><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
+        <td>${escapeHtml(String(entry.pattern_count))}</td>
+        <td>${escapeHtml(String(entry.url_count))}</td>
+        <td>${ruleList}</td>
+      </tr>`;
+    })
+    .join('\n');
+
+  const allHeuristicRows = NNG_HEURISTICS.map((h) => {
+    const found = counts.find((c) => c.heuristic.id === h.id);
+    if (found) return null;
+    return `<tr>
+      <td>${escapeHtml(String(h.id))}</td>
+      <td><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
+      <td>0</td><td>0</td><td>&#x2014;</td>
+    </tr>`;
+  }).filter(Boolean).join('\n');
+
+  return `
+  <section aria-labelledby="usability-heuristics-heading">
+    <h2 id="usability-heuristics-heading">Usability Heuristics Summary${renderAnchorLink('usability-heuristics-heading', 'Usability Heuristics Summary')}</h2>
+    <p>The most common accessibility violations map to <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" target="_blank" rel="noreferrer">Nielsen Norman Group's 10 usability heuristics</a>. This table shows which heuristics are most affected by today's top axe-core violations, helping to identify where systemic usability barriers exist.</p>
+    <p>The mapping from WCAG Success Criteria to usability heuristics is sourced from <a href="https://github.com/CivicActions/accessibility-data-reference/blob/main/NNg-usability-heuristics-wcag.csv" target="_blank" rel="noreferrer">CivicActions accessibility-data-reference</a>.</p>
+    ${wrapTable(`<table>
+      <caption>NN/g usability heuristics affected by today's top accessibility violations</caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Heuristic</th>
+          <th scope="col">Issue patterns</th>
+          <th scope="col">URL violations</th>
+          <th scope="col">Related axe rules</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>`)}
+    ${allHeuristicRows ? `<details>
+      <summary>Heuristics with no violations today</summary>
+      ${wrapTable(`<table>
+        <caption>NN/g usability heuristics with no violations in today's top 10 axe patterns</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Heuristic</th>
+            <th scope="col">Issue patterns</th>
+            <th scope="col">URL violations</th>
+            <th scope="col">Related axe rules</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${allHeuristicRows}
+        </tbody>
+      </table>`)}
+    </details>` : ''}
+  </section>`;
+}
+
 function renderNarrativeSection(report) {
   const historySeries = report.history_series ?? [];
   const nonZero = historySeries.filter(hasNonZeroScores);
@@ -1793,6 +1902,8 @@ export function renderDailyReportPage(report) {
     ${renderDayComparisonSection(report)}
 
     ${renderAxePatternsSection(report.top_urls)}
+
+    ${renderUsabilityHeuristicsSection(report.top_urls)}
 
     <section aria-labelledby="scores-heading">
       <h2 id="scores-heading">Aggregate Scores${renderAnchorLink('scores-heading', 'Aggregate Scores')}</h2>
