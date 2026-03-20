@@ -1,5 +1,6 @@
 import lighthouse from 'lighthouse';
 import { launch } from 'chrome-launcher';
+import { detectTechnologies } from './tech-detector.js';
 
 let lighthouseRunChain = Promise.resolve();
 
@@ -66,6 +67,7 @@ function parseLighthouseResult(url, rawResult) {
     core_web_vitals_status: deriveCoreWebVitalsStatus(rawResult),
     lcp_value_ms: rawResult?.audits?.['largest-contentful-paint']?.numericValue ?? null,
     total_byte_weight: rawResult?.audits?.['total-byte-weight']?.numericValue ?? null,
+    detected_technologies: detectTechnologies(rawResult),
     raw: rawResult
   };
 }

@@ -120,6 +120,48 @@ function scoreFromUrl(url, base = 70) {
   return Math.max(0, Math.min(100, bounded));
 }
 
+/**
+ * Generate mock network-request items for technology detection.
+ * Deterministically assigns a CMS or USWDS presence based on URL seed.
+ *
+ * seed % 4 === 0 → WordPress
+ * seed % 4 === 1 → Drupal
+ * seed % 4 === 2 → Joomla (with USWDS)
+ * seed % 4 === 3 → USWDS only (no CMS)
+ *
+ * @param {string} url
+ * @param {number} seed
+ * @returns {Array<{url: string}>}
+ */
+function mockNetworkRequests(url, seed) {
+  const base = url.replace('https://', '').replaceAll('/', '-');
+  const bucket = seed % 4;
+
+  if (bucket === 0) {
+    return [
+      { url: `${url}/wp-content/themes/federal/style.css` },
+      { url: `${url}/wp-includes/js/wp-emoji.js` }
+    ];
+  }
+
+  if (bucket === 1) {
+    return [
+      { url: `${url}/sites/default/files/css/main.css` },
+      { url: `${url}/core/misc/drupal.js` }
+    ];
+  }
+
+  if (bucket === 2) {
+    return [
+      { url: `${url}/components/com_content/views/article/tmpl/default.php` },
+      { url: `${url}/assets/uswds/uswds-3.8.0.min.css` }
+    ];
+  }
+
+  // bucket === 3: USWDS only
+  return [{ url: `${base}-cdn/uswds@3.6.1/dist/css/uswds.min.css` }];
+}
+
 function createMockScannerRunners(failNeedles = []) {
   const shouldFail = (url) => failNeedles.some((needle) => url.includes(needle));
 
@@ -204,6 +246,11 @@ function createMockScannerRunners(failNeedles = []) {
             'cumulative-layout-shift': { score: seo },
             'interaction-to-next-paint': { score: bestPractices },
             'total-byte-weight': { numericValue: Math.round((1 - performance) * 3000000 + 500000) },
+            'network-requests': {
+              details: {
+                items: mockNetworkRequests(url, seed)
+              }
+            },
             ...accessibilityAudits
           }
         };

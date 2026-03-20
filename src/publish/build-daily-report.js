@@ -1,3 +1,5 @@
+import { buildTechSummary } from '../scanners/tech-detector.js';
+
 function coerceScore(value) {
   if (typeof value === 'number' && Number.isFinite(value)) {
     return value;
@@ -17,6 +19,7 @@ function normalizeTopUrls(urlResults = []) {
         ? result.axe_findings.filter((f) => f.impact === 'critical' || f.impact === 'serious').length
         : 0,
       core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
+      detected_technologies: result.detected_technologies ?? null,
       lighthouse_scores:
         result.scan_status === 'success'
           ? {
@@ -64,6 +67,7 @@ export function buildDailyReport({
   }));
 
   const topUrls = normalizeTopUrls(urlResults);
+  const techSummary = buildTechSummary(urlResults);
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;
@@ -99,6 +103,7 @@ export function buildDailyReport({
     performance_impact: performanceImpact ?? null,
     source_data_date: sourceDataDate,
     top_urls: topUrls,
+    tech_summary: techSummary,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,

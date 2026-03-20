@@ -36,6 +36,7 @@ export function normalizeUrlScanResult({
     core_web_vitals_status: lighthouseResult?.core_web_vitals_status ?? 'unknown',
     lcp_value_ms: lighthouseResult?.lcp_value_ms ?? null,
     total_byte_weight: lighthouseResult?.total_byte_weight ?? null,
+    detected_technologies: lighthouseResult?.detected_technologies ?? null,
     accessibility_findings: normalizeFindings(urlRecord.url, scanGovResult?.accessibility_findings),
     axe_findings: extractAxeFindings(lighthouseResult?.raw),
     scan_diagnostics: {
