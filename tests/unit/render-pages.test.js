@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, buildFindingCopyText, plainTextDescription, buildUsabilityHeuristicsCounts } from '../../src/publish/render-pages.js';
+import { renderFailurePage } from '../../src/publish/failure-report.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
   const report = {
@@ -1839,6 +1840,26 @@ test('render404Page provides a link back to the dashboard', () => {
   const html = render404Page();
 
   assert.ok(html.includes('./reports/'), 'Should include a link back to the reports dashboard');
+});
+
+// ---- html-has-lang regression tests (axe rule: html-has-lang) ----
+
+test('all page types have lang="en" on the html element (axe html-has-lang)', () => {
+  const pages = [
+    ['renderDailyReportPage', renderDailyReportPage(makeMinimalReport())],
+    ['renderDashboardPage', renderDashboardPage({ latestReport: null, historyIndex: [] })],
+    ['renderArchiveIndexPage', renderArchiveIndexPage()],
+    ['renderArchiveRedirectStub', renderArchiveRedirectStub('2026-03-01')],
+    ['render404Page', render404Page()],
+    ['renderFailurePage', renderFailurePage({ run_date: '2026-03-01', run_id: 'test-run', error: { message: 'err' } })],
+  ];
+
+  for (const [name, html] of pages) {
+    assert.ok(
+      html.includes('<html lang="en">'),
+      `${name}: <html> element must have lang="en" attribute (axe html-has-lang)`
+    );
+  }
 });
 
 // ---- link-name regression tests (axe rule: link-name) ----
