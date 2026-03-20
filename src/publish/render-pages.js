@@ -1610,7 +1610,39 @@ export function plainTextDescription(description) {
   return description.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '$1 ($2)');
 }
 
-export function buildFindingCopyText(pageUrl, finding) {
+/**
+ * Converts an FPC code label to a natural-language impact phrase for plain text output.
+ * e.g. WV → "people without vision", LM → "people with limited manipulation"
+ * @param {string} code
+ * @returns {string}
+ */
+function fpcLabelToImpactPhrase(code) {
+  const label = FPC_LABELS[code] ?? code;
+  const lower = label.toLowerCase();
+  if (lower.startsWith('without ')) {
+    return 'people without ' + lower.slice('without '.length);
+  }
+  if (lower.startsWith('limited ')) {
+    return 'people with limited ' + lower.slice('limited '.length);
+  }
+  return 'people with ' + lower;
+}
+
+/**
+ * Formats an array of impact phrases as a natural English list.
+ * e.g. ["~60K people without vision", "~20K people without hearing"]
+ *      → "~60K people without vision and ~20K people without hearing"
+ * @param {string[]} items
+ * @returns {string}
+ */
+function formatImpactList(items) {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return items.slice(0, -1).join(', ') + ', and ' + items[items.length - 1];
+}
+
+export function buildFindingCopyText(pageUrl, finding, pageLoadCount = 0, scanDate = '') {
   const wcagLabels = (finding.tags ?? []).map(formatWcagTag).filter(Boolean);
   const fpcCodes = AXE_TO_FPC.get(finding.id) ?? [];
   const lines = [
@@ -1628,6 +1660,23 @@ export function buildFindingCopyText(pageUrl, finding) {
   if (fpcCodes.length > 0) {
     const fpcLabels = fpcCodes.map((code) => `${code} (${FPC_LABELS[code] ?? code})`);
     lines.push('', `**Section 508 FPC:** ${fpcLabels.join(', ')}`);
+  }
+
+  if (pageLoadCount > 0 && fpcCodes.length > 0) {
+    const prevalenceRates = getFpcPrevalenceRates();
+    const impacts = fpcCodes
+      .filter((code) => (prevalenceRates[code] ?? 0) > 0)
+      .map((code) => {
+        const estimated = Math.round(pageLoadCount * prevalenceRates[code]);
+        return `~${estimated.toLocaleString('en-US')} ${fpcLabelToImpactPhrase(code)}`;
+      });
+    if (impacts.length > 0) {
+      const visitorClause = `${pageLoadCount.toLocaleString('en-US')} daily visitors${scanDate ? ` (${scanDate})` : ''}`;
+      lines.push(
+        '',
+        `With ${visitorClause} these errors could impact: ${formatImpactList(impacts)} according to Census.gov (${CENSUS_DISABILITY_STATS.source_url}).`
+      );
+    }
   }
 
   const items = finding.items ?? [];
@@ -1652,7 +1701,7 @@ export function buildFindingCopyText(pageUrl, finding) {
   return lines.join('\n');
 }
 
-function renderAxeFindingsList(axeFindings = [], pageUrl = '', pageLoadCount = 0) {
+function renderAxeFindingsList(axeFindings = [], pageUrl = '', pageLoadCount = 0, scanDate = '') {
   if (axeFindings.length === 0) {
     return '<p>No accessibility findings from this scan.</p>';
   }
@@ -1674,14 +1723,14 @@ function renderAxeFindingsList(axeFindings = [], pageUrl = '', pageLoadCount = 0
           ${fpcHtml}
           <p><strong>Affected elements (${finding.items.length}):</strong></p>
           ${renderAxeFindingItems(finding.items)}
-          <button class="copy-finding-btn" data-copy-text="${escapeHtml(buildFindingCopyText(pageUrl, finding))}" aria-label="Copy finding to clipboard">Copy finding</button>
+          <button class="copy-finding-btn" data-copy-text="${escapeHtml(buildFindingCopyText(pageUrl, finding, pageLoadCount, scanDate))}" aria-label="Copy finding to clipboard">Copy finding</button>
         </div>
       </details>`;
     })
     .join('\n');
 }
 
-function renderUrlModal(entry, modalId) {
+function renderUrlModal(entry, modalId, scanDate = '') {
   const axeFindings = Array.isArray(entry.axe_findings) ? entry.axe_findings : [];
   return `
 <dialog id="${escapeHtml(modalId)}" aria-labelledby="${escapeHtml(modalId)}-title" aria-modal="true" class="axe-modal">
@@ -1692,7 +1741,7 @@ function renderUrlModal(entry, modalId) {
   <p><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></p>
   <p>Lighthouse Accessibility Score: ${entry.lighthouse_scores ? entry.lighthouse_scores.accessibility : '—'}</p>
   <p>Axe findings: ${axeFindings.length}</p>
-  ${renderAxeFindingsList(axeFindings, entry.url, entry.page_load_count ?? 0)}
+  ${renderAxeFindingsList(axeFindings, entry.url, entry.page_load_count ?? 0, scanDate)}
   <p><a href="axe-findings.json">Download full axe findings JSON</a> | <a href="axe-findings.csv">Download full axe findings CSV</a></p>
   <div class="modal-footer">
     <button aria-label="Close dialog" data-close-modal="${escapeHtml(modalId)}">Close</button>
@@ -1700,11 +1749,11 @@ function renderUrlModal(entry, modalId) {
 </dialog>`;
 }
 
-function renderTopUrlModals(topUrls = []) {
+function renderTopUrlModals(topUrls = [], scanDate = '') {
   return topUrls
     .slice(0, 100)
     .map((entry, index) =>
-      entry.lighthouse_scores?.accessibility === 100 ? '' : renderUrlModal(entry, `modal-url-${index}`)
+      entry.lighthouse_scores?.accessibility === 100 ? '' : renderUrlModal(entry, `modal-url-${index}`, scanDate)
     )
     .join('\n');
 }
@@ -2366,7 +2415,7 @@ export function renderDailyReportPage(report) {
     ${renderCallToActionSection(report)}
   </main>
 
-  ${renderTopUrlModals(report.top_urls)}
+  ${renderTopUrlModals(report.top_urls, report.run_date)}
 
   ${renderSiteFooter()}
 
