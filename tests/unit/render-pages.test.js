@@ -1943,3 +1943,109 @@ test('renderDashboardPage: no image-only logo link exists (axe link-name regress
   // whether it has accessible text (our pages use a text-based site title, not an image logo).
   assert.ok(!html.includes('logo-img'), 'Dashboard page must not contain image-only logo link (logo-img class)');
 });
+
+// ---- Performance impact display helpers ----
+
+test('renderDailyReportPage: performance impact shows formatted date instead of "today"', () => {
+  const report = {
+    ...minimalReport,
+    run_date: '2026-03-20',
+    performance_impact: {
+      benchmark_lcp_ms: 2500,
+      benchmark_page_weight_bytes: 1_600_000,
+      url_count_with_timing: 5,
+      url_count_with_weight: 3,
+      total_extra_load_time_seconds: 343_306_825,
+      total_extra_load_time_hours: 95363,
+      total_extra_bytes: 72_748_199_470,
+      total_extra_gigabytes: 67728.43
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // "today" must not appear verbatim in the performance impact section
+  assert.ok(!html.includes('(today)'), 'Column header must not say "(today)"');
+  assert.ok(!html.includes("today's"), 'Caption must not say "today\'s"');
+
+  // Formatted date should appear
+  assert.ok(html.includes('March 20, 2026'), 'Formatted date should appear in performance impact section');
+});
+
+test('renderDailyReportPage: performance impact converts large seconds to years/months/days', () => {
+  // 343,306,825 seconds / 3600 = ~95363 hours => ~3973.5 days => ~10 years
+  const report = {
+    ...minimalReport,
+    run_date: '2026-03-20',
+    performance_impact: {
+      benchmark_lcp_ms: 2500,
+      benchmark_page_weight_bytes: 1_600_000,
+      url_count_with_timing: 5,
+      url_count_with_weight: 0,
+      total_extra_load_time_seconds: 343_306_825,
+      total_extra_load_time_hours: 95363,
+      total_extra_bytes: 0,
+      total_extra_gigabytes: 0
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('years'), 'Duration should include "years" for large totals');
+  assert.ok(html.includes('months'), 'Duration should include "months" for large totals');
+  // Must NOT revert to simple "days" display for values > 1 year
+  assert.ok(!html.includes('3,973'), 'Must not show raw days value');
+});
+
+test('renderDailyReportPage: performance impact shows TB and Wikipedia copies for large data', () => {
+  const report = {
+    ...minimalReport,
+    run_date: '2026-03-20',
+    performance_impact: {
+      benchmark_lcp_ms: 2500,
+      benchmark_page_weight_bytes: 1_600_000,
+      url_count_with_timing: 5,
+      url_count_with_weight: 97,
+      total_extra_load_time_seconds: 1000,
+      total_extra_load_time_hours: 0.28,
+      total_extra_bytes: 72_748_199_470_000,
+      total_extra_gigabytes: 67728.43
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Should show TB, not raw GB
+  assert.ok(html.includes('TB'), 'Should show TB for large data sizes');
+  assert.ok(!html.includes('67,728'), 'Must not show raw GB value for large data');
+
+  // Should show Wikipedia copies
+  assert.ok(html.includes('copies of Wikipedia'), 'Should show Wikipedia copy count');
+});
+
+test('renderDailyReportPage: performance impact shows GB and Wikipedia copies for moderate data', () => {
+  // 500 GB / 24.05 = 20.79 => 20 copies
+  const report = {
+    ...minimalReport,
+    run_date: '2026-03-20',
+    performance_impact: {
+      benchmark_lcp_ms: 2500,
+      benchmark_page_weight_bytes: 1_600_000,
+      url_count_with_timing: 5,
+      url_count_with_weight: 10,
+      total_extra_load_time_seconds: 1000,
+      total_extra_load_time_hours: 0.28,
+      total_extra_bytes: 500_000_000_000,
+      total_extra_gigabytes: 500
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Should show GB (not TB) for values under 1000 GB
+  assert.ok(html.includes(' GB'), 'Should show GB for data sizes under 1 TB');
+  assert.ok(!html.includes(' TB'), 'Must not show TB for data under 1000 GB');
+
+  // Should still show Wikipedia copies
+  assert.ok(html.includes('copies of Wikipedia'), 'Should show Wikipedia copy count for moderate data');
+});

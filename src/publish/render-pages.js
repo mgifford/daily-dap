@@ -995,12 +995,61 @@ function renderFpcExclusionSection(report) {
   </section>`;
 }
 
+// Wikipedia's English-language database download size (articles + talk pages, compressed XML).
+// Source: https://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia
+const WIKIPEDIA_SIZE_GB = 24.05;
+
 function formatDuration(hours) {
-  if (hours >= 24) {
-    const days = Math.round((hours / 24) * 10) / 10;
-    return `${days.toLocaleString('en-US')} days`;
+  const DAYS_PER_YEAR = 365.25;
+  const DAYS_PER_MONTH = DAYS_PER_YEAR / 12; // ~30.4375
+
+  const totalDays = hours / 24;
+  if (totalDays < 1) {
+    // Round down to be conservative
+    return `${Math.floor(hours).toLocaleString('en-US')} hours`;
   }
-  return `${hours.toLocaleString('en-US')} hours`;
+
+  const years = Math.floor(totalDays / DAYS_PER_YEAR);
+  const remainingDays = totalDays - years * DAYS_PER_YEAR;
+  const months = Math.floor(remainingDays / DAYS_PER_MONTH);
+  const days = Math.floor(remainingDays - months * DAYS_PER_MONTH);
+
+  const parts = [];
+  if (years > 0) parts.push(`${years.toLocaleString('en-US')} ${years === 1 ? 'year' : 'years'}`);
+  if (months > 0) parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+  if (days > 0) parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
+
+  return parts.length > 0 ? parts.join(', ') : '< 1 day';
+}
+
+function formatDataSize(gigabytes) {
+  const wikipediaCopies = Math.floor(gigabytes / WIKIPEDIA_SIZE_GB);
+  let sizeStr;
+  if (gigabytes >= 1000) {
+    // Use SI (decimal) units: 1 TB = 1000 GB, matching the GB values already reported
+    const tb = Math.floor((gigabytes / 1000) * 10) / 10;
+    sizeStr = `~${tb.toLocaleString('en-US')} TB`;
+  } else {
+    const gb = Math.floor(gigabytes * 100) / 100;
+    sizeStr = `${gb.toLocaleString('en-US')} GB`;
+  }
+
+  if (wikipediaCopies > 0) {
+    return `${sizeStr} (${wikipediaCopies.toLocaleString('en-US')} copies of Wikipedia)`;
+  }
+  return sizeStr;
+}
+
+function formatScanDate(dateStr) {
+  if (!dateStr || typeof dateStr !== 'string') return dateStr ?? '';
+  const parts = dateStr.split('-').map(Number);
+  if (parts.length !== 3 || parts.some(Number.isNaN)) return dateStr;
+  const [year, month, day] = parts;
+  // Use Date.UTC to construct midnight UTC, then format in UTC timezone,
+  // so the displayed date is always the calendar date in the run_date string
+  // regardless of the server's local timezone.
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 }
 
 function renderPerformanceImpactSection(report) {
@@ -1014,6 +1063,7 @@ function renderPerformanceImpactSection(report) {
   const extraHours = impact.total_extra_load_time_hours;
   const extraGb = impact.total_extra_gigabytes;
   const urlCount = impact.url_count_with_timing;
+  const scanDate = escapeHtml(formatScanDate(report.run_date));
 
   const timeRow = `<tr>
       <td>Extra time waiting (vs ${benchmarkLcpSec}s LCP benchmark)</td>
@@ -1025,7 +1075,7 @@ function renderPerformanceImpactSection(report) {
     impact.url_count_with_weight > 0
       ? `<tr>
       <td>Extra data transferred (vs ${benchmarkWeightMb} MB page weight benchmark)</td>
-      <td>${extraGb.toLocaleString('en-US')} GB</td>
+      <td>${formatDataSize(extraGb)}</td>
       <td>Across ${Number(impact.url_count_with_weight).toLocaleString('en-US')} URLs with weight data</td>
     </tr>`
       : '';
@@ -1035,11 +1085,11 @@ function renderPerformanceImpactSection(report) {
     <h2 id="performance-impact-heading">Performance Impact on Americans${renderAnchorLink('performance-impact-heading', 'Performance Impact on Americans')}</h2>
     <p>Google defines a <strong>good</strong> Largest Contentful Paint (LCP) as under ${benchmarkLcpSec} seconds and recommends pages under ${benchmarkWeightMb} MB. The figures below estimate how much extra time Americans spend waiting, and how much extra data is transferred, because government websites fall short of these benchmarks. Calculations are based on ${Number(urlCount).toLocaleString('en-US')} successfully scanned URLs with Lighthouse timing data.</p>
     ${wrapTable(`<table>
-      <caption>Estimated performance impact vs. Google benchmarks for today's scanned government URLs</caption>
+      <caption>Estimated performance impact vs. Google benchmarks for government URLs scanned on ${scanDate}</caption>
       <thead>
         <tr>
           <th scope="col">Metric</th>
-          <th scope="col">Estimated total (today)</th>
+          <th scope="col">Estimated total (${scanDate})</th>
           <th scope="col">Notes</th>
         </tr>
       </thead>
@@ -1048,7 +1098,7 @@ function renderPerformanceImpactSection(report) {
         ${weightRow}
       </tbody>
     </table>`)}
-    <p><small>Extra time is calculated as: for each scanned URL, <em>max(0, actual LCP &minus; ${benchmarkLcpSec}s) &times; page loads</em>. Extra data is calculated as: <em>max(0, actual page weight &minus; ${benchmarkWeightMb} MB) &times; page loads</em>. LCP and page weight are measured by Lighthouse. These are rough estimates based on a sample of the top government URLs by traffic.</small></p>
+    <p><small>Extra time is calculated as: for each scanned URL, <em>max(0, actual LCP &minus; ${benchmarkLcpSec}s) &times; page loads</em>. Extra data is calculated as: <em>max(0, actual page weight &minus; ${benchmarkWeightMb} MB) &times; page loads</em>. LCP and page weight are measured by Lighthouse. Wikipedia copy count uses a size of 24.05 GB per <a href="https://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia" target="_blank" rel="noreferrer">Wikipedia:Size of Wikipedia</a>. These are rough estimates based on a sample of the top government URLs by traffic.</small></p>
   </section>`;
 }
 
