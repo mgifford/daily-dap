@@ -50,11 +50,19 @@ export function estimateWeightedImpact(urlResults = [], config, options = {}) {
   const successfulResults = urlResults.filter((result) => result?.scan_status === 'success');
 
   const url_impacts = successfulResults.map((result) => {
-    const findings = Array.isArray(result.accessibility_findings) ? result.accessibility_findings : [];
+    // Prefer axe_findings (Lighthouse, always populated). Fall back to
+    // accessibility_findings (ScanGov) when axe_findings are not present.
+    const findings =
+      Array.isArray(result.axe_findings) && result.axe_findings.length > 0
+        ? result.axe_findings
+        : Array.isArray(result.accessibility_findings)
+          ? result.accessibility_findings
+          : [];
     const pageLoadCount = resolvePageLoadCount(result, trafficWindowMode);
 
     const weightedIssueSum = findings.reduce((sum, finding) => {
-      const severity = normalizeSeverity(finding?.severity);
+      // axe_findings use the 'impact' field; accessibility_findings use 'severity'
+      const severity = normalizeSeverity(finding?.severity ?? finding?.impact);
       const weight = severity === 'unknown' ? fallbackWeight : (weights[severity] ?? fallbackWeight);
       return sum + weight;
     }, 0);

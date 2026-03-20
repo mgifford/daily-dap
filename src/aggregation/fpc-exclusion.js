@@ -7,11 +7,19 @@ function roundToTwo(value) {
 
 /**
  * For a single URL result, return the set of FPC codes affected by its axe findings.
- * @param {object} result - A URL scan result with accessibility_findings.
+ * Prefers axe_findings (from Lighthouse) because they carry axe rule IDs that map
+ * directly to FPC codes. Falls back to accessibility_findings (from ScanGov) when
+ * axe_findings are absent.
+ * @param {object} result - A URL scan result with axe_findings or accessibility_findings.
  * @returns {Set<string>} Set of FPC codes (e.g. 'WV', 'LV', ...)
  */
 function getFpcCodesForResult(result) {
-  const findings = Array.isArray(result.accessibility_findings) ? result.accessibility_findings : [];
+  const findings =
+    Array.isArray(result.axe_findings) && result.axe_findings.length > 0
+      ? result.axe_findings
+      : Array.isArray(result.accessibility_findings)
+        ? result.accessibility_findings
+        : [];
   const affected = new Set();
   for (const finding of findings) {
     const ruleId = finding?.rule_id ?? finding?.id;

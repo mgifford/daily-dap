@@ -102,3 +102,70 @@ test('estimateCategoryImpact applies prevalence profile per category', () => {
   assert.equal(categoryImpact.categories.low_vision.estimated_impacted_users, 200);
   assert.equal(categoryImpact.categories.low_vision.estimated_impacted_share_percent, 20);
 });
+
+test('estimateWeightedImpact uses axe_findings with impact field when accessibility_findings absent', () => {
+  // axe_findings use 'impact' instead of 'severity'; weights should match
+  const weighted = estimateWeightedImpact(
+    [
+      {
+        scan_status: 'success',
+        url: 'https://example.gov/axe',
+        page_load_count: 1000,
+        axe_findings: [{ id: 'color-contrast', impact: 'critical' }, { id: 'image-alt', impact: 'moderate' }]
+      }
+    ],
+    config
+  );
+
+  assert.equal(weighted.totals.included_url_count, 1);
+  assert.equal(weighted.totals.total_page_load_count, 1000);
+  // critical=1.0, moderate=0.3; weighted_sum=1.3; signal=1.3/2=0.65; traffic=650
+  assert.equal(weighted.url_impacts[0].weighted_issue_sum, 1.3);
+  assert.equal(weighted.url_impacts[0].normalized_issue_signal, 0.65);
+  assert.equal(weighted.url_impacts[0].weighted_affected_traffic, 650);
+  assert.ok(weighted.totals.affected_share_percent > 0);
+});
+
+test('estimateWeightedImpact prefers axe_findings over accessibility_findings when both present', () => {
+  // axe_findings has one critical finding; accessibility_findings has three critical findings.
+  // The axe_findings result should be used.
+  const weighted = estimateWeightedImpact(
+    [
+      {
+        scan_status: 'success',
+        url: 'https://example.gov/both',
+        page_load_count: 1000,
+        axe_findings: [{ id: 'image-alt', impact: 'critical' }],
+        accessibility_findings: [
+          { severity: 'critical' },
+          { severity: 'critical' },
+          { severity: 'critical' }
+        ]
+      }
+    ],
+    config
+  );
+
+  // axe_findings has 1 finding, so finding_count should be 1
+  assert.equal(weighted.url_impacts[0].finding_count, 1);
+  assert.equal(weighted.url_impacts[0].weighted_issue_sum, 1.0);
+});
+
+test('estimateWeightedImpact falls back to accessibility_findings when axe_findings is empty', () => {
+  const weighted = estimateWeightedImpact(
+    [
+      {
+        scan_status: 'success',
+        url: 'https://example.gov/fallback',
+        page_load_count: 500,
+        axe_findings: [],
+        accessibility_findings: [{ severity: 'serious' }]
+      }
+    ],
+    config
+  );
+
+  assert.equal(weighted.url_impacts[0].finding_count, 1);
+  // serious=0.6; signal=0.6; traffic=500*0.6=300
+  assert.equal(weighted.url_impacts[0].weighted_affected_traffic, 300);
+});

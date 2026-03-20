@@ -191,6 +191,68 @@ test('computeFpcExclusion uses CENSUS_DISABILITY_STATS by default', () => {
   assert.ok(typeof exclusion.total_page_loads === 'number');
 });
 
+test('computeFpcExclusion uses axe_findings (id field) when accessibility_findings is absent', () => {
+  // axe_findings use 'id' rather than 'rule_id'; color-contrast maps to LV and WPC
+  const results = [
+    {
+      scan_status: 'success',
+      url: 'https://example.gov/axe',
+      page_load_count: 3000,
+      axe_findings: [
+        { id: 'color-contrast', impact: 'serious', title: 'Elements must meet minimum color contrast' }
+      ]
+    }
+  ];
+
+  const exclusion = computeFpcExclusion(results, TEST_CENSUS);
+
+  assert.equal(exclusion.total_page_loads, 3000);
+  assert.equal(exclusion.categories.LV.affected_page_loads, 3000);
+  assert.equal(exclusion.categories.WPC.affected_page_loads, 3000);
+  assert.equal(exclusion.categories.WV.affected_page_loads, 0);
+});
+
+test('computeFpcExclusion prefers axe_findings over accessibility_findings when both present', () => {
+  // axe_findings has image-alt (maps to WV, WH); accessibility_findings has color-contrast
+  // (maps to LV, WPC). The axe_findings result should win.
+  const results = [
+    {
+      scan_status: 'success',
+      url: 'https://example.gov/both',
+      page_load_count: 1000,
+      axe_findings: [{ id: 'image-alt', impact: 'critical' }],
+      accessibility_findings: [{ rule_id: 'color-contrast', severity: 'serious' }]
+    }
+  ];
+
+  const exclusion = computeFpcExclusion(results, TEST_CENSUS);
+
+  // axe_findings wins: image-alt affects WV and WH
+  assert.equal(exclusion.categories.WV.affected_page_loads, 1000);
+  assert.equal(exclusion.categories.WH.affected_page_loads, 1000);
+  // LV/WPC should NOT be affected (color-contrast came from accessibility_findings, not used)
+  assert.equal(exclusion.categories.LV.affected_page_loads, 0);
+  assert.equal(exclusion.categories.WPC.affected_page_loads, 0);
+});
+
+test('computeFpcExclusion falls back to accessibility_findings when axe_findings is empty', () => {
+  const results = [
+    {
+      scan_status: 'success',
+      url: 'https://example.gov/fallback',
+      page_load_count: 500,
+      axe_findings: [],
+      accessibility_findings: [{ rule_id: 'color-contrast', severity: 'serious' }]
+    }
+  ];
+
+  const exclusion = computeFpcExclusion(results, TEST_CENSUS);
+
+  assert.equal(exclusion.categories.LV.affected_page_loads, 500);
+  assert.equal(exclusion.categories.WPC.affected_page_loads, 500);
+  assert.equal(exclusion.categories.WV.affected_page_loads, 0);
+});
+
 test('isCensusDataStale returns false for future review date', () => {
   assert.equal(isCensusDataStale('2025-01-01'), false);
 });
