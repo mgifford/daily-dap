@@ -135,6 +135,16 @@ jobs:
         shell: bash
         run: node src/cli/generate-accessibility-summary.js
 
+      - name: Generate news release summary
+        if: steps.pipeline.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        shell: bash
+        run: |
+          if [[ -n "$RUN_DATE" ]]; then
+            node src/cli/generate-press-release.js --date "$RUN_DATE"
+          else
+            node src/cli/generate-press-release.js
+          fi
+
       - name: Fail workflow on pipeline error
         if: steps.pipeline.outputs.exit_code != '0'
         run: |
