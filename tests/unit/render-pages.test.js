@@ -1239,6 +1239,102 @@ test('buildFindingCopyText omits FPC section for unknown axe rules', () => {
   assert.ok(!text.includes('**Section 508 FPC:**'), 'Should not include FPC section for unknown rules');
 });
 
+test('buildFindingCopyText includes impact estimate with visitor count and scan date', () => {
+  const finding = {
+    id: 'color-contrast',
+    title: 'Elements must have sufficient color contrast',
+    description: 'Ensure the contrast ratio meets the minimum.',
+    tags: ['wcag143'],
+    items: []
+  };
+  // color-contrast maps to LV and WPC
+  const text = buildFindingCopyText('https://example.gov', finding, 1_000_000, '2026-03-17');
+  assert.ok(text.includes('With 1,000,000 daily visitors (2026-03-17) these errors could impact:'), 'Should include visitor count and scan date');
+  assert.ok(text.includes('people with limited vision'), 'Should include LV impact phrase');
+  assert.ok(text.includes('people without perception of color'), 'Should include WPC impact phrase');
+  assert.ok(text.includes('according to Census.gov (https://www.census.gov/topics/health/disability.html)'), 'Should include Census.gov citation with URL');
+});
+
+test('buildFindingCopyText omits impact estimate when pageLoadCount is zero', () => {
+  const finding = {
+    id: 'color-contrast',
+    title: 'Elements must have sufficient color contrast',
+    description: 'Ensure the contrast ratio meets the minimum.',
+    tags: ['wcag143'],
+    items: []
+  };
+  const text = buildFindingCopyText('https://example.gov', finding, 0, '2026-03-17');
+  assert.ok(!text.includes('daily visitors'), 'Should not include visitor count when pageLoadCount is 0');
+  assert.ok(!text.includes('according to Census.gov'), 'Should not cite Census.gov when no visitor count');
+});
+
+test('buildFindingCopyText omits impact estimate for unknown rules (no FPC codes)', () => {
+  const finding = {
+    id: 'unknown-rule-xyz',
+    title: 'Some unknown rule',
+    description: 'An unknown rule.',
+    tags: [],
+    items: []
+  };
+  const text = buildFindingCopyText('https://example.gov', finding, 1_000_000, '2026-03-17');
+  assert.ok(!text.includes('daily visitors'), 'Should not include visitor count when no FPC codes');
+  assert.ok(!text.includes('according to Census.gov'), 'Should not cite Census.gov when no FPC codes');
+});
+
+test('buildFindingCopyText omits scan date from impact estimate when scanDate is empty', () => {
+  const finding = {
+    id: 'color-contrast',
+    title: 'Elements must have sufficient color contrast',
+    description: 'Ensure the contrast ratio meets the minimum.',
+    tags: ['wcag143'],
+    items: []
+  };
+  const text = buildFindingCopyText('https://example.gov', finding, 1_000_000);
+  assert.ok(text.includes('With 1,000,000 daily visitors these errors could impact:'), 'Should include visitor count without date');
+  assert.ok(!text.includes('(undefined)'), 'Should not include undefined date');
+});
+
+test('renderDailyReportPage includes impact estimate in copy text for URLs with page_load_count', () => {
+  const report = {
+    run_date: '2026-03-17',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com/',
+        page_load_count: 6_161_710,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 1,
+        severe_findings_count: 1,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 55, accessibility: 68, best_practices: 77, seo: 83, pwa: 0 },
+        axe_findings: [
+          {
+            id: 'aria-required-children',
+            title: 'Elements with an ARIA role that require children to contain a specific role are missing some or all of those required children.',
+            description: 'Some ARIA parent roles must contain specific child roles.',
+            score: 0,
+            tags: ['wcag131'],
+            items: []
+          }
+        ]
+      }
+    ],
+    generated_at: '2026-03-17T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // The copy text embedded in the button should include impact information
+  assert.ok(html.includes('6,161,710 daily visitors (2026-03-17)'), 'Copy text should embed visitor count and scan date');
+  assert.ok(html.includes('according to Census.gov'), 'Copy text should cite Census.gov');
+});
+
 test('renderDailyReportPage omits FPC section for unknown axe rules in URL modals', () => {
   const report = {
     run_date: '2026-03-09',
