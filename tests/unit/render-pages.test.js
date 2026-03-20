@@ -2514,3 +2514,101 @@ test('renderSharedStyles includes @media print CSS', () => {
   assert.ok(html.includes('@media print'), 'HTML should include @media print CSS');
   assert.ok(html.includes('.print-only'), 'CSS should define .print-only class');
 });
+
+test('renderDailyReportPage shows performance score with load-time tooltip when lcp_value_ms is present', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 43, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 14400,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'poor',
+        lcp_value_ms: 8000,
+        lighthouse_scores: { performance: 43, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 }
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(html.includes('class="perf-time-trigger"'), 'Should render perf-time-trigger span');
+  assert.ok(html.includes('role="tooltip"'), 'Should render tooltip with role=tooltip');
+  assert.ok(html.includes('class="perf-time-tooltip"'), 'Should render perf-time-tooltip span');
+  assert.ok(html.includes('aria-describedby="perf-tip-'), 'Should have aria-describedby pointing to tooltip');
+  assert.ok(html.includes('32 hours'), 'Should show computed total load time (8s * 14400 = 32 hours)');
+  assert.ok(html.includes('8.0s LCP'), 'Tooltip should mention LCP value');
+  assert.ok(html.includes('14,400 page loads'), 'Tooltip should mention page load count');
+  assert.ok(html.includes('&thinsp;/&thinsp;'), 'Should separate score and time with thin-space slash');
+  assert.ok(html.includes('data-sort-value="43"'), 'Should have data-sort-value for the performance score');
+});
+
+test('renderDailyReportPage shows plain performance score when lcp_value_ms is missing', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 43, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://tools.usps.com',
+        page_load_count: 14400,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'poor',
+        lighthouse_scores: { performance: 43, accessibility: 70, best_practices: 80, seo: 85, pwa: 0 }
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  assert.ok(!html.includes('class="perf-time-trigger"'), 'Should NOT render perf-time-trigger when lcp_value_ms is absent');
+  assert.ok(html.includes('>43</td>'), 'Should render plain performance score cell');
+});
+
+test('renderDailyReportPage shows days unit for very large total load times', () => {
+  const report = {
+    run_date: '2026-03-05',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 30, accessibility: 60, best_practices: 75, seo: 80, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 10000000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        core_web_vitals_status: 'poor',
+        lcp_value_ms: 9000,
+        lighthouse_scores: { performance: 30, accessibility: 60, best_practices: 75, seo: 80, pwa: 0 }
+      }
+    ],
+    generated_at: '2026-03-05T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+  // 9s * 10,000,000 = 90,000,000s = 25,000 hours = 1042 days -> should show "days"
+  assert.ok(html.includes('days'), 'Should display days unit for very large load times');
+});

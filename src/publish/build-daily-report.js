@@ -19,6 +19,7 @@ function normalizeTopUrls(urlResults = []) {
         ? result.axe_findings.filter((f) => f.impact === 'critical' || f.impact === 'serious').length
         : 0,
       core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
+      lcp_value_ms: typeof result.lcp_value_ms === 'number' ? result.lcp_value_ms : null,
       detected_technologies: result.detected_technologies ?? null,
       lighthouse_scores:
         result.scan_status === 'success'
