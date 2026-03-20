@@ -2566,6 +2566,67 @@ test('renderDailyReportPage CTA shows generic message when no fpc_exclusion data
   );
 });
 
+test('roundDownConservatively: estimated impacted users >= 100K are rounded down to nearest 10K', () => {
+  const report = makeMinimalReport({
+    estimated_impact: {
+      traffic_window_mode: 'daily',
+      affected_share_percent: 40.3,
+      categories: [
+        { name: 'Limited Vision', prevalence_rate: '0.023', estimated_impacted_users: 584031.48 },
+        { name: 'Without Vision', prevalence_rate: '0.01', estimated_impacted_users: 253926.73 }
+      ]
+    }
+  });
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('580,000'), 'Limited Vision 584031.48 should round down to 580,000');
+  assert.ok(html.includes('250,000'), 'Without Vision 253926.73 should round down to 250,000');
+  assert.ok(!html.includes('584,031'), 'Raw unrounded value should not appear');
+});
+
+test('roundDownConservatively: FPC exclusion large numbers are rounded down conservatively', () => {
+  const report = makeMinimalReport({
+    fpc_exclusion: {
+      total_page_loads: 5000000,
+      census_vintage_year: 2023,
+      census_source: 'U.S. Census Bureau',
+      census_source_url: 'https://data.census.gov/',
+      categories: {
+        LRS: { label: 'Limited Reach and Strength', prevalence_rate: 0.058, estimated_population: 19600000, affected_page_loads: 24819560, estimated_excluded_users: 1439534 },
+        LM: { label: 'Limited Manipulation', prevalence_rate: 0.022, estimated_population: 7600000, affected_page_loads: 39221137, estimated_excluded_users: 862865 }
+      }
+    }
+  });
+  const html = renderDailyReportPage(report);
+  // Page Loads with Barriers: 24,819,560 >= 10M -> round to nearest 100K -> 24,800,000
+  assert.ok(html.includes('24,800,000'), 'LRS page loads 24,819,560 should round down to 24,800,000');
+  // Page Loads with Barriers: 39,221,137 >= 10M -> round to nearest 100K -> 39,200,000
+  assert.ok(html.includes('39,200,000'), 'LM page loads 39,221,137 should round down to 39,200,000');
+  // Est. excluded: 1,439,534 >= 100K, < 10M -> round to nearest 10K -> 1,430,000
+  assert.ok(html.includes('1,430,000'), 'LRS excluded 1,439,534 should round down to 1,430,000');
+  // Est. excluded: 862,865 >= 100K, < 10M -> round to nearest 10K -> 860,000
+  assert.ok(html.includes('860,000'), 'LM excluded 862,865 should round down to 860,000');
+  // Raw unrounded values should not appear
+  assert.ok(!html.includes('1,439,534'), 'Raw unrounded 1,439,534 should not appear');
+});
+
+test('roundDownConservatively: CTA total excluded uses rounded-down value for large estimates', () => {
+  const report = makeMinimalReport({
+    fpc_exclusion: {
+      total_page_loads: 5000000,
+      census_vintage_year: 2023,
+      census_source: 'U.S. Census Bureau',
+      census_source_url: 'https://data.census.gov/',
+      categories: {
+        LM: { label: 'Limited Manipulation', prevalence_rate: 0.022, estimated_population: 7600000, affected_page_loads: 5000000, estimated_excluded_users: 3983398 }
+      }
+    }
+  });
+  const html = renderDailyReportPage(report);
+  // 3,983,398 >= 100K, < 10M -> floor to nearest 10K -> 3,980,000
+  assert.ok(html.includes('3,980,000'), 'CTA total excluded 3,983,398 should round down to 3,980,000');
+  assert.ok(!html.includes('3,983,398'), 'Raw unrounded 3,983,398 should not appear in CTA');
+});
+
 test('renderDayComparisonSection uses N-day average instead of previous-day scores', () => {
   const report = {
     run_date: '2026-03-20',
