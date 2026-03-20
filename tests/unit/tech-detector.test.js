@@ -197,12 +197,13 @@ test('buildTechSummary ignores results with null detected_technologies', () => {
   assert.equal(summary.total_scanned, 2);
 });
 
-test('buildTechSummary uswds_versions list is sorted', () => {
+test('buildTechSummary uswds_versions list is sorted semantically', () => {
   const results = [
     { scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.10.0' } } },
     { scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.2.1' } } },
     { scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.8.0' } } }
   ];
   const summary = buildTechSummary(results);
-  assert.deepEqual(summary.uswds_versions, ['3.10.0', '3.2.1', '3.8.0']);
+  // Semantic order: 3.2.1 < 3.8.0 < 3.10.0 (not lexicographic '3.10.0' < '3.2.1')
+  assert.deepEqual(summary.uswds_versions, ['3.2.1', '3.8.0', '3.10.0']);
 });

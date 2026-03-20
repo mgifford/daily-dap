@@ -40,6 +40,28 @@ const CMS_PATTERNS = {
 const USWDS_URL_PATTERN = /uswds/i;
 
 /**
+ * Compare two semver strings semantically (e.g. 3.2.1 < 3.8.0 < 3.10.0).
+ * Falls back to lexicographic comparison for non-semver strings.
+ *
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function compareSemver(a, b) {
+  const toNums = (v) => v.split('.').map((n) => parseInt(n, 10) || 0);
+  const aNums = toNums(a);
+  const bNums = toNums(b);
+  const len = Math.max(aNums.length, bNums.length);
+  for (let index = 0; index < len; index += 1) {
+    const diff = (aNums[index] ?? 0) - (bNums[index] ?? 0);
+    if (diff !== 0) {
+      return diff;
+    }
+  }
+  return 0;
+}
+
+/**
  * Try to extract a semver version string from a USWDS asset URL.
  *
  * Handles formats like:
@@ -164,7 +186,7 @@ export function buildTechSummary(urlResults = []) {
   return {
     cms_counts: cmsCounts,
     uswds_count: uswdsCount,
-    uswds_versions: [...uswdsVersionSet].sort(),
+    uswds_versions: [...uswdsVersionSet].sort(compareSemver),
     total_scanned: successful.length
   };
 }

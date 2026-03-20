@@ -1,45 +1,10 @@
+import { buildTechSummary } from '../scanners/tech-detector.js';
+
 function coerceScore(value) {
   if (typeof value === 'number' && Number.isFinite(value)) {
     return value;
   }
   return 0;
-}
-
-/**
- * Build a technology summary across all scan results.
- * Counts CMS usage and USWDS adoption from detected_technologies.
- *
- * @param {Array} urlResults
- * @returns {{ cms_counts: Record<string, number>, uswds_count: number, uswds_versions: string[], total_scanned: number }}
- */
-function buildTechSummary(urlResults = []) {
-  const successful = urlResults.filter((r) => r?.scan_status === 'success');
-  const cmsCounts = {};
-  let uswdsCount = 0;
-  const uswdsVersionSet = new Set();
-
-  for (const result of successful) {
-    const tech = result.detected_technologies;
-    if (!tech) {
-      continue;
-    }
-    if (tech.cms) {
-      cmsCounts[tech.cms] = (cmsCounts[tech.cms] ?? 0) + 1;
-    }
-    if (tech.uswds?.detected) {
-      uswdsCount += 1;
-      if (tech.uswds.version) {
-        uswdsVersionSet.add(tech.uswds.version);
-      }
-    }
-  }
-
-  return {
-    cms_counts: cmsCounts,
-    uswds_count: uswdsCount,
-    uswds_versions: [...uswdsVersionSet].sort(),
-    total_scanned: successful.length
-  };
 }
 
 function normalizeTopUrls(urlResults = []) {
