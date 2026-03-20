@@ -838,9 +838,9 @@
       .site-main { padding: 1rem 0.75rem 2rem; }
       section { padding: 1rem; }
 
-      /* Stacked card layout for the wide top-URLs table */
-      #top-urls-table thead { display: none; }
-      #top-urls-table tbody tr {
+      /* Stacked card layout for all scrollable tables */
+      .table-scroll table thead { display: none; }
+      .table-scroll table tbody tr {
         display: block;
         border: 1px solid var(--color-table-border);
         border-radius: 6px;
@@ -848,8 +848,8 @@
         padding: 0.25rem 0;
         background: var(--color-surface);
       }
-      #top-urls-table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
-      #top-urls-table td {
+      .table-scroll table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+      .table-scroll table td {
         display: flex;
         border: none;
         border-bottom: 1px solid var(--color-table-row-sep);
@@ -857,8 +857,8 @@
         align-items: baseline;
         gap: 0.5rem;
       }
-      #top-urls-table td:last-child { border-bottom: none; }
-      #top-urls-table td::before {
+      .table-scroll table td:last-child { border-bottom: none; }
+      .table-scroll table td::before {
         content: attr(data-label);
         font-weight: 600;
         color: var(--color-text-muted);
@@ -866,7 +866,7 @@
         flex-shrink: 0;
         font-size: 0.8rem;
       }
-      #top-urls-table .url-cell {
+      .table-scroll .url-cell {
         max-width: 100%;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -982,19 +982,19 @@
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
-        <div class="score-value">52.7</div>
+        <div class="score-value">52.06</div>
       </div>
       <div class="score-card">
         <div class="score-label">Accessibility</div>
-        <div class="score-value">92.35</div>
+        <div class="score-value">92.19</div>
       </div>
       <div class="score-card">
         <div class="score-label">Best Practices</div>
-        <div class="score-value">83.68</div>
+        <div class="score-value">83.71</div>
       </div>
       <div class="score-card">
         <div class="score-label">SEO</div>
-        <div class="score-value">88.22</div>
+        <div class="score-value">88.26</div>
       </div>
     </div>
     <p><a href="./daily/2026-03-20/index.html">Open latest report &rarr;</a></p>
@@ -1017,19 +1017,6 @@
 <li><a href="./daily/2026-03-09/index.html">2026-03-09</a> (run-2026-03-09-5fce007f3e)</li>
 <li><a href="./daily/2026-03-08/index.html">2026-03-08</a> (run-2026-03-08-77c71b7dbd)</li>
 <li><a href="./daily/2026-03-07/index.html">2026-03-07</a> (run-2026-03-07-597d5e633a)</li>
-<li><a href="./daily/2026-03-06/index.html">2026-03-06</a> (run-2026-03-06-0969e8ad13)</li>
-<li><a href="./daily/2026-03-05/index.html">2026-03-05</a> (run-2026-03-05-dd92379117)</li>
-<li><a href="./daily/2026-03-04/index.html">2026-03-04</a> (run-2026-03-04-bb8bc2601d)</li>
-<li><a href="./daily/2026-03-03/index.html">2026-03-03</a> (run-2026-03-03-37a7ac22cf)</li>
-<li><a href="./daily/2026-03-02/index.html">2026-03-02</a> (run-2026-03-02-91d77dd91c)</li>
-<li><a href="./daily/2026-03-01/index.html">2026-03-01</a> (run-2026-03-01-348011ed17)</li>
-<li><a href="./daily/2026-02-28/index.html">2026-02-28</a> (run-2026-02-28-8873dfe685)</li>
-<li><a href="./daily/2026-02-27/index.html">2026-02-27</a> (run-2026-02-27-5761a4a127)</li>
-<li><a href="./daily/2026-02-26/index.html">2026-02-26</a> (run-2026-02-26-ec23e51f7f)</li>
-<li><a href="./daily/2026-02-25/index.html">2026-02-25</a> (run-2026-02-25-53f9c6e0ce)</li>
-<li><a href="./daily/2026-02-24/index.html">2026-02-24</a> (run-2026-02-24-d4985c9143)</li>
-<li><a href="./daily/2026-02-23/index.html">2026-02-23</a> (run-2026-02-23-ab199e9f5d)</li>
-<li><a href="./daily/2026-02-22/index.html">2026-02-22</a> (run-2026-02-22-2c4d9392f1)</li>
       </ul>
     </section>
     

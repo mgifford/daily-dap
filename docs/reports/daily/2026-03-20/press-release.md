@@ -12,7 +12,13 @@ Based on page traffic data and U.S. Census disability prevalence estimates (ACS 
 
 | Disability Group | Affected Page Loads | Estimated People Affected |
 |-----------------|---------------------|--------------------------|
-| No affected groups identified | -- | -- |
+| Limited Reach and Strength | 24,819,560 | ~1,439,534 |
+| Limited Manipulation | 39,221,137 | ~862,865 |
+| Without Perception of Color | 11,835,762 | ~508,938 |
+| Limited Vision | 17,847,533 | ~428,341 |
+| Without Vision | 39,598,099 | ~395,981 |
+| Limited Language, Cognitive, and Learning Abilities | 4,871,168 | ~228,945 |
+| Without Hearing | 39,598,099 | ~118,794 |
 
 *Total page loads across all scanned URLs today: 63,015,624*
 
@@ -72,7 +78,7 @@ Low contrast text is one of the most pervasive barriers on government websites, 
 
 ### 5. `label-content-name-mismatch`: Voice Control Activation
 
-*Found on 15 government websites today*
+*Found on 14 government websites today*
 
 When the accessible name of an element does not match its visible text, voice control users cannot activate it using the words they see on screen. Saying "click Submit" to a button whose visual label is "Submit" but whose accessible name is "submitbtn" results in no action. This mismatch silently breaks voice control for citizens with motor disabilities who depend on this input method to interact with government websites.
 
@@ -89,10 +95,10 @@ Aggregate Lighthouse scores across 100 scanned U.S. government websites today:
 
 | Metric | Score |
 |--------|-------|
-| Accessibility | 92.35 |
-| Performance | 52.7 |
-| Best Practices | 83.68 |
-| SEO | 88.22 |
+| Accessibility | 92.19 |
+| Performance | 52.06 |
+| Best Practices | 83.71 |
+| SEO | 88.26 |
 
 ## About This Report
 

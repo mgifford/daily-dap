@@ -838,9 +838,9 @@
       .site-main { padding: 1rem 0.75rem 2rem; }
       section { padding: 1rem; }
 
-      /* Stacked card layout for the wide top-URLs table */
-      #top-urls-table thead { display: none; }
-      #top-urls-table tbody tr {
+      /* Stacked card layout for all scrollable tables */
+      .table-scroll table thead { display: none; }
+      .table-scroll table tbody tr {
         display: block;
         border: 1px solid var(--color-table-border);
         border-radius: 6px;
@@ -848,8 +848,8 @@
         padding: 0.25rem 0;
         background: var(--color-surface);
       }
-      #top-urls-table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
-      #top-urls-table td {
+      .table-scroll table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+      .table-scroll table td {
         display: flex;
         border: none;
         border-bottom: 1px solid var(--color-table-row-sep);
@@ -857,8 +857,8 @@
         align-items: baseline;
         gap: 0.5rem;
       }
-      #top-urls-table td:last-child { border-bottom: none; }
-      #top-urls-table td::before {
+      .table-scroll table td:last-child { border-bottom: none; }
+      .table-scroll table td::before {
         content: attr(data-label);
         font-weight: 600;
         color: var(--color-text-muted);
@@ -866,7 +866,7 @@
         flex-shrink: 0;
         font-size: 0.8rem;
       }
-      #top-urls-table .url-cell {
+      .table-scroll .url-cell {
         max-width: 100%;
         white-space: normal;
         overflow-wrap: anywhere;
@@ -967,21 +967,21 @@
     <section aria-labelledby="archives-heading">
       <h2 id="archives-heading">Available Archives<a href="#archives-heading" class="heading-anchor" aria-label="Link to Available Archives"><span aria-hidden="true">#</span></a></h2>
       <ul>
-        <li><a href="2026-03-06.zip" download>2026-03-06.zip</a></li>
-        <li><a href="2026-03-05.zip" download>2026-03-05.zip</a></li>
-        <li><a href="2026-03-04.zip" download>2026-03-04.zip</a></li>
-        <li><a href="2026-03-03.zip" download>2026-03-03.zip</a></li>
-        <li><a href="2026-03-02.zip" download>2026-03-02.zip</a></li>
-        <li><a href="2026-03-01.zip" download>2026-03-01.zip</a></li>
-        <li><a href="2026-02-28.zip" download>2026-02-28.zip</a></li>
-        <li><a href="2026-02-27.zip" download>2026-02-27.zip</a></li>
-        <li><a href="2026-02-26.zip" download>2026-02-26.zip</a></li>
-        <li><a href="2026-02-25.zip" download>2026-02-25.zip</a></li>
-        <li><a href="2026-02-24.zip" download>2026-02-24.zip</a></li>
-        <li><a href="2026-02-23.zip" download>2026-02-23.zip</a></li>
-        <li><a href="2026-02-22.zip" download>2026-02-22.zip</a></li>
+        <li><a href="2026-03-06.zip" download>2026-03-06.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-03-05.zip" download>2026-03-05.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-03-04.zip" download>2026-03-04.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-03-03.zip" download>2026-03-03.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-03-02.zip" download>2026-03-02.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-03-01.zip" download>2026-03-01.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-28.zip" download>2026-02-28.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-27.zip" download>2026-02-27.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-26.zip" download>2026-02-26.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-25.zip" download>2026-02-25.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-24.zip" download>2026-02-24.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
+        <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-20)</span></li>
       </ul>
-      <p class="generated-note">Archive index generated: 2026-03-20T19:59:41.964Z</p>
+      <p class="generated-note">Archive index generated: 2026-03-20T20:30:58.404Z</p>
     </section>
   </main>
 

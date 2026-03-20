@@ -838,9 +838,9 @@
       .site-main { padding: 1rem 0.75rem 2rem; }
       section { padding: 1rem; }
 
-      /* Stacked card layout for the wide top-URLs table */
-      #top-urls-table thead { display: none; }
-      #top-urls-table tbody tr {
+      /* Stacked card layout for all scrollable tables */
+      .table-scroll table thead { display: none; }
+      .table-scroll table tbody tr {
         display: block;
         border: 1px solid var(--color-table-border);
         border-radius: 6px;
@@ -848,8 +848,8 @@
         padding: 0.25rem 0;
         background: var(--color-surface);
       }
-      #top-urls-table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
-      #top-urls-table td {
+      .table-scroll table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+      .table-scroll table td {
         display: flex;
         border: none;
         border-bottom: 1px solid var(--color-table-row-sep);
@@ -857,8 +857,8 @@
         align-items: baseline;
         gap: 0.5rem;
       }
-      #top-urls-table td:last-child { border-bottom: none; }
-      #top-urls-table td::before {
+      .table-scroll table td:last-child { border-bottom: none; }
+      .table-scroll table td::before {
         content: attr(data-label);
         font-weight: 600;
         color: var(--color-text-muted);
@@ -866,7 +866,7 @@
         flex-shrink: 0;
         font-size: 0.8rem;
       }
-      #top-urls-table .url-cell {
+      .table-scroll .url-cell {
         max-width: 100%;
         white-space: normal;
         overflow-wrap: anywhere;
