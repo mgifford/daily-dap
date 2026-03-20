@@ -2,7 +2,7 @@ FOR IMMEDIATE RELEASE
 
 # U.S. Government Website Accessibility Report: March 20, 2026
 
-*Washington, D.C. -- March 20, 2026* -- A daily scan of 100 of the most-visited U.S. government websites found 212 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Document Structure Navigation, and Primary Content Identification.
+*Washington, D.C. -- March 20, 2026* -- A daily scan of 100 of the most-visited U.S. government websites found 214 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Document Structure Navigation, and Primary Content Identification.
 
 These barriers prevent Americans with disabilities from independently accessing essential government services. This is a single daily snapshot of the most popular ~100 pages in U.S. federal government web properties, as measured by the Digital Analytics Program (DAP).
 
@@ -13,12 +13,12 @@ Based on page traffic data and U.S. Census disability prevalence estimates (ACS 
 | Disability Group | Affected Page Loads | Estimated People Affected |
 |-----------------|---------------------|--------------------------|
 | Limited Reach and Strength | 24,819,560 | ~1,439,534 |
-| Limited Manipulation | 39,221,137 | ~862,865 |
+| Limited Manipulation | 39,481,140 | ~868,585 |
 | Without Perception of Color | 11,835,762 | ~508,938 |
-| Limited Vision | 17,847,533 | ~428,341 |
-| Without Vision | 39,598,099 | ~395,981 |
+| Limited Vision | 18,688,529 | ~448,525 |
+| Without Vision | 39,858,102 | ~398,581 |
 | Limited Language, Cognitive, and Learning Abilities | 4,871,168 | ~228,945 |
-| Without Hearing | 39,598,099 | ~118,794 |
+| Without Hearing | 39,858,102 | ~119,574 |
 
 *Total page loads across all scanned URLs today: 63,015,624*
 
@@ -78,7 +78,7 @@ Low contrast text is one of the most pervasive barriers on government websites, 
 
 ### 5. `label-content-name-mismatch`: Voice Control Activation
 
-*Found on 14 government websites today*
+*Found on 15 government websites today*
 
 When the accessible name of an element does not match its visible text, voice control users cannot activate it using the words they see on screen. Saying "click Submit" to a button whose visual label is "Submit" but whose accessible name is "submitbtn" results in no action. This mismatch silently breaks voice control for citizens with motor disabilities who depend on this input method to interact with government websites.
 
@@ -95,10 +95,10 @@ Aggregate Lighthouse scores across 100 scanned U.S. government websites today:
 
 | Metric | Score |
 |--------|-------|
-| Accessibility | 92.19 |
-| Performance | 52.06 |
-| Best Practices | 83.71 |
-| SEO | 88.26 |
+| Accessibility | 92.26 |
+| Performance | 52.98 |
+| Best Practices | 83.92 |
+| SEO | 88.31 |
 
 ## About This Report
 

@@ -1,9 +1,9 @@
 {
   "run_date": "2026-03-20",
   "run_id": "run-2026-03-20-c9106502a3",
-  "generated_at": "2026-03-20T20:05:05.145Z",
+  "generated_at": "2026-03-20T21:02:40.739Z",
   "total_urls": 100,
-  "total_findings": 212,
+  "total_findings": 214,
   "urls": [
     {
       "url": "https://tools.usps.com",
@@ -758,7 +758,7 @@
     {
       "url": "https://forecast.weather.gov",
       "scan_status": "success",
-      "axe_findings_count": 6,
+      "axe_findings_count": 5,
       "axe_findings": [
         {
           "id": "color-contrast",
@@ -821,22 +821,6 @@
           ]
         },
         {
-          "id": "select-name",
-          "title": "Select elements do not have associated label elements.",
-          "description": "Form elements without effective labels can create frustrating experiences for screen reader users. [Learn more about the `select` element](https://dequeuniversity.com/rules/axe/4.11/select-name).",
-          "score": 0,
-          "impact": "critical",
-          "tags": [],
-          "items": [
-            {
-              "selector": "div.warningArea > div#stateListings > form > select",
-              "snippet": "<select size=\"1\" name=\"menu\">",
-              "node_label": "Warnings By State\nWarnings By County\nAlabama\nAlaska\nArizona\nArkansas\nCalifornia…",
-              "explanation": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        },
-        {
           "id": "target-size",
           "title": "Touch targets do not have sufficient size or spacing.",
           "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
@@ -878,7 +862,13 @@
               "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Heavy%20Free…\">",
               "node_label": "Heavy Freezing Spray Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwaleft > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
+              "node_label": "Winter Storm Warning",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -899,7 +889,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwaleft > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20He…\">",
               "node_label": "Extreme Heat Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (100.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -941,16 +931,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (65.6px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.2px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Small%20Craf…\">",
               "node_label": "Small Craft Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16.2px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Brisk%20Wind…\">",
               "node_label": "Brisk Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -972,15 +962,9 @@
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
-              "node_label": "Winter Storm Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (89.1px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1967,31 +1951,31 @@
           "items": [
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "01",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "02",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "03",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "04",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "05",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             }
@@ -2007,7 +1991,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-ofv-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-our-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -2160,7 +2144,13 @@
               "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Heavy%20Free…\">",
               "node_label": "Heavy Freezing Spray Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwaleft > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
+              "node_label": "Winter Storm Warning",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -2181,7 +2171,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwaleft > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20He…\">",
               "node_label": "Extreme Heat Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (100.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -2223,16 +2213,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (65.6px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.2px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Small%20Craf…\">",
               "node_label": "Small Craft Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16.2px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Brisk%20Wind…\">",
               "node_label": "Brisk Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -2254,15 +2244,9 @@
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
-              "node_label": "Winter Storm Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (89.1px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -2570,8 +2554,24 @@
     {
       "url": "https://uscis.gov",
       "scan_status": "success",
-      "axe_findings_count": 1,
+      "axe_findings_count": 2,
       "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.view-content > div.slick-list > div.slick-track > div#slick-slide00",
+              "snippet": "<div class=\"slick-slide\" data-slick-index=\"0\" aria-hidden=\"true\" role=\"tabpanel\" id=\"slick-slide00\" tabindex=\"-1\" style=\"width: 412px;\" aria-describedby=\"slick-slide-control00\">",
+              "node_label": "FY 2027 H-1B Cap Initial Registration Period Opens on March 4\n\nThe initial regi…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            }
+          ]
+        },
         {
           "id": "aria-required-children",
           "title": "Elements with an ARIA `[role]` that require children to contain a specific `[role]` are missing some or all of those required children.",
@@ -3159,7 +3159,7 @@
             {
               "selector": "div#footer > div#legal > span > span#ctl00_lblIP",
               "snippet": "<span id=\"ctl00_lblIP\" tabindex=\"6050\" class=\"lblIP\">",
-              "node_label": "(223)",
+              "node_label": "(228)",
               "explanation": "Fix any of the following:\n  Element has a tabindex greater than 0"
             }
           ]
@@ -3396,8 +3396,77 @@
     {
       "url": "https://fas.usda.gov",
       "scan_status": "success",
-      "axe_findings_count": 0,
-      "axe_findings": []
+      "axe_findings_count": 2,
+      "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div#tns1-mw > div#tns1-iw > div#tns1 > div#tns1-item1",
+              "snippet": "<div class=\"c-heroslider__slide tns-item\" id=\"tns1-item1\" aria-hidden=\"true\" tabindex=\"-1\">",
+              "node_label": "Why Do Ag Exports Matter to U.S. Farmers and the U.S. Economy?\nLearn More",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"1\" aria-hidden=\"true\">",
+              "node_label": "March 4, 2026\nExport Sales Announcement\nExport Sales to Unknown Destinations\nPr…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"2\" aria-hidden=\"true\">",
+              "node_label": "March 3, 2026\nExport Sales Announcement\nExport Sales to Unknown Destinations\nPr…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"3\" aria-hidden=\"true\">",
+              "node_label": "February 27, 2026\nExport Sales Announcement\nExport Sales to Unknown Destination…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"4\" aria-hidden=\"true\">",
+              "node_label": "February 26, 2026\nExport Sales Announcement\nExport Sales to Japan\nPrivate expor…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"5\" aria-hidden=\"true\">",
+              "node_label": "February 23, 2026\nExport Sales Announcement\nExport Sales to Colombia\nPrivate ex…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            }
+          ]
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "title": "Elements with visible text labels do not have matching accessible names.",
+          "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.c-heroslider__nav > div.l-constrain > div.c-heroslider__nav-inner > button.tns-nav-active",
+              "snippet": "<button data-nav=\"0\" aria-label=\"Carousel Page 1 (Current Slide)\" aria-controls=\"tns1\" class=\"tns-nav-active\">",
+              "node_label": "Deputy Under Secretary Bekkering Advances Administration’s America First Agenda…",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "div.c-heroslider__nav > div.l-constrain > div.c-heroslider__nav-inner > button",
+              "snippet": "<button data-nav=\"1\" tabindex=\"-1\" aria-label=\"Carousel Page 2\" aria-controls=\"tns1\">",
+              "node_label": "Why Do Ag Exports Matter to U.S. Farmers and the U.S. Economy?",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
     },
     {
       "url": "https://my.uscis.gov",
@@ -3541,7 +3610,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n105\nDays\n3\nHours\n42\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n105\nDays\n2\nHours\n44\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
@@ -3822,33 +3891,33 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1123044808\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1123044808\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1868474033\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1868474033\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-2051685761\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-2051685761\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-759144224\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-759144224\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-461225051\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-461225051\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1610625006\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1610625006\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1343982054\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1343982054\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-561125289\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-561125289\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-988476973\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-988476973\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1268816961\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1268816961\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             }
           ]
@@ -3862,33 +3931,33 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1123044808\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1123044808\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1868474033\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1868474033\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-2051685761\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-2051685761\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-759144224\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-759144224\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-461225051\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-461225051\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1610625006\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1610625006\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1343982054\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1343982054\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-561125289\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-561125289\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-988476973\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-988476973\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1268816961\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1268816961\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             }
           ]
@@ -4914,7 +4983,7 @@
             {
               "selector": "div#hp-carousel-0 > div.slick-list > div.slick-track > div.grid-col-4",
               "snippet": "<div class=\"grid-col-4 slick-slide\" style=\"width: 254px;\" data-slick-index=\"1\" aria-hidden=\"true\" tabindex=\"0\">",
-              "node_label": "VOLCANO\nGreat Sitkin\nORANGE - WATCH\n2026-03-19 20:55:13 (UTC)",
+              "node_label": "VOLCANO\nShishaldin\nYELLOW - ADVISORY\n2026-03-20 21:07:12 (UTC)",
               "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
             }
           ]

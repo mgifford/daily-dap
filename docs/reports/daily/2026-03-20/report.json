@@ -9,60 +9,60 @@
     "excluded": 0
   },
   "aggregate_scores": {
-    "performance": 52.06,
-    "accessibility": 92.19,
-    "best_practices": 83.71,
-    "seo": 88.26,
+    "performance": 52.98,
+    "accessibility": 92.26,
+    "best_practices": 83.92,
+    "seo": 88.31,
     "pwa": 0
   },
   "estimated_impact": {
     "traffic_window_mode": "daily",
-    "affected_share_percent": 40.3,
+    "affected_share_percent": 40.17,
     "categories": [
       {
         "name": "WV",
         "prevalence_rate": 0.01,
-        "estimated_impacted_users": 253926.73
+        "estimated_impacted_users": 253135.49
       },
       {
         "name": "LV",
         "prevalence_rate": 0.023,
-        "estimated_impacted_users": 584031.48
+        "estimated_impacted_users": 582211.64
       },
       {
         "name": "WPC",
         "prevalence_rate": 0.043,
-        "estimated_impacted_users": 1091884.94
+        "estimated_impacted_users": 1088482.62
       },
       {
         "name": "WH",
         "prevalence_rate": 0.003,
-        "estimated_impacted_users": 76178.02
+        "estimated_impacted_users": 75940.65
       },
       {
         "name": "LH",
         "prevalence_rate": 0.034,
-        "estimated_impacted_users": 863350.89
+        "estimated_impacted_users": 860660.68
       },
       {
         "name": "WS",
         "prevalence_rate": 0.005,
-        "estimated_impacted_users": 126963.37
+        "estimated_impacted_users": 126567.75
       },
       {
         "name": "LM",
         "prevalence_rate": 0.023,
-        "estimated_impacted_users": 584031.48
+        "estimated_impacted_users": 582211.64
       },
       {
         "name": "LRS",
         "prevalence_rate": 0.058,
-        "estimated_impacted_users": 1472775.04
+        "estimated_impacted_users": 1468185.86
       },
       {
         "name": "LLCLA",
         "prevalence_rate": 0.049,
-        "estimated_impacted_users": 1244240.98
+        "estimated_impacted_users": 1240363.92
       }
     ]
   },
@@ -74,18 +74,18 @@
         "label": "Without Vision",
         "prevalence_rate": 0.01,
         "estimated_population": 3400000,
-        "affected_page_loads": 39598099,
-        "affected_share_percent": 62.84,
-        "estimated_excluded_users": 395980.99,
+        "affected_page_loads": 39858102,
+        "affected_share_percent": 63.25,
+        "estimated_excluded_users": 398581.02,
         "source_note": "AFB: ~3.4 million Americans with severe visual impairment or blindness"
       },
       "LV": {
         "label": "Limited Vision",
         "prevalence_rate": 0.024,
         "estimated_population": 8100000,
-        "affected_page_loads": 17847533,
-        "affected_share_percent": 28.32,
-        "estimated_excluded_users": 428340.79,
+        "affected_page_loads": 18688529,
+        "affected_share_percent": 29.66,
+        "estimated_excluded_users": 448524.7,
         "source_note": "ACS 2023 + supplemental estimates: vision difficulty (all severity levels); ~2.4% of U.S. population"
       },
       "WPC": {
@@ -101,9 +101,9 @@
         "label": "Without Hearing",
         "prevalence_rate": 0.003,
         "estimated_population": 1100000,
-        "affected_page_loads": 39598099,
-        "affected_share_percent": 62.84,
-        "estimated_excluded_users": 118794.3,
+        "affected_page_loads": 39858102,
+        "affected_share_percent": 63.25,
+        "estimated_excluded_users": 119574.31,
         "source_note": "NIDCD: ~1.1 million Americans with functional deafness"
       },
       "LH": {
@@ -128,9 +128,9 @@
         "label": "Limited Manipulation",
         "prevalence_rate": 0.022,
         "estimated_population": 7600000,
-        "affected_page_loads": 39221137,
-        "affected_share_percent": 62.24,
-        "estimated_excluded_users": 862865.01,
+        "affected_page_loads": 39481140,
+        "affected_share_percent": 62.65,
+        "estimated_excluded_users": 868585.08,
         "source_note": "ACS 2023 self-care difficulty + dexterity estimates: ~2.2% of U.S. population"
       },
       "LRS": {
@@ -159,12 +159,12 @@
   "performance_impact": {
     "benchmark_lcp_ms": 2500,
     "benchmark_page_weight_bytes": 1600000,
-    "url_count_with_timing": 95,
-    "url_count_with_weight": 95,
-    "total_extra_load_time_seconds": 369041944,
-    "total_extra_load_time_hours": 102511.65,
-    "total_extra_bytes": 66723175939865,
-    "total_extra_gigabytes": 66723.18
+    "url_count_with_timing": 96,
+    "url_count_with_weight": 96,
+    "total_extra_load_time_seconds": 369343871,
+    "total_extra_load_time_hours": 102595.52,
+    "total_extra_bytes": 66402752889145,
+    "total_extra_gigabytes": 66402.75
   },
   "source_data_date": "2026-03-19",
   "top_urls": [
@@ -176,7 +176,7 @@
       "findings_count": 10,
       "severe_findings_count": 8,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7968.958999999997,
+      "lcp_value_ms": 9817.314999999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -185,7 +185,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 41,
         "accessibility": 68,
         "best_practices": 77,
         "seo": 83,
@@ -572,7 +572,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3798.659,
+      "lcp_value_ms": 3745.1560000000004,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -581,7 +581,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 76,
+        "performance": 78,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 92,
@@ -597,7 +597,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2595.719,
+      "lcp_value_ms": 2315.0480000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -606,7 +606,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 89,
+        "performance": 84,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -622,7 +622,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5649.287000000002,
+      "lcp_value_ms": 5393.789999999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -631,7 +631,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 45,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -647,7 +647,7 @@
       "findings_count": 9,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8358.926999999998,
+      "lcp_value_ms": 3958.861,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -656,7 +656,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 37,
+        "performance": 56,
         "accessibility": 68,
         "best_practices": 54,
         "seo": 85,
@@ -1018,10 +1018,10 @@
       "page_load_count": 1877794,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 6,
-      "severe_findings_count": 5,
+      "findings_count": 5,
+      "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6083.557,
+      "lcp_value_ms": 6379.634499999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1030,8 +1030,8 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 70,
-        "accessibility": 61,
+        "performance": 69,
+        "accessibility": 67,
         "best_practices": 85,
         "seo": 73,
         "pwa": 0
@@ -1098,22 +1098,6 @@
           ]
         },
         {
-          "id": "select-name",
-          "title": "Select elements do not have associated label elements.",
-          "description": "Form elements without effective labels can create frustrating experiences for screen reader users. [Learn more about the `select` element](https://dequeuniversity.com/rules/axe/4.11/select-name).",
-          "score": 0,
-          "impact": "critical",
-          "tags": [],
-          "items": [
-            {
-              "selector": "div.warningArea > div#stateListings > form > select",
-              "snippet": "<select size=\"1\" name=\"menu\">",
-              "node_label": "Warnings By State\nWarnings By County\nAlabama\nAlaska\nArizona\nArkansas\nCalifornia…",
-              "explanation": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        },
-        {
           "id": "target-size",
           "title": "Touch targets do not have sufficient size or spacing.",
           "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
@@ -1155,7 +1139,13 @@
               "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Heavy%20Free…\">",
               "node_label": "Heavy Freezing Spray Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwaleft > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
+              "node_label": "Winter Storm Warning",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -1176,7 +1166,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwaleft > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20He…\">",
               "node_label": "Extreme Heat Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (100.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -1218,16 +1208,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (65.6px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.2px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Small%20Craf…\">",
               "node_label": "Small Craft Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16.2px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Brisk%20Wind…\">",
               "node_label": "Brisk Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1249,15 +1239,9 @@
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
-              "node_label": "Winter Storm Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (89.1px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1395,7 +1379,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "good",
-      "lcp_value_ms": 2280.201000000001,
+      "lcp_value_ms": 2463.847499999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1404,7 +1388,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 96,
+        "performance": 94,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -1420,7 +1404,7 @@
       "findings_count": 9,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15226.5495079956,
+      "lcp_value_ms": 15208.413304992679,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1429,7 +1413,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 28,
+        "performance": 34,
         "accessibility": 71,
         "best_practices": 54,
         "seo": 92,
@@ -1758,7 +1742,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3498.09379,
+      "lcp_value_ms": 2946.1583899999996,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1767,7 +1751,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 74,
+        "performance": 78,
         "accessibility": 92,
         "best_practices": 96,
         "seo": 92,
@@ -1868,7 +1852,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4960.798000000001,
+      "lcp_value_ms": 4765.341999999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1877,7 +1861,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 32,
+        "performance": 33,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -1893,7 +1877,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4257.314,
+      "lcp_value_ms": 5015.761,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1902,7 +1886,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 71,
+        "performance": 67,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 85,
@@ -2043,7 +2027,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5860.167999999999,
+      "lcp_value_ms": 6593.0135,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2052,7 +2036,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 59,
+        "performance": 57,
         "accessibility": 90,
         "best_practices": 73,
         "seo": 85,
@@ -2192,8 +2176,8 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4747.1145,
+      "core_web_vitals_status": "needs_improvement",
+      "lcp_value_ms": 3703.0858799999996,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2202,7 +2186,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 79,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -2218,7 +2202,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7716.024000000001,
+      "lcp_value_ms": 12653.705000000002,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -2227,7 +2211,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 36,
         "accessibility": 98,
         "best_practices": 81,
         "seo": 83,
@@ -2260,7 +2244,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 14411.047000000002,
+      "lcp_value_ms": 12703.214999999997,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2269,7 +2253,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 67,
+        "performance": 68,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 85,
@@ -2346,7 +2330,7 @@
       "findings_count": 2,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 14495.29,
+      "lcp_value_ms": 12441.284000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2355,7 +2339,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 27,
+        "performance": 26,
         "accessibility": 93,
         "best_practices": 50,
         "seo": 82,
@@ -2404,7 +2388,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9587.188311950684,
+      "lcp_value_ms": 9181.511465911866,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -2413,7 +2397,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 35,
+        "performance": 37,
         "accessibility": 97,
         "best_practices": 73,
         "seo": 100,
@@ -2446,7 +2430,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13839.981499999994,
+      "lcp_value_ms": 14491.868999999995,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -2455,7 +2439,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 7,
+        "performance": 8,
         "accessibility": 87,
         "best_practices": 54,
         "seo": 92,
@@ -2472,31 +2456,31 @@
           "items": [
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "01",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "02",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "03",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "04",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             },
             {
               "selector": "div.fsa-md-padding-left > div.d-flex > div.d-flex > div.font-weight-bold",
-              "snippet": "<div _ngcontent-ofv-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
+              "snippet": "<div _ngcontent-our-c151=\"\" class=\"font-weight-bold text-center mr-xl-2 mb-2 mb-xl-0 fsa-color-green-medium f…\">",
               "node_label": "05",
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.32 (foreground color: #3ea11b, background color: #ffffff, font size: 13.5pt (18px), font weight: bold). Expected contrast ratio of 4.5:1"
             }
@@ -2512,7 +2496,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-ofv-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-our-c153=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -2566,7 +2550,7 @@
       "findings_count": 5,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5641.94884,
+      "lcp_value_ms": 6383.695479999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2575,7 +2559,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 70,
         "accessibility": 67,
         "best_practices": 85,
         "seo": 73,
@@ -2684,7 +2668,13 @@
               "selector": "div#wwaleft > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Heavy%20Free…\">",
               "node_label": "Heavy Freezing Spray Warning",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px."
+            },
+            {
+              "selector": "div#wwaleft > ul > li > a",
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
+              "node_label": "Winter Storm Warning",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (98px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 10.2px instead of at least 24px."
             },
             {
               "selector": "div#wwaleft > ul > li > a",
@@ -2705,7 +2695,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (64.7px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 14.6px instead of at least 24px."
             },
             {
-              "selector": "div#wwaleft > ul > li > a",
+              "selector": "div#wwacenter_l > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20He…\">",
               "node_label": "Extreme Heat Warning",
               "explanation": "Fix any of the following:\n  Target has insufficient size (100.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -2747,16 +2737,16 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (65.6px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.2px instead of at least 24px."
             },
             {
-              "selector": "div#wwacenter_l > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Small%20Craf…\">",
               "node_label": "Small Craft Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16.2px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (90px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Brisk%20Wind…\">",
               "node_label": "Brisk Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -2778,15 +2768,9 @@
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Winter%20Sto…\">",
-              "node_label": "Winter Storm Watch",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (89.1px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 9.6px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -2923,8 +2907,8 @@
       "failure_reason": null,
       "findings_count": 2,
       "severe_findings_count": 1,
-      "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2319.1350000000007,
+      "core_web_vitals_status": "poor",
+      "lcp_value_ms": 2343.959,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2933,7 +2917,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 78,
+        "performance": 62,
         "accessibility": 95,
         "best_practices": 96,
         "seo": 92,
@@ -3071,8 +3055,8 @@
       "failure_reason": null,
       "findings_count": 1,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4291.671,
+      "core_web_vitals_status": "needs_improvement",
+      "lcp_value_ms": 3554.587,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3081,7 +3065,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 78,
+        "performance": 82,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -3114,7 +3098,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 16692.836999999992,
+      "lcp_value_ms": 16571.201,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3153,10 +3137,10 @@
       "page_load_count": 580993,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 1,
-      "severe_findings_count": 1,
+      "findings_count": 2,
+      "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9702.245000000003,
+      "lcp_value_ms": 5357.782999999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -3165,13 +3149,29 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 29,
-        "accessibility": 96,
+        "performance": 33,
+        "accessibility": 93,
         "best_practices": 73,
         "seo": 85,
         "pwa": 0
       },
       "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.view-content > div.slick-list > div.slick-track > div#slick-slide00",
+              "snippet": "<div class=\"slick-slide\" data-slick-index=\"0\" aria-hidden=\"true\" role=\"tabpanel\" id=\"slick-slide00\" tabindex=\"-1\" style=\"width: 412px;\" aria-describedby=\"slick-slide-control00\">",
+              "node_label": "FY 2027 H-1B Cap Initial Registration Period Opens on March 4\n\nThe initial regi…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            }
+          ]
+        },
         {
           "id": "aria-required-children",
           "title": "Elements with an ARIA `[role]` that require children to contain a specific `[role]` are missing some or all of those required children.",
@@ -3198,7 +3198,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 112755.27249999903,
+      "lcp_value_ms": 112193.80899999989,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3207,7 +3207,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 6,
+        "performance": 11,
         "accessibility": 96,
         "best_practices": 69,
         "seo": 63,
@@ -3273,8 +3273,8 @@
       "failure_reason": null,
       "findings_count": 3,
       "severe_findings_count": 2,
-      "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 1880.071,
+      "core_web_vitals_status": "poor",
+      "lcp_value_ms": 2832.4929999999995,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3283,7 +3283,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 86,
+        "performance": 79,
         "accessibility": 94,
         "best_practices": 92,
         "seo": 100,
@@ -3348,7 +3348,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 12062.072500000002,
+      "lcp_value_ms": 8095.465,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3357,7 +3357,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 50,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -3373,7 +3373,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4546.0689999999995,
+      "lcp_value_ms": 4132.5195,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3382,7 +3382,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 53,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 100,
@@ -3499,7 +3499,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11403.014,
+      "lcp_value_ms": 11930.625500000004,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -3508,7 +3508,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 45,
         "accessibility": 95,
         "best_practices": 77,
         "seo": 92,
@@ -3559,7 +3559,7 @@
       "findings_count": 5,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7995.0245,
+      "lcp_value_ms": 4850.477999999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3568,7 +3568,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 42,
         "accessibility": 81,
         "best_practices": 92,
         "seo": 58,
@@ -3665,7 +3665,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 3361.8109999999992,
+      "lcp_value_ms": 3763.4205,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3674,7 +3674,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 44,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -3690,7 +3690,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5092.107499999999,
+      "lcp_value_ms": 13023.0495,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -3732,7 +3732,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2337.118,
+      "lcp_value_ms": 2411.2200000000003,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -3741,7 +3741,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 85,
+        "performance": 86,
         "accessibility": 96,
         "best_practices": 92,
         "seo": 85,
@@ -3773,8 +3773,8 @@
       "failure_reason": null,
       "findings_count": 1,
       "severe_findings_count": 1,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 2864.446,
+      "core_web_vitals_status": "needs_improvement",
+      "lcp_value_ms": 1449.4630000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3783,7 +3783,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 80,
+        "performance": 86,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 40,
@@ -3815,8 +3815,8 @@
       "failure_reason": null,
       "findings_count": 0,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4895.022999999999,
+      "core_web_vitals_status": "needs_improvement",
+      "lcp_value_ms": 3629.8410000000003,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3825,7 +3825,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 73,
+        "performance": 78,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 66,
@@ -3841,7 +3841,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4436.536000000001,
+      "lcp_value_ms": 4786.348,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3850,7 +3850,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 71,
         "accessibility": 99,
         "best_practices": 100,
         "seo": 83,
@@ -3883,7 +3883,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4883.327500000001,
+      "lcp_value_ms": 5415.228999999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3892,7 +3892,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 58,
         "accessibility": 99,
         "best_practices": 100,
         "seo": 92,
@@ -3925,7 +3925,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 42776.4145,
+      "lcp_value_ms": 45328.3395,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3934,7 +3934,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 43,
         "accessibility": 95,
         "best_practices": 100,
         "seo": 100,
@@ -3995,7 +3995,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4593.933999999999,
+      "lcp_value_ms": 4523.2225,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4004,7 +4004,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 75,
+        "performance": 76,
         "accessibility": 94,
         "best_practices": 46,
         "seo": 91,
@@ -4044,7 +4044,7 @@
             {
               "selector": "div#footer > div#legal > span > span#ctl00_lblIP",
               "snippet": "<span id=\"ctl00_lblIP\" tabindex=\"6050\" class=\"lblIP\">",
-              "node_label": "(223)",
+              "node_label": "(228)",
               "explanation": "Fix any of the following:\n  Element has a tabindex greater than 0"
             }
           ]
@@ -4059,7 +4059,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9847.98,
+      "lcp_value_ms": 7052.898499999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4068,7 +4068,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 49,
+        "performance": 61,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -4084,7 +4084,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5226.18632,
+      "lcp_value_ms": 5468.2595900000015,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4093,7 +4093,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 38,
         "accessibility": 97,
         "best_practices": 54,
         "seo": 92,
@@ -4126,7 +4126,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13847.529500000004,
+      "lcp_value_ms": 14748.100000000008,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4135,7 +4135,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 33,
+        "performance": 26,
         "accessibility": 94,
         "best_practices": 73,
         "seo": 92,
@@ -4190,7 +4190,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5392.485000000001,
+      "lcp_value_ms": 5769.240499999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4199,7 +4199,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 54,
+        "performance": 53,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 100,
@@ -4248,7 +4248,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10659.025499999998,
+      "lcp_value_ms": 8998.432999999997,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4257,7 +4257,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 40,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 92,
@@ -4273,7 +4273,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9688.55,
+      "lcp_value_ms": 9776.014000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4282,7 +4282,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 50,
+        "performance": 49,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 100,
@@ -4298,7 +4298,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15023.416000000001,
+      "lcp_value_ms": 19473.803499999995,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -4307,10 +4307,10 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 49,
-        "accessibility": 92,
-        "best_practices": 73,
-        "seo": 92,
+        "performance": 55,
+        "accessibility": 91,
+        "best_practices": 96,
+        "seo": 100,
         "pwa": 0
       },
       "axe_findings": [
@@ -4368,7 +4368,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10487.822500000002,
+      "lcp_value_ms": 5510.999000000001,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4377,7 +4377,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 58,
         "accessibility": 96,
         "best_practices": 96,
         "seo": 85,
@@ -4435,25 +4435,94 @@
       "page_load_count": 260003,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 0,
-      "severe_findings_count": 0,
-      "core_web_vitals_status": "unknown",
-      "lcp_value_ms": null,
+      "findings_count": 2,
+      "severe_findings_count": 2,
+      "core_web_vitals_status": "poor",
+      "lcp_value_ms": 5543.743,
       "detected_technologies": {
-        "cms": null,
+        "cms": "Drupal",
         "uswds": {
-          "detected": false,
+          "detected": true,
           "version": null
         }
       },
       "lighthouse_scores": {
-        "performance": 0,
-        "accessibility": 0,
-        "best_practices": 0,
-        "seo": 0,
+        "performance": 64,
+        "accessibility": 97,
+        "best_practices": 100,
+        "seo": 77,
         "pwa": 0
       },
-      "axe_findings": []
+      "axe_findings": [
+        {
+          "id": "aria-hidden-focus",
+          "title": "`[aria-hidden=\"true\"]` elements contain focusable descendents",
+          "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn how `aria-hidden` affects focusable elements](https://dequeuniversity.com/rules/axe/4.11/aria-hidden-focus).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div#tns1-mw > div#tns1-iw > div#tns1 > div#tns1-item1",
+              "snippet": "<div class=\"c-heroslider__slide tns-item\" id=\"tns1-item1\" aria-hidden=\"true\" tabindex=\"-1\">",
+              "node_label": "Why Do Ag Exports Matter to U.S. Farmers and the U.S. Economy?\nLearn More",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"1\" aria-hidden=\"true\">",
+              "node_label": "March 4, 2026\nExport Sales Announcement\nExport Sales to Unknown Destinations\nPr…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"2\" aria-hidden=\"true\">",
+              "node_label": "March 3, 2026\nExport Sales Announcement\nExport Sales to Unknown Destinations\nPr…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"3\" aria-hidden=\"true\">",
+              "node_label": "February 27, 2026\nExport Sales Announcement\nExport Sales to Unknown Destination…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"4\" aria-hidden=\"true\">",
+              "node_label": "February 26, 2026\nExport Sales Announcement\nExport Sales to Japan\nPrivate expor…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            },
+            {
+              "selector": "div.c-slickslider__slides > div.slick-list > div.slick-track > div.c-card",
+              "snippet": "<div class=\"c-card slick-slide\" style=\"width: 292px; height: 304.766px;\" data-slick-index=\"5\" aria-hidden=\"true\">",
+              "node_label": "February 23, 2026\nExport Sales Announcement\nExport Sales to Colombia\nPrivate ex…",
+              "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+            }
+          ]
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "title": "Elements with visible text labels do not have matching accessible names.",
+          "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.c-heroslider__nav > div.l-constrain > div.c-heroslider__nav-inner > button.tns-nav-active",
+              "snippet": "<button data-nav=\"0\" aria-label=\"Carousel Page 1 (Current Slide)\" aria-controls=\"tns1\" class=\"tns-nav-active\">",
+              "node_label": "Deputy Under Secretary Bekkering Advances Administration’s America First Agenda…",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "div.c-heroslider__nav > div.l-constrain > div.c-heroslider__nav-inner > button",
+              "snippet": "<button data-nav=\"1\" tabindex=\"-1\" aria-label=\"Carousel Page 2\" aria-controls=\"tns1\">",
+              "node_label": "Why Do Ag Exports Matter to U.S. Farmers and the U.S. Economy?",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
     },
     {
       "url": "https://my.uscis.gov",
@@ -4463,7 +4532,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10030.1805,
+      "lcp_value_ms": 5559.1065,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4472,7 +4541,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 54,
+        "performance": 62,
         "accessibility": 89,
         "best_practices": 77,
         "seo": 100,
@@ -4521,7 +4590,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 28083.371500000005,
+      "lcp_value_ms": 26322.669999999995,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4530,7 +4599,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 52,
         "accessibility": 98,
         "best_practices": 92,
         "seo": 92,
@@ -4579,7 +4648,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5883.880800000002,
+      "lcp_value_ms": 5603.618999999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4588,7 +4657,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 34,
+        "performance": 33,
         "accessibility": 93,
         "best_practices": 54,
         "seo": 100,
@@ -4654,7 +4723,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n105\nDays\n3\nHours\n42\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n105\nDays\n2\nHours\n44\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
@@ -4669,7 +4738,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4555.514,
+      "lcp_value_ms": 4905.65497,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4678,7 +4747,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 71,
         "accessibility": 99,
         "best_practices": 92,
         "seo": 83,
@@ -4711,7 +4780,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 14672.6025,
+      "lcp_value_ms": 13491.511499999997,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4720,9 +4789,9 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 29,
         "accessibility": 97,
-        "best_practices": 88,
+        "best_practices": 69,
         "seo": 100,
         "pwa": 0
       },
@@ -4765,7 +4834,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8809.682999999999,
+      "lcp_value_ms": 8909.2495,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4774,7 +4843,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 54,
         "accessibility": 97,
         "best_practices": 96,
         "seo": 100,
@@ -4823,7 +4892,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 3266.6364999999996,
+      "lcp_value_ms": 3192.871,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4832,7 +4901,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 57,
+        "performance": 59,
         "accessibility": 77,
         "best_practices": 100,
         "seo": 82,
@@ -4881,7 +4950,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4891.610000000001,
+      "lcp_value_ms": 4010.080499999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4890,7 +4959,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 65,
+        "performance": 70,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 100,
@@ -4923,7 +4992,7 @@
       "findings_count": 4,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 18073.8235,
+      "lcp_value_ms": 11357.188000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4932,7 +5001,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 38,
         "accessibility": 85,
         "best_practices": 92,
         "seo": 73,
@@ -5043,7 +5112,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8592.249069999998,
+      "lcp_value_ms": 8789.83522,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5052,7 +5121,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 64,
+        "performance": 54,
         "accessibility": 90,
         "best_practices": 73,
         "seo": 85,
@@ -5068,33 +5137,33 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1123044808\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1123044808\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1868474033\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1868474033\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-2051685761\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-2051685761\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-759144224\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-759144224\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-461225051\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-461225051\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1610625006\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1610625006\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1343982054\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1343982054\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-561125289\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-561125289\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-988476973\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-988476973\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1268816961\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1268816961\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
               "explanation": "Fix any of the following:\n  Required ARIA parent role not present: tablist"
             }
           ]
@@ -5108,33 +5177,33 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1123044808\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1123044808\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1123044808",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1868474033\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1868474033\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1868474033",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-2051685761\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-2051685761\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-2051685761",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-759144224\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-759144224\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-759144224",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-461225051\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-461225051\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-461225051",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1610625006\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1610625006\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1610625006",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-1343982054\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1343982054\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1343982054",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-561125289\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-561125289\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-561125289",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
-              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
-              "snippet": "<button type=\"button\" id=\"trigger-tabs-988476973\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-988476973\">",
-              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-988476973",
+              "selector": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
+              "snippet": "<button type=\"button\" id=\"trigger-tabs-1268816961\" aria-expanded=\"false\" class=\"responsive-tabs__tab-button--mobile ds-u-display--flex\" role=\"tab\" aria-controls=\"tabs-1268816961\">",
+              "node_label": "div.field__item > div.paragraph > div.ds-u-lg-display--none > button#trigger-tabs-1268816961",
               "explanation": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             }
           ]
@@ -5149,7 +5218,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6579.641,
+      "lcp_value_ms": 6492.464999999998,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5158,7 +5227,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 44,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 83,
@@ -5225,7 +5294,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 22814.086,
+      "lcp_value_ms": 22972.539999999997,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5234,10 +5303,10 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 46,
         "accessibility": 97,
         "best_practices": 96,
-        "seo": 77,
+        "seo": 85,
         "pwa": 0
       },
       "axe_findings": [
@@ -5273,7 +5342,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4134.851000000001,
+      "lcp_value_ms": 4142.494000000001,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5339,7 +5408,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 21232.249999999996,
+      "lcp_value_ms": 18119.8835,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5348,7 +5417,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 26,
+        "performance": 28,
         "accessibility": 95,
         "best_practices": 100,
         "seo": 83,
@@ -5431,7 +5500,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3127.0704999999994,
+      "lcp_value_ms": 2591.56,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5440,7 +5509,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 86,
+        "performance": 92,
         "accessibility": 98,
         "best_practices": 100,
         "seo": 92,
@@ -5473,7 +5542,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5571.615000000001,
+      "lcp_value_ms": 5871.496000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5521,7 +5590,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11824.208500000004,
+      "lcp_value_ms": 11795.617499999997,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5530,7 +5599,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 49,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 100,
@@ -5546,7 +5615,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 16560.216999999997,
+      "lcp_value_ms": 9462.072880000003,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5555,7 +5624,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 35,
+        "performance": 36,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 92,
@@ -5571,7 +5640,7 @@
       "findings_count": 9,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6120.916449999998,
+      "lcp_value_ms": 4730.786000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5580,7 +5649,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 54,
         "accessibility": 70,
         "best_practices": 50,
         "seo": 92,
@@ -5957,7 +6026,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11241.600000000004,
+      "lcp_value_ms": 9397.961,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5966,7 +6035,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 42,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -5982,7 +6051,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4654.883,
+      "lcp_value_ms": 4154.8305,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -5991,7 +6060,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 61,
+        "performance": 67,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 61,
@@ -6058,7 +6127,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6340.0635,
+      "lcp_value_ms": 7520.709999999998,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6118,7 +6187,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6844.818500000001,
+      "lcp_value_ms": 6414.040000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6127,7 +6196,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 60,
+        "performance": 61,
         "accessibility": 100,
         "best_practices": 58,
         "seo": 100,
@@ -6143,7 +6212,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6007.3815,
+      "lcp_value_ms": 5071.280000000001,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -6152,7 +6221,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 39,
+        "performance": 43,
         "accessibility": 96,
         "best_practices": 54,
         "seo": 77,
@@ -6210,7 +6279,7 @@
       "findings_count": 6,
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5343.626000000001,
+      "lcp_value_ms": 4969.803999999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6219,7 +6288,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 52,
         "accessibility": 85,
         "best_practices": 50,
         "seo": 100,
@@ -6350,7 +6419,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3508.6615,
+      "lcp_value_ms": 2311.8600000000006,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6359,7 +6428,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 83,
+        "performance": 91,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -6375,7 +6444,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 1386.9135,
+      "lcp_value_ms": 1118.63,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6384,7 +6453,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 71,
+        "performance": 70,
         "accessibility": 94,
         "best_practices": 96,
         "seo": 91,
@@ -6433,7 +6502,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6635.3515,
+      "lcp_value_ms": 6802.998,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -6458,7 +6527,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8371.8085,
+      "lcp_value_ms": 9403.253000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6467,7 +6536,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 40,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 82,
@@ -6532,7 +6601,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15668.295999999997,
+      "lcp_value_ms": 14193.063499999993,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6541,7 +6610,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 42,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 92,
@@ -6559,7 +6628,7 @@
             {
               "selector": "div#hp-carousel-0 > div.slick-list > div.slick-track > div.grid-col-4",
               "snippet": "<div class=\"grid-col-4 slick-slide\" style=\"width: 254px;\" data-slick-index=\"1\" aria-hidden=\"true\" tabindex=\"0\">",
-              "node_label": "VOLCANO\nGreat Sitkin\nORANGE - WATCH\n2026-03-19 20:55:13 (UTC)",
+              "node_label": "VOLCANO\nShishaldin\nYELLOW - ADVISORY\n2026-03-20 21:07:12 (UTC)",
               "explanation": "Fix all of the following:\n  Focusable content should have tabindex=\"-1\" or be removed from the DOM"
             }
           ]
@@ -6620,7 +6689,7 @@
       "findings_count": 3,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 12593.056,
+      "lcp_value_ms": 20810.967,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6629,7 +6698,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 26,
+        "performance": 22,
         "accessibility": 87,
         "best_practices": 100,
         "seo": 85,
@@ -6700,7 +6769,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4340.71,
+      "lcp_value_ms": 4087.3995000000004,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6709,7 +6778,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 76,
+        "performance": 78,
         "accessibility": 69,
         "best_practices": 96,
         "seo": 100,
@@ -6814,7 +6883,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11890.211000000003,
+      "lcp_value_ms": 12106.513,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6823,7 +6892,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 41,
         "accessibility": 93,
         "best_practices": 73,
         "seo": 92,
@@ -6884,7 +6953,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6626.5639999999985,
+      "lcp_value_ms": 6400.8125,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6893,7 +6962,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 37,
+        "performance": 33,
         "accessibility": 88,
         "best_practices": 92,
         "seo": 83,
@@ -6982,7 +7051,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11488.6685,
+      "lcp_value_ms": 10090.3795,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7032,7 +7101,7 @@
       "findings_count": 4,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 27798.539999999986,
+      "lcp_value_ms": 27105.989,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -7041,7 +7110,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 36,
+        "performance": 35,
         "accessibility": 83,
         "best_practices": 88,
         "seo": 83,
@@ -7242,7 +7311,7 @@
       "findings_count": 3,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7225.936500000001,
+      "lcp_value_ms": 7511.3075,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7251,7 +7320,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 69,
         "accessibility": 87,
         "best_practices": 100,
         "seo": 100,
@@ -7334,7 +7403,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2082.437,
+      "lcp_value_ms": 2139.8259999999996,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7343,7 +7412,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 94,
+        "performance": 92,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 91,
@@ -7359,7 +7428,7 @@
       "findings_count": 4,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7364.819,
+      "lcp_value_ms": 9201.536000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7368,7 +7437,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 51,
         "accessibility": 85,
         "best_practices": 50,
         "seo": 92,
@@ -7474,7 +7543,7 @@
       "findings_count": 5,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 35928.1415,
+      "lcp_value_ms": 24746.3375,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7483,7 +7552,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 52,
+        "performance": 44,
         "accessibility": 79,
         "best_practices": 77,
         "seo": 54,
@@ -7651,8 +7720,8 @@
       "failure_reason": null,
       "findings_count": 6,
       "severe_findings_count": 5,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4058.59715,
+      "core_web_vitals_status": "needs_improvement",
+      "lcp_value_ms": 3115.7195699999997,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7661,7 +7730,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 74,
+        "performance": 81,
         "accessibility": 79,
         "best_practices": 100,
         "seo": 83,
@@ -7888,7 +7957,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7766.320000000001,
+      "lcp_value_ms": 6940.763000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7913,7 +7982,7 @@
       "findings_count": 3,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 21304.157000000017,
+      "lcp_value_ms": 17984.05599999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -7922,7 +7991,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 54,
         "accessibility": 88,
         "best_practices": 77,
         "seo": 92,
@@ -8017,7 +8086,7 @@
       "findings_count": 5,
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 18134.973499999993,
+      "lcp_value_ms": 14075.822999999993,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -8201,7 +8270,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8494.498,
+      "lcp_value_ms": 7377.723999999998,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -8210,7 +8279,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 38,
+        "performance": 36,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 83,
@@ -8285,7 +8354,7 @@
       "findings_count": 7,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 43804.08099999998,
+      "lcp_value_ms": 44329.18606499999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8465,7 +8534,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 39159.20599999987,
+      "lcp_value_ms": 33332.3356200001,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -8474,7 +8543,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 20,
+        "performance": 21,
         "accessibility": 89,
         "best_practices": 54,
         "seo": 83,
@@ -8592,7 +8661,7 @@
       "findings_count": 5,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7466.200499999999,
+      "lcp_value_ms": 8709.907500000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8601,7 +8670,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 37,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 100,
@@ -8710,7 +8779,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 12931.544,
+      "lcp_value_ms": 8731.740499999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8719,7 +8788,7 @@
         }
       },
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 42,
         "accessibility": 93,
         "best_practices": 100,
         "seo": 73,
@@ -8753,10 +8822,10 @@
   ],
   "tech_summary": {
     "cms_counts": {
-      "Drupal": 30,
+      "Drupal": 31,
       "WordPress": 5
     },
-    "uswds_count": 36,
+    "uswds_count": 37,
     "uswds_versions": [
       "2.9.0",
       "3.4.1",
@@ -9069,22 +9138,22 @@
     {
       "date": "2026-03-20",
       "aggregate_scores": {
-        "performance": 52.7,
-        "accessibility": 92.35,
-        "best_practices": 83.68,
-        "seo": 88.22,
+        "performance": 52.06,
+        "accessibility": 92.19,
+        "best_practices": 83.71,
+        "seo": 88.26,
         "pwa": 0
       }
     }
   ],
-  "generated_at": "2026-03-20T20:05:05.145Z",
+  "generated_at": "2026-03-20T21:02:40.739Z",
   "report_status": "success",
   "slow_risk_summary": {
     "successful_url_count": 100,
-    "slow_risk_url_count": 85,
+    "slow_risk_url_count": 83,
     "successful_page_load_count": 63015624,
-    "slow_risk_page_load_count": 46430354,
-    "slow_risk_traffic_share_percent": 73.68
+    "slow_risk_page_load_count": 45403375,
+    "slow_risk_traffic_share_percent": 72.05
   },
   "warning_events": [],
   "scan_diagnostics": {
@@ -9093,7 +9162,7 @@
     "failed_count": 0,
     "excluded_count": 0,
     "timeout_count": 0,
-    "retry_count": 10,
+    "retry_count": 8,
     "failure_reasons": {}
   },
   "scan_mode": "live",
