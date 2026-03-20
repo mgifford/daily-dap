@@ -991,14 +991,42 @@ function renderSharedStyles() {
       /* Show print-only elements (e.g., dashboard URL notice) */
       .print-only { display: block !important; }
 
-      /* Basic page setup */
-      @page { margin: 1.5cm; }
+      /* Page setup with generous margins for binding and annotation */
+      @page { margin: 2cm; }
+      @page :first { margin-top: 3cm; }
 
+      /* Typography optimised for print readability */
       body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5;
         background: #fff;
         color: #000;
-        font-size: 11pt;
       }
+
+      h1 { font-size: 22pt; }
+      h2 { font-size: 18pt; }
+      h3 { font-size: 14pt; }
+
+      /* Prevent orphaned lines at page boundaries */
+      p, li { orphans: 3; widows: 3; }
+
+      /* Page break control: keep headings with following content */
+      h1, h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      figure, img, table {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* Avoid page breaks inside key content blocks */
+      section, .score-grid, .page-intro { break-inside: avoid; }
+
+      /* Images: scale to fit the page without overflowing */
+      img { max-width: 100% !important; height: auto; }
 
       /* Make the header readable in black-and-white */
       .site-header {
@@ -1008,16 +1036,36 @@ function renderSharedStyles() {
         print-color-adjust: exact;
       }
 
-      /* Keep score cards readable */
+      /* Keep score cards readable; force text to black for grayscale legibility */
       .score-card {
         border: 1px solid #ccc;
         background: #fff !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
+      .score-label,
+      .score-value { color: #000 !important; }
 
-      /* Avoid page breaks inside key content blocks */
-      section, .score-grid, .page-intro { break-inside: avoid; }
+      /* Tables: repeat header row on every page; use explicit borders for print */
+      thead { display: table-header-group; }
+      tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      th, td { border: 1pt solid #333 !important; }
+      th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      tbody tr:nth-child(even) {
+        background: #f9f9f9 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Remove table hover styles that rely on color */
+      tr:hover { background: inherit !important; }
 
       /* Expand truncated URL cells for print */
       .url-cell {
@@ -1027,10 +1075,25 @@ function renderSharedStyles() {
         text-overflow: clip !important;
       }
 
-      /* Remove table hover styles that rely on color */
-      tr:hover { background: inherit !important; }
+      /* Reveal external link destinations after link text */
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.875em;
+        color: #333;
+        word-break: break-all;
+      }
 
-      a[href]::after { content: none; }
+      /* Suppress URL display for fragment links, JS pseudo-links, and in-table/header links */
+      a[href^="#"]::after,
+      a[href^="javascript:"]::after,
+      table a[href]::after,
+      .site-header a[href]::after { content: ""; }
+
+      /* Print dashboard notice: plain border, no color background */
+      .print-dashboard-notice {
+        background: #fff !important;
+        border: 1pt solid #333 !important;
+      }
     }
   </style>`;
 }

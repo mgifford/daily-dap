@@ -2701,6 +2701,46 @@ test('renderSharedStyles includes @media print CSS', () => {
   assert.ok(html.includes('.print-only'), 'CSS should define .print-only class');
 });
 
+test('renderSharedStyles print CSS includes typography and page-break rules', () => {
+  const report = {
+    run_date: '2026-03-20',
+    run_id: 'test-run',
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 52, accessibility: 92, best_practices: 84, seo: 88 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-20T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Typography
+  assert.ok(html.includes('Georgia, "Times New Roman"'), 'Print CSS should set serif font family');
+  assert.ok(html.includes('font-size: 12pt'), 'Print CSS should set body font size in pt');
+  assert.ok(html.includes('orphans: 3'), 'Print CSS should set orphans to prevent isolated lines');
+  assert.ok(html.includes('widows: 3'), 'Print CSS should set widows to prevent isolated lines');
+
+  // Page setup
+  assert.ok(html.includes('@page { margin: 2cm; }'), 'Print CSS should set generous page margins');
+
+  // Page break control
+  assert.ok(html.includes('page-break-after: avoid'), 'Print CSS should prevent headings breaking away from content (legacy)');
+  assert.ok(html.includes('break-after: avoid'), 'Print CSS should prevent headings breaking away from content (modern)');
+  assert.ok(html.includes('thead { display: table-header-group; }'), 'Print CSS should repeat thead on every page');
+  assert.ok(html.includes('page-break-inside: avoid'), 'Print CSS should prevent content splitting mid-element (legacy)');
+  assert.ok(html.includes('break-inside: avoid'), 'Print CSS should prevent content splitting mid-element (modern)');
+
+  // Link URL disclosure
+  assert.ok(html.includes('content: " (" attr(href) ")"'), 'Print CSS should reveal external link destinations');
+  assert.ok(html.includes('a[href^="#"]::after'), 'Print CSS should suppress fragment link URL display');
+  assert.ok(html.includes('table a[href]::after'), 'Print CSS should suppress in-table link URL display');
+
+  // Grayscale / contrast
+  assert.ok(html.includes('.score-label,'), 'Print CSS should force score label text to black');
+});
+
 test('renderDailyReportPage shows performance score with load-time tooltip when lcp_value_ms is present', () => {
   const report = {
     run_date: '2026-03-05',
