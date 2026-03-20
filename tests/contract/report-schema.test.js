@@ -147,18 +147,21 @@ test('snapshot writer and artifact manifest stay in sync', async () => {
   const dashboardPath = path.join(tempRoot, 'docs', 'reports', 'index.html');
   const axeFindingsPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'axe-findings.json');
   const axeFindingsCsvPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'axe-findings.csv');
+  const lighthouseHistoryCsvPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'lighthouse-history.csv');
 
   const reportStat = await fs.stat(reportPath);
   const historyStat = await fs.stat(historyPath);
   const dashboardStat = await fs.stat(dashboardPath);
   const axeFindingsStat = await fs.stat(axeFindingsPath);
   const axeFindingsCsvStat = await fs.stat(axeFindingsCsvPath);
+  const lighthouseHistoryCsvStat = await fs.stat(lighthouseHistoryCsvPath);
 
   assert.equal(reportStat.isFile(), true);
   assert.equal(historyStat.isFile(), true);
   assert.equal(dashboardStat.isFile(), true);
   assert.equal(axeFindingsStat.isFile(), true, 'axe-findings.json should be written');
   assert.equal(axeFindingsCsvStat.isFile(), true, 'axe-findings.csv should be written');
+  assert.equal(lighthouseHistoryCsvStat.isFile(), true, 'lighthouse-history.csv should be written');
 
   const axeFindingsRaw = await fs.readFile(axeFindingsPath, 'utf8');
   const axeFindings = JSON.parse(axeFindingsRaw);
@@ -173,6 +176,15 @@ test('snapshot writer and artifact manifest stay in sync', async () => {
   assert.ok(
     csvLines[0].startsWith('url,scan_status,finding_id'),
     'axe-findings.csv should have expected header columns'
+  );
+
+  const lighthouseHistoryCsvRaw = await fs.readFile(lighthouseHistoryCsvPath, 'utf8');
+  const histCsvLines = lighthouseHistoryCsvRaw.trim().split('\n');
+  assert.ok(histCsvLines.length >= 1, 'lighthouse-history.csv should have at least a header row');
+  assert.equal(
+    histCsvLines[0],
+    'date,performance,accessibility,best_practices,seo',
+    'lighthouse-history.csv should have expected header columns'
   );
 
   assert.equal(manifest.files.some((file) => file.path === `docs/reports/daily/${report.run_date}/report.json`), true);
