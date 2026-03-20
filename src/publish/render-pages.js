@@ -749,6 +749,24 @@ function renderSharedStyles() {
     .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
     .score-cwv-poor         { background-color: hsl(50 50% 92%); }
 
+    /* ---------- Technology badges ---------- */
+    .tech-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.1em 0.4em;
+      border-radius: 0.25em;
+      white-space: nowrap;
+    }
+    .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="light"] .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    html[data-color-scheme="light"] .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+
     /* ---------- URL cells ---------- */
     .url-cell {
       white-space: nowrap;
@@ -1446,6 +1464,77 @@ function renderTopUrlModals(topUrls = []) {
     .join('\n');
 }
 
+/**
+ * Render small inline technology badges for a single URL row.
+ * Shows CMS name and/or USWDS version if detected.
+ *
+ * @param {object|null} tech - detected_technologies object
+ * @returns {string} HTML string
+ */
+function renderTechBadges(tech) {
+  if (!tech) {
+    return '';
+  }
+
+  const parts = [];
+
+  if (tech.cms) {
+    parts.push(`<span class="tech-badge tech-badge-cms" title="CMS: ${escapeHtml(tech.cms)}">${escapeHtml(tech.cms)}</span>`);
+  }
+
+  if (tech.uswds?.detected) {
+    const label = tech.uswds.version ? `USWDS ${escapeHtml(tech.uswds.version)}` : 'USWDS';
+    parts.push(`<span class="tech-badge tech-badge-uswds" title="U.S. Web Design System${tech.uswds.version ? ` v${escapeHtml(tech.uswds.version)}` : ''}">${label}</span>`);
+  }
+
+  return parts.join(' ');
+}
+
+/**
+ * Render a summary section listing detected technologies across all scanned URLs.
+ *
+ * @param {object} report
+ * @returns {string} HTML section or empty string when no data
+ */
+function renderTechSummarySection(report) {
+  const summary = report.tech_summary;
+  if (!summary) {
+    return '';
+  }
+
+  const { cms_counts = {}, uswds_count = 0, uswds_versions = [], total_scanned = 0 } = summary;
+  const cmsEntries = Object.entries(cms_counts).sort((a, b) => b[1] - a[1]);
+
+  if (cmsEntries.length === 0 && uswds_count === 0) {
+    return '';
+  }
+
+  const cmsRows = cmsEntries
+    .map(
+      ([name, count]) =>
+        `<tr><td>${escapeHtml(name)}</td><td>${count}</td><td>${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%</td></tr>`
+    )
+    .join('\n');
+
+  const uswdsVersionList =
+    uswds_versions.length > 0
+      ? `<p>Observed USWDS versions: ${uswds_versions.map((v) => `<strong>${escapeHtml(v)}</strong>`).join(', ')}. The latest release is available at <a href="https://github.com/uswds/uswds/releases" target="_blank" rel="noreferrer">github.com/uswds/uswds/releases</a>.</p>`
+      : '';
+
+  return `
+  <section aria-labelledby="tech-summary-heading">
+    <h2 id="tech-summary-heading">Detected Technologies${renderAnchorLink('tech-summary-heading', 'Detected Technologies')}</h2>
+    <p>Technology signals detected from the network requests loaded by each scanned URL. CMS detection identifies WordPress, Drupal, and Joomla from characteristic asset paths. USWDS detection identifies use of the <a href="https://designsystem.digital.gov/" target="_blank" rel="noreferrer">U.S. Web Design System</a>.</p>
+    ${cmsEntries.length > 0 ? wrapTable(`<table>
+      <caption>CMS platform counts across ${total_scanned} successfully scanned URLs</caption>
+      <thead><tr><th scope="col">CMS</th><th scope="col">URLs</th><th scope="col">Share</th></tr></thead>
+      <tbody>${cmsRows}</tbody>
+    </table>`) : ''}
+    <p>USWDS detected on <strong>${uswds_count}</strong> of <strong>${total_scanned}</strong> scanned URL${total_scanned !== 1 ? 's' : ''}${total_scanned > 0 ? ` (${Math.round((uswds_count / total_scanned) * 100)}%)` : ''}.</p>
+    ${uswdsVersionList}
+  </section>`;
+}
+
 function renderTopUrlRows(topUrls = []) {
   return topUrls
     .slice(0, 100)
@@ -1453,6 +1542,7 @@ function renderTopUrlRows(topUrls = []) {
       (entry, index) => {
         const findingsCount = entry.findings_count ?? 0;
         const btnLabel = findingsCount > 0 ? `Details (${findingsCount})` : 'Details';
+        const techBadges = renderTechBadges(entry.detected_technologies);
         return `<tr>
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
   <td data-label="Traffic">${entry.page_load_count}</td>
@@ -1462,6 +1552,7 @@ function renderTopUrlRows(topUrls = []) {
   <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">${escapeHtml(btnLabel)}</button>`}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices', 'Best Practices')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo', 'SEO')}
+  <td data-label="Technologies">${techBadges}</td>
 </tr>`;
       }
     )
@@ -1995,6 +2086,7 @@ export function renderDailyReportPage(report) {
             <th scope="col">Axe details</th>
             <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
             <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
+            <th scope="col">Technologies</th>
           </tr>
         </thead>
         <tbody>
@@ -2002,6 +2094,8 @@ export function renderDailyReportPage(report) {
         </tbody>
       </table>`)}
     </section>
+
+    ${renderTechSummarySection(report)}
 
     ${renderCallToActionSection(report)}
   </main>

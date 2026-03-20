@@ -5,6 +5,43 @@ function coerceScore(value) {
   return 0;
 }
 
+/**
+ * Build a technology summary across all scan results.
+ * Counts CMS usage and USWDS adoption from detected_technologies.
+ *
+ * @param {Array} urlResults
+ * @returns {{ cms_counts: Record<string, number>, uswds_count: number, uswds_versions: string[], total_scanned: number }}
+ */
+function buildTechSummary(urlResults = []) {
+  const successful = urlResults.filter((r) => r?.scan_status === 'success');
+  const cmsCounts = {};
+  let uswdsCount = 0;
+  const uswdsVersionSet = new Set();
+
+  for (const result of successful) {
+    const tech = result.detected_technologies;
+    if (!tech) {
+      continue;
+    }
+    if (tech.cms) {
+      cmsCounts[tech.cms] = (cmsCounts[tech.cms] ?? 0) + 1;
+    }
+    if (tech.uswds?.detected) {
+      uswdsCount += 1;
+      if (tech.uswds.version) {
+        uswdsVersionSet.add(tech.uswds.version);
+      }
+    }
+  }
+
+  return {
+    cms_counts: cmsCounts,
+    uswds_count: uswdsCount,
+    uswds_versions: [...uswdsVersionSet].sort(),
+    total_scanned: successful.length
+  };
+}
+
 function normalizeTopUrls(urlResults = []) {
   return urlResults
     .map((result) => ({
@@ -17,6 +54,7 @@ function normalizeTopUrls(urlResults = []) {
         ? result.axe_findings.filter((f) => f.impact === 'critical' || f.impact === 'serious').length
         : 0,
       core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
+      detected_technologies: result.detected_technologies ?? null,
       lighthouse_scores:
         result.scan_status === 'success'
           ? {
@@ -64,6 +102,7 @@ export function buildDailyReport({
   }));
 
   const topUrls = normalizeTopUrls(urlResults);
+  const techSummary = buildTechSummary(urlResults);
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;
@@ -99,6 +138,7 @@ export function buildDailyReport({
     performance_impact: performanceImpact ?? null,
     source_data_date: sourceDataDate,
     top_urls: topUrls,
+    tech_summary: techSummary,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,
