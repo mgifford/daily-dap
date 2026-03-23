@@ -674,6 +674,28 @@
     .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
     .axe-demographics li { margin-bottom: 0.15rem; }
 
+    /* ---------- Compliance context section ---------- */
+    .compliance-context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compliance-card {
+      border: 1px solid var(--color-table-border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .compliance-card--legal { border-top: 4px solid #d4380d; }
+    .compliance-card--legal .compliance-icon { color: #d4380d; }
+    .compliance-card--best-practices { border-top: 4px solid #d4a017; }
+    .compliance-card--best-practices .compliance-icon { color: #d4a017; }
+    .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
+    .compliance-card li { margin-bottom: 0.25rem; }
+    .compliance-card p { margin: 0.4rem 0; }
+
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
       background: var(--color-copy-btn-bg);
@@ -751,6 +773,15 @@
       background: var(--color-table-row-hover);
       padding-right: 0.25rem;
       box-shadow: 2px 0 4px var(--color-shadow);
+    }
+    .url-org {
+      display: block;
+      font-size: 0.78em;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.15em;
     }
 
     /* ---------- Column header info tooltips ---------- */
@@ -1047,7 +1078,7 @@
         <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
         <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
       </ul>
-      <p class="generated-note">Archive index generated: 2026-03-23T10:06:32.859Z</p>
+      <p class="generated-note">Archive index generated: 2026-03-23T17:07:12.115Z</p>
     </section>
   </main>
 
