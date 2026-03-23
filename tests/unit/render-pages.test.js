@@ -2941,3 +2941,41 @@ test('renderDailyReportPage escapes HTML in organization_name', () => {
     'Should contain escaped version of the tag'
   );
 });
+
+test('renderDailyReportPage includes Section 508 compliance context section', () => {
+  const report = makeMinimalReport();
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('compliance-context-heading'), 'Page should include compliance context section');
+  assert.ok(
+    html.includes('Section 508: Legal Requirements vs. Best Practices'),
+    'Compliance context heading should mention Section 508'
+  );
+  assert.ok(
+    html.includes('WCAG 2.0 Level AA'),
+    'Compliance context should reference the legal WCAG 2.0 AA requirement'
+  );
+  assert.ok(
+    html.includes('WCAG 2.1'),
+    'Compliance context should reference WCAG 2.1 as a best practice'
+  );
+  assert.ok(
+    html.includes('WCAG 2.2'),
+    'Compliance context should reference WCAG 2.2 as the current best practice'
+  );
+  assert.ok(
+    html.includes('compliance-card--legal'),
+    'Compliance context should include a legal requirement card'
+  );
+  assert.ok(
+    html.includes('compliance-card--best-practices'),
+    'Compliance context should include a best practices card'
+  );
+  assert.ok(
+    html.includes('href="https://www.section508.gov/"'),
+    'Compliance context should link to section508.gov'
+  );
+  assert.ok(
+    html.includes('href="https://www.w3.org/TR/WCAG22/"'),
+    'Compliance context should link to WCAG 2.2 specification'
+  );
+});
