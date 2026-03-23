@@ -2978,4 +2978,16 @@ test('renderDailyReportPage includes Section 508 compliance context section', ()
     html.includes('href="https://www.w3.org/TR/WCAG22/"'),
     'Compliance context should link to WCAG 2.2 specification'
   );
+  assert.ok(
+    html.includes('<polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/>'),
+    'Legal requirement card should include an octagon (stop sign) SVG icon'
+  );
+  assert.ok(
+    html.includes('d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"'),
+    'Best practices card should include a warning triangle (yield sign) SVG icon'
+  );
+  assert.ok(
+    html.includes('class="compliance-icon"'),
+    'Compliance icons should use the compliance-icon CSS class'
+  );
 });

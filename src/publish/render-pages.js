@@ -787,9 +787,11 @@ function renderSharedStyles() {
       padding: 1rem 1.25rem;
       background: var(--color-score-bg);
     }
-    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
     .compliance-card--legal { border-top: 4px solid #d4380d; }
-    .compliance-card--best-practices { border-top: 4px solid #389e0d; }
+    .compliance-card--legal .compliance-icon { color: #d4380d; }
+    .compliance-card--best-practices { border-top: 4px solid #d4a017; }
+    .compliance-card--best-practices .compliance-icon { color: #d4a017; }
     .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
     .compliance-card li { margin-bottom: 0.25rem; }
     .compliance-card p { margin: 0.4rem 0; }
@@ -2366,7 +2368,7 @@ function renderComplianceContextSection() {
     </p>
     <div class="compliance-context-grid">
       <div class="compliance-card compliance-card--legal">
-        <h3>Legal Requirement</h3>
+        <h3><svg aria-hidden="true" class="compliance-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/></svg>Legal Requirement</h3>
         <p><strong>WCAG 2.0 Level AA</strong> (published 2008)</p>
         <p>Referenced by the Section 508 ICT Standards refresh (effective 2018). Agencies must meet these 38 success
         criteria to satisfy their Section 508 obligations for web content.</p>
@@ -2382,7 +2384,7 @@ function renderComplianceContextSection() {
         <p><a href="https://www.access-board.gov/ict/#E205-content" target="_blank" rel="noreferrer">Section 508 web content requirements (E205)</a></p>
       </div>
       <div class="compliance-card compliance-card--best-practices">
-        <h3>Best Practices</h3>
+        <h3><svg aria-hidden="true" class="compliance-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Best Practices</h3>
         <p><strong>WCAG 2.1 and 2.2 Level AA</strong> (published 2018 and 2023)</p>
         <p>These later versions add criteria that reflect how the web actually works today &mdash; mobile devices,
         cognitive accessibility, and modern authentication patterns &mdash; and are strongly recommended for any agency
