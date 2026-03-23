@@ -892,6 +892,7 @@ const minimalReport = {
   url_counts: { processed: 2, succeeded: 2, failed: 0, excluded: 0 },
   aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 },
   estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 5, categories: [{ name: 'Contrast', prevalence_rate: '10%', estimated_impacted_users: 1000 }] },
+  fpc_exclusion: { categories: {} },
   history_series: [
     { date: '2026-03-08', aggregate_scores: { performance: 58, accessibility: 68, best_practices: 78, seo: 83 } },
     { date: '2026-03-09', aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 } }
@@ -929,7 +930,6 @@ test('renderDailyReportPage includes table captions for accessibility', () => {
   assert.ok(html.includes('<caption>Daily aggregate Lighthouse scores'), 'History table should have a caption');
   assert.ok(html.includes('<caption>Top government URLs'), 'Top URLs table should have a caption');
   assert.ok(html.includes('<caption>Score comparison between'), 'Day comparison table should have a caption');
-  assert.ok(html.includes('<caption>Estimated accessibility impact'), 'Impact table should have a caption');
 });
 
 test('renderDailyReportPage uses url-cell class on URL column', () => {
@@ -1010,10 +1010,10 @@ test('renderDailyReportPage includes heading-anchor CSS', () => {
   assert.ok(html.includes('.heading-anchor:focus'), 'Heading anchor should be visible on focus');
 });
 
-test('renderDailyReportPage estimated impact heading has anchor link', () => {
+test('renderDailyReportPage fpc exclusion heading has anchor link', () => {
   const html = renderDailyReportPage(minimalReport);
-  assert.ok(html.includes('href="#estimated-impact-heading"'), 'Estimated Impact heading should have anchor link');
-  assert.ok(html.includes('id="estimated-impact-heading"'), 'Estimated Impact heading should have an id');
+  assert.ok(html.includes('href="#fpc-exclusion-heading"'), 'FPC Exclusion heading should have anchor link');
+  assert.ok(html.includes('id="fpc-exclusion-heading"'), 'FPC Exclusion heading should have an id');
 });
 
 test('renderDailyReportPage axe patterns heading has anchor link', () => {
@@ -2566,22 +2566,6 @@ test('renderDailyReportPage CTA shows generic message when no fpc_exclusion data
   );
 });
 
-test('roundDownConservatively: estimated impacted users >= 100K are rounded down to nearest 10K', () => {
-  const report = makeMinimalReport({
-    estimated_impact: {
-      traffic_window_mode: 'daily',
-      affected_share_percent: 40.3,
-      categories: [
-        { name: 'Limited Vision', prevalence_rate: '0.023', estimated_impacted_users: 584031.48 },
-        { name: 'Without Vision', prevalence_rate: '0.01', estimated_impacted_users: 253926.73 }
-      ]
-    }
-  });
-  const html = renderDailyReportPage(report);
-  assert.ok(html.includes('580,000'), 'Limited Vision 584031.48 should round down to 580,000');
-  assert.ok(html.includes('250,000'), 'Without Vision 253926.73 should round down to 250,000');
-  assert.ok(!html.includes('584,031'), 'Raw unrounded value should not appear');
-});
 
 test('roundDownConservatively: FPC exclusion large numbers are rounded down conservatively', () => {
   const report = makeMinimalReport({
