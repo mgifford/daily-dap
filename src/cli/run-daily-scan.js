@@ -2,6 +2,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadPrevalenceConfig, applyRuntimeOverrides } from '../config/prevalence-loader.js';
 import { getNormalizedTopPages } from '../ingest/dap-source.js';
@@ -109,6 +110,27 @@ function getDefaultConfigPath() {
 function getDefaultRepoRoot() {
   const currentDir = path.dirname(fileURLToPath(import.meta.url));
   return path.resolve(currentDir, '..', '..');
+}
+
+/**
+ * Returns the effective output root for the scan.
+ * If an explicit --output-root was specified, use it.
+ * If running in mock mode without an explicit output root, redirect to a temp
+ * directory so that test/development scans cannot accidentally overwrite the
+ * production docs/reports/ data that was committed by a real CI scan.
+ * Live scans always default to the repo root so that reports are committed.
+ *
+ * @param {{outputRoot: string|null, scanMode: string}} args
+ * @returns {string}
+ */
+function getEffectiveOutputRoot(args) {
+  if (args.outputRoot) {
+    return path.resolve(args.outputRoot);
+  }
+  if (args.scanMode === 'mock') {
+    return path.join(os.tmpdir(), 'daily-dap-mock');
+  }
+  return getDefaultRepoRoot();
 }
 
 function scoreFromUrl(url, base = 70) {
@@ -363,7 +385,7 @@ function toAggregateScoreSeries(historySeries = []) {
 
 export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
   const args = inputArgs;
-  const repoRoot = path.resolve(args.outputRoot ?? getDefaultRepoRoot());
+  const repoRoot = getEffectiveOutputRoot(args);
   const configPath = args.configPath ?? getDefaultConfigPath();
   const dapApiKey = args.dapApiKey ?? process.env.DAP_API_KEY;
 
@@ -371,6 +393,10 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
   try {
     logStageStart('INITIALIZATION', { scanMode: args.scanMode, dryRun: args.dryRun });
+
+    if (args.scanMode === 'mock' && !args.outputRoot) {
+      logProgress('INITIALIZATION', 'Mock scan: writing to temp directory to protect production data', { outputRoot: repoRoot });
+    }
     
     const baseConfig = await loadPrevalenceConfig(configPath);
     const runtimeConfig = applyRuntimeOverrides(baseConfig, {

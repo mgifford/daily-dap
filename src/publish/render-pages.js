@@ -2009,7 +2009,12 @@ function buildAxePatternCounts(topUrls = []) {
   for (const entry of topUrls) {
     const pageLoads = entry.page_load_count ?? 0;
     const url = entry.url ?? '';
+    const seenRulesForUrl = new Set();
     for (const finding of entry.axe_findings ?? []) {
+      if (seenRulesForUrl.has(finding.id)) {
+        continue;
+      }
+      seenRulesForUrl.add(finding.id);
       const existing = counts.get(finding.id);
       if (existing) {
         existing.count += 1;
@@ -2113,6 +2118,8 @@ function renderAxePatternsSection(topUrls = []) {
 
   const topPatterns = patterns.slice(0, 10);
   const prevalenceRates = getFpcPrevalenceRates();
+  const totalFindings = (topUrls ?? []).reduce((sum, u) => sum + (u.axe_findings?.length ?? 0), 0);
+  const totalUrlsScanned = (topUrls ?? []).length;
 
   const rows = topPatterns
     .map(
@@ -2125,6 +2132,7 @@ function renderAxePatternsSection(topUrls = []) {
   <section aria-labelledby="axe-patterns-heading">
     <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})${renderAnchorLink('axe-patterns-heading', `Common Accessibility Issues (Top ${topPatterns.length})`)}</h2>
     <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
+    <p>Total axe findings today: <strong>${totalFindings.toLocaleString('en-US')}</strong> across ${totalUrlsScanned.toLocaleString('en-US')} scanned URLs.</p>
     ${wrapTable(`<table>
       <caption>Top axe-core accessibility rule violations across scanned URLs</caption>
       <thead>

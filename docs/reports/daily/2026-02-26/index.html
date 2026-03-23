@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="refresh" content="0; url=../../archive/index.html" />
-  <title>Report Archived - 2026-02-26</title>
-  <meta name="description" content="The Daily DAP report for 2026-02-26 has been archived." />
+  <title>Daily DAP Report - 2026-02-26</title>
+  <meta name="description" content="Daily accessibility and performance scan results for the top U.S. government URLs on 2026-02-26, powered by Lighthouse and axe-core." />
   
   <meta name="color-scheme" content="light dark" />
   <script>
@@ -675,6 +674,28 @@
     .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
     .axe-demographics li { margin-bottom: 0.15rem; }
 
+    /* ---------- Compliance context section ---------- */
+    .compliance-context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compliance-card {
+      border: 1px solid var(--color-table-border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .compliance-card--legal { border-top: 4px solid #d4380d; }
+    .compliance-card--legal .compliance-icon { color: #d4380d; }
+    .compliance-card--best-practices { border-top: 4px solid #d4a017; }
+    .compliance-card--best-practices .compliance-icon { color: #d4a017; }
+    .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
+    .compliance-card li { margin-bottom: 0.25rem; }
+    .compliance-card p { margin: 0.4rem 0; }
+
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
       background: var(--color-copy-btn-bg);
@@ -752,6 +773,15 @@
       background: var(--color-table-row-hover);
       padding-right: 0.25rem;
       box-shadow: 2px 0 4px var(--color-shadow);
+    }
+    .url-org {
+      display: block;
+      font-size: 0.78em;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.15em;
     }
 
     /* ---------- Column header info tooltips ---------- */
@@ -901,14 +931,42 @@
       /* Show print-only elements (e.g., dashboard URL notice) */
       .print-only { display: block !important; }
 
-      /* Basic page setup */
-      @page { margin: 1.5cm; }
+      /* Page setup with generous margins for binding and annotation */
+      @page { margin: 2cm; }
+      @page :first { margin-top: 3cm; }
 
+      /* Typography optimised for print readability */
       body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5;
         background: #fff;
         color: #000;
-        font-size: 11pt;
       }
+
+      h1 { font-size: 22pt; }
+      h2 { font-size: 18pt; }
+      h3 { font-size: 14pt; }
+
+      /* Prevent orphaned lines at page boundaries */
+      p, li { orphans: 3; widows: 3; }
+
+      /* Page break control: keep headings with following content */
+      h1, h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      figure, img, table {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* Avoid page breaks inside key content blocks */
+      section, .score-grid, .page-intro { break-inside: avoid; }
+
+      /* Images: scale to fit the page without overflowing */
+      img { max-width: 100% !important; height: auto; }
 
       /* Make the header readable in black-and-white */
       .site-header {
@@ -918,16 +976,36 @@
         print-color-adjust: exact;
       }
 
-      /* Keep score cards readable */
+      /* Keep score cards readable; force text to black for grayscale legibility */
       .score-card {
         border: 1px solid #ccc;
         background: #fff !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
+      .score-label,
+      .score-value { color: #000 !important; }
 
-      /* Avoid page breaks inside key content blocks */
-      section, .score-grid, .page-intro { break-inside: avoid; }
+      /* Tables: repeat header row on every page; use explicit borders for print */
+      thead { display: table-header-group; }
+      tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      th, td { border: 1pt solid #333 !important; }
+      th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      tbody tr:nth-child(even) {
+        background: #f9f9f9 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Remove table hover styles that rely on color */
+      tr:hover { background: inherit !important; }
 
       /* Expand truncated URL cells for print */
       .url-cell {
@@ -937,10 +1015,25 @@
         text-overflow: clip !important;
       }
 
-      /* Remove table hover styles that rely on color */
-      tr:hover { background: inherit !important; }
+      /* Reveal external link destinations after link text */
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.875em;
+        color: #333;
+        word-break: break-all;
+      }
 
-      a[href]::after { content: none; }
+      /* Suppress URL display for fragment links, JS pseudo-links, and in-table/header links */
+      a[href^="#"]::after,
+      a[href^="javascript:"]::after,
+      table a[href]::after,
+      .site-header a[href]::after { content: ""; }
+
+      /* Print dashboard notice: plain border, no color background */
+      .print-dashboard-notice {
+        background: #fff !important;
+        border: 1pt solid #333 !important;
+      }
     }
   </style>
 </head>
@@ -949,23 +1042,1396 @@
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="site-header" role="banner">
   <div class="site-header-inner">
-    <span class="site-title">Daily DAP</span>
+    <a class="site-title" href="../../index.html">Daily DAP</a>
     <nav aria-label="Site navigation">
+      <a href="../../index.html">Dashboard</a>
       <a class="github-link" href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">GitHub</a>
+      <button class="print-btn" type="button" onclick="window.print()" aria-label="Print or save as PDF">
+        <span aria-hidden="true">&#128424;</span> Print / Save as PDF
+      </button>
       <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Enable dark mode">
         <span aria-hidden="true">&#127769;</span> Dark mode
       </button>
     </nav>
   </div>
 </header>
-  <main id="main-content" class="site-main" data-archived="true">
+  <div class="print-only print-dashboard-notice">
+    <p>This report was generated by Daily DAP. For the latest report and interactive dashboard, visit: <a href="https://mgifford.github.io/daily-dap/docs/reports/index.html">https://mgifford.github.io/daily-dap/docs/reports/index.html</a></p>
+  </div>
+  <main id="main-content" class="site-main">
     <div class="page-intro">
-      <h1 id="page-title">Report Archived</h1>
-      <p>The Daily DAP report for <strong>2026-02-26</strong> has been archived and is available as a downloadable zip file.</p>
-      <p><a href="../../archive/index.html">View report archives &rarr;</a></p>
-      <p><a href="../../index.html">&larr; Back to dashboard</a></p>
+      <h1 id="page-title">Daily DAP Accessibility Report &mdash; 2026-02-26<a href="#page-title" class="heading-anchor" aria-label="Link to Daily DAP Accessibility Report — 2026-02-26"><span aria-hidden="true">#</span></a></h1>
+      <p>Run ID: run-2026-02-26-ec23e51f7f &middot; Status: partial &middot; Source data: 2026-02-25 &middot; Generated: 2026-02-26T22:21:01.543Z</p>
     </div>
+
+    
+  <section aria-labelledby="dap-context-heading">
+    <h2 id="dap-context-heading">About These Reports<a href="#dap-context-heading" class="heading-anchor" aria-label="Link to About These Reports"><span aria-hidden="true">#</span></a></h2>
+    <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
+    <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
+    <ul>
+      <li><strong>Performance</strong> - How fast pages load for users (scores 0-100, higher is better)</li>
+      <li><strong>Accessibility</strong> - How well pages work for users with disabilities, following WCAG guidelines (scores 0-100, higher is better)</li>
+      <li><strong>Best Practices</strong> - Whether pages follow modern web development standards (scores 0-100, higher is better)</li>
+      <li><strong>SEO</strong> - How well pages are optimized for search engines (scores 0-100, higher is better)</li>
+    </ul>
+    <p>Accessibility findings come from <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>, the industry-standard accessibility testing engine embedded in Lighthouse. The <strong>axe findings</strong> surface specific WCAG violations such as missing alternative text, insufficient color contrast, and missing form labels that make government websites harder to use for people with disabilities.</p>
+    <p>Traffic data reflects daily visitor counts from DAP. URLs are ranked by page load count, ensuring the most-used government pages are prioritized for quality measurement.</p>
+  </section>
+
+    
+
+    
+
+    
+
+    
+
+    <section aria-labelledby="scores-heading">
+      <h2 id="scores-heading">Aggregate Scores<a href="#scores-heading" class="heading-anchor" aria-label="Link to Aggregate Scores"><span aria-hidden="true">#</span></a></h2>
+      
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-label">Performance</div>
+          <div class="score-value">38</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Accessibility</div>
+          <div class="score-value">68</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Best Practices</div>
+          <div class="score-value">77</div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">SEO</div>
+          <div class="score-value">83</div>
+        </div>
+      </div>
+      <ul>
+        <li>Processed: 100</li>
+        <li>Succeeded: 1</li>
+        <li>Failed: 99</li>
+        <li>Excluded: 0</li>
+      </ul>
+    </section>
+
+    
+
+    
+
+    <section aria-labelledby="history-heading">
+      <h2 id="history-heading">History<a href="#history-heading" class="heading-anchor" aria-label="Link to History"><span aria-hidden="true">#</span></a></h2>
+      
+      <p><a href="lighthouse-history.csv">Download full Lighthouse history CSV</a> &middot; For the average comparison, see the <a href="#day-comparison-heading">Comparison with Average</a> section above.</p>
+      <div class="table-scroll"><table>
+        <caption>Daily aggregate Lighthouse scores (14 most-recent days)</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Performance</th><th scope="col">Accessibility</th><th scope="col">Best Practices</th><th scope="col">SEO</th></tr></thead>
+        <tbody>
+          
+        </tbody>
+      </table></div>
+    </section>
+
+    <section aria-labelledby="top-urls-heading">
+      <h2 id="top-urls-heading">Top URLs by Traffic (Scanned)<a href="#top-urls-heading" class="heading-anchor" aria-label="Link to Top URLs by Traffic (Scanned)"><span aria-hidden="true">#</span></a></h2>
+      <p>Showing up to 100 highest-traffic URLs from the latest available DAP day in this run.</p>
+      <p><strong>Note:</strong> CWV = Core Web Vitals (measures page loading performance including Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint). Lighthouse scores are 0&ndash;100 (higher is better). The <strong>Accessibility / Important</strong> column shows the Lighthouse accessibility score; if Critical or Serious axe findings exist the count appears after the slash (e.g.&nbsp;94&thinsp;/&thinsp;2). Click <strong>Details&nbsp;(N)</strong> to view WCAG accessibility findings for each URL.</p>
+      <p><a href="axe-findings.json">Download axe findings JSON for this day</a> | <a href="axe-findings.csv">Download axe findings CSV for this day</a></p>
+      <div class="table-scroll"><table id="top-urls-table">
+        <caption>Top government URLs by daily traffic with Lighthouse scan results</caption>
+        <thead>
+          <tr>
+            <th scope="col" data-sort-col="0" aria-sort="none"><button class="sort-btn">URL</button></th>
+            <th scope="col" data-sort-col="1" aria-sort="none"><button class="sort-btn">Traffic</button></th>
+            <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">CWV</button></th>
+            <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">Performance</button></th>
+            <th scope="col" data-sort-col="4" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
+            <th scope="col">Axe details</th>
+            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
+            <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
+            <th scope="col">Technologies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+  <td class="url-cell" data-label="URL"><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></td>
+  <td data-label="Traffic">11067118</td>
+  <td data-label="CWV" class="score-cwv-poor">poor</td>
+  <td data-label="Performance" class="score-performance" style="--score:38" data-sort-value="38">38</td>
+  <td data-label="Accessibility / Important" class="score-accessibility" style="--score:68" data-sort-value="68">68</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices" class="score-best-practices" style="--score:77">77</td>
+  <td data-label="SEO" class="score-seo" style="--score:83">83</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://irs.gov" target="_blank" rel="noreferrer">https://irs.gov</a></td>
+  <td data-label="Traffic">5383840</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://pmc.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pmc.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">5239590</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubmed.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">4414447</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">3010452</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://forecast.weather.gov" target="_blank" rel="noreferrer">https://forecast.weather.gov</a></td>
+  <td data-label="Traffic">2135518</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usps.com" target="_blank" rel="noreferrer">https://usps.com</a></td>
+  <td data-label="Traffic">2086617</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://secure.login.gov" target="_blank" rel="noreferrer">https://secure.login.gov</a></td>
+  <td data-label="Traffic">2048074</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://informeddelivery.usps.com" target="_blank" rel="noreferrer">https://informeddelivery.usps.com</a></td>
+  <td data-label="Traffic">1770628</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://justice.gov" target="_blank" rel="noreferrer">https://justice.gov</a></td>
+  <td data-label="Traffic">1468142</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ssa.gov" target="_blank" rel="noreferrer">https://ssa.gov</a></td>
+  <td data-label="Traffic">1398785</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://va.gov" target="_blank" rel="noreferrer">https://va.gov</a></td>
+  <td data-label="Traffic">1177279</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://secure.ssa.gov" target="_blank" rel="noreferrer">https://secure.ssa.gov</a></td>
+  <td data-label="Traffic">1126119</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://medicare.gov" target="_blank" rel="noreferrer">https://medicare.gov</a></td>
+  <td data-label="Traffic">915968</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cdc.gov" target="_blank" rel="noreferrer">https://cdc.gov</a></td>
+  <td data-label="Traffic">913940</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></td>
+  <td data-label="Traffic">889738</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></td>
+  <td data-label="Traffic">888910</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://weather.gov" target="_blank" rel="noreferrer">https://weather.gov</a></td>
+  <td data-label="Traffic">806034</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://medlineplus.gov" target="_blank" rel="noreferrer">https://medlineplus.gov</a></td>
+  <td data-label="Traffic">672862</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></td>
+  <td data-label="Traffic">628698</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usajobs.gov" target="_blank" rel="noreferrer">https://usajobs.gov</a></td>
+  <td data-label="Traffic">571014</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nps.gov" target="_blank" rel="noreferrer">https://nps.gov</a></td>
+  <td data-label="Traffic">550193</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ais.usvisa-info.com" target="_blank" rel="noreferrer">https://ais.usvisa-info.com</a></td>
+  <td data-label="Traffic">506886</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://reg.usps.com" target="_blank" rel="noreferrer">https://reg.usps.com</a></td>
+  <td data-label="Traffic">492642</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.va.gov" target="_blank" rel="noreferrer">https://www.va.gov</a></td>
+  <td data-label="Traffic">478781</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://americanenglish.state.gov" target="_blank" rel="noreferrer">https://americanenglish.state.gov</a></td>
+  <td data-label="Traffic">478675</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.medicare.gov" target="_blank" rel="noreferrer">https://www.medicare.gov</a></td>
+  <td data-label="Traffic">471310</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://myaccount.uscis.gov" target="_blank" rel="noreferrer">https://myaccount.uscis.gov</a></td>
+  <td data-label="Traffic">460585</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://egov.uscis.gov" target="_blank" rel="noreferrer">https://egov.uscis.gov</a></td>
+  <td data-label="Traffic">449343</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://webbook.nist.gov" target="_blank" rel="noreferrer">https://webbook.nist.gov</a></td>
+  <td data-label="Traffic">432161</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://science.nasa.gov" target="_blank" rel="noreferrer">https://science.nasa.gov</a></td>
+  <td data-label="Traffic">427917</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ofac.treasury.gov" target="_blank" rel="noreferrer">https://ofac.treasury.gov</a></td>
+  <td data-label="Traffic">420837</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://tsp.gov" target="_blank" rel="noreferrer">https://tsp.gov</a></td>
+  <td data-label="Traffic">411415</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://sec.gov" target="_blank" rel="noreferrer">https://sec.gov</a></td>
+  <td data-label="Traffic">407838</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fda.gov" target="_blank" rel="noreferrer">https://fda.gov</a></td>
+  <td data-label="Traffic">391802</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></td>
+  <td data-label="Traffic">387915</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://tsdr.uspto.gov" target="_blank" rel="noreferrer">https://tsdr.uspto.gov</a></td>
+  <td data-label="Traffic">381147</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://clinicaltrials.gov" target="_blank" rel="noreferrer">https://clinicaltrials.gov</a></td>
+  <td data-label="Traffic">331484</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ecfr.gov" target="_blank" rel="noreferrer">https://ecfr.gov</a></td>
+  <td data-label="Traffic">318919</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nasa.gov" target="_blank" rel="noreferrer">https://nasa.gov</a></td>
+  <td data-label="Traffic">308165</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://catalog.data.gov" target="_blank" rel="noreferrer">https://catalog.data.gov</a></td>
+  <td data-label="Traffic">298888</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://radar.weather.gov" target="_blank" rel="noreferrer">https://radar.weather.gov</a></td>
+  <td data-label="Traffic">286326</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fas.usda.gov" target="_blank" rel="noreferrer">https://fas.usda.gov</a></td>
+  <td data-label="Traffic">286176</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://mynasadata.larc.nasa.gov" target="_blank" rel="noreferrer">https://mynasadata.larc.nasa.gov</a></td>
+  <td data-label="Traffic">268272</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://esta.cbp.dhs.gov" target="_blank" rel="noreferrer">https://esta.cbp.dhs.gov</a></td>
+  <td data-label="Traffic">256056</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://my.uscis.gov" target="_blank" rel="noreferrer">https://my.uscis.gov</a></td>
+  <td data-label="Traffic">253999</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://tsa.gov" target="_blank" rel="noreferrer">https://tsa.gov</a></td>
+  <td data-label="Traffic">251474</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fsa.usda.gov" target="_blank" rel="noreferrer">https://fsa.usda.gov</a></td>
+  <td data-label="Traffic">249041</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://mx.usembassy.gov" target="_blank" rel="noreferrer">https://mx.usembassy.gov</a></td>
+  <td data-label="Traffic">246509</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://historyhub.history.gov" target="_blank" rel="noreferrer">https://historyhub.history.gov</a></td>
+  <td data-label="Traffic">242985</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://healthcare.gov" target="_blank" rel="noreferrer">https://healthcare.gov</a></td>
+  <td data-label="Traffic">240188</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></td>
+  <td data-label="Traffic">238226</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cms.gov" target="_blank" rel="noreferrer">https://cms.gov</a></td>
+  <td data-label="Traffic">232256</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usa.gov" target="_blank" rel="noreferrer">https://usa.gov</a></td>
+  <td data-label="Traffic">231689</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ncei.noaa.gov" target="_blank" rel="noreferrer">https://ncei.noaa.gov</a></td>
+  <td data-label="Traffic">228574</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cisa.gov" target="_blank" rel="noreferrer">https://cisa.gov</a></td>
+  <td data-label="Traffic">227244</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://bls.gov" target="_blank" rel="noreferrer">https://bls.gov</a></td>
+  <td data-label="Traffic">221511</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://home.treasury.gov" target="_blank" rel="noreferrer">https://home.treasury.gov</a></td>
+  <td data-label="Traffic">219909</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://epa.gov" target="_blank" rel="noreferrer">https://epa.gov</a></td>
+  <td data-label="Traffic">215316</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usitc.gov" target="_blank" rel="noreferrer">https://usitc.gov</a></td>
+  <td data-label="Traffic">208257</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubchem.ncbi.nlm.nih.gov</a></td>
+  <td data-label="Traffic">197626</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://catalog-prod-admin-datagov.app.cloud.gov" target="_blank" rel="noreferrer">https://catalog-prod-admin-datagov.app.cloud.gov</a></td>
+  <td data-label="Traffic">197242</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.usajobs.gov" target="_blank" rel="noreferrer">https://www.usajobs.gov</a></td>
+  <td data-label="Traffic">197186</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></td>
+  <td data-label="Traffic">194717</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://sam.gov" target="_blank" rel="noreferrer">https://sam.gov</a></td>
+  <td data-label="Traffic">192165</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cbp.gov" target="_blank" rel="noreferrer">https://cbp.gov</a></td>
+  <td data-label="Traffic">189393</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://login.gov" target="_blank" rel="noreferrer">https://login.gov</a></td>
+  <td data-label="Traffic">186083</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://acquisition.gov" target="_blank" rel="noreferrer">https://acquisition.gov</a></td>
+  <td data-label="Traffic">184607</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nsopw.gov" target="_blank" rel="noreferrer">https://nsopw.gov</a></td>
+  <td data-label="Traffic">184004</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://dea.gov" target="_blank" rel="noreferrer">https://dea.gov</a></td>
+  <td data-label="Traffic">180679</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fs.usda.gov" target="_blank" rel="noreferrer">https://fs.usda.gov</a></td>
+  <td data-label="Traffic">177961</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://acis.eoir.justice.gov" target="_blank" rel="noreferrer">https://acis.eoir.justice.gov</a></td>
+  <td data-label="Traffic">177864</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://opm.gov" target="_blank" rel="noreferrer">https://opm.gov</a></td>
+  <td data-label="Traffic">176931</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://dhs.gov" target="_blank" rel="noreferrer">https://dhs.gov</a></td>
+  <td data-label="Traffic">172612</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></td>
+  <td data-label="Traffic">171268</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://osha.gov" target="_blank" rel="noreferrer">https://osha.gov</a></td>
+  <td data-label="Traffic">171137</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://store.usps.com" target="_blank" rel="noreferrer">https://store.usps.com</a></td>
+  <td data-label="Traffic">169457</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://accessdata.fda.gov" target="_blank" rel="noreferrer">https://accessdata.fda.gov</a></td>
+  <td data-label="Traffic">168004</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://search.usa.gov" target="_blank" rel="noreferrer">https://search.usa.gov</a></td>
+  <td data-label="Traffic">163277</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://www.dol.gov" target="_blank" rel="noreferrer">https://www.dol.gov</a></td>
+  <td data-label="Traffic">157415</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://archives.gov" target="_blank" rel="noreferrer">https://archives.gov</a></td>
+  <td data-label="Traffic">154872</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://sandia.gov" target="_blank" rel="noreferrer">https://sandia.gov</a></td>
+  <td data-label="Traffic">149570</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://earthquake.usgs.gov" target="_blank" rel="noreferrer">https://earthquake.usgs.gov</a></td>
+  <td data-label="Traffic">148902</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://fbi.gov" target="_blank" rel="noreferrer">https://fbi.gov</a></td>
+  <td data-label="Traffic">146143</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://federalregister.gov" target="_blank" rel="noreferrer">https://federalregister.gov</a></td>
+  <td data-label="Traffic">145185</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://eeoc.gov" target="_blank" rel="noreferrer">https://eeoc.gov</a></td>
+  <td data-label="Traffic">144942</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://osti.gov" target="_blank" rel="noreferrer">https://osti.gov</a></td>
+  <td data-label="Traffic">144172</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://usgs.gov" target="_blank" rel="noreferrer">https://usgs.gov</a></td>
+  <td data-label="Traffic">142454</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://history.state.gov" target="_blank" rel="noreferrer">https://history.state.gov</a></td>
+  <td data-label="Traffic">139219</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://gsa.gov" target="_blank" rel="noreferrer">https://gsa.gov</a></td>
+  <td data-label="Traffic">133647</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://about.usps.com" target="_blank" rel="noreferrer">https://about.usps.com</a></td>
+  <td data-label="Traffic">132795</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://state.gov" target="_blank" rel="noreferrer">https://state.gov</a></td>
+  <td data-label="Traffic">132324</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://army.mil" target="_blank" rel="noreferrer">https://army.mil</a></td>
+  <td data-label="Traffic">130960</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://ttp.cbp.dhs.gov" target="_blank" rel="noreferrer">https://ttp.cbp.dhs.gov</a></td>
+  <td data-label="Traffic">128529</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://cancer.gov" target="_blank" rel="noreferrer">https://cancer.gov</a></td>
+  <td data-label="Traffic">128223</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://portal.cms.gov" target="_blank" rel="noreferrer">https://portal.cms.gov</a></td>
+  <td data-label="Traffic">128212</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://i94.cbp.dhs.gov" target="_blank" rel="noreferrer">https://i94.cbp.dhs.gov</a></td>
+  <td data-label="Traffic">128037</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://aviationweather.gov" target="_blank" rel="noreferrer">https://aviationweather.gov</a></td>
+  <td data-label="Traffic">127623</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://my.navy.mil" target="_blank" rel="noreferrer">https://my.navy.mil</a></td>
+  <td data-label="Traffic">127299</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+<tr>
+  <td class="url-cell" data-label="URL"><a href="https://uspto.gov" target="_blank" rel="noreferrer">https://uspto.gov</a></td>
+  <td data-label="Traffic">123265</td>
+  <td data-label="CWV">unknown</td>
+  <td data-label="Performance">—</td>
+  <td data-label="Accessibility / Important">—</td>
+  <td data-label="Axe details"></td>
+  <td data-label="Best Practices">—</td>
+  <td data-label="SEO">—</td>
+  <td data-label="Technologies"></td>
+</tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    
+
+    
+  <section aria-labelledby="compliance-context-heading">
+    <h2 id="compliance-context-heading">Section 508: Legal Requirements vs. Best Practices<a href="#compliance-context-heading" class="heading-anchor" aria-label="Link to Section 508: Legal Requirements vs. Best Practices"><span aria-hidden="true">#</span></a></h2>
+    <p>
+      <a href="https://www.section508.gov/" target="_blank" rel="noreferrer">Section 508 of the Rehabilitation Act</a>
+      was enacted in <strong>1998</strong> and requires U.S. federal agencies to make their electronic and information
+      technology accessible to people with disabilities. The technical standards were significantly updated through the
+      <a href="https://www.access-board.gov/ict/" target="_blank" rel="noreferrer">ICT Accessibility Standards refresh</a>,
+      which became effective in <strong>January 2018</strong> &mdash; the same year Apple celebrated the 10th anniversary
+      of the iPhone. That refresh incorporated
+      <a href="https://www.w3.org/TR/WCAG20/" target="_blank" rel="noreferrer">WCAG 2.0 Level AA</a>
+      (published in 2008) as the baseline for web content.
+    </p>
+    <p>
+      The web has changed dramatically since then. What agencies are <strong>legally required</strong> to meet today
+      is built on a standard from 2008 &mdash; the same era as the original iPhone. Agencies should treat WCAG 2.0 AA
+      as the <em>floor</em>, not the ceiling.
+    </p>
+    <div class="compliance-context-grid">
+      <div class="compliance-card compliance-card--legal">
+        <h3><svg aria-hidden="true" class="compliance-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/></svg>Legal Requirement</h3>
+        <p><strong>WCAG 2.0 Level AA</strong> (published 2008)</p>
+        <p>Referenced by the Section 508 ICT Standards refresh (effective 2018). Agencies must meet these 38 success
+        criteria to satisfy their Section 508 obligations for web content.</p>
+        <ul>
+          <li>Text alternatives for non-text content</li>
+          <li>Captions and audio descriptions for multimedia</li>
+          <li>Keyboard accessibility and focus management</li>
+          <li>Minimum color contrast (4.5:1 for normal text)</li>
+          <li>No seizure-inducing content</li>
+          <li>Consistent navigation and labeling</li>
+          <li>Error identification and correction</li>
+        </ul>
+        <p><a href="https://www.access-board.gov/ict/#E205-content" target="_blank" rel="noreferrer">Section 508 web content requirements (E205)</a></p>
+      </div>
+      <div class="compliance-card compliance-card--best-practices">
+        <h3><svg aria-hidden="true" class="compliance-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Best Practices</h3>
+        <p><strong>WCAG 2.1 and 2.2 Level AA</strong> (published 2018 and 2023)</p>
+        <p>These later versions add criteria that reflect how the web actually works today &mdash; mobile devices,
+        cognitive accessibility, and modern authentication patterns &mdash; and are strongly recommended for any agency
+        aiming to serve all Americans.</p>
+        <ul>
+          <li><strong>WCAG 2.1 (2018):</strong> 17 new criteria for mobile, low vision, and cognitive accessibility</li>
+          <li><strong>WCAG 2.2 (2023):</strong> 9 more criteria for authentication and cognitive tasks, removing the
+          outdated "Parsing" criterion</li>
+          <li>W3C now recommends WCAG 2.2 as the current normative standard for new and updated content</li>
+        </ul>
+        <p><a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/" target="_blank" rel="noreferrer">What is new in WCAG 2.2</a> &middot;
+        <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2 specification</a></p>
+      </div>
+    </div>
+    <p>
+      The scores and findings in this report are based on automated checks aligned with WCAG 2.x rules surfaced by
+      axe-core. Passing automated checks is necessary but not sufficient: manual testing with assistive technologies
+      is required to verify true conformance and to catch barriers that automation cannot detect.
+    </p>
+  </section>
+
+    
+  <section aria-labelledby="cta-heading">
+    <h2 id="cta-heading">Take Action<a href="#cta-heading" class="heading-anchor" aria-label="Link to Take Action"><span aria-hidden="true">#</span></a></h2>
+    <p>Here is how you can help improve accessibility on U.S. government websites.</p>
+    <ul>
+      <li><strong>Read the federal accessibility report.</strong> The <a href="https://www.section508.gov/manage/section-508-assessment/2025/message-from-gsa-administrator/" target="_blank" rel="noreferrer">2025 Governmentwide Section 508 Assessment</a> from the GSA Administrator details the state of federal accessibility compliance and the steps agencies are taking to improve.</li>
+      <li><strong>Submit URLs you care about.</strong> Want specific government pages included in future scans? <a href="https://mgifford.github.io/open-scans/" target="_blank" rel="noreferrer">Submit them to the Open Scans project</a> to help broaden coverage.</li>
+      <li><strong>Test with free tools.</strong> Do your own automated and manual accessibility testing with <a href="https://accessibilityinsights.io/" target="_blank" rel="noreferrer">Accessibility Insights</a> and <a href="https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?pli=1" target="_blank" rel="noreferrer">Google Lighthouse</a>. Automated tools catch a significant portion of WCAG failures quickly; manual review with assistive technologies catches the rest.</li>
+      <li><strong>Adopt and update the U.S. Web Design System (USWDS).</strong> The <a href="https://designsystem.digital.gov/" target="_blank" rel="noreferrer">USWDS</a> is already a strong foundation for accessible, consistent federal websites, but many agencies have not adopted it or are running outdated versions. Encourage your agency to adopt or upgrade so every American benefits from its accessibility work.</li>
+      <li><strong>Hire people with disabilities.</strong> People with disabilities are the ultimate experts on digital barriers. Bringing them into design, engineering, and testing teams &mdash; not just as consultants but as full-time employees &mdash; leads to more accessible products and services for everyone.</li>
+    </ul>
+  </section>
   </main>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 <footer class="site-footer" role="contentinfo">
@@ -974,6 +2440,115 @@
     <p><a href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="https://github.com/mgifford/daily-dap/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
   </div>
 </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var dialog = document.getElementById(btn.dataset.openModal);
+          if (dialog) { dialog.showModal(); }
+        });
+      });
+      document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var modalId = btn.dataset.closeModal;
+          var dialog = document.getElementById(modalId);
+          if (dialog) {
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      // Close modal when clicking the backdrop (outside the dialog content)
+      document.querySelectorAll('.axe-modal').forEach(function (dialog) {
+        dialog.addEventListener('click', function (e) {
+          if (e.target === dialog) {
+            var modalId = dialog.id;
+            dialog.close();
+            var opener = document.querySelector('[data-open-modal="' + modalId + '"]');
+            if (opener) { opener.focus(); }
+          }
+        });
+      });
+      document.querySelectorAll('[data-copy-text]').forEach(function (btn) {
+        // The 'click' event fires for both mouse clicks and keyboard activation (Enter/Space)
+        // on <button> elements, so keyboard users receive the same visual feedback.
+        btn.addEventListener('click', function () {
+          var text = btn.dataset.copyText;
+          if (!navigator.clipboard) { return; }
+          navigator.clipboard.writeText(text).then(function () {
+            var original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = original;
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+        });
+      });
+
+      // Sortable top-URLs table
+      (function () {
+        var table = document.getElementById('top-urls-table');
+        if (!table) { return; }
+        var tbody = table.querySelector('tbody');
+        var currentCol = -1;
+        var currentDir = 'none';
+        // Columns whose values are numeric (Traffic, Performance, Accessibility/Important, Best Practices, SEO)
+        var numericCols = [1, 3, 4, 6, 7];
+
+        function getCellText(row, col) {
+          var cells = row.querySelectorAll('td');
+          if (!cells[col]) { return ''; }
+          // Prefer explicit sort value when present (e.g. combined accessibility/important cell)
+          var sortVal = cells[col].dataset.sortValue;
+          if (sortVal !== undefined) { return sortVal; }
+          return cells[col].textContent.trim();
+        }
+
+        function sortTable(col, dir) {
+          table.querySelectorAll('th[data-sort-col]').forEach(function (th) {
+            th.setAttribute('aria-sort', 'none');
+          });
+          var th = table.querySelector('th[data-sort-col="' + col + '"]');
+          if (th) { th.setAttribute('aria-sort', dir); }
+          currentCol = col;
+          currentDir = dir;
+
+          var isNumeric = numericCols.indexOf(col) !== -1;
+          var rows = Array.from(tbody.querySelectorAll('tr'));
+          rows.sort(function (a, b) {
+            var aVal = getCellText(a, col);
+            var bVal = getCellText(b, col);
+            var cmp;
+            if (isNumeric) {
+              var aNum = parseFloat(aVal.replace(/[^0-9.-]/g, ''));
+              var bNum = parseFloat(bVal.replace(/[^0-9.-]/g, ''));
+              aNum = isNaN(aNum) ? -Infinity : aNum;
+              bNum = isNaN(bNum) ? -Infinity : bNum;
+              cmp = aNum - bNum;
+            } else {
+              cmp = aVal.localeCompare(bVal);
+            }
+            return dir === 'ascending' ? cmp : -cmp;
+          });
+          rows.forEach(function (row) { tbody.appendChild(row); });
+        }
+
+        table.querySelectorAll('th[data-sort-col]').forEach(function (th) {
+          var btn = th.querySelector('.sort-btn');
+          if (!btn) { return; }
+          btn.addEventListener('click', function () {
+            var col = parseInt(th.dataset.sortCol, 10);
+            var dir = (currentCol === col && currentDir === 'ascending') ? 'descending' : 'ascending';
+            sortTable(col, dir);
+          });
+        });
+      }());
+    });
+  </script>
   
   <div id="theme-announcement" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <script>

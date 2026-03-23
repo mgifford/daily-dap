@@ -114,3 +114,42 @@ test('runDailyScan renders scanner notice when all attempted scans fail with exe
   assert.equal(report.scan_diagnostics.failure_reasons.execution_error, report.scan_diagnostics.failed_count);
   assert.match(reportPage, /All scans failed with execution errors/);
 });
+
+test('runDailyScan mock mode without outputRoot writes to temp directory', async () => {
+  // When running in mock mode without an explicit output-root, the scan should write
+  // to a temp directory instead of the production docs/ directory. This prevents
+  // accidentally overwriting real scan data with test/development data.
+  const os = await import('node:os');
+
+  // Use a future date that will never exist in production docs
+  const testDate = '2099-01-01';
+
+  const summary = await runDailyScan({
+    dryRun: false,
+    configPath: null,
+    sourceFile: fixturePath('dap-sample.json'),
+    urlLimit: 3,
+    trafficWindowMode: 'daily',
+    runDate: testDate,
+    scanMode: 'mock',
+    mockFailUrl: [],
+    outputRoot: null,  // no explicit output root
+    concurrency: 2,
+    timeoutMs: 20000,
+    maxRetries: 0
+  });
+
+  assert.equal(summary.status, 'success');
+
+  // Files should be written to the temp directory, not the repo docs directory
+  const expectedTempDir = path.join(os.default.tmpdir(), 'daily-dap-mock');
+  assert.ok(
+    summary.paths.report_json_path.startsWith(expectedTempDir),
+    `report.json should be written to temp dir (${expectedTempDir}), got: ${summary.paths.report_json_path}`
+  );
+
+  // Ensure production docs directory was NOT created for this date
+  const prodReportPath = path.resolve('docs', 'reports', 'daily', testDate, 'report.json');
+  const prodExists = await fs.access(prodReportPath).then(() => true).catch(() => false);
+  assert.equal(prodExists, false, 'Mock scan without outputRoot should NOT write to production docs directory');
+});
