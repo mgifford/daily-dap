@@ -294,7 +294,7 @@ test('renderDailyReportPage includes Details button and modal dialog for each UR
   assert.ok(html.includes('axe-findings.json'), 'Should include link to axe findings JSON');
 });
 
-test('renderDailyReportPage renders modal with "no findings" message when axe_findings is empty', () => {
+test('renderDailyReportPage hides Details button and modal when findings_count is 0 even if accessibility score is below 100', () => {
   const report = {
     run_date: '2026-03-05',
     run_id: 'test-run',
@@ -321,8 +321,9 @@ test('renderDailyReportPage renders modal with "no findings" message when axe_fi
 
   const html = renderDailyReportPage(report);
 
-  assert.ok(html.includes('No accessibility findings'), 'Should show no findings message for empty axe_findings');
-  assert.ok(html.includes('<dialog'), 'Should still render dialog element');
+  assert.ok(!html.includes('class="details-btn"'), 'Should not show Details button when findings_count is 0');
+  assert.ok(!html.includes('data-open-modal="modal-url-0"'), 'Should not include modal open attribute when findings_count is 0');
+  assert.ok(!html.includes('<dialog'), 'Should not render modal dialog when findings_count is 0');
 });
 
 test('renderDailyReportPage hides Details button and modal when accessibility score is 100', () => {

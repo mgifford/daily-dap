@@ -1788,7 +1788,7 @@ function renderTopUrlModals(topUrls = [], scanDate = '') {
   return topUrls
     .slice(0, 100)
     .map((entry, index) =>
-      entry.lighthouse_scores?.accessibility === 100 ? '' : renderUrlModal(entry, `modal-url-${index}`, scanDate)
+      (entry.findings_count ?? 0) > 0 ? renderUrlModal(entry, `modal-url-${index}`, scanDate) : ''
     )
     .join('\n');
 }
@@ -1870,7 +1870,6 @@ function renderTopUrlRows(topUrls = []) {
     .map(
       (entry, index) => {
         const findingsCount = entry.findings_count ?? 0;
-        const btnLabel = findingsCount > 0 ? `Details (${findingsCount})` : 'Details';
         const techBadges = renderTechBadges(entry.detected_technologies);
         return `<tr>
   <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
@@ -1878,7 +1877,7 @@ function renderTopUrlRows(topUrls = []) {
   ${renderCwvCell(entry.core_web_vitals_status)}
   ${renderPerformanceCell(entry)}
   ${renderAccessibilityImportantCell(entry)}
-  <td data-label="Axe details">${entry.lighthouse_scores?.accessibility === 100 ? '' : `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">${escapeHtml(btnLabel)}</button>`}</td>
+  <td data-label="Axe details">${findingsCount > 0 ? `<button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-${index}">Details (${findingsCount})</button>` : ''}</td>
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'best_practices', 'Best Practices')}
   ${renderLighthouseScoreCell(entry.lighthouse_scores, 'seo', 'SEO')}
   <td data-label="Technologies">${techBadges}</td>
