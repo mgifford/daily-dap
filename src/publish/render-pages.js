@@ -2396,7 +2396,7 @@ function renderComplianceContextSection() {
         <p><strong>WCAG 2.1 and 2.2 Level AA</strong> (published 2018 and 2023)</p>
         <p>These later versions add criteria that reflect how the web actually works today &mdash; mobile devices,
         cognitive accessibility, and modern authentication patterns &mdash; and are strongly recommended for any agency
-        aiming to serve all Americans.</p>
+        aiming to serve all Americans. The US Federal Government is one of the last to use the legacy WCAG 2.0 AA Standard, as it was developed ~2 decades ago.</p>
         <ul>
           <li><strong>WCAG 2.1 (2018):</strong> 17 new criteria for mobile, low vision, and cognitive accessibility</li>
           <li><strong>WCAG 2.2 (2023):</strong> 9 more criteria for authentication and cognitive tasks, removing the
