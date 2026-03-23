@@ -36,6 +36,12 @@ export function normalizeDapRecords(rawRecords, { limit, sourceDate }) {
       continue;
     }
 
+    // Skip synthetic DAP placeholder entries such as "(other)" that are not real scannable URLs
+    if (/^https?:\/\/\(/.test(record.url)) {
+      excluded.push({ reason: 'placeholder_url', raw });
+      continue;
+    }
+
     if (record.page_load_count === null) {
       warnings.push({
         code: 'missing_page_load_count',

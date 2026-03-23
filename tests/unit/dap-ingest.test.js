@@ -46,3 +46,16 @@ test('getNormalizedTopPages supports file-based ingest path', async () => {
   assert.equal(result.records.length, 3);
   assert.equal(result.records[0].source_date, '2026-02-21');
 });
+
+test('normalizeDapRecords filters out DAP placeholder entries like (other)', () => {
+  const records = [
+    { url: 'https://example.gov', page_load_count: 5000 },
+    { url: '(other)', page_load_count: 2000000 },
+    { url: 'https://(other)', page_load_count: 1500000 }
+  ];
+  const normalized = normalizeDapRecords(records, { limit: 10, sourceDate: '2026-03-01' });
+
+  assert.equal(normalized.records.length, 1, 'Should only keep real URLs');
+  assert.equal(normalized.records[0].url, 'https://example.gov');
+  assert.equal(normalized.excluded.filter((e) => e.reason === 'placeholder_url').length, 2, 'Should exclude both placeholder entries');
+});
