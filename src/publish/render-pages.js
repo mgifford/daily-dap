@@ -774,6 +774,26 @@ function renderSharedStyles() {
     .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
     .axe-demographics li { margin-bottom: 0.15rem; }
 
+    /* ---------- Compliance context section ---------- */
+    .compliance-context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compliance-card {
+      border: 1px solid var(--color-table-border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+    .compliance-card--legal { border-top: 4px solid #d4380d; }
+    .compliance-card--best-practices { border-top: 4px solid #389e0d; }
+    .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
+    .compliance-card li { margin-bottom: 0.25rem; }
+    .compliance-card p { margin: 0.4rem 0; }
+
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
       background: var(--color-copy-btn-bg);
@@ -2325,6 +2345,66 @@ function formatTimestamp(value) {
   return escapeHtml(date.toISOString());
 }
 
+function renderComplianceContextSection() {
+  return `
+  <section aria-labelledby="compliance-context-heading">
+    <h2 id="compliance-context-heading">Section 508: Legal Requirements vs. Best Practices${renderAnchorLink('compliance-context-heading', 'Section 508: Legal Requirements vs. Best Practices')}</h2>
+    <p>
+      <a href="https://www.section508.gov/" target="_blank" rel="noreferrer">Section 508 of the Rehabilitation Act</a>
+      was enacted in <strong>1998</strong> and requires U.S. federal agencies to make their electronic and information
+      technology accessible to people with disabilities. The technical standards were significantly updated through the
+      <a href="https://www.access-board.gov/ict/" target="_blank" rel="noreferrer">ICT Accessibility Standards refresh</a>,
+      which became effective in <strong>January 2018</strong> &mdash; the same year Apple celebrated the 10th anniversary
+      of the iPhone. That refresh incorporated
+      <a href="https://www.w3.org/TR/WCAG20/" target="_blank" rel="noreferrer">WCAG 2.0 Level AA</a>
+      (published in 2008) as the baseline for web content.
+    </p>
+    <p>
+      The web has changed dramatically since then. What agencies are <strong>legally required</strong> to meet today
+      is built on a standard from 2008 &mdash; the same era as the original iPhone. Agencies should treat WCAG 2.0 AA
+      as the <em>floor</em>, not the ceiling.
+    </p>
+    <div class="compliance-context-grid">
+      <div class="compliance-card compliance-card--legal">
+        <h3>Legal Requirement</h3>
+        <p><strong>WCAG 2.0 Level AA</strong> (published 2008)</p>
+        <p>Referenced by the Section 508 ICT Standards refresh (effective 2018). Agencies must meet these 38 success
+        criteria to satisfy their Section 508 obligations for web content.</p>
+        <ul>
+          <li>Text alternatives for non-text content</li>
+          <li>Captions and audio descriptions for multimedia</li>
+          <li>Keyboard accessibility and focus management</li>
+          <li>Minimum color contrast (4.5:1 for normal text)</li>
+          <li>No seizure-inducing content</li>
+          <li>Consistent navigation and labeling</li>
+          <li>Error identification and correction</li>
+        </ul>
+        <p><a href="https://www.access-board.gov/ict/#E205-content" target="_blank" rel="noreferrer">Section 508 web content requirements (E205)</a></p>
+      </div>
+      <div class="compliance-card compliance-card--best-practices">
+        <h3>Best Practices</h3>
+        <p><strong>WCAG 2.1 and 2.2 Level AA</strong> (published 2018 and 2023)</p>
+        <p>These later versions add criteria that reflect how the web actually works today &mdash; mobile devices,
+        cognitive accessibility, and modern authentication patterns &mdash; and are strongly recommended for any agency
+        aiming to serve all Americans.</p>
+        <ul>
+          <li><strong>WCAG 2.1 (2018):</strong> 17 new criteria for mobile, low vision, and cognitive accessibility</li>
+          <li><strong>WCAG 2.2 (2023):</strong> 9 more criteria for authentication and cognitive tasks, removing the
+          outdated "Parsing" criterion</li>
+          <li>W3C now recommends WCAG 2.2 as the current normative standard for new and updated content</li>
+        </ul>
+        <p><a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/" target="_blank" rel="noreferrer">What is new in WCAG 2.2</a> &middot;
+        <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2 specification</a></p>
+      </div>
+    </div>
+    <p>
+      The scores and findings in this report are based on automated checks aligned with WCAG 2.x rules surfaced by
+      axe-core. Passing automated checks is necessary but not sufficient: manual testing with assistive technologies
+      is required to verify true conformance and to catch barriers that automation cannot detect.
+    </p>
+  </section>`;
+}
+
 function renderCallToActionSection(report) {
   const exclusion = report.fpc_exclusion;
   const totalExcluded = exclusion?.categories
@@ -2457,6 +2537,8 @@ export function renderDailyReportPage(report) {
     </section>
 
     ${renderTechSummarySection(report)}
+
+    ${renderComplianceContextSection()}
 
     ${renderCallToActionSection(report)}
   </main>
