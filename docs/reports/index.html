@@ -674,6 +674,28 @@
     .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
     .axe-demographics li { margin-bottom: 0.15rem; }
 
+    /* ---------- Compliance context section ---------- */
+    .compliance-context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compliance-card {
+      border: 1px solid var(--color-table-border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .compliance-card--legal { border-top: 4px solid #d4380d; }
+    .compliance-card--legal .compliance-icon { color: #d4380d; }
+    .compliance-card--best-practices { border-top: 4px solid #d4a017; }
+    .compliance-card--best-practices .compliance-icon { color: #d4a017; }
+    .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
+    .compliance-card li { margin-bottom: 0.25rem; }
+    .compliance-card p { margin: 0.4rem 0; }
+
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
       background: var(--color-copy-btn-bg);

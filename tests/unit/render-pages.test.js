@@ -2991,3 +2991,82 @@ test('renderDailyReportPage includes Section 508 compliance context section', ()
     'Compliance icons should use the compliance-icon CSS class'
   );
 });
+
+test('renderDailyReportPage axe patterns section shows total findings and scanned URL count', () => {
+  const report = {
+    ...minimalReport,
+    url_counts: { processed: 3, succeeded: 3, failed: 0, excluded: 0 },
+    top_urls: [
+      {
+        url: 'https://a.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'Color contrast', description: '', score: 0, tags: [], items: [] }
+        ]
+      },
+      {
+        url: 'https://b.gov',
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'image-alt', title: 'Image alt', description: '', score: 0, tags: [], items: [] }
+        ]
+      },
+      {
+        url: 'https://c.gov',
+        scan_status: 'success',
+        axe_findings: []
+      }
+    ]
+  };
+  const html = renderDailyReportPage(report);
+
+  assert.ok(
+    html.includes('Total axe findings today:'),
+    'Axe patterns section should show "Total axe findings today:" summary'
+  );
+  assert.ok(
+    html.includes('<strong>2</strong>'),
+    'Total findings count should be 2 (one per URL with findings)'
+  );
+  assert.ok(
+    html.includes('across 3 scanned URLs'),
+    'Summary should show total scanned URL count (3)'
+  );
+});
+
+test('renderDailyReportPage buildAxePatternCounts deduplicates duplicate rule IDs per URL', () => {
+  const report = {
+    ...minimalReport,
+    top_urls: [
+      {
+        url: 'https://a.gov',
+        page_load_count: 1000,
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'CC v1', description: '', score: 0, tags: [], items: [] },
+          { id: 'color-contrast', title: 'CC v2', description: '', score: 0, tags: [], items: [] }
+        ]
+      },
+      {
+        url: 'https://b.gov',
+        page_load_count: 2000,
+        scan_status: 'success',
+        axe_findings: [
+          { id: 'color-contrast', title: 'CC', description: '', score: 0, tags: [], items: [] }
+        ]
+      }
+    ]
+  };
+  const html = renderDailyReportPage(report);
+
+  // color-contrast appears in both URLs so count should be 2 (unique URLs), not 3 (total findings)
+  assert.ok(
+    html.includes('2 URLs affected'),
+    'URL count for color-contrast should be 2 (unique URLs), not 3 (total findings including duplicate)'
+  );
+  // Total findings should still count the raw axe_findings entries (3 total)
+  assert.ok(
+    html.includes('<strong>3</strong>'),
+    'Total findings count should be 3 (raw axe_findings including the duplicate)'
+  );
+});

@@ -674,6 +674,28 @@
     .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
     .axe-demographics li { margin-bottom: 0.15rem; }
 
+    /* ---------- Compliance context section ---------- */
+    .compliance-context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compliance-card {
+      border: 1px solid var(--color-table-border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .compliance-card--legal { border-top: 4px solid #d4380d; }
+    .compliance-card--legal .compliance-icon { color: #d4380d; }
+    .compliance-card--best-practices { border-top: 4px solid #d4a017; }
+    .compliance-card--best-practices .compliance-icon { color: #d4a017; }
+    .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
+    .compliance-card li { margin-bottom: 0.25rem; }
+    .compliance-card p { margin: 0.4rem 0; }
+
     /* ---------- Copy finding button ---------- */
     .copy-finding-btn {
       background: var(--color-copy-btn-bg);
@@ -1091,6 +1113,7 @@
   <section aria-labelledby="axe-patterns-heading">
     <h2 id="axe-patterns-heading">Common Accessibility Issues (Top 2)<a href="#axe-patterns-heading" class="heading-anchor" aria-label="Link to Common Accessibility Issues (Top 2)"><span aria-hidden="true">#</span></a></h2>
     <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
+    <p>Total axe findings today: <strong>2</strong> across 3 scanned URLs.</p>
     <div class="table-scroll"><table>
       <caption>Top axe-core accessibility rule violations across scanned URLs</caption>
       <thead>
@@ -1102,8 +1125,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td data-label="Rule ID"><code>color-contrast</code></td><td data-label="Description">Background and foreground colors do not have a sufficient contrast ratio.</td><td data-label="URLs affected"><span class="url-count-trigger" tabindex="0" aria-label="1 URLs affected" aria-describedby="url-tip-0">1<span id="url-tip-0" role="tooltip" class="url-count-tooltip">Affected sites: example.gov</span></span></td><td data-label="Disabilities Affected"><span class="disability-badges"><span class="disability-badge" tabindex="0" aria-label="Limited Vision" aria-describedby="fpc-tip-LV-0"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Limited Vision</title><desc>People with low vision who need magnification or high contrast</desc><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg><span class="disability-estimate" aria-hidden="true">~60</span><span id="fpc-tip-LV-0" role="tooltip" class="disability-tooltip">People with low vision who need magnification or high contrast. Estimated ~60 people potentially excluded (2.4% prevalence × 2,500 affected page loads)</span></span> <span class="disability-badge" tabindex="0" aria-label="Without Perception of Color" aria-describedby="fpc-tip-WPC-1"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Without Perception of Color</title><desc>People who cannot distinguish certain colors (color blindness)</desc><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="12" cy="17" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg><span class="disability-estimate" aria-hidden="true">~107</span><span id="fpc-tip-WPC-1" role="tooltip" class="disability-tooltip">People who cannot distinguish certain colors (color blindness). Estimated ~107 people potentially excluded (4.3% prevalence × 2,500 affected page loads)</span></span></span></td></tr>
-<tr><td data-label="Rule ID"><code>aria-label</code></td><td data-label="Description">ARIA input fields do not have accessible names.</td><td data-label="URLs affected"><span class="url-count-trigger" tabindex="0" aria-label="1 URLs affected" aria-describedby="url-tip-1">1<span id="url-tip-1" role="tooltip" class="url-count-tooltip">Affected sites: example.gov</span></span></td><td data-label="Disabilities Affected"><em>unknown</em></td></tr>
+        <tr><td data-label="Rule ID"><code>color-contrast</code></td><td data-label="Description">Background and foreground colors do not have a sufficient contrast ratio.</td><td data-label="URLs affected"><span class="url-count-trigger" tabindex="0" aria-label="1 URLs affected" aria-describedby="url-tip-170">1<span id="url-tip-170" role="tooltip" class="url-count-tooltip">Affected sites: example.gov</span></span></td><td data-label="Disabilities Affected"><span class="disability-badges"><span class="disability-badge" tabindex="0" aria-label="Limited Vision" aria-describedby="fpc-tip-LV-3800"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Limited Vision</title><desc>People with low vision who need magnification or high contrast</desc><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg><span class="disability-estimate" aria-hidden="true">~60</span><span id="fpc-tip-LV-3800" role="tooltip" class="disability-tooltip">People with low vision who need magnification or high contrast. Estimated ~60 people potentially excluded (2.4% prevalence × 2,500 affected page loads)</span></span> <span class="disability-badge" tabindex="0" aria-label="Without Perception of Color" aria-describedby="fpc-tip-WPC-3801"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Without Perception of Color</title><desc>People who cannot distinguish certain colors (color blindness)</desc><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="12" cy="17" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg><span class="disability-estimate" aria-hidden="true">~107</span><span id="fpc-tip-WPC-3801" role="tooltip" class="disability-tooltip">People who cannot distinguish certain colors (color blindness). Estimated ~107 people potentially excluded (4.3% prevalence × 2,500 affected page loads)</span></span></span></td></tr>
+<tr><td data-label="Rule ID"><code>aria-label</code></td><td data-label="Description">ARIA input fields do not have accessible names.</td><td data-label="URLs affected"><span class="url-count-trigger" tabindex="0" aria-label="1 URLs affected" aria-describedby="url-tip-171">1<span id="url-tip-171" role="tooltip" class="url-count-tooltip">Affected sites: example.gov</span></span></td><td data-label="Disabilities Affected"><em>unknown</em></td></tr>
       </tbody>
     </table></div>
     
@@ -1422,7 +1445,7 @@
   <td class="url-cell" data-label="URL"><a href="https://example.gov/a" target="_blank" rel="noreferrer">https://example.gov/a</a></td>
   <td data-label="Traffic">4200</td>
   <td data-label="CWV" class="score-cwv-needs-improvement">needs improvement</td>
-  <td data-label="Performance" class="score-performance" style="--score:66" data-sort-value="66">66&thinsp;/&thinsp;<span class="perf-time-trigger" tabindex="0" aria-label="4 hours of total page-load time" aria-describedby="perf-tip-0">4 hours<span id="perf-tip-0" role="tooltip" class="perf-time-tooltip">Total time users spent waiting for this page to load: 3.7s LCP × 4,200 page loads.</span></span></td>
+  <td data-label="Performance" class="score-performance" style="--score:66" data-sort-value="66">66&thinsp;/&thinsp;<span class="perf-time-trigger" tabindex="0" aria-label="4 hours of total page-load time" aria-describedby="perf-tip-289">4 hours<span id="perf-tip-289" role="tooltip" class="perf-time-tooltip">Total time users spent waiting for this page to load: 3.7s LCP × 4,200 page loads.</span></span></td>
   <td data-label="Accessibility / Important" class="score-accessibility" style="--score:76" data-sort-value="76">76</td>
   <td data-label="Axe details"></td>
   <td data-label="Best Practices" class="score-best-practices" style="--score:71">71</td>
@@ -1433,7 +1456,7 @@
   <td class="url-cell" data-label="URL"><a href="https://example.gov/b" target="_blank" rel="noreferrer">https://example.gov/b</a></td>
   <td data-label="Traffic">2500</td>
   <td data-label="CWV" class="score-cwv-needs-improvement">needs improvement</td>
-  <td data-label="Performance" class="score-performance" style="--score:67" data-sort-value="67">67&thinsp;/&thinsp;<span class="perf-time-trigger" tabindex="0" aria-label="3 hours of total page-load time" aria-describedby="perf-tip-1">3 hours<span id="perf-tip-1" role="tooltip" class="perf-time-tooltip">Total time users spent waiting for this page to load: 3.6s LCP × 2,500 page loads.</span></span></td>
+  <td data-label="Performance" class="score-performance" style="--score:67" data-sort-value="67">67&thinsp;/&thinsp;<span class="perf-time-trigger" tabindex="0" aria-label="3 hours of total page-load time" aria-describedby="perf-tip-290">3 hours<span id="perf-tip-290" role="tooltip" class="perf-time-tooltip">Total time users spent waiting for this page to load: 3.6s LCP × 2,500 page loads.</span></span></td>
   <td data-label="Accessibility / Important" class="score-accessibility" style="--score:77" data-sort-value="77">77</td>
   <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-1">Details (1)</button></td>
   <td data-label="Best Practices" class="score-best-practices" style="--score:72">72</td>
@@ -1444,7 +1467,7 @@
   <td class="url-cell" data-label="URL"><a href="https://example.gov/c" target="_blank" rel="noreferrer">https://example.gov/c</a></td>
   <td data-label="Traffic">2500</td>
   <td data-label="CWV" class="score-cwv-needs-improvement">needs improvement</td>
-  <td data-label="Performance" class="score-performance" style="--score:68" data-sort-value="68">68&thinsp;/&thinsp;<span class="perf-time-trigger" tabindex="0" aria-label="2 hours of total page-load time" aria-describedby="perf-tip-2">2 hours<span id="perf-tip-2" role="tooltip" class="perf-time-tooltip">Total time users spent waiting for this page to load: 3.6s LCP × 2,500 page loads.</span></span></td>
+  <td data-label="Performance" class="score-performance" style="--score:68" data-sort-value="68">68&thinsp;/&thinsp;<span class="perf-time-trigger" tabindex="0" aria-label="2 hours of total page-load time" aria-describedby="perf-tip-291">2 hours<span id="perf-tip-291" role="tooltip" class="perf-time-tooltip">Total time users spent waiting for this page to load: 3.6s LCP × 2,500 page loads.</span></span></td>
   <td data-label="Accessibility / Important" class="score-accessibility" style="--score:78" data-sort-value="78">78</td>
   <td data-label="Axe details"><button class="details-btn" aria-haspopup="dialog" data-open-modal="modal-url-2">Details (1)</button></td>
   <td data-label="Best Practices" class="score-best-practices" style="--score:73">73</td>
@@ -1467,6 +1490,64 @@
     </table></div>
     <p>USWDS detected on <strong>2</strong> of <strong>3</strong> scanned URLs (67%).</p>
     <p>Observed USWDS versions: <strong>3.6.1</strong>, <strong>3.8.0</strong>. The latest release is available at <a href="https://github.com/uswds/uswds/releases" target="_blank" rel="noreferrer">github.com/uswds/uswds/releases</a>.</p>
+  </section>
+
+    
+  <section aria-labelledby="compliance-context-heading">
+    <h2 id="compliance-context-heading">Section 508: Legal Requirements vs. Best Practices<a href="#compliance-context-heading" class="heading-anchor" aria-label="Link to Section 508: Legal Requirements vs. Best Practices"><span aria-hidden="true">#</span></a></h2>
+    <p>
+      <a href="https://www.section508.gov/" target="_blank" rel="noreferrer">Section 508 of the Rehabilitation Act</a>
+      was enacted in <strong>1998</strong> and requires U.S. federal agencies to make their electronic and information
+      technology accessible to people with disabilities. The technical standards were significantly updated through the
+      <a href="https://www.access-board.gov/ict/" target="_blank" rel="noreferrer">ICT Accessibility Standards refresh</a>,
+      which became effective in <strong>January 2018</strong> &mdash; the same year Apple celebrated the 10th anniversary
+      of the iPhone. That refresh incorporated
+      <a href="https://www.w3.org/TR/WCAG20/" target="_blank" rel="noreferrer">WCAG 2.0 Level AA</a>
+      (published in 2008) as the baseline for web content.
+    </p>
+    <p>
+      The web has changed dramatically since then. What agencies are <strong>legally required</strong> to meet today
+      is built on a standard from 2008 &mdash; the same era as the original iPhone. Agencies should treat WCAG 2.0 AA
+      as the <em>floor</em>, not the ceiling.
+    </p>
+    <div class="compliance-context-grid">
+      <div class="compliance-card compliance-card--legal">
+        <h3><svg aria-hidden="true" class="compliance-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/></svg>Legal Requirement</h3>
+        <p><strong>WCAG 2.0 Level AA</strong> (published 2008)</p>
+        <p>Referenced by the Section 508 ICT Standards refresh (effective 2018). Agencies must meet these 38 success
+        criteria to satisfy their Section 508 obligations for web content.</p>
+        <ul>
+          <li>Text alternatives for non-text content</li>
+          <li>Captions and audio descriptions for multimedia</li>
+          <li>Keyboard accessibility and focus management</li>
+          <li>Minimum color contrast (4.5:1 for normal text)</li>
+          <li>No seizure-inducing content</li>
+          <li>Consistent navigation and labeling</li>
+          <li>Error identification and correction</li>
+        </ul>
+        <p><a href="https://www.access-board.gov/ict/#E205-content" target="_blank" rel="noreferrer">Section 508 web content requirements (E205)</a></p>
+      </div>
+      <div class="compliance-card compliance-card--best-practices">
+        <h3><svg aria-hidden="true" class="compliance-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Best Practices</h3>
+        <p><strong>WCAG 2.1 and 2.2 Level AA</strong> (published 2018 and 2023)</p>
+        <p>These later versions add criteria that reflect how the web actually works today &mdash; mobile devices,
+        cognitive accessibility, and modern authentication patterns &mdash; and are strongly recommended for any agency
+        aiming to serve all Americans.</p>
+        <ul>
+          <li><strong>WCAG 2.1 (2018):</strong> 17 new criteria for mobile, low vision, and cognitive accessibility</li>
+          <li><strong>WCAG 2.2 (2023):</strong> 9 more criteria for authentication and cognitive tasks, removing the
+          outdated "Parsing" criterion</li>
+          <li>W3C now recommends WCAG 2.2 as the current normative standard for new and updated content</li>
+        </ul>
+        <p><a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/" target="_blank" rel="noreferrer">What is new in WCAG 2.2</a> &middot;
+        <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noreferrer">WCAG 2.2 specification</a></p>
+      </div>
+    </div>
+    <p>
+      The scores and findings in this report are based on automated checks aligned with WCAG 2.x rules surfaced by
+      axe-core. Passing automated checks is necessary but not sufficient: manual testing with assistive technologies
+      is required to verify true conformance and to catch barriers that automation cannot detect.
+    </p>
   </section>
 
     
@@ -1499,7 +1580,7 @@
         <div class="finding-detail">
           <p>Low-contrast text is difficult or impossible for many users to read. <a href="https://dequeuniversity.com/rules/axe/4.9/color-contrast" target="_blank" rel="noreferrer">Learn how to provide sufficient color contrast</a>.</p>
           
-          <p><strong>Disabilities affected:</strong> <span class="disability-badges"><span class="disability-badge" tabindex="0" aria-label="Limited Vision" aria-describedby="fpc-tip-LV-2"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Limited Vision</title><desc>People with low vision who need magnification or high contrast</desc><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg><span class="disability-estimate" aria-hidden="true">~60</span><span id="fpc-tip-LV-2" role="tooltip" class="disability-tooltip">People with low vision who need magnification or high contrast. Estimated ~60 people potentially excluded (2.4% prevalence × 2,500 affected page loads)</span></span> <span class="disability-badge" tabindex="0" aria-label="Without Perception of Color" aria-describedby="fpc-tip-WPC-3"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Without Perception of Color</title><desc>People who cannot distinguish certain colors (color blindness)</desc><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="12" cy="17" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg><span class="disability-estimate" aria-hidden="true">~107</span><span id="fpc-tip-WPC-3" role="tooltip" class="disability-tooltip">People who cannot distinguish certain colors (color blindness). Estimated ~107 people potentially excluded (4.3% prevalence × 2,500 affected page loads)</span></span></span></p>
+          <p><strong>Disabilities affected:</strong> <span class="disability-badges"><span class="disability-badge" tabindex="0" aria-label="Limited Vision" aria-describedby="fpc-tip-LV-3802"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Limited Vision</title><desc>People with low vision who need magnification or high contrast</desc><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg><span class="disability-estimate" aria-hidden="true">~60</span><span id="fpc-tip-LV-3802" role="tooltip" class="disability-tooltip">People with low vision who need magnification or high contrast. Estimated ~60 people potentially excluded (2.4% prevalence × 2,500 affected page loads)</span></span> <span class="disability-badge" tabindex="0" aria-label="Without Perception of Color" aria-describedby="fpc-tip-WPC-3803"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="disability-icon"><title>Without Perception of Color</title><desc>People who cannot distinguish certain colors (color blindness)</desc><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="12" cy="17" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg><span class="disability-estimate" aria-hidden="true">~107</span><span id="fpc-tip-WPC-3803" role="tooltip" class="disability-tooltip">People who cannot distinguish certain colors (color blindness). Estimated ~107 people potentially excluded (4.3% prevalence × 2,500 affected page loads)</span></span></span></p>
           <p><strong>Affected elements (1):</strong></p>
           
       <div class="axe-item">
