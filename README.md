@@ -118,6 +118,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | GitHub Copilot | (current) | Primary implementation agent: wrote source code, tests, and documentation for all work packages (WP01-WP05) via the spec-kitty workflow |
 | Claude (Anthropic) | claude-sonnet-4.5 | Code review, documentation updates, and incremental feature implementation via GitHub Copilot coding agent; added NN/g usability heuristics alignment feature |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added Call to Action section to daily reports with Section 508 links, Open Scans promotion, tool recommendations, USWDS adoption, and disability hiring messaging |
+| Claude (Anthropic) | claude-sonnet-4-5 | Added domain-to-organization enrichment: fetches CISA .gov registry (cisagov/dotgov-data) at scan time and displays the owning agency name below each URL in the top-URLs table |
 
 ### Runtime operation
 
