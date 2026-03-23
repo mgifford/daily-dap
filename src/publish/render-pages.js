@@ -1157,46 +1157,6 @@ function wrapTable(tableHtml) {
   return `<div class="table-scroll">${tableHtml}</div>`;
 }
 
-function renderCategoryRows(categories = []) {
-  return categories
-    .map(
-      (category) =>
-        `<tr><td data-label="Category">${escapeHtml(category.name)}</td><td data-label="Prevalence">${category.prevalence_rate}</td><td data-label="Estimated impacted users">${roundDownConservatively(category.estimated_impacted_users).toLocaleString('en-US')}</td></tr>`
-    )
-    .join('\n');
-}
-
-function renderEstimatedImpactSection(report) {
-  const impact = report.estimated_impact;
-  if (!impact) {
-    return '';
-  }
-  
-  const affectedSharePercent = impact.affected_share_percent ?? 0;
-  const trafficWindowMode = impact.traffic_window_mode ?? 'daily';
-  
-  // Check if we have any real impact data (non-zero estimated users in any category)
-  const hasImpactData = (impact.categories || []).some(
-    (category) => category.estimated_impacted_users > 0
-  );
-  
-  if (!hasImpactData && affectedSharePercent === 0) {
-    return `
-  <h2 id="estimated-impact-heading">Estimated Impact (${escapeHtml(trafficWindowMode)})${renderAnchorLink('estimated-impact-heading', `Estimated Impact (${trafficWindowMode})`)}</h2>
-  <p><em>No accessibility findings data available for this scan. The impact estimation requires detailed accessibility findings from scanning tools. Currently, the scanner is running in a mode that does not collect individual accessibility issues.</em></p>`;
-  }
-  
-  return `
-  <h2 id="estimated-impact-heading">Estimated Impact (${escapeHtml(trafficWindowMode)})${renderAnchorLink('estimated-impact-heading', `Estimated Impact (${trafficWindowMode})`)}</h2>
-  <p>Affected share percent: ${affectedSharePercent}</p>
-  ${wrapTable(`<table>
-    <caption>Estimated accessibility impact by category</caption>
-    <thead><tr><th scope="col">Category</th><th scope="col">Prevalence</th><th scope="col">Estimated impacted users</th></tr></thead>
-    <tbody>
-      ${renderCategoryRows(impact.categories)}
-    </tbody>
-  </table>`)}`;
-}
 
 function renderFpcExclusionSection(report) {
   const exclusion = report.fpc_exclusion;
@@ -2441,8 +2401,6 @@ export function renderDailyReportPage(report) {
         <li>Excluded: ${report.url_counts.excluded}</li>
       </ul>
     </section>
-
-    ${renderEstimatedImpactSection(report)}
 
     ${renderFpcExclusionSection(report)}
 
