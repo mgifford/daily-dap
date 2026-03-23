@@ -1,4 +1,5 @@
 import { buildTechSummary } from '../scanners/tech-detector.js';
+import { lookupDomain, hostnameFromUrl } from '../data/dotgov-lookup.js';
 
 function coerceScore(value) {
   if (typeof value === 'number' && Number.isFinite(value)) {
@@ -7,10 +8,15 @@ function coerceScore(value) {
   return 0;
 }
 
-function normalizeTopUrls(urlResults = []) {
+function normalizeTopUrls(urlResults = [], dotgovLookup = null) {
   return urlResults
-    .map((result) => ({
+    .map((result) => {
+      const hostname = hostnameFromUrl(result.url);
+      const domainInfo = hostname ? lookupDomain(hostname, dotgovLookup) : null;
+      return {
       url: result.url,
+      organization_name: domainInfo?.organization_name ?? null,
+      domain_type: domainInfo?.domain_type ?? null,
       page_load_count: result.page_load_count ?? 0,
       scan_status: result.scan_status,
       failure_reason: result.failure_reason ?? null,
@@ -32,7 +38,8 @@ function normalizeTopUrls(urlResults = []) {
             }
           : null,
       axe_findings: Array.isArray(result.axe_findings) ? result.axe_findings : []
-    }))
+      };
+    })
     .sort((left, right) => right.page_load_count - left.page_load_count);
 }
 
@@ -44,7 +51,8 @@ export function buildDailyReport({
   fpcExclusion,
   historyWindow,
   urlResults = [],
-  performanceImpact = null
+  performanceImpact = null,
+  dotgovLookup = null
 }) {
   const succeeded = urlResults.filter((result) => result?.scan_status === 'success').length;
   const failed = urlResults.filter((result) => result?.scan_status === 'failed').length;
@@ -67,7 +75,7 @@ export function buildDailyReport({
     }
   }));
 
-  const topUrls = normalizeTopUrls(urlResults);
+  const topUrls = normalizeTopUrls(urlResults, dotgovLookup);
   const techSummary = buildTechSummary(urlResults);
 
   const sourceDataDate = urlResults.reduce((latest, result) => {

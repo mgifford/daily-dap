@@ -17,6 +17,7 @@ import { buildPerformanceImpact } from '../aggregation/performance-impact.js';
 import { isCensusDataStale } from '../data/census-disability-stats.js';
 import { buildHistorySeries } from '../aggregation/history-series.js';
 import { buildDailyReport } from '../publish/build-daily-report.js';
+import { loadDotgovData } from '../data/dotgov-lookup.js';
 import { buildHistoryIndex } from '../publish/build-history-index.js';
 import { writeCommittedSnapshot } from '../publish/archive-writer.js';
 import { buildArtifactManifest } from '../publish/artifact-manifest.js';
@@ -518,6 +519,9 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
     logStageStart('REPORT_BUILDING');
 
+    const dotgovLookup = await loadDotgovData();
+    logProgress('REPORT_BUILDING', `Loaded .gov domain registry (${dotgovLookup.size} entries)`);
+
     const report = buildDailyReport({
       runMetadata,
       scoreSummary,
@@ -526,7 +530,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       fpcExclusion,
       historyWindow,
       urlResults: scanExecution.results,
-      performanceImpact
+      performanceImpact,
+      dotgovLookup
     });
 
     report.slow_risk_summary = slowRisk.summary;

@@ -852,6 +852,15 @@ function renderSharedStyles() {
       padding-right: 0.25rem;
       box-shadow: 2px 0 4px var(--color-shadow);
     }
+    .url-org {
+      display: block;
+      font-size: 0.78em;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.15em;
+    }
 
     /* ---------- Column header info tooltips ---------- */
     .col-has-info { position: relative; }
@@ -1871,8 +1880,11 @@ function renderTopUrlRows(topUrls = []) {
       (entry, index) => {
         const findingsCount = entry.findings_count ?? 0;
         const techBadges = renderTechBadges(entry.detected_technologies);
+        const orgLine = entry.organization_name
+          ? `<span class="url-org">${escapeHtml(entry.organization_name)}</span>`
+          : '';
         return `<tr>
-  <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+  <td class="url-cell" data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a>${orgLine}</td>
   <td data-label="Traffic">${entry.page_load_count}</td>
   ${renderCwvCell(entry.core_web_vitals_status)}
   ${renderPerformanceCell(entry)}

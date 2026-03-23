@@ -2884,3 +2884,60 @@ test('renderDailyReportPage shows days unit for very large total load times', ()
   // 9s * 10,000,000 = 90,000,000s = 25,000 hours = 1042 days -> should show "days"
   assert.ok(html.includes('days'), 'Should display days unit for very large load times');
 });
+
+test('renderDailyReportPage shows organization name below URL when provided', () => {
+  const report = makeScoreReport({
+    top_urls: [
+      {
+        ...makeScoreReport().top_urls[0],
+        url: 'https://www.cfpb.gov/',
+        organization_name: 'Consumer Financial Protection Bureau'
+      }
+    ]
+  });
+  const html = renderDailyReportPage(report);
+  assert.ok(
+    html.includes('class="url-org"'),
+    'Should render url-org span when organization_name is present'
+  );
+  assert.ok(
+    html.includes('Consumer Financial Protection Bureau'),
+    'Should include the organization name text'
+  );
+});
+
+test('renderDailyReportPage omits organization span when organization_name is null', () => {
+  const report = makeScoreReport({
+    top_urls: [
+      {
+        ...makeScoreReport().top_urls[0],
+        organization_name: null
+      }
+    ]
+  });
+  const html = renderDailyReportPage(report);
+  assert.ok(
+    !html.includes('class="url-org"'),
+    'Should not render url-org span when organization_name is null'
+  );
+});
+
+test('renderDailyReportPage escapes HTML in organization_name', () => {
+  const report = makeScoreReport({
+    top_urls: [
+      {
+        ...makeScoreReport().top_urls[0],
+        organization_name: '<script>alert("xss")</script>'
+      }
+    ]
+  });
+  const html = renderDailyReportPage(report);
+  assert.ok(
+    !html.includes('<script>alert'),
+    'Organization name should be HTML-escaped'
+  );
+  assert.ok(
+    html.includes('&lt;script&gt;'),
+    'Should contain escaped version of the tag'
+  );
+});
