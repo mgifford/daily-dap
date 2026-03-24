@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-24T09:50:44.814Z",
+  "generated_at": "2026-03-24T16:25:46.621Z",
   "lookback_days": 31,
   "entries": [
     {
@@ -7,7 +7,7 @@
       "run_id": "run-2026-03-24-648b963111",
       "report_path": "daily/2026-03-24/report.json",
       "page_path": "daily/2026-03-24/index.html",
-      "generated_at": "2026-03-24T09:50:44.814Z"
+      "generated_at": "2026-03-24T16:25:46.621Z"
     },
     {
       "run_date": "2026-03-23",
