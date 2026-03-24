@@ -931,6 +931,9 @@
       /* Show print-only elements (e.g., dashboard URL notice) */
       .print-only { display: block !important; }
 
+      /* Hide elements that are redundant in print (e.g., repeated dates) */
+      .print-hide { display: none !important; }
+
       /* Page setup with generous margins for binding and annotation */
       @page { margin: 2cm; }
       @page :first { margin-top: 3cm; }
@@ -963,7 +966,7 @@
       }
 
       /* Avoid page breaks inside key content blocks */
-      section, .score-grid, .page-intro { break-inside: avoid; }
+      .score-grid, .page-intro { break-inside: avoid; }
 
       /* Images: scale to fit the page without overflowing */
       img { max-width: 100% !important; height: auto; }
@@ -985,6 +988,17 @@
       }
       .score-label,
       .score-value { color: #000 !important; }
+
+      /* Compact score grid for print: 4 columns side-by-side, smaller text */
+      .score-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.3rem;
+        margin: 0.4rem 0;
+      }
+      .score-card {
+        padding: 0.3rem 0.5rem;
+      }
+      .score-card .score-value { font-size: 1.1rem; }
 
       /* Tables: repeat header row on every page; use explicit borders for print */
       thead { display: table-header-group; }

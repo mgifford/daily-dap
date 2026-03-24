@@ -931,6 +931,9 @@
       /* Show print-only elements (e.g., dashboard URL notice) */
       .print-only { display: block !important; }
 
+      /* Hide elements that are redundant in print (e.g., repeated dates) */
+      .print-hide { display: none !important; }
+
       /* Page setup with generous margins for binding and annotation */
       @page { margin: 2cm; }
       @page :first { margin-top: 3cm; }
@@ -963,7 +966,7 @@
       }
 
       /* Avoid page breaks inside key content blocks */
-      section, .score-grid, .page-intro { break-inside: avoid; }
+      .score-grid, .page-intro { break-inside: avoid; }
 
       /* Images: scale to fit the page without overflowing */
       img { max-width: 100% !important; height: auto; }
@@ -985,6 +988,17 @@
       }
       .score-label,
       .score-value { color: #000 !important; }
+
+      /* Compact score grid for print: 4 columns side-by-side, smaller text */
+      .score-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.3rem;
+        margin: 0.4rem 0;
+      }
+      .score-card {
+        padding: 0.3rem 0.5rem;
+      }
+      .score-card .score-value { font-size: 1.1rem; }
 
       /* Tables: repeat header row on every page; use explicit borders for print */
       thead { display: table-header-group; }
@@ -1061,24 +1075,25 @@
     <section aria-labelledby="archives-heading">
       <h2 id="archives-heading">Available Archives<a href="#archives-heading" class="heading-anchor" aria-label="Link to Available Archives"><span aria-hidden="true">#</span></a></h2>
       <ul>
-        <li><a href="2026-03-09.zip" download>2026-03-09.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-08.zip" download>2026-03-08.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-07.zip" download>2026-03-07.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-06.zip" download>2026-03-06.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-05.zip" download>2026-03-05.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-04.zip" download>2026-03-04.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-03.zip" download>2026-03-03.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-02.zip" download>2026-03-02.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-03-01.zip" download>2026-03-01.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-28.zip" download>2026-02-28.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-27.zip" download>2026-02-27.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-26.zip" download>2026-02-26.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-25.zip" download>2026-02-25.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-24.zip" download>2026-02-24.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
-        <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-23)</span></li>
+        <li><a href="2026-03-10.zip" download>2026-03-10.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-09.zip" download>2026-03-09.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-08.zip" download>2026-03-08.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-07.zip" download>2026-03-07.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-06.zip" download>2026-03-06.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-05.zip" download>2026-03-05.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-04.zip" download>2026-03-04.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-03.zip" download>2026-03-03.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-02.zip" download>2026-03-02.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-03-01.zip" download>2026-03-01.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-28.zip" download>2026-02-28.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-27.zip" download>2026-02-27.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-26.zip" download>2026-02-26.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-25.zip" download>2026-02-25.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-24.zip" download>2026-02-24.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-23.zip" download>2026-02-23.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
+        <li><a href="2026-02-22.zip" download>2026-02-22.zip</a> <span class="archive-date">(archived 2026-03-24)</span></li>
       </ul>
-      <p class="generated-note">Archive index generated: 2026-03-23T17:07:12.115Z</p>
+      <p class="generated-note">Archive index generated: 2026-03-24T09:50:08.505Z</p>
     </section>
   </main>
 

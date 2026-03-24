@@ -931,6 +931,9 @@
       /* Show print-only elements (e.g., dashboard URL notice) */
       .print-only { display: block !important; }
 
+      /* Hide elements that are redundant in print (e.g., repeated dates) */
+      .print-hide { display: none !important; }
+
       /* Page setup with generous margins for binding and annotation */
       @page { margin: 2cm; }
       @page :first { margin-top: 3cm; }
@@ -963,7 +966,7 @@
       }
 
       /* Avoid page breaks inside key content blocks */
-      section, .score-grid, .page-intro { break-inside: avoid; }
+      .score-grid, .page-intro { break-inside: avoid; }
 
       /* Images: scale to fit the page without overflowing */
       img { max-width: 100% !important; height: auto; }
@@ -985,6 +988,17 @@
       }
       .score-label,
       .score-value { color: #000 !important; }
+
+      /* Compact score grid for print: 4 columns side-by-side, smaller text */
+      .score-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.3rem;
+        margin: 0.4rem 0;
+      }
+      .score-card {
+        padding: 0.3rem 0.5rem;
+      }
+      .score-card .score-value { font-size: 1.1rem; }
 
       /* Tables: repeat header row on every page; use explicit borders for print */
       thead { display: table-header-group; }
@@ -1072,32 +1086,33 @@
 
     
   <section aria-labelledby="latest-scores-heading">
-    <h2 id="latest-scores-heading">Latest Scores (2026-03-23)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-23)"><span aria-hidden="true">#</span></a></h2>
+    <h2 id="latest-scores-heading">Latest Scores (2026-03-24)<a href="#latest-scores-heading" class="heading-anchor" aria-label="Link to Latest Scores (2026-03-24)"><span aria-hidden="true">#</span></a></h2>
     <div class="score-grid">
       <div class="score-card">
         <div class="score-label">Performance</div>
-        <div class="score-value">54.25</div>
+        <div class="score-value">53.24</div>
       </div>
       <div class="score-card">
         <div class="score-label">Accessibility</div>
-        <div class="score-value">91.46</div>
+        <div class="score-value">91.53</div>
       </div>
       <div class="score-card">
         <div class="score-label">Best Practices</div>
-        <div class="score-value">83.88</div>
+        <div class="score-value">83.99</div>
       </div>
       <div class="score-card">
         <div class="score-label">SEO</div>
-        <div class="score-value">87.9</div>
+        <div class="score-value">88.72</div>
       </div>
     </div>
-    <p><a href="./daily/2026-03-23/index.html">Open latest report &rarr;</a></p>
+    <p><a href="./daily/2026-03-24/index.html">Open latest report &rarr;</a></p>
   </section>
 
     <section aria-labelledby="recent-reports-heading">
       <h2 id="recent-reports-heading">Recent Reports<a href="#recent-reports-heading" class="heading-anchor" aria-label="Link to Recent Reports"><span aria-hidden="true">#</span></a></h2>
       <ul>
-        <li><a href="./daily/2026-03-23/index.html">2026-03-23</a> (run-2026-03-23-2c59ebe19f)</li>
+        <li><a href="./daily/2026-03-24/index.html">2026-03-24</a> (run-2026-03-24-648b963111)</li>
+<li><a href="./daily/2026-03-23/index.html">2026-03-23</a> (run-2026-03-23-2c59ebe19f)</li>
 <li><a href="./daily/2026-03-22/index.html">2026-03-22</a> (run-2026-03-22-016dd50f76)</li>
 <li><a href="./daily/2026-03-21/index.html">2026-03-21</a> (run-2026-03-21-33c61a2336)</li>
 <li><a href="./daily/2026-03-20/index.html">2026-03-20</a> (run-2026-03-20-c9106502a3)</li>
@@ -1110,7 +1125,6 @@
 <li><a href="./daily/2026-03-13/index.html">2026-03-13</a> (run-2026-03-13-5f6ae08f52)</li>
 <li><a href="./daily/2026-03-12/index.html">2026-03-12</a> (run-2026-03-12-73961ba659)</li>
 <li><a href="./daily/2026-03-11/index.html">2026-03-11</a> (run-2026-03-11-b2a2385e93)</li>
-<li><a href="./daily/2026-03-10/index.html">2026-03-10</a> (run-2026-03-10-80230b0f4e)</li>
       </ul>
     </section>
     
