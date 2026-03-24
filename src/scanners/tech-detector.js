@@ -162,8 +162,10 @@ export function detectTechnologies(lighthouseRaw) {
 export function buildTechSummary(urlResults = []) {
   const successful = urlResults.filter((r) => r?.scan_status === 'success');
   const cmsCounts = {};
+  const cmsUrls = {};
   let uswdsCount = 0;
   const uswdsVersionSet = new Set();
+  const uswdsVersionUrls = {};
 
   for (const result of successful) {
     const tech = result.detected_technologies;
@@ -171,22 +173,35 @@ export function buildTechSummary(urlResults = []) {
       continue;
     }
 
+    const url = result.url ?? null;
+
     if (tech.cms) {
       cmsCounts[tech.cms] = (cmsCounts[tech.cms] ?? 0) + 1;
+      if (url) {
+        if (!cmsUrls[tech.cms]) cmsUrls[tech.cms] = [];
+        cmsUrls[tech.cms].push(url);
+      }
     }
 
     if (tech.uswds?.detected) {
       uswdsCount += 1;
-      if (tech.uswds.version) {
-        uswdsVersionSet.add(tech.uswds.version);
+      const ver = tech.uswds.version ?? '';
+      if (ver) {
+        uswdsVersionSet.add(ver);
+      }
+      if (url) {
+        if (!uswdsVersionUrls[ver]) uswdsVersionUrls[ver] = [];
+        uswdsVersionUrls[ver].push(url);
       }
     }
   }
 
   return {
     cms_counts: cmsCounts,
+    cms_urls: cmsUrls,
     uswds_count: uswdsCount,
     uswds_versions: [...uswdsVersionSet].sort(compareSemver),
+    uswds_version_urls: uswdsVersionUrls,
     total_scanned: successful.length
   };
 }

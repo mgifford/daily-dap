@@ -33,6 +33,7 @@ function roundDownConservatively(n) {
 let _fpcTooltipSeq = 0;
 let _urlCountTooltipSeq = 0;
 let _perfTimeTooltipSeq = 0;
+let _techTooltipSeq = 0;
 
 function makeDecorativeSvg(svgStr) {
   return svgStr
@@ -1839,6 +1840,29 @@ function renderTopUrlModals(topUrls = [], scanDate = '') {
 }
 
 /**
+ * Render a technology count or label with an accessible tooltip listing the affected sites.
+ * Reuses the `.url-count-trigger` / `.url-count-tooltip` CSS classes so no new styles are needed.
+ *
+ * @param {string} visibleText - The visible label (already escaped when preEscaped is true)
+ * @param {string[]} urls - Array of site URLs to list in the tooltip
+ * @param {string} ariaLabel - Accessible label for the trigger element
+ * @param {boolean} [preEscaped=false] - When true, visibleText is already HTML-escaped
+ * @returns {string} HTML string (plain escaped text when no URLs are provided)
+ */
+function renderTechUrlTooltip(visibleText, urls, ariaLabel, preEscaped = false) {
+  const safeText = preEscaped ? visibleText : escapeHtml(visibleText);
+  if (!urls || urls.length === 0) {
+    return safeText;
+  }
+  const tooltipId = `tech-tip-${_techTooltipSeq++}`;
+  const domains = urls.map((u) => {
+    try { return new URL(u).hostname; } catch { return ''; } // skip malformed URLs
+  }).filter(Boolean).sort();
+  const tooltipText = `Sites: ${domains.join(', ')}`;
+  return `<span class="url-count-trigger" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" aria-describedby="${tooltipId}">${safeText}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
+}
+
+/**
  * Render small inline technology badges for a single URL row.
  * Shows CMS name and/or USWDS version if detected.
  *
@@ -1865,7 +1889,7 @@ function renderTechBadges(tech) {
 }
 
 /**
- * Render a summary section listing detected technologies across all scanned URLs.
+ * Render a tech summary section listing detected technologies across all scanned URLs.
  *
  * @param {object} report
  * @returns {string} HTML section or empty string when no data
@@ -1876,7 +1900,7 @@ function renderTechSummarySection(report) {
     return '';
   }
 
-  const { cms_counts = {}, uswds_count = 0, uswds_versions = [], total_scanned = 0 } = summary;
+  const { cms_counts = {}, cms_urls = {}, uswds_count = 0, uswds_versions = [], uswds_version_urls = {}, total_scanned = 0 } = summary;
   const cmsEntries = Object.entries(cms_counts).sort((a, b) => b[1] - a[1]);
 
   if (cmsEntries.length === 0 && uswds_count === 0) {
@@ -1884,15 +1908,20 @@ function renderTechSummarySection(report) {
   }
 
   const cmsRows = cmsEntries
-    .map(
-      ([name, count]) =>
-        `<tr><td data-label="CMS">${escapeHtml(name)}</td><td data-label="URLs">${count}</td><td data-label="Share">${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%</td></tr>`
-    )
+    .map(([name, count]) => {
+      const urls = cms_urls[name] ?? [];
+      const countCell = renderTechUrlTooltip(String(count), urls, `${count} ${name} URL${count !== 1 ? 's' : ''}`);
+      return `<tr><td data-label="CMS">${escapeHtml(name)}</td><td data-label="URLs">${countCell}</td><td data-label="Share">${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%</td></tr>`;
+    })
     .join('\n');
 
   const uswdsVersionList =
     uswds_versions.length > 0
-      ? `<p>Observed USWDS versions: ${uswds_versions.map((v) => `<strong>${escapeHtml(v)}</strong>`).join(', ')}. The latest release is available at <a href="https://github.com/uswds/uswds/releases" target="_blank" rel="noreferrer">github.com/uswds/uswds/releases</a>.</p>`
+      ? `<p>Observed USWDS versions: ${uswds_versions.map((v) => {
+          const vUrls = uswds_version_urls[v] ?? [];
+          const trigger = renderTechUrlTooltip(escapeHtml(v), vUrls, `${vUrls.length} site${vUrls.length !== 1 ? 's' : ''} using USWDS ${v}`, true);
+          return `<strong>${trigger}</strong>`;
+        }).join(', ')}. The latest release is available at <a href="https://github.com/uswds/uswds/releases" target="_blank" rel="noreferrer">github.com/uswds/uswds/releases</a>.</p>`
       : '';
 
   return `

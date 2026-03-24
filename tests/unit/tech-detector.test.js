@@ -155,8 +155,10 @@ test('detectTechnologies can detect both CMS and USWDS simultaneously', () => {
 test('buildTechSummary returns zeroed summary for empty results', () => {
   const summary = buildTechSummary([]);
   assert.deepEqual(summary.cms_counts, {});
+  assert.deepEqual(summary.cms_urls, {});
   assert.equal(summary.uswds_count, 0);
   assert.deepEqual(summary.uswds_versions, []);
+  assert.deepEqual(summary.uswds_version_urls, {});
   assert.equal(summary.total_scanned, 0);
 });
 
@@ -174,6 +176,19 @@ test('buildTechSummary counts CMS occurrences across successful results', () => 
   assert.equal(summary.total_scanned, 3);
 });
 
+test('buildTechSummary tracks cms_urls per platform', () => {
+  const results = [
+    { url: 'https://wp1.gov/', scan_status: 'success', detected_technologies: { cms: 'WordPress', uswds: { detected: false, version: null } } },
+    { url: 'https://wp2.gov/', scan_status: 'success', detected_technologies: { cms: 'WordPress', uswds: { detected: false, version: null } } },
+    { url: 'https://drupal1.gov/', scan_status: 'success', detected_technologies: { cms: 'Drupal', uswds: { detected: false, version: null } } },
+    { url: 'https://joomla1.gov/', scan_status: 'failed', detected_technologies: { cms: 'Joomla', uswds: { detected: false, version: null } } }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.cms_urls.WordPress, ['https://wp1.gov/', 'https://wp2.gov/']);
+  assert.deepEqual(summary.cms_urls.Drupal, ['https://drupal1.gov/']);
+  assert.equal(summary.cms_urls.Joomla, undefined, 'failed results should not appear in cms_urls');
+});
+
 test('buildTechSummary counts USWDS usage and deduplicates versions', () => {
   const results = [
     { scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.8.0' } } },
@@ -185,6 +200,19 @@ test('buildTechSummary counts USWDS usage and deduplicates versions', () => {
   assert.equal(summary.uswds_count, 3);
   assert.deepEqual(summary.uswds_versions, ['3.6.1', '3.8.0']);
   assert.equal(summary.total_scanned, 4);
+});
+
+test('buildTechSummary tracks uswds_version_urls per version', () => {
+  const results = [
+    { url: 'https://site1.gov/', scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.8.0' } } },
+    { url: 'https://site2.gov/', scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.8.0' } } },
+    { url: 'https://site3.gov/', scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: '3.6.1' } } },
+    { url: 'https://site4.gov/', scan_status: 'success', detected_technologies: { cms: null, uswds: { detected: true, version: null } } }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.uswds_version_urls['3.8.0'], ['https://site1.gov/', 'https://site2.gov/']);
+  assert.deepEqual(summary.uswds_version_urls['3.6.1'], ['https://site3.gov/']);
+  assert.deepEqual(summary.uswds_version_urls[''], ['https://site4.gov/'], 'USWDS without version tracked under empty-string key');
 });
 
 test('buildTechSummary ignores results with null detected_technologies', () => {
@@ -206,4 +234,13 @@ test('buildTechSummary uswds_versions list is sorted semantically', () => {
   const summary = buildTechSummary(results);
   // Semantic order: 3.2.1 < 3.8.0 < 3.10.0 (not lexicographic '3.10.0' < '3.2.1')
   assert.deepEqual(summary.uswds_versions, ['3.2.1', '3.8.0', '3.10.0']);
+});
+
+test('buildTechSummary cms_urls is empty when results lack url field', () => {
+  const results = [
+    { scan_status: 'success', detected_technologies: { cms: 'Drupal', uswds: { detected: false, version: null } } }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.cms_counts.Drupal, 1);
+  assert.deepEqual(summary.cms_urls, {}, 'cms_urls should be empty when no url field is present');
 });
