@@ -4,11 +4,14 @@
  * Analyses Lighthouse raw results (lhr) to detect:
  *  - CMS platform: WordPress, Drupal, or Joomla
  *  - USWDS: whether the U.S. Web Design System is present, and which version
+ *  - Third-party JavaScript services: analytics, advertising, social media,
+ *    CDN, fonts, maps, government identity, and support tools
  *
  * Detection relies on URL patterns in the network-requests audit, which lists
  * every resource the browser loaded while rendering the page. This works well
  * because each CMS serves assets from characteristic URL paths, and USWDS
- * bundles are commonly served under names that include "uswds".
+ * bundles are commonly served under names that include "uswds". Third-party
+ * services are identified by their characteristic hostnames.
  */
 
 const CMS_PATTERNS = {
@@ -38,6 +41,220 @@ const CMS_PATTERNS = {
 };
 
 const USWDS_URL_PATTERN = /uswds/i;
+
+/**
+ * Known third-party JavaScript services detected from network request URLs.
+ *
+ * Each entry describes:
+ *  - name:            Display name of the service
+ *  - category:        Functional category (analytics, advertising, social,
+ *                     cdn, fonts, maps, government, support)
+ *  - privacy_concern: true when the service involves user tracking or sending
+ *                     behavioural data to a third-party entity
+ *  - patterns:        Array of RegExp patterns matched against request URLs
+ */
+const THIRD_PARTY_SERVICES = [
+  // --- Analytics ---
+  {
+    name: 'Google Analytics',
+    category: 'analytics',
+    privacy_concern: true,
+    patterns: [
+      /google-analytics\.com\/(analytics|ga|gtag)\.js/i,
+      /googletagmanager\.com\/gtag\/js/i
+    ]
+  },
+  {
+    name: 'Google Tag Manager',
+    category: 'analytics',
+    privacy_concern: true,
+    patterns: [
+      /googletagmanager\.com\/(gtm\.js|ns\.html)/i
+    ]
+  },
+  {
+    name: 'Digital Analytics Program',
+    category: 'analytics',
+    // DAP is operated by the U.S. federal government (GSA/DigitalGov) and does
+    // not share data with commercial third parties. It is treated as a trusted
+    // government service rather than a user-tracking concern.
+    privacy_concern: false,
+    patterns: [
+      /dap\.digitalgov\.gov/i
+    ]
+  },
+  {
+    name: 'Adobe Analytics',
+    category: 'analytics',
+    privacy_concern: true,
+    patterns: [
+      /assets\.adobedtm\.com/i,
+      /sc\.omtrdc\.net/i,
+      /omniture\.com/i,
+      /2o7\.net/i
+    ]
+  },
+  {
+    name: 'Hotjar',
+    category: 'analytics',
+    privacy_concern: true,
+    patterns: [
+      /static\.hotjar\.com/i,
+      /vars\.hotjar\.com/i
+    ]
+  },
+  {
+    name: 'ForeSee / Verint',
+    category: 'analytics',
+    privacy_concern: true,
+    patterns: [
+      /foresee\.com/i,
+      /gateway\.foresee\.com/i,
+      /siteintercept\.foresee\.com/i
+    ]
+  },
+  // --- Advertising ---
+  {
+    name: 'Google Ads',
+    category: 'advertising',
+    privacy_concern: true,
+    patterns: [
+      /doubleclick\.net/i,
+      /googlesyndication\.com/i,
+      /adservice\.google\./i,
+      /googleadservices\.com/i
+    ]
+  },
+  {
+    name: 'Facebook / Meta Pixel',
+    category: 'advertising',
+    privacy_concern: true,
+    patterns: [
+      /connect\.facebook\.net/i,
+      /facebook\.com\/tr(\?|\/)/i
+    ]
+  },
+  // --- Social Media ---
+  {
+    name: 'YouTube',
+    category: 'social',
+    privacy_concern: true,
+    patterns: [
+      /youtube\.com\/(embed|v\/|iframe_api)/i,
+      /ytimg\.com/i,
+      /youtu\.be\//i
+    ]
+  },
+  {
+    name: 'Twitter / X Widgets',
+    category: 'social',
+    privacy_concern: true,
+    patterns: [
+      /platform\.twitter\.com/i,
+      /platform\.x\.com/i,
+      /twimg\.com/i
+    ]
+  },
+  // --- CDN / Frameworks ---
+  {
+    name: 'jsDelivr CDN',
+    category: 'cdn',
+    privacy_concern: false,
+    patterns: [
+      /cdn\.jsdelivr\.net/i
+    ]
+  },
+  {
+    name: 'cdnjs',
+    category: 'cdn',
+    privacy_concern: false,
+    patterns: [
+      /cdnjs\.cloudflare\.com/i
+    ]
+  },
+  {
+    name: 'unpkg CDN',
+    category: 'cdn',
+    privacy_concern: false,
+    patterns: [
+      /unpkg\.com\//i
+    ]
+  },
+  // --- Fonts ---
+  {
+    name: 'Google Fonts',
+    category: 'fonts',
+    privacy_concern: true,
+    patterns: [
+      /fonts\.googleapis\.com/i,
+      /fonts\.gstatic\.com/i
+    ]
+  },
+  {
+    name: 'Adobe Fonts',
+    category: 'fonts',
+    privacy_concern: true,
+    patterns: [
+      /use\.typekit\.net/i,
+      /p\.typekit\.net/i
+    ]
+  },
+  // --- Maps ---
+  {
+    name: 'Google Maps',
+    category: 'maps',
+    privacy_concern: true,
+    patterns: [
+      /maps\.googleapis\.com/i,
+      /maps\.gstatic\.com/i
+    ]
+  },
+  {
+    name: 'Mapbox',
+    category: 'maps',
+    privacy_concern: true,
+    patterns: [
+      /api\.mapbox\.com/i,
+      /events\.mapbox\.com/i
+    ]
+  },
+  // --- Support / Chat ---
+  {
+    name: 'Zendesk',
+    category: 'support',
+    privacy_concern: true,
+    patterns: [
+      /static\.zdassets\.com/i,
+      /ekr\.zdassets\.com/i
+    ]
+  },
+  // --- Government Identity ---
+  {
+    name: 'Login.gov',
+    category: 'government',
+    privacy_concern: false,
+    // Patterns are anchored to the host position (//hostname/) to avoid
+    // matching URLs where login.gov appears only in a path or query string.
+    patterns: [
+      /\/\/secure\.login\.gov\//i,
+      /\/\/idp\.int\.identitysandbox\.gov\//i
+    ]
+  }
+];
+
+/**
+ * Return metadata (category and privacy_concern) for a named third-party service.
+ *
+ * @param {string} name - Service name as returned by detectThirdPartyServices()
+ * @returns {{ category: string, privacy_concern: boolean }|null}
+ */
+export function getThirdPartyServiceMeta(name) {
+  const found = THIRD_PARTY_SERVICES.find((s) => s.name === name);
+  if (!found) {
+    return null;
+  }
+  return { category: found.category, privacy_concern: found.privacy_concern };
+}
 
 /**
  * Compare two semver strings semantically (e.g. 3.2.1 < 3.8.0 < 3.10.0).
@@ -102,14 +319,35 @@ function extractRequestUrls(lighthouseRaw) {
 }
 
 /**
+ * Detect which known third-party services are loaded from a list of request URLs.
+ * Each service is reported at most once regardless of how many of its patterns matched.
+ *
+ * @param {string[]} urls
+ * @returns {string[]} Sorted list of detected service names
+ */
+function detectThirdPartyServices(urls) {
+  const detected = [];
+  for (const service of THIRD_PARTY_SERVICES) {
+    if (urls.some((url) => service.patterns.some((pattern) => pattern.test(url)))) {
+      detected.push(service.name);
+    }
+  }
+  return detected;
+}
+
+/**
  * Detect technologies from a Lighthouse raw result (lhr).
  *
  * @param {object|null} lighthouseRaw - Full Lighthouse result object (lhr)
- * @returns {{ cms: string|null, uswds: { detected: boolean, version: string|null } }}
+ * @returns {{
+ *   cms: string|null,
+ *   uswds: { detected: boolean, version: string|null },
+ *   third_party_services: string[]
+ * }}
  */
 export function detectTechnologies(lighthouseRaw) {
   if (!lighthouseRaw) {
-    return { cms: null, uswds: { detected: false, version: null } };
+    return { cms: null, uswds: { detected: false, version: null }, third_party_services: [] };
   }
 
   const urls = extractRequestUrls(lighthouseRaw);
@@ -141,7 +379,8 @@ export function detectTechnologies(lighthouseRaw) {
 
   return {
     cms: detectedCms,
-    uswds: { detected: uswdsDetected, version: uswdsVersion }
+    uswds: { detected: uswdsDetected, version: uswdsVersion },
+    third_party_services: detectThirdPartyServices(urls)
   };
 }
 
@@ -150,13 +389,16 @@ export function detectTechnologies(lighthouseRaw) {
  *
  * Counts how many successfully-scanned URLs use each detected CMS and/or
  * USWDS. Returns counts and a deduplicated list of observed USWDS versions.
+ * Also aggregates third-party service usage across all scanned URLs.
  *
  * @param {Array<{ scan_status: string, detected_technologies?: object }>} urlResults
  * @returns {{
  *   cms_counts: Record<string, number>,
  *   uswds_count: number,
  *   uswds_versions: string[],
- *   total_scanned: number
+ *   total_scanned: number,
+ *   third_party_service_counts: Record<string, number>,
+ *   third_party_service_urls: Record<string, string[]>
  * }}
  */
 export function buildTechSummary(urlResults = []) {
@@ -166,6 +408,8 @@ export function buildTechSummary(urlResults = []) {
   let uswdsCount = 0;
   const uswdsVersionSet = new Set();
   const uswdsVersionUrls = {};
+  const thirdPartyServiceCounts = {};
+  const thirdPartyServiceUrls = {};
 
   for (const result of successful) {
     const tech = result.detected_technologies;
@@ -194,6 +438,14 @@ export function buildTechSummary(urlResults = []) {
         uswdsVersionUrls[ver].push(url);
       }
     }
+
+    for (const serviceName of (tech.third_party_services ?? [])) {
+      thirdPartyServiceCounts[serviceName] = (thirdPartyServiceCounts[serviceName] ?? 0) + 1;
+      if (url) {
+        if (!thirdPartyServiceUrls[serviceName]) thirdPartyServiceUrls[serviceName] = [];
+        thirdPartyServiceUrls[serviceName].push(url);
+      }
+    }
   }
 
   return {
@@ -202,6 +454,8 @@ export function buildTechSummary(urlResults = []) {
     uswds_count: uswdsCount,
     uswds_versions: [...uswdsVersionSet].sort(compareSemver),
     uswds_version_urls: uswdsVersionUrls,
-    total_scanned: successful.length
+    total_scanned: successful.length,
+    third_party_service_counts: thirdPartyServiceCounts,
+    third_party_service_urls: thirdPartyServiceUrls
   };
 }

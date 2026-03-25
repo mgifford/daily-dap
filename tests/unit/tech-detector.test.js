@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { detectTechnologies, buildTechSummary } from '../../src/scanners/tech-detector.js';
+import { detectTechnologies, buildTechSummary, getThirdPartyServiceMeta } from '../../src/scanners/tech-detector.js';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -243,4 +243,214 @@ test('buildTechSummary cms_urls is empty when results lack url field', () => {
   const summary = buildTechSummary(results);
   assert.equal(summary.cms_counts.Drupal, 1);
   assert.deepEqual(summary.cms_urls, {}, 'cms_urls should be empty when no url field is present');
+});
+
+// ---------------------------------------------------------------------------
+// Third-party service detection
+// ---------------------------------------------------------------------------
+
+test('detectTechnologies returns empty third_party_services for null input', () => {
+  const result = detectTechnologies(null);
+  assert.deepEqual(result.third_party_services, []);
+});
+
+test('detectTechnologies returns empty third_party_services for empty request list', () => {
+  const result = detectTechnologies(makeLhr([]));
+  assert.deepEqual(result.third_party_services, []);
+});
+
+test('detectTechnologies detects Google Analytics via google-analytics.com', () => {
+  const lhr = makeLhr(['https://www.google-analytics.com/analytics.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Analytics'));
+});
+
+test('detectTechnologies detects Google Analytics via googletagmanager.com gtag', () => {
+  const lhr = makeLhr(['https://www.googletagmanager.com/gtag/js?id=UA-12345']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Analytics'));
+});
+
+test('detectTechnologies detects Google Tag Manager separately from Analytics', () => {
+  const lhr = makeLhr(['https://www.googletagmanager.com/gtm.js?id=GTM-ABC123']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Tag Manager'));
+  assert.ok(!result.third_party_services.includes('Google Analytics'), 'GTM alone should not trigger Analytics');
+});
+
+test('detectTechnologies detects Digital Analytics Program', () => {
+  const lhr = makeLhr(['https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Digital Analytics Program'));
+});
+
+test('detectTechnologies detects Adobe Analytics via adobedtm.com', () => {
+  const lhr = makeLhr(['https://assets.adobedtm.com/launch-EN123.min.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Adobe Analytics'));
+});
+
+test('detectTechnologies detects YouTube embed', () => {
+  const lhr = makeLhr(['https://www.youtube.com/embed/abc123']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('YouTube'));
+});
+
+test('detectTechnologies detects Google Fonts', () => {
+  const lhr = makeLhr(['https://fonts.googleapis.com/css2?family=Roboto']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Fonts'));
+});
+
+test('detectTechnologies detects jsDelivr CDN', () => {
+  const lhr = makeLhr(['https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('jsDelivr CDN'));
+});
+
+test('detectTechnologies detects Facebook / Meta Pixel', () => {
+  const lhr = makeLhr(['https://connect.facebook.net/en_US/fbevents.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Facebook / Meta Pixel'));
+});
+
+test('detectTechnologies detects Login.gov', () => {
+  const lhr = makeLhr(['https://secure.login.gov/api/openid_connect/authorize']);
+  const result = detectTechnologies(lhr);
+  // CodeQL[js/incomplete-url-substring-sanitization]: third_party_services is an
+  // array of service name strings, not a URL string; this is an array membership
+  // check, not URL substring sanitization.
+  assert.ok(result.third_party_services.includes('Login.gov'));
+});
+
+test('detectTechnologies does not produce false positives for unrelated URLs', () => {
+  const lhr = makeLhr([
+    'https://example.gov/assets/css/main.css',
+    'https://cdn.example.gov/lib/react.min.js'
+  ]);
+  const result = detectTechnologies(lhr);
+  assert.deepEqual(result.third_party_services, []);
+});
+
+test('detectTechnologies detects multiple third-party services on same page', () => {
+  const lhr = makeLhr([
+    'https://www.googletagmanager.com/gtm.js?id=GTM-ABC',
+    'https://fonts.googleapis.com/css2?family=Open+Sans',
+    'https://cdn.jsdelivr.net/npm/chart.js@4.0.0/dist/chart.min.js',
+    'https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js'
+  ]);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Tag Manager'));
+  assert.ok(result.third_party_services.includes('Google Fonts'));
+  assert.ok(result.third_party_services.includes('jsDelivr CDN'));
+  assert.ok(result.third_party_services.includes('Digital Analytics Program'));
+});
+
+// ---------------------------------------------------------------------------
+// getThirdPartyServiceMeta
+// ---------------------------------------------------------------------------
+
+test('getThirdPartyServiceMeta returns category and privacy_concern for known service', () => {
+  const meta = getThirdPartyServiceMeta('Google Analytics');
+  assert.equal(meta.category, 'analytics');
+  assert.equal(meta.privacy_concern, true);
+});
+
+test('getThirdPartyServiceMeta returns privacy_concern false for Digital Analytics Program', () => {
+  const meta = getThirdPartyServiceMeta('Digital Analytics Program');
+  assert.equal(meta.category, 'analytics');
+  assert.equal(meta.privacy_concern, false);
+});
+
+test('getThirdPartyServiceMeta returns privacy_concern false for jsDelivr CDN', () => {
+  const meta = getThirdPartyServiceMeta('jsDelivr CDN');
+  assert.equal(meta.category, 'cdn');
+  assert.equal(meta.privacy_concern, false);
+});
+
+test('getThirdPartyServiceMeta returns null for unknown service', () => {
+  assert.equal(getThirdPartyServiceMeta('UnknownService'), null);
+});
+
+// ---------------------------------------------------------------------------
+// buildTechSummary third-party aggregation
+// ---------------------------------------------------------------------------
+
+test('buildTechSummary returns empty third_party fields for empty results', () => {
+  const summary = buildTechSummary([]);
+  assert.deepEqual(summary.third_party_service_counts, {});
+  assert.deepEqual(summary.third_party_service_urls, {});
+});
+
+test('buildTechSummary aggregates third_party_service_counts across successful results', () => {
+  const results = [
+    {
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics', 'Google Fonts']
+      }
+    },
+    {
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics']
+      }
+    },
+    {
+      scan_status: 'failed',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics']
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.third_party_service_counts['Google Analytics'], 2);
+  assert.equal(summary.third_party_service_counts['Google Fonts'], 1);
+  assert.equal(summary.third_party_service_counts['Google Analytics'], 2, 'only successful scans should be counted');
+});
+
+test('buildTechSummary tracks third_party_service_urls per service', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics', 'Google Fonts']
+      }
+    },
+    {
+      url: 'https://site2.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics']
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.third_party_service_urls['Google Analytics'], ['https://site1.gov/', 'https://site2.gov/']);
+  assert.deepEqual(summary.third_party_service_urls['Google Fonts'], ['https://site1.gov/']);
+});
+
+test('buildTechSummary handles results with no third_party_services field', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      scan_status: 'success',
+      detected_technologies: { cms: 'Drupal', uswds: { detected: false, version: null } }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.third_party_service_counts, {});
+  assert.deepEqual(summary.third_party_service_urls, {});
+  assert.equal(summary.cms_counts.Drupal, 1);
 });
