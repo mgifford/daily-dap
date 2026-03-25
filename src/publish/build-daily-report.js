@@ -1,5 +1,6 @@
 import { buildTechSummary } from '../scanners/tech-detector.js';
 import { buildAccessibilityStatementSummary } from '../scanners/accessibility-statement-checker.js';
+import { buildRequiredLinksSummary } from '../scanners/required-links-checker.js';
 import { lookupDomain, hostnameFromUrl } from '../data/dotgov-lookup.js';
 
 function coerceScore(value) {
@@ -54,7 +55,8 @@ export function buildDailyReport({
   urlResults = [],
   performanceImpact = null,
   dotgovLookup = null,
-  accessibilityStatements = null
+  accessibilityStatements = null,
+  requiredLinks = null
 }) {
   const succeeded = urlResults.filter((result) => result?.scan_status === 'success').length;
   const failed = urlResults.filter((result) => result?.scan_status === 'failed').length;
@@ -82,6 +84,7 @@ export function buildDailyReport({
   techSummary.accessibility_statement_summary = buildAccessibilityStatementSummary(
     accessibilityStatements ?? {}
   );
+  techSummary.required_links_summary = buildRequiredLinksSummary(requiredLinks ?? {});
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;

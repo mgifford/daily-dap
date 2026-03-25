@@ -121,6 +121,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4-5 | Added Call to Action section to daily reports with Section 508 links, Open Scans promotion, tool recommendations, USWDS adoption, and disability hiring messaging |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added domain-to-organization enrichment: fetches CISA .gov registry (cisagov/dotgov-data) at scan time and displays the owning agency name below each URL in the top-URLs table |
 | Claude (Anthropic) | claude-sonnet-4-5 | Created FEATURES.md: comprehensive technical feature catalog covering all modules, CLI options, workflows, data files, and international adaptation guide |
+| Claude (Anthropic) | claude-sonnet-4-5 | Added required federal links checker (OMB M-17-06): detects Privacy Policy, Contact, and FOIA pages, inspired by the performance.gov website performance initiative |
 
 ### Runtime operation
 

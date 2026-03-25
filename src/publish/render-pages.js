@@ -3,6 +3,7 @@ import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-d
 import { getPolicyNarrative, getHeuristicsForAxeRule } from '../data/axe-impact-loader.js';
 import { NNG_HEURISTICS } from '../data/nng-heuristics.js';
 import { getThirdPartyServiceMeta } from '../scanners/tech-detector.js';
+import { REQUIRED_LINK_META } from '../scanners/required-links-checker.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 const DASHBOARD_URL = 'https://mgifford.github.io/daily-dap/docs/reports/index.html';
@@ -1931,7 +1932,8 @@ function renderTechSummarySection(report) {
     total_scanned = 0,
     third_party_service_counts = {},
     third_party_service_urls = {},
-    accessibility_statement_summary = null
+    accessibility_statement_summary = null,
+    required_links_summary = null
   } = summary;
   const cmsEntries = Object.entries(cms_counts).sort((a, b) => b[1] - a[1]);
   const thirdPartyEntries = Object.entries(third_party_service_counts).sort((a, b) => b[1] - a[1]);
@@ -1940,7 +1942,8 @@ function renderTechSummarySection(report) {
     cmsEntries.length === 0 &&
     uswds_count === 0 &&
     thirdPartyEntries.length === 0 &&
-    !accessibility_statement_summary
+    !accessibility_statement_summary &&
+    !required_links_summary
   ) {
     return '';
   }
@@ -2063,6 +2066,64 @@ function renderTechSummarySection(report) {
     </table>`)}`;
   })();
 
+  const requiredLinksSection = (() => {
+    const rl = required_links_summary;
+    if (!rl || rl.domains_checked === 0) {
+      return '';
+    }
+
+    const { domains_checked, fully_compliant_domains, fully_compliant_rate_percent, by_type } = rl;
+
+    let overallClass;
+    if (fully_compliant_rate_percent >= 80) {
+      overallClass = 'score-good';
+    } else if (fully_compliant_rate_percent >= 50) {
+      overallClass = 'score-moderate';
+    } else {
+      overallClass = 'score-poor';
+    }
+
+    const linkTypes = ['privacy', 'contact', 'foia'];
+
+    const typeRows = linkTypes
+      .map((linkType) => {
+        const typeData = by_type[linkType] ?? { domains_with_link: 0, rate_percent: 0 };
+        const meta = REQUIRED_LINK_META[linkType];
+        const label = meta?.label ?? linkType;
+        const policyRef = meta?.policy_ref ?? '';
+        let typeClass;
+        if (typeData.rate_percent >= 80) {
+          typeClass = 'score-good';
+        } else if (typeData.rate_percent >= 50) {
+          typeClass = 'score-moderate';
+        } else {
+          typeClass = 'score-poor';
+        }
+        return `<tr>
+          <td data-label="Link Type">${escapeHtml(label)}</td>
+          <td data-label="Policy">${escapeHtml(policyRef)}</td>
+          <td data-label="Domains with Link"><span class="${typeClass}">${typeData.domains_with_link} / ${domains_checked} (${typeData.rate_percent}%)</span></td>
+          <td data-label="Missing Domains">${(typeData.missing_domains ?? []).map((d) => escapeHtml(d)).join(', ') || '&#10003; All found'}</td>
+        </tr>`;
+      })
+      .join('\n');
+
+    return `
+    <h3 id="required-links-heading">Required Federal Links (M-17-06)${renderAnchorLink('required-links-heading', 'Required Federal Links')}</h3>
+    <p>OMB Memorandum <a href="https://obamawhitehouse.archives.gov/sites/default/files/omb/memoranda/2017/m-17-06.pdf" target="_blank" rel="noreferrer">M-17-06</a> and the <a href="https://www.congress.gov/bill/115th-congress/house-bill/5759/text" target="_blank" rel="noreferrer">21st Century IDEA Act</a> require federal agency public websites to provide links to a Privacy Policy, Contact page, and FOIA page. These were among the compliance criteria benchmarked by the performance.gov federal website performance initiative (no longer active, but the underlying requirements remain in force).</p>
+    <p><strong class="${overallClass}">${fully_compliant_domains} of ${domains_checked} domain${domains_checked !== 1 ? 's' : ''} (${fully_compliant_rate_percent}%)</strong> have all three required link types detectable at standard URL paths.</p>
+    ${wrapTable(`<table>
+      <caption>Required federal link detection results for ${domains_checked} checked domain${domains_checked !== 1 ? 's' : ''}</caption>
+      <thead><tr>
+        <th scope="col">Link Type</th>
+        <th scope="col">Policy</th>
+        <th scope="col">Domains with Link</th>
+        <th scope="col">Missing Domains</th>
+      </tr></thead>
+      <tbody>${typeRows}</tbody>
+    </table>`)}`;
+  })();
+
   return `
   <section aria-labelledby="tech-summary-heading">
     <h2 id="tech-summary-heading">Detected Technologies${renderAnchorLink('tech-summary-heading', 'Detected Technologies')}</h2>
@@ -2076,6 +2137,7 @@ function renderTechSummarySection(report) {
     ${uswdsVersionList}
     ${thirdPartySection}
     ${accessibilityStatementSection}
+    ${requiredLinksSection}
   </section>`;
 }
 

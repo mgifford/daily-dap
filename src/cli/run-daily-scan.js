@@ -24,6 +24,7 @@ import { writeCommittedSnapshot } from '../publish/archive-writer.js';
 import { buildArtifactManifest } from '../publish/artifact-manifest.js';
 import { buildFailureReport, writeFailureSnapshot } from '../publish/failure-report.js';
 import { checkAccessibilityStatements } from '../scanners/accessibility-statement-checker.js';
+import { checkRequiredLinks } from '../scanners/required-links-checker.js';
 
 function parseArgs(argv) {
   const args = {
@@ -348,6 +349,28 @@ function mockAccessibilityStatementCheck(baseUrl) {
   });
 }
 
+/**
+ * Mock runner for required links checks used when scan-mode is "mock".
+ * Deterministically assigns link presence based on baseUrl + linkType hash
+ * so that the same URL always produces the same result across the mock URL list.
+ *
+ * @param {string} baseUrl
+ * @param {string} linkType
+ * @returns {Promise<{ found: boolean, url: string|null }>}
+ */
+function mockRequiredLinkCheck(baseUrl, linkType) {
+  let sum = 0;
+  for (const char of baseUrl + linkType) {
+    sum += char.charCodeAt(0);
+  }
+  const found = sum % 4 !== 0;
+  const pathMap = { privacy: '/privacy', contact: '/contact', foia: '/foia' };
+  return Promise.resolve({
+    found,
+    url: found ? `${baseUrl}${pathMap[linkType] ?? '/'}` : null
+  });
+}
+
 async function loadHistoryRecords(repoRoot, lookbackDays) {
   const historyPath = path.join(repoRoot, 'docs', 'reports', 'history.json');
   let historyPayload;
@@ -562,6 +585,22 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
     logStageComplete('ACCESSIBILITY_STATEMENTS');
 
+    logStageStart('REQUIRED_LINKS');
+
+    const requiredLinksRunner =
+      args.scanMode === 'mock'
+        ? { runImpl: mockRequiredLinkCheck }
+        : {};
+    const requiredLinks = await checkRequiredLinks(
+      scanExecution.results,
+      requiredLinksRunner
+    );
+    logProgress('REQUIRED_LINKS', 'Required federal links checks complete', {
+      domainsChecked: Object.keys(requiredLinks).length
+    });
+
+    logStageComplete('REQUIRED_LINKS');
+
     logStageStart('HISTORY_LOADING', { 
       lookbackDays: runtimeConfig.scan.history_lookback_days 
     });
@@ -596,7 +635,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       urlResults: scanExecution.results,
       performanceImpact,
       dotgovLookup,
-      accessibilityStatements
+      accessibilityStatements,
+      requiredLinks
     });
 
     report.slow_risk_summary = slowRisk.summary;
