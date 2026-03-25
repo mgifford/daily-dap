@@ -124,8 +124,11 @@ test('checkAccessibilityStatements deduplicates domains', async () => {
     }
   });
   assert.equal(checked.length, 2, 'Should check each unique hostname once');
-  assert.ok(checked.includes('https://example.gov'));
-  assert.ok(checked.includes('https://other.gov'));
+  assert.deepEqual(
+    checked.slice().sort(),
+    ['https://example.gov', 'https://other.gov'].sort(),
+    'Should check exactly the two unique domains'
+  );
 });
 
 test('checkAccessibilityStatements returns results keyed by hostname', async () => {
