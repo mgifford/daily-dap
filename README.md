@@ -106,6 +106,7 @@ node src/cli/run-daily-scan.js --dry-run --limit 10
 
 - [ACCESSIBILITY.md](./ACCESSIBILITY.md) - Accessibility commitment, best practices, and guidelines
 - [AGENTS.md](./AGENTS.md) - AI agent instructions and project-specific rules
+- [FEATURES.md](./FEATURES.md) - Comprehensive technical feature catalog and international adaptation guide
 
 ## AI Disclosure
 
@@ -119,6 +120,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.5 | Code review, documentation updates, and incremental feature implementation via GitHub Copilot coding agent; added NN/g usability heuristics alignment feature |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added Call to Action section to daily reports with Section 508 links, Open Scans promotion, tool recommendations, USWDS adoption, and disability hiring messaging |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added domain-to-organization enrichment: fetches CISA .gov registry (cisagov/dotgov-data) at scan time and displays the owning agency name below each URL in the top-URLs table |
+| Claude (Anthropic) | claude-sonnet-4-5 | Created FEATURES.md: comprehensive technical feature catalog covering all modules, CLI options, workflows, data files, and international adaptation guide |
 
 ### Runtime operation
 
