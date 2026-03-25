@@ -2,6 +2,7 @@ import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-
 import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
 import { getPolicyNarrative, getHeuristicsForAxeRule } from '../data/axe-impact-loader.js';
 import { NNG_HEURISTICS } from '../data/nng-heuristics.js';
+import { getThirdPartyServiceMeta } from '../scanners/tech-detector.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
 const DASHBOARD_URL = 'https://mgifford.github.io/daily-dap/docs/reports/index.html';
@@ -848,12 +849,25 @@ function renderSharedStyles() {
     }
     .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
     .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    .tech-badge-3p    { background-color: hsl(0 0% 88%);    color: hsl(0 0% 25%); }
     :root:not([data-color-scheme="light"]) .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
     :root:not([data-color-scheme="light"]) .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-3p    { background-color: hsl(0 0% 25%);    color: hsl(0 0% 85%); }
     html[data-color-scheme="dark"] .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
     html[data-color-scheme="dark"] .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-3p    { background-color: hsl(0 0% 25%);    color: hsl(0 0% 85%); }
     html[data-color-scheme="light"] .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
     html[data-color-scheme="light"] .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    html[data-color-scheme="light"] .tech-badge-3p    { background-color: hsl(0 0% 88%);    color: hsl(0 0% 25%); }
+    /* Privacy-concern indicator inside third-party service table */
+    .privacy-concern {
+      font-size: 0.75em;
+      font-weight: 600;
+      color: hsl(30 80% 35%);
+    }
+    :root:not([data-color-scheme="light"]) .privacy-concern { color: hsl(30 80% 70%); }
+    html[data-color-scheme="dark"]         .privacy-concern { color: hsl(30 80% 70%); }
+    html[data-color-scheme="light"]        .privacy-concern { color: hsl(30 80% 35%); }
 
     /* ---------- URL cells ---------- */
     .url-cell {
@@ -1865,6 +1879,7 @@ function renderTechUrlTooltip(visibleText, urls, ariaLabel, preEscaped = false) 
 /**
  * Render small inline technology badges for a single URL row.
  * Shows CMS name and/or USWDS version if detected.
+ * Shows a count badge for third-party services if any are detected.
  *
  * @param {object|null} tech - detected_technologies object
  * @returns {string} HTML string
@@ -1885,6 +1900,13 @@ function renderTechBadges(tech) {
     parts.push(`<span class="tech-badge tech-badge-uswds" title="U.S. Web Design System${tech.uswds.version ? ` v${escapeHtml(tech.uswds.version)}` : ''}">${label}</span>`);
   }
 
+  const services = tech.third_party_services ?? [];
+  if (services.length > 0) {
+    const serviceList = services.map(escapeHtml).join(', ');
+    const label = `${services.length} 3rd-party`;
+    parts.push(`<span class="tech-badge tech-badge-3p" title="Third-party services: ${serviceList}">${label}</span>`);
+  }
+
   return parts.join(' ');
 }
 
@@ -1900,10 +1922,20 @@ function renderTechSummarySection(report) {
     return '';
   }
 
-  const { cms_counts = {}, cms_urls = {}, uswds_count = 0, uswds_versions = [], uswds_version_urls = {}, total_scanned = 0 } = summary;
+  const {
+    cms_counts = {},
+    cms_urls = {},
+    uswds_count = 0,
+    uswds_versions = [],
+    uswds_version_urls = {},
+    total_scanned = 0,
+    third_party_service_counts = {},
+    third_party_service_urls = {}
+  } = summary;
   const cmsEntries = Object.entries(cms_counts).sort((a, b) => b[1] - a[1]);
+  const thirdPartyEntries = Object.entries(third_party_service_counts).sort((a, b) => b[1] - a[1]);
 
-  if (cmsEntries.length === 0 && uswds_count === 0) {
+  if (cmsEntries.length === 0 && uswds_count === 0 && thirdPartyEntries.length === 0) {
     return '';
   }
 
@@ -1924,6 +1956,49 @@ function renderTechSummarySection(report) {
         }).join(', ')}. The latest release is available at <a href="https://github.com/uswds/uswds/releases" target="_blank" rel="noreferrer">github.com/uswds/uswds/releases</a>.</p>`
       : '';
 
+  const thirdPartySection = thirdPartyEntries.length > 0
+    ? (() => {
+        const rows = thirdPartyEntries
+          .map(([name, count]) => {
+            const meta = getThirdPartyServiceMeta(name);
+            const category = meta ? escapeHtml(meta.category) : '';
+            const urls = third_party_service_urls[name] ?? [];
+            const countCell = renderTechUrlTooltip(String(count), urls, `${count} URL${count !== 1 ? 's' : ''} using ${name}`);
+            const shareCell = `${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%`;
+            const privacyCell = meta?.privacy_concern
+              ? `<span class="privacy-concern"><span aria-hidden="true">&#9888;</span> tracking</span>`
+              : '';
+            return `<tr>
+              <td data-label="Service">${escapeHtml(name)}</td>
+              <td data-label="Category">${category}</td>
+              <td data-label="URLs">${countCell}</td>
+              <td data-label="Share">${shareCell}</td>
+              <td data-label="Privacy">${privacyCell}</td>
+            </tr>`;
+          })
+          .join('\n');
+        const trackingCount = thirdPartyEntries.filter(([name]) => getThirdPartyServiceMeta(name)?.privacy_concern).length;
+        const trackingNote = trackingCount > 0
+          ? `<p><strong>${trackingCount}</strong> service${trackingCount !== 1 ? 's' : ''} marked <span class="privacy-concern"><span aria-hidden="true">&#9888;</span> tracking</span> send user data to third-party servers and may have privacy implications for site visitors.</p>`
+          : '';
+        return `
+    <h3 id="third-party-js-heading">Third-Party JavaScript Services${renderAnchorLink('third-party-js-heading', 'Third-Party JavaScript Services')}</h3>
+    <p>Third-party scripts detected from network requests loaded by scanned pages. These services may affect page performance, user privacy, and security posture.</p>
+    ${trackingNote}
+    ${wrapTable(`<table>
+      <caption>Third-party services detected across ${total_scanned} successfully scanned URLs</caption>
+      <thead><tr>
+        <th scope="col">Service</th>
+        <th scope="col">Category</th>
+        <th scope="col">URLs</th>
+        <th scope="col">Share</th>
+        <th scope="col">Privacy</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`)}`;
+      })()
+    : '';
+
   return `
   <section aria-labelledby="tech-summary-heading">
     <h2 id="tech-summary-heading">Detected Technologies${renderAnchorLink('tech-summary-heading', 'Detected Technologies')}</h2>
@@ -1935,6 +2010,7 @@ function renderTechSummarySection(report) {
     </table>`) : ''}
     <p>USWDS detected on <strong>${uswds_count}</strong> of <strong>${total_scanned}</strong> scanned URL${total_scanned !== 1 ? 's' : ''}${total_scanned > 0 ? ` (${Math.round((uswds_count / total_scanned) * 100)}%)` : ''}.</p>
     ${uswdsVersionList}
+    ${thirdPartySection}
   </section>`;
 }
 
