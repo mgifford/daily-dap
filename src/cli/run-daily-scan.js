@@ -23,6 +23,7 @@ import { buildHistoryIndex } from '../publish/build-history-index.js';
 import { writeCommittedSnapshot } from '../publish/archive-writer.js';
 import { buildArtifactManifest } from '../publish/artifact-manifest.js';
 import { buildFailureReport, writeFailureSnapshot } from '../publish/failure-report.js';
+import { checkAccessibilityStatements } from '../scanners/accessibility-statement-checker.js';
 
 function parseArgs(argv) {
   const args = {
@@ -326,6 +327,27 @@ function createLiveScannerRunners() {
   };
 }
 
+/**
+ * Deterministic mock for accessibility statement checks.
+ * Approximately two-thirds of domains are assigned a statement based on a
+ * character-sum hash so results are stable across multiple runs of the same
+ * URL list.
+ *
+ * @param {string} baseUrl
+ * @returns {Promise<{ has_statement: boolean, statement_url: string|null }>}
+ */
+function mockAccessibilityStatementCheck(baseUrl) {
+  let sum = 0;
+  for (const char of baseUrl) {
+    sum += char.charCodeAt(0);
+  }
+  const hasStatement = sum % 3 !== 0;
+  return Promise.resolve({
+    has_statement: hasStatement,
+    statement_url: hasStatement ? `${baseUrl}/accessibility` : null
+  });
+}
+
 async function loadHistoryRecords(repoRoot, lookbackDays) {
   const historyPath = path.join(repoRoot, 'docs', 'reports', 'history.json');
   let historyPayload;
@@ -524,6 +546,22 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
     logStageComplete('AGGREGATION');
 
+    logStageStart('ACCESSIBILITY_STATEMENTS');
+
+    const accessibilityStatementRunner =
+      args.scanMode === 'mock'
+        ? { runImpl: mockAccessibilityStatementCheck }
+        : {};
+    const accessibilityStatements = await checkAccessibilityStatements(
+      scanExecution.results,
+      accessibilityStatementRunner
+    );
+    logProgress('ACCESSIBILITY_STATEMENTS', 'Accessibility statement checks complete', {
+      domainsChecked: Object.keys(accessibilityStatements).length
+    });
+
+    logStageComplete('ACCESSIBILITY_STATEMENTS');
+
     logStageStart('HISTORY_LOADING', { 
       lookbackDays: runtimeConfig.scan.history_lookback_days 
     });
@@ -557,7 +595,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       historyWindow,
       urlResults: scanExecution.results,
       performanceImpact,
-      dotgovLookup
+      dotgovLookup,
+      accessibilityStatements
     });
 
     report.slow_risk_summary = slowRisk.summary;

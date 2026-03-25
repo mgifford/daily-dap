@@ -1,4 +1,5 @@
 import { buildTechSummary } from '../scanners/tech-detector.js';
+import { buildAccessibilityStatementSummary } from '../scanners/accessibility-statement-checker.js';
 import { lookupDomain, hostnameFromUrl } from '../data/dotgov-lookup.js';
 
 function coerceScore(value) {
@@ -52,7 +53,8 @@ export function buildDailyReport({
   historyWindow,
   urlResults = [],
   performanceImpact = null,
-  dotgovLookup = null
+  dotgovLookup = null,
+  accessibilityStatements = null
 }) {
   const succeeded = urlResults.filter((result) => result?.scan_status === 'success').length;
   const failed = urlResults.filter((result) => result?.scan_status === 'failed').length;
@@ -77,6 +79,9 @@ export function buildDailyReport({
 
   const topUrls = normalizeTopUrls(urlResults, dotgovLookup);
   const techSummary = buildTechSummary(urlResults);
+  techSummary.accessibility_statement_summary = buildAccessibilityStatementSummary(
+    accessibilityStatements ?? {}
+  );
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;

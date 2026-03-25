@@ -1930,12 +1930,18 @@ function renderTechSummarySection(report) {
     uswds_version_urls = {},
     total_scanned = 0,
     third_party_service_counts = {},
-    third_party_service_urls = {}
+    third_party_service_urls = {},
+    accessibility_statement_summary = null
   } = summary;
   const cmsEntries = Object.entries(cms_counts).sort((a, b) => b[1] - a[1]);
   const thirdPartyEntries = Object.entries(third_party_service_counts).sort((a, b) => b[1] - a[1]);
 
-  if (cmsEntries.length === 0 && uswds_count === 0 && thirdPartyEntries.length === 0) {
+  if (
+    cmsEntries.length === 0 &&
+    uswds_count === 0 &&
+    thirdPartyEntries.length === 0 &&
+    !accessibility_statement_summary
+  ) {
     return '';
   }
 
@@ -1999,6 +2005,64 @@ function renderTechSummarySection(report) {
       })()
     : '';
 
+  const accessibilityStatementSection = (() => {
+    const as = accessibility_statement_summary;
+    if (!as || as.domains_checked === 0) {
+      return '';
+    }
+
+    const { domains_checked, domains_with_statement, statement_rate_percent } = as;
+    const withoutStatement = as.domains_without_statement ?? [];
+    const statementUrls = as.statement_urls ?? [];
+
+    let statusClass;
+    if (statement_rate_percent >= 80) {
+      statusClass = 'score-good';
+    } else if (statement_rate_percent >= 50) {
+      statusClass = 'score-moderate';
+    } else {
+      statusClass = 'score-poor';
+    }
+
+    const statementUrlRows = statementUrls
+      .map((url) => {
+        let hostname;
+        try {
+          hostname = new URL(url).hostname;
+        } catch {
+          hostname = url;
+        }
+        return `<tr>
+          <td data-label="Domain">${escapeHtml(hostname)}</td>
+          <td data-label="Status"><span class="score-good">&#10003; Found</span></td>
+          <td data-label="Statement URL"><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(url)}</a></td>
+        </tr>`;
+      })
+      .join('\n');
+
+    const missingRows = withoutStatement
+      .map((hostname) => `<tr>
+          <td data-label="Domain">${escapeHtml(hostname)}</td>
+          <td data-label="Status"><span class="score-poor">&#10007; Not found</span></td>
+          <td data-label="Statement URL"></td>
+        </tr>`)
+      .join('\n');
+
+    return `
+    <h3 id="accessibility-statements-heading">Accessibility Statements (M-24-08)${renderAnchorLink('accessibility-statements-heading', 'Accessibility Statements')}</h3>
+    <p>OMB Memorandum <a href="https://www.whitehouse.gov/wp-content/uploads/2023/12/M-24-08-Strengthening-Digital-Accessibility-and-the-Management-of-Section-508-of-the-Rehabilitation-Act.pdf" target="_blank" rel="noreferrer">M-24-08</a> requires each federal agency to publish a digital accessibility statement that includes contact information for accessibility issues, known limitations, and a link to the agency Section 508 program page.</p>
+    <p><strong class="${statusClass}">${domains_with_statement} of ${domains_checked} domain${domains_checked !== 1 ? 's' : ''} (${statement_rate_percent}%)</strong> checked have a detectable accessibility statement at a standard URL path.</p>
+    ${wrapTable(`<table>
+      <caption>Accessibility statement detection results for ${domains_checked} checked domain${domains_checked !== 1 ? 's' : ''}</caption>
+      <thead><tr>
+        <th scope="col">Domain</th>
+        <th scope="col">Status</th>
+        <th scope="col">Statement URL</th>
+      </tr></thead>
+      <tbody>${statementUrlRows}${missingRows}</tbody>
+    </table>`)}`;
+  })();
+
   return `
   <section aria-labelledby="tech-summary-heading">
     <h2 id="tech-summary-heading">Detected Technologies${renderAnchorLink('tech-summary-heading', 'Detected Technologies')}</h2>
@@ -2011,6 +2075,7 @@ function renderTechSummarySection(report) {
     <p>USWDS detected on <strong>${uswds_count}</strong> of <strong>${total_scanned}</strong> scanned URL${total_scanned !== 1 ? 's' : ''}${total_scanned > 0 ? ` (${Math.round((uswds_count / total_scanned) * 100)}%)` : ''}.</p>
     ${uswdsVersionList}
     ${thirdPartySection}
+    ${accessibilityStatementSection}
   </section>`;
 }
 
