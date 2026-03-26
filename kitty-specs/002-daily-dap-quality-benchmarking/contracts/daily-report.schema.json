@@ -111,6 +111,41 @@
         },
         "additionalProperties": false
       }
+    },
+    "code_quality_summary": {
+      "description": "Aggregated Lighthouse best-practices / code quality audit results across all successfully scanned URLs.",
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": [
+            "total_scanned",
+            "urls_with_deprecated_apis",
+            "urls_with_console_errors",
+            "urls_with_document_write",
+            "urls_with_vulnerable_libraries"
+          ],
+          "properties": {
+            "total_scanned": { "type": "integer", "minimum": 0 },
+            "urls_with_deprecated_apis": { "type": "integer", "minimum": 0 },
+            "urls_with_console_errors": { "type": "integer", "minimum": 0 },
+            "urls_with_document_write": { "type": "integer", "minimum": 0 },
+            "urls_with_vulnerable_libraries": { "type": "integer", "minimum": 0 },
+            "js_library_counts": { "type": "object" },
+            "vulnerable_library_counts": { "type": "object" },
+            "audit_urls": {
+              "type": "object",
+              "properties": {
+                "deprecated_apis": { "type": "array", "items": { "type": "string" } },
+                "console_errors": { "type": "array", "items": { "type": "string" } },
+                "document_write": { "type": "array", "items": { "type": "string" } },
+                "vulnerable_libraries": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
     }
   },
   "additionalProperties": true

@@ -37,6 +37,7 @@ export function normalizeUrlScanResult({
     lcp_value_ms: lighthouseResult?.lcp_value_ms ?? null,
     total_byte_weight: lighthouseResult?.total_byte_weight ?? null,
     detected_technologies: lighthouseResult?.detected_technologies ?? null,
+    code_quality_audits: lighthouseResult?.code_quality_audits ?? null,
     accessibility_findings: normalizeFindings(urlRecord.url, scanGovResult?.accessibility_findings),
     axe_findings: extractAxeFindings(lighthouseResult?.raw),
     scan_diagnostics: {
