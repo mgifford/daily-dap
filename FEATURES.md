@@ -297,6 +297,45 @@ Builds per-run diagnostic summaries including error breakdown and scan statistic
 Classifies failure reasons into a catalog of known types (timeout, malformed output,
 execution error, etc.) to support structured failure reporting.
 
+### `src/scanners/accessibility-statement-checker.js`
+
+Detects whether federal websites publish digital accessibility statements as required
+by OMB Memorandum M-24-08. Probes standard URL paths (e.g., `/accessibility`,
+`/section-508`) using HEAD requests.
+
+**Summary Fields:**
+- `domains_checked` - Total unique domains probed
+- `domains_with_statement` - Domains with a detectable statement
+- `statement_rate_percent` - Compliance rate
+- `domains_without_statement[]` - Sorted list of non-compliant domains
+- `statement_urls[]` - Sorted list of found statement URLs
+
+### `src/scanners/required-links-checker.js`
+
+Detects whether federal websites provide the federally-required page links mandated
+by OMB Memorandum M-17-06 "Policies for Federal Agency Public Websites and Digital
+Services" and reinforced by the 21st Century Integrated Digital Experience Act (IDEA).
+
+Checks three link types per domain using HEAD requests against standard URL paths:
+
+| Link Type | Paths Checked | Policy Basis |
+|-----------|--------------|--------------|
+| Privacy Policy | `/privacy`, `/privacy-policy`, `/privacy.html`, ... | OMB M-03-22 / M-17-06 |
+| Contact Page | `/contact`, `/contact-us`, `/contact.html`, ... | OMB M-17-06 |
+| FOIA Page | `/foia`, `/freedom-of-information`, `/foia.html`, ... | 5 U.S.C. 552 |
+
+These compliance checks extend what was tracked by the performance.gov website
+performance initiative (`/cx/websiteperformance/`), which was a federal CX effort
+that benchmarked required-links adoption across high-traffic federal websites.
+That initiative is no longer actively maintained but its compliance criteria remain
+required by the underlying statutes and OMB policy cited above.
+
+**Summary Fields (`required_links_summary`):**
+- `domains_checked` - Total unique domains checked
+- `fully_compliant_domains` - Domains with all three link types present
+- `fully_compliant_rate_percent` - Overall compliance rate
+- `by_type.{privacy|contact|foia}` - Per-link-type breakdown with rate, missing domains, and found URLs
+
 ---
 
 ## 5. Aggregation & Metrics
