@@ -1808,8 +1808,8 @@ test('link-in-text-block: light mode link color uses high-contrast value', () =>
   const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
 
   assert.ok(
-    html.includes('--color-link: #0050b3'),
-    'Light mode link color must be #0050b3 which has sufficient contrast (>4.5:1) against the light page background'
+    html.includes('--color-link: #1A4480'),
+    'Light mode link color must be #1A4480 (CivicActions Secondary Blue, contrast ~9.8:1 against white) which has sufficient contrast (>4.5:1) against the light page background'
   );
 });
 
@@ -1828,7 +1828,7 @@ test('link-in-text-block: dark mode link color uses high-contrast value', () => 
 // Root cause: the legacy GitHub Pages Jekyll Minima theme applied color: #797979
 // to all text including <strong> elements, with background #f1f1f1.
 // Fix: (a) .nojekyll disables Jekyll so no theme CSS is injected; (b) our inline
-// CSS sets body { color: var(--color-text) } with --color-text: #1b1b1b (~17:1 on
+// CSS sets body { color: var(--color-text) } with --color-text: #171717 (~18:1 on
 // light backgrounds); (c) strong, b { color: inherit } prevents any injected
 // theme rule from overriding the inherited high-contrast color.
 
@@ -1836,8 +1836,8 @@ test('color-contrast: dashboard page light-mode --color-text is high-contrast da
   const html = renderDashboardPage({ latestReport: null, historyIndex: [] });
 
   assert.ok(
-    html.includes('--color-text: #1b1b1b'),
-    'Light mode --color-text must be #1b1b1b (contrast >4.5:1 against all light backgrounds) to prevent regression to low-contrast Minima theme #797979'
+    html.includes('--color-text: #171717'),
+    'Light mode --color-text must be #171717 (CivicActions Gray-90, contrast >4.5:1 against all light backgrounds) to prevent regression to low-contrast Minima theme #797979'
   );
 });
 
@@ -1850,8 +1850,8 @@ test('color-contrast: daily report page light-mode --color-text is high-contrast
   });
 
   assert.ok(
-    html.includes('--color-text: #1b1b1b'),
-    'Daily report page light mode --color-text must be #1b1b1b to prevent low-contrast strong element regression'
+    html.includes('--color-text: #171717'),
+    'Daily report page light mode --color-text must be #171717 to prevent low-contrast strong element regression'
   );
 });
 
@@ -1859,8 +1859,8 @@ test('color-contrast: 404 page light-mode --color-text is high-contrast dark val
   const html = render404Page();
 
   assert.ok(
-    html.includes('--color-text: #1b1b1b'),
-    '404 page light mode --color-text must be #1b1b1b to prevent low-contrast strong element regression'
+    html.includes('--color-text: #171717'),
+    '404 page light mode --color-text must be #171717 to prevent low-contrast strong element regression'
   );
 });
 

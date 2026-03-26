@@ -124,6 +124,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4-5 | Created FEATURES.md: comprehensive technical feature catalog covering all modules, CLI options, workflows, data files, and international adaptation guide |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added required federal links checker (OMB M-17-06): detects Privacy Policy, Contact, and FOIA pages, inspired by the performance.gov website performance initiative |
 | Claude (Anthropic) | claude-sonnet-4.6 | Created STYLES.md: design and content standards aligned with CivicActions brand, colors, typography, and style guide conventions; added STYLES.md link to README documentation section |
+| Claude (Anthropic) | claude-sonnet-4.6 | CivicActions brand alignment: updated CSS color tokens (primary red #D83933, dark blue #162E51, secondary blue #1A4480), font stack (Public Sans), footer attribution, and tests in render-pages.js and index.html |
 
 ### Runtime operation
 
