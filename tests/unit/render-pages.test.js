@@ -3170,7 +3170,7 @@ test('renderCodeQualityPage renders per-URL table with code quality badges', () 
     ]
   });
   const html = renderCodeQualityPage(report);
-  assert.ok(html.includes('https://www.example.gov'), 'Should include URL');
+  assert.ok(html.includes('href="https://www.example.gov"'), 'Should include URL as anchor href');
   assert.ok(html.includes('audit-fail'), 'Should show fail badge for deprecated APIs');
   assert.ok(html.includes('audit-pass'), 'Should show pass badge for console errors');
 });

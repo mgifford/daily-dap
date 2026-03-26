@@ -3016,10 +3016,10 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
  */
 function renderAuditBadge(passing) {
   if (passing === true) {
-    return '<span class="audit-pass" aria-label="Passing">&#10003;</span>';
+    return '<span class="audit-pass" aria-label="Audit passing">&#10003;</span>';
   }
   if (passing === false) {
-    return '<span class="audit-fail" aria-label="Failing">&#10007;</span>';
+    return '<span class="audit-fail" aria-label="Audit failing">&#10007;</span>';
   }
   return '<span class="audit-na" aria-label="Not available">&mdash;</span>';
 }
@@ -3054,22 +3054,22 @@ export function renderCodeQualityPage(report) {
   const summaryCards = [
     {
       label: 'Best Practices Score',
-      value: bestPracticesScore !== null ? String(bestPracticesScore) : '&mdash;',
+      value: bestPracticesScore !== null ? String(bestPracticesScore) : '<span aria-label="Not available">&mdash;</span>',
       note: 'Lighthouse aggregate (0&ndash;100)'
     },
     {
       label: 'Deprecated APIs',
-      value: totalScanned > 0 ? `${cq.urls_with_deprecated_apis ?? 0} / ${totalScanned}` : '&mdash;',
+      value: totalScanned > 0 ? `${cq.urls_with_deprecated_apis ?? 0} / ${totalScanned}` : '<span aria-label="Not available">&mdash;</span>',
       note: `${pct(cq.urls_with_deprecated_apis ?? 0)}% of scanned URLs`
     },
     {
       label: 'Console Errors',
-      value: totalScanned > 0 ? `${cq.urls_with_console_errors ?? 0} / ${totalScanned}` : '&mdash;',
+      value: totalScanned > 0 ? `${cq.urls_with_console_errors ?? 0} / ${totalScanned}` : '<span aria-label="Not available">&mdash;</span>',
       note: `${pct(cq.urls_with_console_errors ?? 0)}% of scanned URLs`
     },
     {
       label: 'Vulnerable Libraries',
-      value: totalScanned > 0 ? `${cq.urls_with_vulnerable_libraries ?? 0} / ${totalScanned}` : '&mdash;',
+      value: totalScanned > 0 ? `${cq.urls_with_vulnerable_libraries ?? 0} / ${totalScanned}` : '<span aria-label="Not available">&mdash;</span>',
       note: `${pct(cq.urls_with_vulnerable_libraries ?? 0)}% of scanned URLs`
     }
   ];
@@ -3129,11 +3129,11 @@ export function renderCodeQualityPage(report) {
       if (!cqs) {
         return `<tr>
           <td data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
-          <td data-label="Best Practices">${entry.lighthouse_scores ? entry.lighthouse_scores.best_practices : '&mdash;'}</td>
-          <td data-label="Deprecated APIs" class="audit-cell">&mdash;</td>
-          <td data-label="Console Errors" class="audit-cell">&mdash;</td>
-          <td data-label="document.write" class="audit-cell">&mdash;</td>
-          <td data-label="Vulnerable Libraries" class="audit-cell">&mdash;</td>
+          <td data-label="Best Practices">${entry.lighthouse_scores ? entry.lighthouse_scores.best_practices : '<span aria-label="Not available">&mdash;</span>'}</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span aria-label="Not available">&mdash;</span></td>
+          <td data-label="document.write" class="audit-cell"><span aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"></td>
         </tr>`;
       }
@@ -3143,7 +3143,7 @@ export function renderCodeQualityPage(report) {
           : '';
       return `<tr>
           <td data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
-          <td data-label="Best Practices">${entry.lighthouse_scores ? entry.lighthouse_scores.best_practices : '&mdash;'}</td>
+          <td data-label="Best Practices">${entry.lighthouse_scores ? entry.lighthouse_scores.best_practices : '<span aria-label="Not available">&mdash;</span>'}</td>
           <td data-label="Deprecated APIs" class="audit-cell">${renderAuditBadge(cqs.deprecated_apis_passing)}${cqs.deprecated_apis_count > 0 ? ` (${cqs.deprecated_apis_count})` : ''}</td>
           <td data-label="Console Errors" class="audit-cell">${renderAuditBadge(cqs.errors_in_console_passing)}${cqs.errors_in_console_count > 0 ? ` (${cqs.errors_in_console_count})` : ''}</td>
           <td data-label="document.write" class="audit-cell">${renderAuditBadge(cqs.no_document_write_passing)}</td>
