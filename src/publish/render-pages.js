@@ -121,56 +121,58 @@ function renderSharedStyles() {
   return `
   <style>
     /* ---------- Color tokens ---------- */
+    /* CivicActions brand palette. See STYLES.md section 3.1 for full token reference. */
     :root {
       color-scheme: light dark;
-      --color-bg: #f5f7fa;
+      --color-bg: #ffffff;
       --color-surface: #ffffff;
-      --color-text: #1b1b1b;
-      --color-text-muted: #555555;
-      --color-primary: #0050b3;
-      --color-primary-hover: #003d8a;
-      --color-link: #0050b3;
-      --color-link-hover: #003d8a;
-      --color-focus-ring: #ffbe2e;
+      --color-text: #171717;
+      --color-text-muted: #454545;
+      --color-primary: #D83933;
+      --color-primary-hover: #8B0A03;
+      --color-link: #1A4480;
+      --color-link-hover: #162E51;
+      --color-focus-ring: #D83933;
       --color-shadow: rgba(0, 0, 0, 0.06);
-      --color-header-bg: #0050b3;
+      --color-header-bg: #162E51;
       --color-header-text: #ffffff;
-      --color-header-nav: #d4e4ff;
-      --color-footer-bg: #1b1b2f;
-      --color-footer-text: #cccccc;
-      --color-footer-link: #a8c8ff;
-      --color-table-header-bg: #f0f3f8;
-      --color-table-border: #d0d7de;
-      --color-table-row-alt: #fafbfc;
-      --color-table-row-hover: #f0f5ff;
-      --color-table-row-monthly: #eef3fa;
-      --color-table-row-monthly-hover: #dde8f7;
-      --color-table-row-sep: #eef0f3;
-      --color-score-bg: #f0f5ff;
-      --color-score-border: #c6d9ff;
-      --color-score-value: #0050b3;
-      --color-score-label: #555555;
-      --color-code-bg: #eef0f3;
-      --color-modal-border: #cccccc;
+      --color-header-nav: #73B3E7;
+      --color-footer-bg: #162E51;
+      --color-footer-text: #d4e4f7;
+      --color-footer-link: #73B3E7;
+      --color-table-header-bg: #f0f0f0;
+      --color-table-border: #e6e6e6;
+      --color-table-row-alt: #fafafa;
+      --color-table-row-hover: #f0f0f0;
+      --color-table-row-monthly: #f5f5f5;
+      --color-table-row-monthly-hover: #e6e6e6;
+      --color-table-row-sep: #e6e6e6;
+      --color-score-bg: #f0f0f0;
+      --color-score-border: #e6e6e6;
+      --color-score-value: #D83933;
+      --color-score-label: #454545;
+      --color-code-bg: #f0f0f0;
+      --color-modal-border: #e6e6e6;
       --color-axe-item-bg: #fef9f9;
-      --color-axe-item-border: #d9534f;
+      --color-axe-item-border: #D83933;
       --color-axe-pre-bg: #f5f5f5;
-      --color-finding-border: #e0e0e0;
-      --color-wcag-text: #444444;
-      --color-badge-bg: #f0f3f8;
-      --color-badge-border: #c6d9ff;
-      --color-badge-text: #003d8a;
-      --color-badge-hover: #dde8f7;
-      --color-tooltip-bg: #1b1b2f;
-      --color-tooltip-text: #f0f3f8;
-      --color-tooltip-border: #555555;
-      --color-copy-btn-bg: #f0f3f8;
-      --color-copy-btn-border: #c6d9ff;
-      --color-copy-btn-text: #0050b3;
-      --color-copy-btn-hover: #dde8f7;
+      --color-finding-border: #e6e6e6;
+      --color-wcag-text: #454545;
+      --color-badge-bg: #f0f0f0;
+      --color-badge-border: #e6e6e6;
+      --color-badge-text: #1A4480;
+      --color-badge-hover: #e6e6e6;
+      --color-tooltip-bg: #162E51;
+      --color-tooltip-text: #f0f0f0;
+      --color-tooltip-border: #454545;
+      --color-copy-btn-bg: #f0f0f0;
+      --color-copy-btn-border: #e6e6e6;
+      --color-copy-btn-text: #1A4480;
+      --color-copy-btn-hover: #e6e6e6;
       --color-copied-bg: #d4edda;
       --color-copied-border: #28a745;
       --color-copied-text: #155724;
+      --color-warning: #FA9441;
     }
 
     /* ---------- Dark mode (system preference) ---------- */
@@ -322,7 +324,7 @@ function renderSharedStyles() {
     *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+      font-family: 'Public Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       font-size: 1rem;
       line-height: 1.6;
       color: var(--color-text);
@@ -791,10 +793,10 @@ function renderSharedStyles() {
       background: var(--color-score-bg);
     }
     .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
-    .compliance-card--legal { border-top: 4px solid #d4380d; }
-    .compliance-card--legal .compliance-icon { color: #d4380d; }
-    .compliance-card--best-practices { border-top: 4px solid #d4a017; }
-    .compliance-card--best-practices .compliance-icon { color: #d4a017; }
+    .compliance-card--legal { border-top: 4px solid var(--color-primary); }
+    .compliance-card--legal .compliance-icon { color: var(--color-primary); }
+    .compliance-card--best-practices { border-top: 4px solid var(--color-warning); }
+    .compliance-card--best-practices .compliance-icon { color: var(--color-warning); }
     .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
     .compliance-card li { margin-bottom: 0.25rem; }
     .compliance-card p { margin: 0.4rem 0; }
@@ -1024,8 +1026,8 @@ function renderSharedStyles() {
     /* ---------- Print / Save as PDF ---------- */
     .print-only { display: none; }
     .print-dashboard-notice {
-      background: #f0f4ff;
-      border: 1px solid #c0ccee;
+      background: #f0f0f0;
+      border: 1px solid #e6e6e6;
       border-radius: 4px;
       font-size: 0.9rem;
       padding: 0.6rem 1rem;
@@ -1208,7 +1210,7 @@ function renderSiteFooter() {
   return `
 <footer class="site-footer" role="contentinfo">
   <div class="site-footer-inner">
-    <p>Daily DAP &mdash; U.S. government website quality benchmarks powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
+    <p>Daily DAP &mdash; U.S. government website quality benchmarks powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>. A <a href="https://civicactions.com/" target="_blank" rel="noreferrer">CivicActions</a> project.</p>
     <p><a href="${GITHUB_URL}" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="${GITHUB_URL}/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
   </div>
 </footer>`;
