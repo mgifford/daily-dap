@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, buildFindingCopyText, plainTextDescription, buildUsabilityHeuristicsCounts } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, renderCodeQualityPage, buildFindingCopyText, plainTextDescription, buildUsabilityHeuristicsCounts } from '../../src/publish/render-pages.js';
 import { renderFailurePage } from '../../src/publish/failure-report.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
@@ -3069,4 +3069,125 @@ test('renderDailyReportPage buildAxePatternCounts deduplicates duplicate rule ID
     html.includes('<strong>3</strong>'),
     'Total findings count should be 3 (raw axe_findings including the duplicate)'
   );
+});
+
+function makeCodeQualityReport(overrides = {}) {
+  return {
+    run_date: '2026-03-26',
+    run_id: 'test-cq-run',
+    url_counts: { processed: 5, succeeded: 5, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 75, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 10, categories: [] },
+    history_series: [],
+    top_urls: [],
+    code_quality_summary: {
+      total_scanned: 5,
+      urls_with_deprecated_apis: 2,
+      urls_with_console_errors: 1,
+      urls_with_document_write: 0,
+      urls_with_vulnerable_libraries: 3,
+      js_library_counts: { jQuery: 4, Bootstrap: 2 },
+      vulnerable_library_counts: {
+        'jquery@1.9.1': { count: 2, severity: 'High' }
+      },
+      audit_urls: {
+        deprecated_apis: ['https://a.gov', 'https://b.gov'],
+        console_errors: ['https://a.gov'],
+        document_write: [],
+        vulnerable_libraries: ['https://a.gov', 'https://b.gov', 'https://c.gov']
+      }
+    },
+    generated_at: '2026-03-26T00:00:00.000Z',
+    report_status: 'success',
+    ...overrides
+  };
+}
+
+test('renderCodeQualityPage returns valid HTML document', () => {
+  const html = renderCodeQualityPage(makeCodeQualityReport());
+  assert.ok(html.startsWith('<!doctype html>'), 'Should start with doctype');
+  assert.ok(html.includes('<html lang="en">'), 'Should have lang attribute');
+  assert.ok(html.includes('</html>'), 'Should close html tag');
+});
+
+test('renderCodeQualityPage includes run date in title and heading', () => {
+  const html = renderCodeQualityPage(makeCodeQualityReport());
+  assert.ok(html.includes('2026-03-26'), 'Should include run date');
+  assert.ok(html.includes('HTML/CSS/JS Code Quality'), 'Should include page title');
+});
+
+test('renderCodeQualityPage shows best practices score in summary', () => {
+  const html = renderCodeQualityPage(makeCodeQualityReport());
+  assert.ok(html.includes('Best Practices Score'), 'Should include Best Practices Score label');
+  assert.ok(html.includes('>75<'), 'Should show best practices score value');
+});
+
+test('renderCodeQualityPage shows deprecated API count', () => {
+  const html = renderCodeQualityPage(makeCodeQualityReport());
+  assert.ok(html.includes('Deprecated APIs'), 'Should include Deprecated APIs section');
+  assert.ok(html.includes('2 / 5'), 'Should show count of URLs with deprecated APIs');
+});
+
+test('renderCodeQualityPage shows vulnerable library warning and table', () => {
+  const html = renderCodeQualityPage(makeCodeQualityReport());
+  assert.ok(html.includes('jquery@1.9.1'), 'Should include vulnerable library name');
+  assert.ok(html.includes('High'), 'Should include severity');
+});
+
+test('renderCodeQualityPage shows JS library inventory table', () => {
+  const html = renderCodeQualityPage(makeCodeQualityReport());
+  assert.ok(html.includes('jQuery'), 'Should include jQuery in library table');
+  assert.ok(html.includes('Bootstrap'), 'Should include Bootstrap in library table');
+});
+
+test('renderCodeQualityPage handles missing code_quality_summary gracefully', () => {
+  const report = makeCodeQualityReport({ code_quality_summary: null });
+  assert.doesNotThrow(() => renderCodeQualityPage(report), 'Should not throw when code_quality_summary is null');
+  const html = renderCodeQualityPage(report);
+  assert.ok(html.includes('HTML/CSS/JS Code Quality'), 'Should still render the page title');
+});
+
+test('renderCodeQualityPage renders per-URL table with code quality badges', () => {
+  const report = makeCodeQualityReport({
+    top_urls: [
+      {
+        url: 'https://www.example.gov',
+        page_load_count: 10000,
+        scan_status: 'success',
+        lighthouse_scores: { performance: 80, accessibility: 90, best_practices: 75, seo: 88, pwa: 0 },
+        code_quality_summary: {
+          deprecated_apis_passing: false,
+          deprecated_apis_count: 2,
+          errors_in_console_passing: true,
+          errors_in_console_count: 0,
+          no_document_write_passing: true,
+          vulnerable_libraries_passing: false,
+          vulnerable_libraries_count: 1,
+          vulnerable_library_names: ['jquery@1.9.1'],
+          js_libraries: ['jQuery']
+        }
+      }
+    ]
+  });
+  const html = renderCodeQualityPage(report);
+  assert.ok(html.includes('https://www.example.gov'), 'Should include URL');
+  assert.ok(html.includes('audit-fail'), 'Should show fail badge for deprecated APIs');
+  assert.ok(html.includes('audit-pass'), 'Should show pass badge for console errors');
+});
+
+test('renderDailyReportPage includes link to code quality page', () => {
+  const report = {
+    run_date: '2026-03-26',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [],
+    generated_at: '2026-03-26T00:00:00.000Z',
+    report_status: 'success'
+  };
+  const html = renderDailyReportPage(report);
+  assert.ok(html.includes('code-quality.html'), 'Should include link to code quality page');
+  assert.ok(html.includes('HTML/CSS/JS Code Quality'), 'Should have descriptive link text for code quality page');
 });

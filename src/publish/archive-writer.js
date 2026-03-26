@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { renderDailyReportPage, renderDashboardPage, render404Page } from './render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, render404Page, renderCodeQualityPage } from './render-pages.js';
 import { buildPressRelease } from '../cli/generate-press-release.js';
 
 async function writeJson(filePath, payload) {
@@ -132,6 +132,7 @@ export async function writeCommittedSnapshot({
   const notFoundPagePath = path.join(docsRoot, '404.html');
   const dailyReportPath = path.join(dailyDir, 'report.json');
   const dailyPagePath = path.join(dailyDir, 'index.html');
+  const codeQualityPagePath = path.join(dailyDir, 'code-quality.html');
   const axeFindingsPath = path.join(dailyDir, 'axe-findings.json');
   const axeFindingsCsvPath = path.join(dailyDir, 'axe-findings.csv');
   const lighthouseHistoryCsvPath = path.join(dailyDir, 'lighthouse-history.csv');
@@ -142,6 +143,7 @@ export async function writeCommittedSnapshot({
   await fs.writeFile(notFoundPagePath, render404Page(), 'utf8');
   await writeJson(dailyReportPath, report);
   await fs.writeFile(dailyPagePath, renderDailyReportPage(report), 'utf8');
+  await fs.writeFile(codeQualityPagePath, renderCodeQualityPage(report), 'utf8');
   const axeFindingsReport = buildAxeFindingsReport(report);
   await writeJson(axeFindingsPath, axeFindingsReport);
   await fs.writeFile(axeFindingsCsvPath, buildAxeFindingsCsv(axeFindingsReport), 'utf8');
@@ -164,6 +166,7 @@ export async function writeCommittedSnapshot({
     reports_root: reportsRoot,
     report_json_path: dailyReportPath,
     report_page_path: dailyPagePath,
+    code_quality_page_path: codeQualityPagePath,
     axe_findings_path: axeFindingsPath,
     axe_findings_csv_path: axeFindingsCsvPath,
     lighthouse_history_csv_path: lighthouseHistoryCsvPath,

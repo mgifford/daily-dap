@@ -156,12 +156,16 @@ test('snapshot writer and artifact manifest stay in sync', async () => {
   const axeFindingsCsvStat = await fs.stat(axeFindingsCsvPath);
   const lighthouseHistoryCsvStat = await fs.stat(lighthouseHistoryCsvPath);
 
+  const codeQualityPath = path.join(tempRoot, 'docs', 'reports', 'daily', report.run_date, 'code-quality.html');
+  const codeQualityStat = await fs.stat(codeQualityPath);
+
   assert.equal(reportStat.isFile(), true);
   assert.equal(historyStat.isFile(), true);
   assert.equal(dashboardStat.isFile(), true);
   assert.equal(axeFindingsStat.isFile(), true, 'axe-findings.json should be written');
   assert.equal(axeFindingsCsvStat.isFile(), true, 'axe-findings.csv should be written');
   assert.equal(lighthouseHistoryCsvStat.isFile(), true, 'lighthouse-history.csv should be written');
+  assert.equal(codeQualityStat.isFile(), true, 'code-quality.html should be written');
 
   const axeFindingsRaw = await fs.readFile(axeFindingsPath, 'utf8');
   const axeFindings = JSON.parse(axeFindingsRaw);

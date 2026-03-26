@@ -2710,6 +2710,7 @@ export function renderDailyReportPage(report) {
     <div class="page-intro">
       <h1 id="page-title">Daily DAP Accessibility Report &mdash; ${escapeHtml(report.run_date)}${renderAnchorLink('page-title', `Daily DAP Accessibility Report \u2014 ${report.run_date}`)}</h1>
       <p>Run ID: ${escapeHtml(report.run_id)} &middot; Status: ${escapeHtml(report.report_status)}<span class="print-hide"> &middot; Source data: ${escapeHtml(report.source_data_date ?? report.run_date)} &middot; Generated: ${formatTimestamp(report.generated_at)}</span></p>
+      <p><a href="code-quality.html">View HTML/CSS/JS Code Quality report for this date &rarr;</a></p>
     </div>
 
     ${renderDapContextSection()}
@@ -3000,6 +3001,248 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
       </ul>
     </section>
     ${archiveSection}
+  </main>
+
+  ${renderSiteFooter()}
+  ${renderThemeScript()}
+</body>
+</html>`;
+}
+
+/**
+ * Render a pass/fail indicator badge for a code quality audit result.
+ * @param {boolean|null} passing
+ * @returns {string}
+ */
+function renderAuditBadge(passing) {
+  if (passing === true) {
+    return '<span class="audit-pass" aria-label="Passing">&#10003;</span>';
+  }
+  if (passing === false) {
+    return '<span class="audit-fail" aria-label="Failing">&#10007;</span>';
+  }
+  return '<span class="audit-na" aria-label="Not available">&mdash;</span>';
+}
+
+/**
+ * Render the dedicated HTML/CSS/JS Code Quality report page.
+ *
+ * Surfaces best-practices Lighthouse audits that relate to browser compatibility
+ * and code hygiene:
+ *   - Deprecated browser APIs / CSS / JS
+ *   - JavaScript runtime errors
+ *   - document.write() usage
+ *   - Known-vulnerable JavaScript libraries
+ *   - Detected JavaScript library inventory
+ *
+ * @param {object} report - Full daily report object (as returned by buildDailyReport)
+ * @returns {string} Full HTML document
+ */
+export function renderCodeQualityPage(report) {
+  const cq = report.code_quality_summary ?? {};
+  const totalScanned = cq.total_scanned ?? 0;
+  const topUrls = report.top_urls ?? [];
+  const runDate = report.run_date ?? '';
+  const bestPracticesScore = report.aggregate_scores?.best_practices ?? null;
+
+  function pct(count) {
+    if (totalScanned === 0) return '0';
+    return Math.round((count / totalScanned) * 100);
+  }
+
+  // Summary cards for headline metrics
+  const summaryCards = [
+    {
+      label: 'Best Practices Score',
+      value: bestPracticesScore !== null ? String(bestPracticesScore) : '&mdash;',
+      note: 'Lighthouse aggregate (0&ndash;100)'
+    },
+    {
+      label: 'Deprecated APIs',
+      value: totalScanned > 0 ? `${cq.urls_with_deprecated_apis ?? 0} / ${totalScanned}` : '&mdash;',
+      note: `${pct(cq.urls_with_deprecated_apis ?? 0)}% of scanned URLs`
+    },
+    {
+      label: 'Console Errors',
+      value: totalScanned > 0 ? `${cq.urls_with_console_errors ?? 0} / ${totalScanned}` : '&mdash;',
+      note: `${pct(cq.urls_with_console_errors ?? 0)}% of scanned URLs`
+    },
+    {
+      label: 'Vulnerable Libraries',
+      value: totalScanned > 0 ? `${cq.urls_with_vulnerable_libraries ?? 0} / ${totalScanned}` : '&mdash;',
+      note: `${pct(cq.urls_with_vulnerable_libraries ?? 0)}% of scanned URLs`
+    }
+  ];
+
+  const scoreCards = summaryCards
+    .map(
+      (card) => `<div class="score-card">
+          <div class="score-label">${card.label}</div>
+          <div class="score-value">${card.value}</div>
+          <div class="score-note">${card.note}</div>
+        </div>`
+    )
+    .join('\n');
+
+  // JS library inventory table
+  const jsLibEntries = Object.entries(cq.js_library_counts ?? {}).sort((a, b) => b[1] - a[1]);
+  const jsLibRows = jsLibEntries
+    .map(
+      ([name, count]) =>
+        `<tr><td data-label="Library">${escapeHtml(name)}</td><td data-label="URLs">${count}</td><td data-label="Share">${totalScanned > 0 ? Math.round((count / totalScanned) * 100) : 0}%</td></tr>`
+    )
+    .join('\n');
+  const jsLibSection =
+    jsLibEntries.length > 0
+      ? wrapTable(`<table>
+        <caption>JavaScript libraries detected across ${totalScanned} successfully scanned URLs</caption>
+        <thead><tr><th scope="col">Library</th><th scope="col">URLs</th><th scope="col">Share</th></tr></thead>
+        <tbody>${jsLibRows}</tbody>
+      </table>`)
+      : '<p>No JavaScript libraries detected in this scan.</p>';
+
+  // Vulnerable library table
+  const vulnEntries = Object.entries(cq.vulnerable_library_counts ?? {}).sort(
+    (a, b) => b[1].count - a[1].count
+  );
+  const vulnRows = vulnEntries
+    .map(
+      ([library, info]) =>
+        `<tr><td data-label="Library">${escapeHtml(library)}</td><td data-label="Severity">${escapeHtml(info.severity ?? '')}</td><td data-label="URLs affected">${info.count}</td></tr>`
+    )
+    .join('\n');
+  const vulnSection =
+    vulnEntries.length > 0
+      ? `<p class="score-poor"><strong>Warning:</strong> The following libraries with known security vulnerabilities were detected. Upgrading these libraries improves both security and browser compatibility.</p>
+      ${wrapTable(`<table>
+        <caption>JavaScript libraries with known security vulnerabilities</caption>
+        <thead><tr><th scope="col">Library (name@version)</th><th scope="col">Severity</th><th scope="col">URLs affected</th></tr></thead>
+        <tbody>${vulnRows}</tbody>
+      </table>`)}`
+      : '<p>No libraries with known vulnerabilities were detected.</p>';
+
+  // Per-URL code quality table (top 100)
+  const urlRows = topUrls
+    .slice(0, 100)
+    .map((entry) => {
+      const cqs = entry.code_quality_summary;
+      if (!cqs) {
+        return `<tr>
+          <td data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+          <td data-label="Best Practices">${entry.lighthouse_scores ? entry.lighthouse_scores.best_practices : '&mdash;'}</td>
+          <td data-label="Deprecated APIs" class="audit-cell">&mdash;</td>
+          <td data-label="Console Errors" class="audit-cell">&mdash;</td>
+          <td data-label="document.write" class="audit-cell">&mdash;</td>
+          <td data-label="Vulnerable Libraries" class="audit-cell">&mdash;</td>
+          <td data-label="JS Libraries"></td>
+        </tr>`;
+      }
+      const libList =
+        cqs.js_libraries.length > 0
+          ? cqs.js_libraries.map((l) => `<span class="tech-badge">${escapeHtml(l)}</span>`).join(' ')
+          : '';
+      return `<tr>
+          <td data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+          <td data-label="Best Practices">${entry.lighthouse_scores ? entry.lighthouse_scores.best_practices : '&mdash;'}</td>
+          <td data-label="Deprecated APIs" class="audit-cell">${renderAuditBadge(cqs.deprecated_apis_passing)}${cqs.deprecated_apis_count > 0 ? ` (${cqs.deprecated_apis_count})` : ''}</td>
+          <td data-label="Console Errors" class="audit-cell">${renderAuditBadge(cqs.errors_in_console_passing)}${cqs.errors_in_console_count > 0 ? ` (${cqs.errors_in_console_count})` : ''}</td>
+          <td data-label="document.write" class="audit-cell">${renderAuditBadge(cqs.no_document_write_passing)}</td>
+          <td data-label="Vulnerable Libraries" class="audit-cell">${renderAuditBadge(cqs.vulnerable_libraries_passing)}${cqs.vulnerable_libraries_count > 0 ? ` (${cqs.vulnerable_libraries_count})` : ''}</td>
+          <td data-label="JS Libraries">${libList}</td>
+        </tr>`;
+    })
+    .join('\n');
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML/CSS/JS Code Quality - Daily DAP - ${escapeHtml(runDate)}</title>
+  <meta name="description" content="HTML, CSS, and JavaScript code quality audit results for the top U.S. government URLs on ${escapeHtml(runDate)}, including deprecated APIs, console errors, and vulnerable library detection." />
+  ${renderColorSchemeSetup()}
+  <style>
+    .audit-pass { color: var(--color-score-good, #2e7d32); font-weight: 700; }
+    .audit-fail { color: var(--color-score-poor, #c62828); font-weight: 700; }
+    .audit-na { color: var(--color-text-muted, #666); }
+    .audit-cell { text-align: center; white-space: nowrap; }
+    .score-note { font-size: 0.8rem; color: var(--color-text-muted, #666); margin-top: 0.25rem; }
+  </style>
+  ${renderSharedStyles()}
+</head>
+<body>
+  ${renderSiteHeader()}
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1 id="page-title">HTML/CSS/JS Code Quality &mdash; ${escapeHtml(runDate)}${renderAnchorLink('page-title', `HTML/CSS/JS Code Quality \u2014 ${runDate}`)}</h1>
+      <p>Run ID: ${escapeHtml(report.run_id ?? '')} &middot; Status: ${escapeHtml(report.report_status ?? '')} &middot; <a href="index.html">&larr; Back to full report</a></p>
+    </div>
+
+    <section aria-labelledby="cq-about-heading">
+      <h2 id="cq-about-heading">About Code Quality${renderAnchorLink('cq-about-heading', 'About Code Quality')}</h2>
+      <p>This page surfaces HTML, CSS, and JavaScript code quality signals from Google Lighthouse's <strong>Best Practices</strong> category. These audits help identify technical debt, browser compatibility risks, and security vulnerabilities across the most-visited U.S. government websites.</p>
+      <ul>
+        <li><strong>Deprecated APIs</strong> &mdash; Use of browser features (HTML/CSS/JS) that have been removed or scheduled for removal. These can break in current or future browsers and may indicate outdated code that relies on legacy browser behaviour.</li>
+        <li><strong>Console Errors</strong> &mdash; JavaScript runtime errors logged to the browser console during page load. These often indicate broken functionality or incompatible scripts.</li>
+        <li><strong>document.write</strong> &mdash; Use of the synchronous <code>document.write()</code> API. This API blocks HTML parsing, harms performance, and is blocked in certain browser contexts (e.g. HTTP/2 push, cross-origin scripts).</li>
+        <li><strong>Vulnerable Libraries</strong> &mdash; Front-end JavaScript libraries (e.g. jQuery, Bootstrap) with known <a href="https://nvd.nist.gov/" target="_blank" rel="noreferrer">CVE security vulnerabilities</a>. Outdated libraries are a common vector for web security issues.</li>
+        <li><strong>JS Library Inventory</strong> &mdash; All client-side JavaScript libraries detected. Useful for understanding browser compatibility requirements: libraries with wide browser support indicate polyfills may be in use; newer APIs without polyfills may exclude users on older browsers.</li>
+      </ul>
+      <p>All audits come from Lighthouse scanning ${totalScanned} successfully scanned URLs on ${escapeHtml(runDate)}.</p>
+    </section>
+
+    <section aria-labelledby="cq-summary-heading">
+      <h2 id="cq-summary-heading">Summary${renderAnchorLink('cq-summary-heading', 'Summary')}</h2>
+      <div class="score-grid">
+        ${scoreCards}
+      </div>
+    </section>
+
+    <section aria-labelledby="cq-libs-heading">
+      <h2 id="cq-libs-heading">Detected JavaScript Libraries${renderAnchorLink('cq-libs-heading', 'Detected JavaScript Libraries')}</h2>
+      <p>JavaScript libraries detected from network requests during Lighthouse scans. Library version data helps identify whether sites depend on libraries that require polyfills for older browsers, or conversely, rely on browser features that are not yet widely supported.</p>
+      ${jsLibSection}
+    </section>
+
+    <section aria-labelledby="cq-vuln-heading">
+      <h2 id="cq-vuln-heading">Vulnerable Libraries${renderAnchorLink('cq-vuln-heading', 'Vulnerable Libraries')}</h2>
+      <p>Libraries with known security vulnerabilities as reported by Lighthouse's <em>no-vulnerable-libraries</em> audit (powered by <a href="https://snyk.io/" target="_blank" rel="noreferrer">Snyk</a>). Upgrading these libraries reduces security risk and may also improve browser compatibility and access to modern APIs.</p>
+      ${vulnSection}
+    </section>
+
+    <section aria-labelledby="cq-urls-heading">
+      <h2 id="cq-urls-heading">Per-URL Code Quality Results${renderAnchorLink('cq-urls-heading', 'Per-URL Code Quality Results')}</h2>
+      <p>Code quality audit results for each scanned URL. Columns show the Lighthouse Best Practices score and pass &#10003; / fail &#10007; for each audit. Click any URL to open the live page.</p>
+      ${wrapTable(`<table id="cq-urls-table">
+        <caption>Code quality audit results for the top ${Math.min(topUrls.length, 100)} government URLs by traffic</caption>
+        <thead>
+          <tr>
+            <th scope="col">URL</th>
+            <th scope="col">Best Practices</th>
+            <th scope="col">Deprecated APIs</th>
+            <th scope="col">Console Errors</th>
+            <th scope="col">document.write</th>
+            <th scope="col">Vulnerable Libs</th>
+            <th scope="col">JS Libraries</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${urlRows}
+        </tbody>
+      </table>`)}
+    </section>
+
+    <section aria-labelledby="cq-compat-heading">
+      <h2 id="cq-compat-heading">Browser Compatibility Context${renderAnchorLink('cq-compat-heading', 'Browser Compatibility Context')}</h2>
+      <p>U.S. government websites should support the broadest possible range of users. This means:</p>
+      <ul>
+        <li><strong>Avoid too-new APIs</strong> without polyfills &mdash; features only available in recent browser versions exclude users on older hardware or enterprise environments with locked browser versions.</li>
+        <li><strong>Avoid too-old APIs</strong> &mdash; deprecated or removed browser features may fail silently or cause errors in modern browsers.</li>
+        <li><strong>Use polyfills strategically</strong> &mdash; polyfills allow use of modern features with graceful fallback for older browsers, but unused polyfills add unnecessary page weight. <a href="https://caniuse.com/" target="_blank" rel="noreferrer">Can I Use</a> provides browser support data to determine when a polyfill can be removed.</li>
+        <li><strong>Keep libraries updated</strong> &mdash; updated libraries often include browser compatibility improvements and security patches.</li>
+      </ul>
+      <p>The <strong>Deprecated APIs</strong> and <strong>Vulnerable Libraries</strong> audits above are the most actionable signals for improving browser compatibility and security on government websites.</p>
+    </section>
   </main>
 
   ${renderSiteFooter()}

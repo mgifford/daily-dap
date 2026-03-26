@@ -10,6 +10,93 @@ function coerceScore(value) {
   return 0;
 }
 
+/**
+ * Produce a compact per-URL code quality summary suitable for the top_urls array.
+ * Avoids embedding full audit item payloads to keep the report JSON size manageable.
+ *
+ * @param {object|null} audits - raw code_quality_audits from a URL scan result
+ * @returns {object|null}
+ */
+function summarizeCodeQualityAudits(audits) {
+  if (!audits) return null;
+  return {
+    deprecated_apis_passing: audits.deprecated_apis?.passing ?? null,
+    deprecated_apis_count: audits.deprecated_apis?.items?.length ?? 0,
+    errors_in_console_passing: audits.errors_in_console?.passing ?? null,
+    errors_in_console_count: audits.errors_in_console?.count ?? 0,
+    no_document_write_passing: audits.no_document_write?.passing ?? null,
+    vulnerable_libraries_passing: audits.vulnerable_libraries?.passing ?? null,
+    vulnerable_libraries_count: audits.vulnerable_libraries?.items?.length ?? 0,
+    vulnerable_library_names: (audits.vulnerable_libraries?.items ?? [])
+      .map((item) => item.library)
+      .filter(Boolean),
+    js_libraries: (audits.js_libraries?.items ?? []).map((l) => l.name).filter(Boolean)
+  };
+}
+
+/**
+ * Aggregate code quality audit results across all successfully scanned URLs.
+ *
+ * @param {Array} urlResults - normalized URL scan results
+ * @returns {object}
+ */
+export function buildCodeQualitySummary(urlResults = []) {
+  const successful = urlResults.filter(
+    (r) => r?.scan_status === 'success' && r.code_quality_audits != null
+  );
+
+  const auditUrls = {
+    deprecated_apis: [],
+    console_errors: [],
+    document_write: [],
+    vulnerable_libraries: []
+  };
+
+  const jsLibraryCounts = {};
+  const vulnerableLibraryCounts = {};
+
+  for (const result of successful) {
+    const qa = result.code_quality_audits;
+
+    if (qa.deprecated_apis?.passing === false) {
+      auditUrls.deprecated_apis.push(result.url);
+    }
+    if (qa.errors_in_console?.passing === false) {
+      auditUrls.console_errors.push(result.url);
+    }
+    if (qa.no_document_write?.passing === false) {
+      auditUrls.document_write.push(result.url);
+    }
+    if (qa.vulnerable_libraries?.passing === false) {
+      auditUrls.vulnerable_libraries.push(result.url);
+      for (const lib of qa.vulnerable_libraries.items ?? []) {
+        if (lib.library) {
+          if (!vulnerableLibraryCounts[lib.library]) {
+            vulnerableLibraryCounts[lib.library] = { count: 0, severity: lib.severity };
+          }
+          vulnerableLibraryCounts[lib.library].count += 1;
+        }
+      }
+    }
+    for (const lib of qa.js_libraries?.items ?? []) {
+      if (lib.name) {
+        jsLibraryCounts[lib.name] = (jsLibraryCounts[lib.name] ?? 0) + 1;
+      }
+    }
+  }
+
+  return {
+    total_scanned: successful.length,
+    urls_with_deprecated_apis: auditUrls.deprecated_apis.length,
+    urls_with_console_errors: auditUrls.console_errors.length,
+    urls_with_document_write: auditUrls.document_write.length,
+    urls_with_vulnerable_libraries: auditUrls.vulnerable_libraries.length,
+    js_library_counts: jsLibraryCounts,
+    vulnerable_library_counts: vulnerableLibraryCounts,
+    audit_urls: auditUrls
+  };
+}
+
 function normalizeTopUrls(urlResults = [], dotgovLookup = null) {
   return urlResults
     .map((result) => {
@@ -29,6 +116,7 @@ function normalizeTopUrls(urlResults = [], dotgovLookup = null) {
       core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
       lcp_value_ms: typeof result.lcp_value_ms === 'number' ? result.lcp_value_ms : null,
       detected_technologies: result.detected_technologies ?? null,
+      code_quality_summary: summarizeCodeQualityAudits(result.code_quality_audits),
       lighthouse_scores:
         result.scan_status === 'success'
           ? {
@@ -86,6 +174,8 @@ export function buildDailyReport({
   );
   techSummary.required_links_summary = buildRequiredLinksSummary(requiredLinks ?? {});
 
+  const codeQualitySummary = buildCodeQualitySummary(urlResults);
+
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;
     if (!candidate) {
@@ -121,6 +211,7 @@ export function buildDailyReport({
     source_data_date: sourceDataDate,
     top_urls: topUrls,
     tech_summary: techSummary,
+    code_quality_summary: codeQualitySummary,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,
