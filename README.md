@@ -107,6 +107,7 @@ node src/cli/run-daily-scan.js --dry-run --limit 10
 - [ACCESSIBILITY.md](./ACCESSIBILITY.md) - Accessibility commitment, best practices, and guidelines
 - [AGENTS.md](./AGENTS.md) - AI agent instructions and project-specific rules
 - [FEATURES.md](./FEATURES.md) - Comprehensive technical feature catalog and international adaptation guide
+- [STYLES.md](./STYLES.md) - Design and content standards aligned with the CivicActions Style Guide
 
 ## AI Disclosure
 
@@ -122,6 +123,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4-5 | Added domain-to-organization enrichment: fetches CISA .gov registry (cisagov/dotgov-data) at scan time and displays the owning agency name below each URL in the top-URLs table |
 | Claude (Anthropic) | claude-sonnet-4-5 | Created FEATURES.md: comprehensive technical feature catalog covering all modules, CLI options, workflows, data files, and international adaptation guide |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added required federal links checker (OMB M-17-06): detects Privacy Policy, Contact, and FOIA pages, inspired by the performance.gov website performance initiative |
+| Claude (Anthropic) | claude-sonnet-4.6 | Created STYLES.md: design and content standards aligned with CivicActions brand, colors, typography, and style guide conventions; added STYLES.md link to README documentation section |
 
 ### Runtime operation
 
