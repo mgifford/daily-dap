@@ -1905,9 +1905,11 @@ function renderTechBadges(tech) {
 
   const services = tech.third_party_services ?? [];
   if (services.length > 0) {
-    const serviceList = services.map(escapeHtml).join(', ');
+    const tooltipId = `3p-tip-${_techTooltipSeq++}`;
     const label = `${services.length} 3rd-party`;
-    parts.push(`<span class="tech-badge tech-badge-3p" title="Third-party services: ${serviceList}">${label}</span>`);
+    const ariaLabel = `${services.length} third-party ${services.length === 1 ? 'service' : 'services'}`;
+    const tooltipText = `Third-party services: ${services.map(escapeHtml).join(', ')}`;
+    parts.push(`<span class="tech-badge tech-badge-3p url-count-trigger" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" aria-describedby="${tooltipId}">${escapeHtml(label)}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${tooltipText}</span></span>`);
   }
 
   return parts.join(' ');
