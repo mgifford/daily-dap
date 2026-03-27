@@ -23,6 +23,19 @@ function formatCompact(n) {
   return String(n);
 }
 
+/**
+ * Format a byte count as a human-readable string (B / KB / MB / GB).
+ *
+ * @param {number} bytes - Non-negative integer number of bytes
+ * @returns {string} Formatted string, e.g. "30 KB" or "1.4 MB"
+ */
+function formatBytes(bytes) {
+  if (bytes >= 1_073_741_824) return `${(bytes / 1_073_741_824).toFixed(1)} GB`;
+  if (bytes >= 1_048_576) return `${(bytes / 1_048_576).toFixed(1)} MB`;
+  if (bytes >= 1_024) return `${Math.round(bytes / 1_024)} KB`;
+  return `${bytes} B`;
+}
+
 // Round estimated people counts down conservatively to avoid false precision.
 // Numbers >= 10M round to nearest 100K; numbers >= 100K round to nearest 10K;
 // smaller numbers are returned as-is (already low-precision).
@@ -871,6 +884,13 @@ function renderSharedStyles() {
     :root:not([data-color-scheme="light"]) .privacy-concern { color: hsl(30 80% 70%); }
     html[data-color-scheme="dark"]         .privacy-concern { color: hsl(30 80% 70%); }
     html[data-color-scheme="light"]        .privacy-concern { color: hsl(30 80% 35%); }
+    /* Size sub-label inside third-party service size column */
+    .tp-size-total {
+      font-size: 0.8em;
+      opacity: 0.75;
+      white-space: nowrap;
+    }
+    .tp-size-unknown { opacity: 0.4; }
 
     /* ---------- URL cells ---------- */
     .url-cell {
@@ -1934,6 +1954,7 @@ function renderTechSummarySection(report) {
     total_scanned = 0,
     third_party_service_counts = {},
     third_party_service_urls = {},
+    third_party_service_total_bytes = {},
     accessibility_statement_summary = null,
     required_links_summary = null
   } = summary;
@@ -1969,6 +1990,7 @@ function renderTechSummarySection(report) {
 
   const thirdPartySection = thirdPartyEntries.length > 0
     ? (() => {
+        const hasSizeData = thirdPartyEntries.some(([name]) => (third_party_service_total_bytes[name] ?? 0) > 0);
         const rows = thirdPartyEntries
           .map(([name, count]) => {
             const meta = getThirdPartyServiceMeta(name);
@@ -1979,12 +2001,23 @@ function renderTechSummarySection(report) {
             const privacyCell = meta?.privacy_concern
               ? `<span class="privacy-concern"><span aria-hidden="true">&#9888;</span> tracking</span>`
               : '';
+            let sizeCell = '';
+            if (hasSizeData) {
+              const totalBytes = third_party_service_total_bytes[name] ?? 0;
+              if (totalBytes > 0 && count > 0) {
+                const perPageBytes = Math.round(totalBytes / count);
+                sizeCell = `${formatBytes(perPageBytes)} <span class="tp-size-total">(${formatBytes(totalBytes)} total)</span>`;
+              } else {
+                sizeCell = '<span class="tp-size-unknown">&#8212;</span>';
+              }
+            }
+            const sizeColHtml = hasSizeData ? `\n              <td data-label="Size">${sizeCell}</td>` : '';
             return `<tr>
               <td data-label="Service">${escapeHtml(name)}</td>
               <td data-label="Category">${category}</td>
               <td data-label="URLs">${countCell}</td>
               <td data-label="Share">${shareCell}</td>
-              <td data-label="Privacy">${privacyCell}</td>
+              <td data-label="Privacy">${privacyCell}</td>${sizeColHtml}
             </tr>`;
           })
           .join('\n');
@@ -1992,6 +2025,7 @@ function renderTechSummarySection(report) {
         const trackingNote = trackingCount > 0
           ? `<p><strong>${trackingCount}</strong> service${trackingCount !== 1 ? 's' : ''} marked <span class="privacy-concern"><span aria-hidden="true">&#9888;</span> tracking</span> send user data to third-party servers and may have privacy implications for site visitors.</p>`
           : '';
+        const sizeHeaderHtml = hasSizeData ? '\n        <th scope="col">Size (avg / total)</th>' : '';
         return `
     <h3 id="third-party-js-heading">Third-Party JavaScript Services${renderAnchorLink('third-party-js-heading', 'Third-Party JavaScript Services')}</h3>
     <p>Third-party scripts detected from network requests loaded by scanned pages. These services may affect page performance, user privacy, and security posture.</p>
@@ -2003,7 +2037,7 @@ function renderTechSummarySection(report) {
         <th scope="col">Category</th>
         <th scope="col">URLs</th>
         <th scope="col">Share</th>
-        <th scope="col">Privacy</th>
+        <th scope="col">Privacy</th>${sizeHeaderHtml}
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`)}`;

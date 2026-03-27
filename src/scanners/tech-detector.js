@@ -308,14 +308,26 @@ function extractUswdsVersion(url) {
 }
 
 /**
+ * Extract the raw network-request items from a Lighthouse result.
+ * Each item includes at minimum a `url` field and optionally `transferSize` (bytes).
+ *
+ * @param {object|null} lighthouseRaw
+ * @returns {Array<{url?: string, transferSize?: number}>}
+ */
+function extractRequestItems(lighthouseRaw) {
+  return lighthouseRaw?.audits?.['network-requests']?.details?.items ?? [];
+}
+
+/**
  * Extract the list of request URLs from a Lighthouse result.
  *
  * @param {object|null} lighthouseRaw
  * @returns {string[]}
  */
 function extractRequestUrls(lighthouseRaw) {
-  const items = lighthouseRaw?.audits?.['network-requests']?.details?.items ?? [];
-  return items.map((item) => item.url ?? '').filter(Boolean);
+  return extractRequestItems(lighthouseRaw)
+    .map((item) => item.url ?? '')
+    .filter(Boolean);
 }
 
 /**
@@ -336,21 +348,51 @@ function detectThirdPartyServices(urls) {
 }
 
 /**
+ * Calculate the total transfer size in bytes for each detected third-party service.
+ * Sums the `transferSize` of every network-request item whose URL matches a service pattern.
+ * Only items with a positive `transferSize` are counted.
+ *
+ * @param {Array<{url?: string, transferSize?: number}>} items
+ * @returns {Record<string, number>} Map of service name → total bytes for this page
+ */
+function extractThirdPartyServiceSizes(items) {
+  const sizes = {};
+  for (const item of items) {
+    const url = item.url ?? '';
+    const bytes = item.transferSize ?? 0;
+    if (!url || bytes <= 0) continue;
+    for (const service of THIRD_PARTY_SERVICES) {
+      if (service.patterns.some((pattern) => pattern.test(url))) {
+        sizes[service.name] = (sizes[service.name] ?? 0) + bytes;
+      }
+    }
+  }
+  return sizes;
+}
+
+/**
  * Detect technologies from a Lighthouse raw result (lhr).
  *
  * @param {object|null} lighthouseRaw - Full Lighthouse result object (lhr)
  * @returns {{
  *   cms: string|null,
  *   uswds: { detected: boolean, version: string|null },
- *   third_party_services: string[]
+ *   third_party_services: string[],
+ *   third_party_service_sizes: Record<string, number>
  * }}
  */
 export function detectTechnologies(lighthouseRaw) {
   if (!lighthouseRaw) {
-    return { cms: null, uswds: { detected: false, version: null }, third_party_services: [] };
+    return {
+      cms: null,
+      uswds: { detected: false, version: null },
+      third_party_services: [],
+      third_party_service_sizes: {}
+    };
   }
 
-  const urls = extractRequestUrls(lighthouseRaw);
+  const items = extractRequestItems(lighthouseRaw);
+  const urls = items.map((item) => item.url ?? '').filter(Boolean);
 
   // Detect CMS: return the first match
   let detectedCms = null;
@@ -380,7 +422,8 @@ export function detectTechnologies(lighthouseRaw) {
   return {
     cms: detectedCms,
     uswds: { detected: uswdsDetected, version: uswdsVersion },
-    third_party_services: detectThirdPartyServices(urls)
+    third_party_services: detectThirdPartyServices(urls),
+    third_party_service_sizes: extractThirdPartyServiceSizes(items)
   };
 }
 
@@ -389,7 +432,7 @@ export function detectTechnologies(lighthouseRaw) {
  *
  * Counts how many successfully-scanned URLs use each detected CMS and/or
  * USWDS. Returns counts and a deduplicated list of observed USWDS versions.
- * Also aggregates third-party service usage across all scanned URLs.
+ * Also aggregates third-party service usage and transfer sizes across all scanned URLs.
  *
  * @param {Array<{ scan_status: string, detected_technologies?: object }>} urlResults
  * @returns {{
@@ -398,7 +441,8 @@ export function detectTechnologies(lighthouseRaw) {
  *   uswds_versions: string[],
  *   total_scanned: number,
  *   third_party_service_counts: Record<string, number>,
- *   third_party_service_urls: Record<string, string[]>
+ *   third_party_service_urls: Record<string, string[]>,
+ *   third_party_service_total_bytes: Record<string, number>
  * }}
  */
 export function buildTechSummary(urlResults = []) {
@@ -410,6 +454,7 @@ export function buildTechSummary(urlResults = []) {
   const uswdsVersionUrls = {};
   const thirdPartyServiceCounts = {};
   const thirdPartyServiceUrls = {};
+  const thirdPartyServiceTotalBytes = {};
 
   for (const result of successful) {
     const tech = result.detected_technologies;
@@ -446,6 +491,14 @@ export function buildTechSummary(urlResults = []) {
         thirdPartyServiceUrls[serviceName].push(url);
       }
     }
+
+    const sizes = tech.third_party_service_sizes ?? {};
+    for (const [serviceName, bytes] of Object.entries(sizes)) {
+      if (bytes > 0) {
+        thirdPartyServiceTotalBytes[serviceName] =
+          (thirdPartyServiceTotalBytes[serviceName] ?? 0) + bytes;
+      }
+    }
   }
 
   return {
@@ -456,6 +509,7 @@ export function buildTechSummary(urlResults = []) {
     uswds_version_urls: uswdsVersionUrls,
     total_scanned: successful.length,
     third_party_service_counts: thirdPartyServiceCounts,
-    third_party_service_urls: thirdPartyServiceUrls
+    third_party_service_urls: thirdPartyServiceUrls,
+    third_party_service_total_bytes: thirdPartyServiceTotalBytes
   };
 }

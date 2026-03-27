@@ -454,3 +454,139 @@ test('buildTechSummary handles results with no third_party_services field', () =
   assert.deepEqual(summary.third_party_service_urls, {});
   assert.equal(summary.cms_counts.Drupal, 1);
 });
+
+// ---------------------------------------------------------------------------
+// third_party_service_sizes – detectTechnologies
+// ---------------------------------------------------------------------------
+
+test('detectTechnologies returns empty third_party_service_sizes for null input', () => {
+  const result = detectTechnologies(null);
+  assert.deepEqual(result.third_party_service_sizes, {});
+});
+
+test('detectTechnologies returns empty third_party_service_sizes when no services match', () => {
+  const lhr = {
+    audits: {
+      'network-requests': {
+        details: {
+          items: [{ url: 'https://example.gov/main.js', transferSize: 10000 }]
+        }
+      }
+    }
+  };
+  const result = detectTechnologies(lhr);
+  assert.deepEqual(result.third_party_service_sizes, {});
+});
+
+test('detectTechnologies captures transfer size for a matched third-party service', () => {
+  const lhr = {
+    audits: {
+      'network-requests': {
+        details: {
+          items: [
+            { url: 'https://www.googletagmanager.com/gtag/js?id=G-123', transferSize: 30720 }
+          ]
+        }
+      }
+    }
+  };
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Analytics'));
+  assert.equal(result.third_party_service_sizes['Google Analytics'], 30720);
+});
+
+test('detectTechnologies sums transfer sizes when multiple URLs match the same service', () => {
+  const lhr = {
+    audits: {
+      'network-requests': {
+        details: {
+          items: [
+            { url: 'https://www.google-analytics.com/analytics.js', transferSize: 20480 },
+            { url: 'https://www.googletagmanager.com/gtag/js?id=G-123', transferSize: 10240 }
+          ]
+        }
+      }
+    }
+  };
+  const result = detectTechnologies(lhr);
+  assert.equal(result.third_party_service_sizes['Google Analytics'], 30720);
+});
+
+test('detectTechnologies ignores items with zero or missing transferSize', () => {
+  const lhr = {
+    audits: {
+      'network-requests': {
+        details: {
+          items: [
+            { url: 'https://www.googletagmanager.com/gtag/js?id=G-123', transferSize: 0 },
+            { url: 'https://www.google-analytics.com/analytics.js' }
+          ]
+        }
+      }
+    }
+  };
+  const result = detectTechnologies(lhr);
+  assert.ok(result.third_party_services.includes('Google Analytics'));
+  assert.equal(result.third_party_service_sizes['Google Analytics'], undefined);
+});
+
+// ---------------------------------------------------------------------------
+// third_party_service_total_bytes – buildTechSummary
+// ---------------------------------------------------------------------------
+
+test('buildTechSummary returns empty third_party_service_total_bytes for empty results', () => {
+  const summary = buildTechSummary([]);
+  assert.deepEqual(summary.third_party_service_total_bytes, {});
+});
+
+test('buildTechSummary aggregates third_party_service_total_bytes across successful results', () => {
+  const results = [
+    {
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics', 'Google Fonts'],
+        third_party_service_sizes: { 'Google Analytics': 30720, 'Google Fonts': 5120 }
+      }
+    },
+    {
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics'],
+        third_party_service_sizes: { 'Google Analytics': 20480 }
+      }
+    },
+    {
+      scan_status: 'failed',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics'],
+        third_party_service_sizes: { 'Google Analytics': 99999 }
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.third_party_service_total_bytes['Google Analytics'], 51200);
+  assert.equal(summary.third_party_service_total_bytes['Google Fonts'], 5120);
+  assert.equal(summary.third_party_service_total_bytes['YouTube'], undefined);
+});
+
+test('buildTechSummary handles results with no third_party_service_sizes field', () => {
+  const results = [
+    {
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics']
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.third_party_service_counts['Google Analytics'], 1);
+  assert.deepEqual(summary.third_party_service_total_bytes, {});
+});
