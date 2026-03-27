@@ -1957,6 +1957,7 @@ function renderTechSummarySection(report) {
     third_party_service_counts = {},
     third_party_service_urls = {},
     third_party_service_total_bytes = {},
+    third_party_service_page_load_totals = {},
     accessibility_statement_summary = null,
     required_links_summary = null
   } = summary;
@@ -2008,7 +2009,9 @@ function renderTechSummarySection(report) {
               const totalBytes = third_party_service_total_bytes[name] ?? 0;
               if (totalBytes > 0 && count > 0) {
                 const perPageBytes = Math.round(totalBytes / count);
-                sizeCell = `${formatBytes(perPageBytes)} <span class="tp-size-total">(${formatBytes(totalBytes)} total)</span>`;
+                const pageLoadTotal = third_party_service_page_load_totals[name] ?? 0;
+                const weightedTotal = pageLoadTotal > 0 ? perPageBytes * pageLoadTotal : totalBytes;
+                sizeCell = `${formatBytes(perPageBytes)} <span class="tp-size-total">(${formatBytes(weightedTotal)} total)</span>`;
               } else {
                 sizeCell = '<span class="tp-size-unknown">&#8212;</span>';
               }

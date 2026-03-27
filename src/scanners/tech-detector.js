@@ -434,7 +434,7 @@ export function detectTechnologies(lighthouseRaw) {
  * USWDS. Returns counts and a deduplicated list of observed USWDS versions.
  * Also aggregates third-party service usage and transfer sizes across all scanned URLs.
  *
- * @param {Array<{ scan_status: string, detected_technologies?: object }>} urlResults
+ * @param {Array<{ scan_status: string, detected_technologies?: object, page_load_count?: number }>} urlResults
  * @returns {{
  *   cms_counts: Record<string, number>,
  *   uswds_count: number,
@@ -442,7 +442,8 @@ export function detectTechnologies(lighthouseRaw) {
  *   total_scanned: number,
  *   third_party_service_counts: Record<string, number>,
  *   third_party_service_urls: Record<string, string[]>,
- *   third_party_service_total_bytes: Record<string, number>
+ *   third_party_service_total_bytes: Record<string, number>,
+ *   third_party_service_page_load_totals: Record<string, number>
  * }}
  */
 export function buildTechSummary(urlResults = []) {
@@ -455,6 +456,7 @@ export function buildTechSummary(urlResults = []) {
   const thirdPartyServiceCounts = {};
   const thirdPartyServiceUrls = {};
   const thirdPartyServiceTotalBytes = {};
+  const thirdPartyServicePageLoadTotals = {};
 
   for (const result of successful) {
     const tech = result.detected_technologies;
@@ -463,6 +465,7 @@ export function buildTechSummary(urlResults = []) {
     }
 
     const url = result.url ?? null;
+    const pageLoadCount = result.page_load_count ?? 0;
 
     if (tech.cms) {
       cmsCounts[tech.cms] = (cmsCounts[tech.cms] ?? 0) + 1;
@@ -490,6 +493,8 @@ export function buildTechSummary(urlResults = []) {
         if (!thirdPartyServiceUrls[serviceName]) thirdPartyServiceUrls[serviceName] = [];
         thirdPartyServiceUrls[serviceName].push(url);
       }
+      thirdPartyServicePageLoadTotals[serviceName] =
+        (thirdPartyServicePageLoadTotals[serviceName] ?? 0) + pageLoadCount;
     }
 
     const sizes = tech.third_party_service_sizes ?? {};
@@ -510,6 +515,7 @@ export function buildTechSummary(urlResults = []) {
     total_scanned: successful.length,
     third_party_service_counts: thirdPartyServiceCounts,
     third_party_service_urls: thirdPartyServiceUrls,
-    third_party_service_total_bytes: thirdPartyServiceTotalBytes
+    third_party_service_total_bytes: thirdPartyServiceTotalBytes,
+    third_party_service_page_load_totals: thirdPartyServicePageLoadTotals
   };
 }
