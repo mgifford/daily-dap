@@ -2,7 +2,7 @@ FOR IMMEDIATE RELEASE
 
 # U.S. Government Website Accessibility Report: March 27, 2026
 
-*Washington, D.C. -- March 27, 2026* -- A daily scan of 100 of the most-visited U.S. government websites found 228 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Document Structure Navigation, and Primary Content Identification.
+*Washington, D.C. -- March 27, 2026* -- A daily scan of 100 of the most-visited U.S. government websites found 224 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Primary Content Identification, and Document Structure Navigation.
 
 These barriers prevent Americans with disabilities from independently accessing essential government services. This is a single daily snapshot of the most popular ~100 pages in U.S. federal government web properties, as measured by the Digital Analytics Program (DAP).
 
@@ -12,13 +12,13 @@ Based on page traffic data and U.S. Census disability prevalence estimates (ACS 
 
 | Disability Group | Affected Page Loads | Estimated People Affected |
 |-----------------|---------------------|--------------------------|
-| Limited Reach and Strength | 30,326,887 | ~1,758,959 |
-| Limited Manipulation | 45,109,368 | ~992,406 |
-| Without Perception of Color | 19,489,231 | ~838,037 |
-| Limited Vision | 25,085,481 | ~602,052 |
-| Without Vision | 44,643,484 | ~446,435 |
-| Limited Language, Cognitive, and Learning Abilities | 5,004,777 | ~235,225 |
-| Without Hearing | 44,643,484 | ~133,930 |
+| Limited Reach and Strength | 30,071,855 | ~1,744,168 |
+| Limited Manipulation | 45,232,294 | ~995,110 |
+| Without Perception of Color | 19,660,806 | ~845,415 |
+| Limited Vision | 25,257,056 | ~606,169 |
+| Without Vision | 44,766,410 | ~447,664 |
+| Limited Language, Cognitive, and Learning Abilities | 5,431,384 | ~255,275 |
+| Without Hearing | 44,766,410 | ~134,299 |
 
 *Total page loads across all scanned URLs today: 68,741,000*
 
@@ -30,7 +30,7 @@ The following accessibility issues were most frequently found across today's sca
 
 ### 1. `target-size`: Digital Motor Access
 
-*Found on 29 government websites today*
+*Found on 27 government websites today*
 
 Small touch targets act as a digital gatekeeper, excluding individuals with tremors, arthritis, or limited dexterity from accessing essential services independently. These technical failures transform a routine interaction into a source of failure, stripping away the autonomy of citizens who require a frictionless, accessible interface to participate in digital life. The approximately 58 million Americans with ambulatory or self-care disabilities are disproportionately impacted by inadequate touch target sizing on government mobile websites.
 
@@ -41,21 +41,9 @@ Small touch targets act as a digital gatekeeper, excluding individuals with trem
 - People with motor disabilities using alternative pointing devices
 - People in situational impairment contexts (e.g., commuting, holding a child)
 
-### 2. `heading-order`: Document Structure Navigation
+### 2. `landmark-one-main`: Primary Content Identification
 
-*Found on 25 government websites today*
-
-Screen reader users navigate complex government websites primarily through heading structure, using headings as a table of contents to jump between sections. Skipped heading levels break the logical document outline, causing confusion about the hierarchy of information and forcing users to re-read sections to understand the relationship between topics, adding significant time and effort to information-gathering tasks.
-
-**Affected groups:**
-
-- People who are blind using screen readers
-- People who are deaf and rely on visual-to-text tools
-- People with motor disabilities using keyboard navigation
-
-### 3. `landmark-one-main`: Primary Content Identification
-
-*Found on 24 government websites today*
+*Found on 26 government websites today*
 
 Without a main landmark, screen reader users lose their most efficient way to skip to the primary content of a government page. Every page visit requires tabbing through the entire navigation structure to reach the actual content, a significant time and effort burden that accumulates across repeated visits to government websites for citizens managing ongoing benefit cases or legal matters.
 
@@ -65,9 +53,21 @@ Without a main landmark, screen reader users lose their most efficient way to sk
 - People who are deaf and rely on visual-to-text tools
 - People with motor disabilities using keyboard navigation
 
+### 3. `heading-order`: Document Structure Navigation
+
+*Found on 24 government websites today*
+
+Screen reader users navigate complex government websites primarily through heading structure, using headings as a table of contents to jump between sections. Skipped heading levels break the logical document outline, causing confusion about the hierarchy of information and forcing users to re-read sections to understand the relationship between topics, adding significant time and effort to information-gathering tasks.
+
+**Affected groups:**
+
+- People who are blind using screen readers
+- People who are deaf and rely on visual-to-text tools
+- People with motor disabilities using keyboard navigation
+
 ### 4. `color-contrast`: Visual Information Access
 
-*Found on 19 government websites today*
+*Found on 20 government websites today*
 
 Low contrast text is one of the most pervasive barriers on government websites, rendering critical information invisible to the approximately 26 million Americans with low vision or color blindness. When agency announcements, form instructions, error messages, or legal notices are displayed in insufficient contrast, affected citizens are denied equal access to the information they need to exercise their rights and access public services.
 
@@ -78,7 +78,7 @@ Low contrast text is one of the most pervasive barriers on government websites, 
 
 ### 5. `label-content-name-mismatch`: Voice Control Activation
 
-*Found on 16 government websites today*
+*Found on 15 government websites today*
 
 When the accessible name of an element does not match its visible text, voice control users cannot activate it using the words they see on screen. Saying "click Submit" to a button whose visual label is "Submit" but whose accessible name is "submitbtn" results in no action. This mismatch silently breaks voice control for citizens with motor disabilities who depend on this input method to interact with government websites.
 
@@ -95,10 +95,10 @@ Aggregate Lighthouse scores across 100 scanned U.S. government websites today:
 
 | Metric | Score |
 |--------|-------|
-| Accessibility | 91.8 |
-| Performance | 54 |
-| Best Practices | 83.41 |
-| SEO | 89.48 |
+| Accessibility | 91.79 |
+| Performance | 53.41 |
+| Best Practices | 83.91 |
+| SEO | 88.94 |
 
 ## About This Report
 

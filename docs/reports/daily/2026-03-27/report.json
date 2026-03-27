@@ -9,60 +9,60 @@
     "excluded": 0
   },
   "aggregate_scores": {
-    "performance": 54,
-    "accessibility": 91.8,
-    "best_practices": 83.41,
-    "seo": 89.48,
+    "performance": 53.41,
+    "accessibility": 91.79,
+    "best_practices": 83.91,
+    "seo": 88.94,
     "pwa": 0
   },
   "estimated_impact": {
     "traffic_window_mode": "daily",
-    "affected_share_percent": 40.77,
+    "affected_share_percent": 40.89,
     "categories": [
       {
         "name": "WV",
         "prevalence_rate": 0.01,
-        "estimated_impacted_users": 280268.61
+        "estimated_impacted_users": 281056.13
       },
       {
         "name": "LV",
         "prevalence_rate": 0.023,
-        "estimated_impacted_users": 644617.79
+        "estimated_impacted_users": 646429.09
       },
       {
         "name": "WPC",
         "prevalence_rate": 0.043,
-        "estimated_impacted_users": 1205155
+        "estimated_impacted_users": 1208541.35
       },
       {
         "name": "WH",
         "prevalence_rate": 0.003,
-        "estimated_impacted_users": 84080.58
+        "estimated_impacted_users": 84316.84
       },
       {
         "name": "LH",
         "prevalence_rate": 0.034,
-        "estimated_impacted_users": 952913.26
+        "estimated_impacted_users": 955590.84
       },
       {
         "name": "WS",
         "prevalence_rate": 0.005,
-        "estimated_impacted_users": 140134.3
+        "estimated_impacted_users": 140528.06
       },
       {
         "name": "LM",
         "prevalence_rate": 0.023,
-        "estimated_impacted_users": 644617.79
+        "estimated_impacted_users": 646429.09
       },
       {
         "name": "LRS",
         "prevalence_rate": 0.058,
-        "estimated_impacted_users": 1625557.91
+        "estimated_impacted_users": 1630125.54
       },
       {
         "name": "LLCLA",
         "prevalence_rate": 0.049,
-        "estimated_impacted_users": 1373316.17
+        "estimated_impacted_users": 1377175.03
       }
     ]
   },
@@ -74,36 +74,36 @@
         "label": "Without Vision",
         "prevalence_rate": 0.01,
         "estimated_population": 3400000,
-        "affected_page_loads": 44643484,
-        "affected_share_percent": 64.94,
-        "estimated_excluded_users": 446434.84,
+        "affected_page_loads": 44766410,
+        "affected_share_percent": 65.12,
+        "estimated_excluded_users": 447664.1,
         "source_note": "AFB: ~3.4 million Americans with severe visual impairment or blindness"
       },
       "LV": {
         "label": "Limited Vision",
         "prevalence_rate": 0.024,
         "estimated_population": 8100000,
-        "affected_page_loads": 25085481,
-        "affected_share_percent": 36.49,
-        "estimated_excluded_users": 602051.54,
+        "affected_page_loads": 25257056,
+        "affected_share_percent": 36.74,
+        "estimated_excluded_users": 606169.34,
         "source_note": "ACS 2023 + supplemental estimates: vision difficulty (all severity levels); ~2.4% of U.S. population"
       },
       "WPC": {
         "label": "Without Perception of Color",
         "prevalence_rate": 0.043,
         "estimated_population": 14500000,
-        "affected_page_loads": 19489231,
-        "affected_share_percent": 28.35,
-        "estimated_excluded_users": 838036.93,
+        "affected_page_loads": 19660806,
+        "affected_share_percent": 28.6,
+        "estimated_excluded_users": 845414.66,
         "source_note": "NIH/NEI: ~8% of males and ~0.5% of females have color vision deficiency"
       },
       "WH": {
         "label": "Without Hearing",
         "prevalence_rate": 0.003,
         "estimated_population": 1100000,
-        "affected_page_loads": 44643484,
-        "affected_share_percent": 64.94,
-        "estimated_excluded_users": 133930.45,
+        "affected_page_loads": 44766410,
+        "affected_share_percent": 65.12,
+        "estimated_excluded_users": 134299.23,
         "source_note": "NIDCD: ~1.1 million Americans with functional deafness"
       },
       "LH": {
@@ -128,27 +128,27 @@
         "label": "Limited Manipulation",
         "prevalence_rate": 0.022,
         "estimated_population": 7600000,
-        "affected_page_loads": 45109368,
-        "affected_share_percent": 65.62,
-        "estimated_excluded_users": 992406.1,
+        "affected_page_loads": 45232294,
+        "affected_share_percent": 65.8,
+        "estimated_excluded_users": 995110.47,
         "source_note": "ACS 2023 self-care difficulty + dexterity estimates: ~2.2% of U.S. population"
       },
       "LRS": {
         "label": "Limited Reach and Strength",
         "prevalence_rate": 0.058,
         "estimated_population": 19600000,
-        "affected_page_loads": 30326887,
-        "affected_share_percent": 44.12,
-        "estimated_excluded_users": 1758959.45,
+        "affected_page_loads": 30071855,
+        "affected_share_percent": 43.75,
+        "estimated_excluded_users": 1744167.59,
         "source_note": "ACS 2023: ambulatory difficulty; ~5.8% of U.S. population"
       },
       "LLCLA": {
         "label": "Limited Language, Cognitive, and Learning Abilities",
         "prevalence_rate": 0.047,
         "estimated_population": 15900000,
-        "affected_page_loads": 5004777,
-        "affected_share_percent": 7.28,
-        "estimated_excluded_users": 235224.52,
+        "affected_page_loads": 5431384,
+        "affected_share_percent": 7.9,
+        "estimated_excluded_users": 255275.05,
         "source_note": "ACS 2023/CDC combined cognitive and learning disability estimates: ~4.7% of U.S. population"
       }
     },
@@ -159,12 +159,12 @@
   "performance_impact": {
     "benchmark_lcp_ms": 2500,
     "benchmark_page_weight_bytes": 1600000,
-    "url_count_with_timing": 97,
-    "url_count_with_weight": 97,
-    "total_extra_load_time_seconds": 284624540,
-    "total_extra_load_time_hours": 79062.37,
-    "total_extra_bytes": 73971686715497,
-    "total_extra_gigabytes": 73971.69
+    "url_count_with_timing": 96,
+    "url_count_with_weight": 96,
+    "total_extra_load_time_seconds": 302868935,
+    "total_extra_load_time_hours": 84130.26,
+    "total_extra_bytes": 67858064053639,
+    "total_extra_gigabytes": 67858.06
   },
   "source_data_date": "2026-03-25",
   "top_urls": [
@@ -178,7 +178,7 @@
       "findings_count": 10,
       "severe_findings_count": 8,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7450.236000000002,
+      "lcp_value_ms": 7774.600999999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -189,7 +189,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 372281,
+          "Google Analytics": 469344,
+          "Digital Analytics Program": 9645
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -208,9 +213,9 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 42,
         "accessibility": 68,
-        "best_practices": 77,
+        "best_practices": 96,
         "seo": 83,
         "pwa": 0
       },
@@ -597,7 +602,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2996.83702,
+      "lcp_value_ms": 3643.6430000000005,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -608,7 +613,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 128982,
+          "Google Analytics": 296789,
+          "Digital Analytics Program": 14238
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -627,7 +637,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 74,
+        "performance": 72,
         "accessibility": 92,
         "best_practices": 96,
         "seo": 92,
@@ -730,7 +740,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3848.6189999999997,
+      "lcp_value_ms": 3877.8109999999997,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -741,7 +751,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 128982,
+          "Google Analytics": 296766,
+          "Digital Analytics Program": 14240
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -758,7 +773,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 72,
+        "performance": 75,
         "accessibility": 100,
         "best_practices": 96,
         "seo": 92,
@@ -776,7 +791,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2337.978,
+      "lcp_value_ms": 2467.3565,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -787,7 +802,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 128982,
+          "Google Analytics": 296758,
+          "Digital Analytics Program": 14242
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -804,7 +824,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 87,
+        "performance": 86,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -822,7 +842,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5470.850999999999,
+      "lcp_value_ms": 5151.700000000003,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -833,7 +853,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 138645,
+          "Google Analytics": 450395,
+          "Digital Analytics Program": 14739
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -852,7 +877,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 49,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -870,7 +895,7 @@
       "findings_count": 9,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 2875.073999999999,
+      "lcp_value_ms": 4191.314,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -883,7 +908,14 @@
           "Digital Analytics Program",
           "Google Ads",
           "Facebook / Meta Pixel"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 372281,
+          "Google Analytics": 769900,
+          "Digital Analytics Program": 14213,
+          "Facebook / Meta Pixel": 218850,
+          "Google Ads": 5191
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -901,7 +933,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 63,
+        "performance": 55,
         "accessibility": 68,
         "best_practices": 54,
         "seo": 85,
@@ -1268,7 +1300,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2379.993000000001,
+      "lcp_value_ms": 2286.9449999999997,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1279,7 +1311,12 @@
           "Google Analytics",
           "Google Fonts",
           "Login.gov"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Login.gov": 102454,
+          "Google Analytics": 148479,
+          "Google Fonts": 34700
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -1293,7 +1330,7 @@
         "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 91,
+        "performance": 93,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -1311,7 +1348,7 @@
       "findings_count": 5,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6638.646000000001,
+      "lcp_value_ms": 6358.810000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1322,7 +1359,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14239,
+          "Google Analytics": 446206,
+          "YouTube": 526
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -1339,7 +1381,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 68,
+        "performance": 69,
         "accessibility": 67,
         "best_practices": 85,
         "seo": 73,
@@ -1488,9 +1530,9 @@
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Brisk%20Wind…\">",
-              "node_label": "Brisk Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Hazardous%20…\">",
+              "node_label": "Hazardous Seas Warning",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (73.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -1517,7 +1559,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
-              "selector": "div#wwaright > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
               "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -1636,7 +1678,7 @@
       "findings_count": 9,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13721.639613873902,
+      "lcp_value_ms": 12305.135448873896,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -1648,7 +1690,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Ads"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 211179,
+          "Google Analytics": 627952,
+          "Digital Analytics Program": 9606,
+          "Google Ads": 4572
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -1664,7 +1712,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 31,
+        "performance": 32,
         "accessibility": 71,
         "best_practices": 54,
         "seo": 92,
@@ -1995,7 +2043,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4653.094,
+      "lcp_value_ms": 4688.566,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2007,7 +2055,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "jsDelivr CDN"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "jsDelivr CDN": 1623,
+          "Google Tag Manager": 248655,
+          "Google Analytics": 460725,
+          "Digital Analytics Program": 14193
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2025,7 +2079,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 69,
+        "performance": 70,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 85,
@@ -2168,7 +2222,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 14346.561749999999,
+      "lcp_value_ms": 12818.0133,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2179,7 +2233,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14736,
+          "Google Tag Manager": 148474,
+          "Google Analytics": 441184
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2214,7 +2273,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4769.6085,
+      "lcp_value_ms": 4195.718000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2226,7 +2285,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "jsDelivr CDN"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "jsDelivr CDN": 1629,
+          "Google Tag Manager": 248625,
+          "Google Analytics": 460730,
+          "Digital Analytics Program": 14192
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2244,7 +2309,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 66,
+        "performance": 67,
         "accessibility": 90,
         "best_practices": 73,
         "seo": 85,
@@ -2387,7 +2452,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13502.817499999997,
+      "lcp_value_ms": 13241.586999999996,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -2400,13 +2465,20 @@
           "Google Ads",
           "unpkg CDN",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14787,
+          "Google Analytics": 461597,
+          "unpkg CDN": 3042,
+          "Google Fonts": 29559,
+          "Google Ads": 557
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
         "errors_in_console_passing": false,
-        "errors_in_console_count": 172,
+        "errors_in_console_count": 334,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
@@ -2419,7 +2491,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 8,
+        "performance": 4,
         "accessibility": 91,
         "best_practices": 54,
         "seo": 92,
@@ -2436,7 +2508,7 @@
           "items": [
             {
               "selector": "div.home-banner > div.row > div.col-md-5 > h4#fsa_Title_PopularTasks",
-              "snippet": "<h4 _ngcontent-dip-c154=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
+              "snippet": "<h4 _ngcontent-dbq-c154=\"\" id=\"fsa_Title_PopularTasks\" class=\"text-left fsa-mb-px-16 fsa-color-white\">",
               "node_label": "POPULAR TOPICS",
               "explanation": "Fix any of the following:\n  Heading order invalid"
             }
@@ -2492,7 +2564,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13006.942500000001,
+      "lcp_value_ms": 15193.730500000003,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2502,7 +2574,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 4605,
+          "Google Analytics": 148479
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2598,7 +2674,7 @@
       "findings_count": 5,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4986.148999999999,
+      "lcp_value_ms": 4947.971999999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2610,7 +2686,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 50347,
+          "Digital Analytics Program": 14744,
+          "Google Tag Manager": 148950,
+          "Google Analytics": 296653
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2629,7 +2711,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 46,
         "accessibility": 81,
         "best_practices": 92,
         "seo": 58,
@@ -2728,7 +2810,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3587.7655,
+      "lcp_value_ms": 3600.5361599999987,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2739,7 +2821,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 128949,
+          "Google Analytics": 296789,
+          "Digital Analytics Program": 14239
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2756,7 +2843,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 78,
+        "performance": 80,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -2774,7 +2861,7 @@
       "findings_count": 2,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 12608.209000000003,
+      "lcp_value_ms": 12646.424000000003,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2790,13 +2877,23 @@
           "YouTube",
           "cdnjs",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 9993,
+          "Google Analytics": 1109403,
+          "cdnjs": 4818,
+          "Google Tag Manager": 165410,
+          "YouTube": 526,
+          "Google Fonts": 153718,
+          "Facebook / Meta Pixel": 135566,
+          "Google Ads": 10932
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
         "errors_in_console_passing": false,
-        "errors_in_console_count": 3,
+        "errors_in_console_count": 2,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
@@ -2812,7 +2909,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 27,
+        "performance": 28,
         "accessibility": 93,
         "best_practices": 50,
         "seo": 82,
@@ -2860,10 +2957,10 @@
       "page_load_count": 708496,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 5,
-      "severe_findings_count": 4,
+      "findings_count": 6,
+      "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6206.12464,
+      "lcp_value_ms": 6542.757,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -2874,7 +2971,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14743,
+          "Google Analytics": 447526,
+          "YouTube": 526
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -2891,8 +2993,8 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 70,
-        "accessibility": 67,
+        "performance": 67,
+        "accessibility": 61,
         "best_practices": 85,
         "seo": 73,
         "pwa": 0
@@ -2955,6 +3057,22 @@
               "snippet": "<img id=\"hawaii\" src=\"https://www.weather.gov/wwamap/png/hi.png\" usemap=\"#hawaii_imagemap\">",
               "node_label": "div.div-full > div#wwamap > div.USMap > img#hawaii",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        {
+          "id": "select-name",
+          "title": "Select elements do not have associated label elements.",
+          "description": "Form elements without effective labels can create frustrating experiences for screen reader users. [Learn more about the `select` element](https://dequeuniversity.com/rules/axe/4.11/select-name).",
+          "score": 0,
+          "impact": "critical",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.warningArea > div#stateListings > form > select",
+              "snippet": "<select size=\"1\" name=\"menu\">",
+              "node_label": "Warnings By State\nWarnings By County\nAlabama\nAlaska\nArizona\nArkansas\nCalifornia…",
+              "explanation": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             }
           ]
         },
@@ -3040,9 +3158,9 @@
             },
             {
               "selector": "div#wwacenter_l > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Brisk%20Wind…\">",
-              "node_label": "Brisk Wind Advisory",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (88.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
+              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Hazardous%20…\">",
+              "node_label": "Hazardous Seas Warning",
+              "explanation": "Fix any of the following:\n  Target has insufficient size (73.9px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22px instead of at least 24px."
             },
             {
               "selector": "div#wwacenter_r > ul > li > a",
@@ -3069,7 +3187,7 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (63.4px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8px instead of at least 24px."
             },
             {
-              "selector": "div#wwaright > ul > li > a",
+              "selector": "div#wwacenter_r > ul > li > a",
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Rip%20Curren…\">",
               "node_label": "Rip Current Statement",
               "explanation": "Fix any of the following:\n  Target has insufficient size (99.5px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 21px instead of at least 24px."
@@ -3091,12 +3209,6 @@
               "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Extreme%20Fi…\">",
               "node_label": "Extreme Fire Danger",
               "explanation": "Fix any of the following:\n  Target has insufficient size (92.8px by 11px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 8.4px instead of at least 24px."
-            },
-            {
-              "selector": "div#wwaright > ul > li > a",
-              "snippet": "<a href=\"https://forecast.weather.gov/wwamap/wwatxtget.php?cwa=usa&amp;wwa=Special%20We…\">",
-              "node_label": "Special Weather Statement",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (73.2px by 22px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 23.2px instead of at least 24px."
             },
             {
               "selector": "div.footer-legal-content > div#footer_legal_info > p > a",
@@ -3188,7 +3300,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 16625.164,
+      "lcp_value_ms": 16675.500000000007,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3199,7 +3311,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 2418,
+          "Digital Analytics Program": 4607,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3217,7 +3334,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 52,
+        "performance": 51,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -3252,7 +3369,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 2236.2499999999995,
+      "lcp_value_ms": 2304.6440000000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3263,7 +3380,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 145156,
+          "Google Analytics": 637955,
+          "Digital Analytics Program": 14212
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3421,7 +3543,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9755.393,
+      "lcp_value_ms": 9681.517,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -3435,13 +3557,21 @@
           "Google Ads",
           "Facebook / Meta Pixel",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14736,
+          "Facebook / Meta Pixel": 84690,
+          "Google Tag Manager": 131659,
+          "Google Analytics": 812721,
+          "YouTube": 526,
+          "Google Ads": 22389
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
         "errors_in_console_passing": false,
-        "errors_in_console_count": 2,
+        "errors_in_console_count": 3,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
@@ -3452,7 +3582,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 25,
+        "performance": 30,
         "accessibility": 96,
         "best_practices": 73,
         "seo": 85,
@@ -3487,7 +3617,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9119.523311950685,
+      "lcp_value_ms": 9627.480811950685,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -3502,7 +3632,16 @@
           "jsDelivr CDN",
           "unpkg CDN",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 79040,
+          "jsDelivr CDN": 13747,
+          "Digital Analytics Program": 14740,
+          "unpkg CDN": 7823,
+          "YouTube": 827081,
+          "Google Analytics": 148600,
+          "Google Ads": 2354
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3554,7 +3693,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4436.9165,
+      "lcp_value_ms": 4288.763500000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3565,7 +3704,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 150822,
+          "Google Analytics": 467187,
+          "Digital Analytics Program": 14240
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3614,7 +3758,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4611.271500000001,
+      "lcp_value_ms": 4459.138000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3626,7 +3770,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 140305,
+          "Google Analytics": 450818,
+          "Digital Analytics Program": 14240,
+          "YouTube": 527
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3644,7 +3794,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 62,
+        "performance": 63,
         "accessibility": 99,
         "best_practices": 100,
         "seo": 92,
@@ -3679,7 +3829,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4479.51,
+      "lcp_value_ms": 6145.6715,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -3692,7 +3842,14 @@
           "Digital Analytics Program",
           "Google Ads",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14736,
+          "Google Analytics": 971363,
+          "Google Tag Manager": 139826,
+          "YouTube": 526,
+          "Google Ads": 555
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3710,7 +3867,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 34,
+        "performance": 29,
         "accessibility": 99,
         "best_practices": 73,
         "seo": 92,
@@ -3745,7 +3902,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7937.750999999999,
+      "lcp_value_ms": 8871.446,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3757,7 +3914,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 45727,
+          "Google Tag Manager": 117336,
+          "Digital Analytics Program": 14741,
+          "Google Analytics": 653756
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3773,7 +3936,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 52,
+        "performance": 46,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -3791,7 +3954,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13518.6911,
+      "lcp_value_ms": 12400.52125,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3802,7 +3965,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14736,
+          "Google Tag Manager": 148441,
+          "Google Analytics": 441174
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3819,7 +3987,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 19,
+        "performance": 22,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -3837,7 +4005,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4531.165999999999,
+      "lcp_value_ms": 4298.236499999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -3848,7 +4016,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 372257,
+          "Google Analytics": 627959,
+          "Digital Analytics Program": 9625
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -3865,7 +4038,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 53,
         "accessibility": 97,
         "best_practices": 92,
         "seo": 100,
@@ -3983,15 +4156,16 @@
       "failure_reason": null,
       "findings_count": 1,
       "severe_findings_count": 1,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 2621.271,
+      "core_web_vitals_status": "needs_improvement",
+      "lcp_value_ms": 2565.065,
       "detected_technologies": {
         "cms": null,
         "uswds": {
           "detected": false,
           "version": null
         },
-        "third_party_services": []
+        "third_party_services": [],
+        "third_party_service_sizes": {}
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4005,7 +4179,7 @@
         "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 81,
+        "performance": 82,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 40,
@@ -4039,8 +4213,8 @@
       "failure_reason": null,
       "findings_count": 1,
       "severe_findings_count": 1,
-      "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2347.9139999999998,
+      "core_web_vitals_status": "poor",
+      "lcp_value_ms": 6459.67925,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4051,7 +4225,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 748125,
+          "Digital Analytics Program": 14212,
+          "YouTube": 527
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4069,10 +4248,10 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 86,
+        "performance": 67,
         "accessibility": 96,
         "best_practices": 92,
-        "seo": 85,
+        "seo": 92,
         "pwa": 0
       },
       "axe_findings": [
@@ -4104,7 +4283,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 47695.611000000004,
+      "lcp_value_ms": 50552.39199999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4116,7 +4295,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Ads"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 468657,
+          "Digital Analytics Program": 14739,
+          "Google Tag Manager": 129774,
+          "Google Ads": 556
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4135,7 +4320,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 43,
         "accessibility": 95,
         "best_practices": 100,
         "seo": 100,
@@ -4198,7 +4383,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8872.654999999999,
+      "lcp_value_ms": 8479.0085,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4210,7 +4395,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 43168,
+          "Google Tag Manager": 128958,
+          "Google Analytics": 296766,
+          "Digital Analytics Program": 14242
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4227,7 +4418,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 49,
         "accessibility": 97,
         "best_practices": 96,
         "seo": 100,
@@ -4278,7 +4469,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10971.336000000003,
+      "lcp_value_ms": 10733.340500000008,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -4292,7 +4483,15 @@
           "Google Ads",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14739,
+          "Google Fonts": 75889,
+          "Google Analytics": 467631,
+          "YouTube": 293419,
+          "Google Tag Manager": 241277,
+          "Google Ads": 833
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4312,7 +4511,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 46,
         "accessibility": 95,
         "best_practices": 77,
         "seo": 92,
@@ -4365,7 +4564,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8093.874000000002,
+      "lcp_value_ms": 7381.0160000000005,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4376,7 +4575,11 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14210,
+          "Google Analytics": 318610
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4395,7 +4598,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 57,
+        "performance": 53,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 100,
@@ -4413,20 +4616,21 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4355.184500000001,
+      "lcp_value_ms": 4453.1939999999995,
       "detected_technologies": {
         "cms": null,
         "uswds": {
           "detected": false,
           "version": null
         },
-        "third_party_services": []
+        "third_party_services": [],
+        "third_party_service_sizes": {}
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
         "errors_in_console_passing": false,
-        "errors_in_console_count": 36,
+        "errors_in_console_count": 38,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
@@ -4434,7 +4638,7 @@
         "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 77,
+        "performance": 76,
         "accessibility": 94,
         "best_practices": 46,
         "seo": 91,
@@ -4474,7 +4678,7 @@
             {
               "selector": "div#footer > div#legal > span > span#ctl00_lblIP",
               "snippet": "<span id=\"ctl00_lblIP\" tabindex=\"6050\" class=\"lblIP\">",
-              "node_label": "(225)",
+              "node_label": "(226)",
               "explanation": "Fix any of the following:\n  Element has a tabindex greater than 0"
             }
           ]
@@ -4491,7 +4695,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15489.810499999998,
+      "lcp_value_ms": 14474.136500000002,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4504,7 +4708,14 @@
           "Digital Analytics Program",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 609081,
+          "Digital Analytics Program": 14210,
+          "Google Fonts": 34700,
+          "Google Tag Manager": 133832,
+          "YouTube": 527
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4521,7 +4732,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 38,
+        "performance": 45,
         "accessibility": 97,
         "best_practices": 88,
         "seo": 100,
@@ -4568,7 +4779,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15521.706000000002,
+      "lcp_value_ms": 12066.372000000001,
       "detected_technologies": {
         "cms": "WordPress",
         "uswds": {
@@ -4579,7 +4790,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14738,
+          "Google Analytics": 456888,
+          "Google Tag Manager": 130296
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4598,7 +4814,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 50,
+        "performance": 51,
         "accessibility": 91,
         "best_practices": 96,
         "seo": 100,
@@ -4655,7 +4871,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5191.222,
+      "lcp_value_ms": 7181.269,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4668,7 +4884,13 @@
           "Google Ads",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "YouTube": 526,
+          "Digital Analytics Program": 14742,
+          "Google Analytics": 426384,
+          "Google Ads": 3123
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4687,7 +4909,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 37,
+        "performance": 34,
         "accessibility": 97,
         "best_practices": 54,
         "seo": 92,
@@ -4722,7 +4944,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5403.969,
+      "lcp_value_ms": 5235.588000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4732,7 +4954,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 480535,
+          "Digital Analytics Program": 14211
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4749,7 +4975,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 47,
+        "performance": 56,
         "accessibility": 91,
         "best_practices": 100,
         "seo": 100,
@@ -4800,7 +5026,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6982.684199999997,
+      "lcp_value_ms": 19414.757999999994,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4815,7 +5041,16 @@
           "YouTube",
           "jsDelivr CDN",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14211,
+          "Google Tag Manager": 157667,
+          "jsDelivr CDN": 1614,
+          "Google Analytics": 1261377,
+          "YouTube": 527,
+          "Google Ads": 6247,
+          "Google Fonts": 962
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4834,7 +5069,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 32,
+        "performance": 27,
         "accessibility": 93,
         "best_practices": 54,
         "seo": 100,
@@ -4900,7 +5135,7 @@
             {
               "selector": "div.layout > div.layout__region > div.clearfix > a.dhs-250-header__link",
               "snippet": "<a class=\"dhs-250-header__link survey-processed\" href=\"/250\" aria-label=\"America 250 information\">",
-              "node_label": "Countdown to America's 250th Anniversary!\n98\nDays\n14\nHours\n12\nMinutes",
+              "node_label": "Countdown to America's 250th Anniversary!\n98\nDays\n11\nHours\n52\nMinutes",
               "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
             }
           ]
@@ -4914,10 +5149,10 @@
       "page_load_count": 290915,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 1,
-      "severe_findings_count": 0,
+      "findings_count": 3,
+      "severe_findings_count": 2,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3644.0739999999996,
+      "lcp_value_ms": 3080.8405,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -4925,10 +5160,11 @@
           "version": null
         },
         "third_party_services": [
-          "Google Analytics",
-          "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 116903
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -4939,37 +5175,61 @@
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
         "vulnerable_library_names": [],
-        "js_libraries": [
-          "Bootstrap",
-          "jQuery",
-          "Modernizr",
-          "Underscore",
-          "yepnope",
-          "AmplifyJS",
-          "Moment.js"
-        ]
+        "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 80,
-        "accessibility": 99,
+        "performance": 88,
+        "accessibility": 89,
         "best_practices": 100,
-        "seo": 83,
+        "seo": 54,
         "pwa": 0
       },
       "axe_findings": [
         {
-          "id": "heading-order",
-          "title": "Heading elements are not in a sequentially-descending order",
-          "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+          "id": "color-contrast",
+          "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+          "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div.container > div#main > div.main-title-bar > h1",
+              "snippet": "<h1 class=\"\">",
+              "node_label": "Request Access",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.12 (foreground color: #5797ce, background color: #ffffff, font size: 15.2pt (20.2496px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "html-has-lang",
+          "title": "`<html>` element does not have a `[lang]` attribute",
+          "description": "If a page doesn't specify a `lang` attribute, a screen reader assumes that the page is in the default language that the user chose when setting up the screen reader. If the page isn't actually in the default language, then the screen reader might not announce the page's text correctly. [Learn more about the `lang` attribute](https://dequeuniversity.com/rules/axe/4.11/html-has-lang).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "html",
+              "snippet": "<html>",
+              "node_label": "html",
+              "explanation": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        },
+        {
+          "id": "landmark-one-main",
+          "title": "Document does not have a main landmark.",
+          "description": "One main landmark helps screen reader users navigate a web page. [Learn more about landmarks](https://dequeuniversity.com/rules/axe/4.11/landmark-one-main).",
           "score": 0,
           "impact": "moderate",
           "tags": [],
           "items": [
             {
-              "selector": "thead > tr > th > h3.with-icon",
-              "snippet": "<h3 class=\"with-icon\">",
-              "node_label": "Titles",
-              "explanation": "Fix any of the following:\n  Heading order invalid"
+              "selector": "html",
+              "snippet": "<html>",
+              "node_label": "html",
+              "explanation": "Fix all of the following:\n  Document does not have a main landmark"
             }
           ]
         }
@@ -4985,7 +5245,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15691.181000000004,
+      "lcp_value_ms": 26070.127500000002,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -4996,7 +5256,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 469477,
+          "Digital Analytics Program": 14600,
+          "Google Fonts": 143027
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5013,7 +5278,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 45,
         "accessibility": 98,
         "best_practices": 92,
         "seo": 92,
@@ -5064,7 +5329,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 3951.344,
+      "lcp_value_ms": 10444.792000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5078,7 +5343,15 @@
           "Google Ads",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 160329,
+          "YouTube": 147630,
+          "Google Fonts": 74860,
+          "Google Analytics": 473066,
+          "Digital Analytics Program": 9606,
+          "Google Ads": 663
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5095,7 +5368,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 61,
+        "performance": 50,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 100,
@@ -5113,7 +5386,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4680.013500000001,
+      "lcp_value_ms": 4602.7835000000005,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5124,7 +5397,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14739,
+          "Google Analytics": 148482,
+          "YouTube": 527
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5142,7 +5420,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 73,
+        "performance": 75,
         "accessibility": 99,
         "best_practices": 92,
         "seo": 83,
@@ -5177,7 +5455,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5674.460499999999,
+      "lcp_value_ms": 5443.285,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5188,7 +5466,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14735,
+          "Google Tag Manager": 130487,
+          "Google Analytics": 654063
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5204,7 +5487,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 63,
+        "performance": 60,
         "accessibility": 89,
         "best_practices": 77,
         "seo": 100,
@@ -5255,7 +5538,7 @@
       "findings_count": 4,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9185.235999999997,
+      "lcp_value_ms": 18421.541800000006,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5268,7 +5551,14 @@
           "Google Ads",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14740,
+          "Google Analytics": 148482,
+          "Google Fonts": 69400,
+          "YouTube": 92318,
+          "Google Ads": 664
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5289,7 +5579,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 42,
         "accessibility": 85,
         "best_practices": 92,
         "seo": 73,
@@ -5399,10 +5689,10 @@
       "page_load_count": 242266,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 0,
+      "findings_count": 1,
       "severe_findings_count": 0,
-      "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3980.5799999999995,
+      "core_web_vitals_status": "poor",
+      "lcp_value_ms": 4110.517499999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5413,7 +5703,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 263421,
+          "Google Analytics": 449793,
+          "Digital Analytics Program": 14240
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5431,12 +5726,29 @@
       },
       "lighthouse_scores": {
         "performance": 71,
-        "accessibility": 100,
+        "accessibility": 98,
         "best_practices": 100,
         "seo": 100,
         "pwa": 0
       },
-      "axe_findings": []
+      "axe_findings": [
+        {
+          "id": "heading-order",
+          "title": "Heading elements are not in a sequentially-descending order",
+          "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+          "score": 0,
+          "impact": "moderate",
+          "tags": [],
+          "items": [
+            {
+              "selector": "div > div#footer-phone > div.mobile-lg:grid-col-auto > h4.usa-footer__logo-heading",
+              "snippet": "<h4 class=\"usa-footer__logo-heading\">",
+              "node_label": "USAGov Contact Center",
+              "explanation": "Fix any of the following:\n  Heading order invalid"
+            }
+          ]
+        }
+      ]
     },
     {
       "url": "https://healthcare.gov",
@@ -5448,7 +5760,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9175.800179999998,
+      "lcp_value_ms": 9001.522,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5459,7 +5771,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Ads"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14743,
+          "Google Ads": 1500,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5475,7 +5792,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 36,
+        "performance": 35,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 92,
@@ -5493,7 +5810,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 3217.053499999999,
+      "lcp_value_ms": 3247.8264999999997,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5503,7 +5820,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14742,
+          "Google Analytics": 466502
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5521,7 +5842,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 60,
+        "performance": 56,
         "accessibility": 77,
         "best_practices": 100,
         "seo": 82,
@@ -5572,7 +5893,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4468.38,
+      "lcp_value_ms": 5116.416,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5582,7 +5903,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14239,
+          "Google Analytics": 443984
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5687,7 +6012,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8466.448499999999,
+      "lcp_value_ms": 8844.773500000001,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5698,7 +6023,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "YouTube": 526,
+          "Digital Analytics Program": 14739,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5816,7 +6146,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10786.479,
+      "lcp_value_ms": 10708.106679999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5830,7 +6160,15 @@
           "Google Ads",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 1275,
+          "Digital Analytics Program": 14739,
+          "Google Tag Manager": 126667,
+          "Google Analytics": 653830,
+          "YouTube": 527,
+          "Google Ads": 22389
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5847,7 +6185,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 42,
         "accessibility": 100,
         "best_practices": 77,
         "seo": 92,
@@ -5865,7 +6203,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3534.9809999999998,
+      "lcp_value_ms": 3524.688,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -5876,7 +6214,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 150822,
+          "Google Analytics": 467187,
+          "Digital Analytics Program": 14239
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5925,7 +6268,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 22192.19,
+      "lcp_value_ms": 9936.911000000002,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -5936,7 +6279,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 594129,
+          "Google Fonts": 146772,
+          "Digital Analytics Program": 14212
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -5955,7 +6303,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 51,
+        "performance": 44,
         "accessibility": 97,
         "best_practices": 96,
         "seo": 77,
@@ -5996,7 +6344,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10345.924000000005,
+      "lcp_value_ms": 10179.857499999995,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6007,7 +6355,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 146900,
+          "Google Analytics": 453641,
+          "Digital Analytics Program": 14241
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6043,7 +6396,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4239.759,
+      "lcp_value_ms": 5940.156,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6054,7 +6407,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 113035,
+          "Digital Analytics Program": 14740,
+          "Google Analytics": 446679
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6072,7 +6430,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 81,
+        "performance": 73,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 83,
@@ -6131,7 +6489,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10559.200500000003,
+      "lcp_value_ms": 11415.996999999998,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6145,7 +6503,15 @@
           "Google Ads",
           "YouTube",
           "jsDelivr CDN"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14737,
+          "jsDelivr CDN": 1613,
+          "Google Tag Manager": 134489,
+          "Google Analytics": 635331,
+          "YouTube": 527,
+          "Google Ads": 22389
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6163,7 +6529,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 42,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 100,
@@ -6181,7 +6547,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7332.933000000001,
+      "lcp_value_ms": 6553.529999999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6194,7 +6560,14 @@
           "Google Ads",
           "YouTube",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 151094,
+          "YouTube": 64168,
+          "Google Analytics": 183420,
+          "Google Fonts": 34700,
+          "Google Ads": 664
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6282,7 +6655,7 @@
       "findings_count": 9,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4055.39684,
+      "lcp_value_ms": 6128.465240000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6295,7 +6668,14 @@
           "Digital Analytics Program",
           "Google Ads",
           "Facebook / Meta Pixel"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 372057,
+          "Google Analytics": 769933,
+          "Digital Analytics Program": 9606,
+          "Facebook / Meta Pixel": 218851,
+          "Google Ads": 2279
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6307,8 +6687,6 @@
         "vulnerable_libraries_count": 0,
         "vulnerable_library_names": [],
         "js_libraries": [
-          "Bootstrap",
-          "jQuery",
           "Dojo",
           "Modernizr",
           "RequireJS",
@@ -6316,7 +6694,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 60,
+        "performance": 50,
         "accessibility": 70,
         "best_practices": 50,
         "seo": 92,
@@ -6695,7 +7073,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8169.563000000002,
+      "lcp_value_ms": 8143.7919999999995,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6707,7 +7085,13 @@
           "Digital Analytics Program",
           "Adobe Analytics",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 144134,
+          "Adobe Analytics": 69021,
+          "Digital Analytics Program": 14742,
+          "Google Analytics": 148479
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6725,7 +7109,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 42,
+        "performance": 41,
         "accessibility": 96,
         "best_practices": 73,
         "seo": 92,
@@ -6778,7 +7162,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7664.836,
+      "lcp_value_ms": 7546.248,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -6790,7 +7174,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 95903,
+          "Google Tag Manager": 164514,
+          "Google Analytics": 945265,
+          "Digital Analytics Program": 14213
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6849,7 +7239,8 @@
           "detected": false,
           "version": null
         },
-        "third_party_services": []
+        "third_party_services": [],
+        "third_party_service_sizes": {}
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6881,7 +7272,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11013.539499999999,
+      "lcp_value_ms": 10976.935999999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6895,7 +7286,15 @@
           "Twitter / X Widgets",
           "jsDelivr CDN",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Twitter / X Widgets": 136960,
+          "jsDelivr CDN": 48275,
+          "Google Fonts": 128653,
+          "Google Tag Manager": 255471,
+          "Google Analytics": 779573,
+          "Digital Analytics Program": 14194
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6934,7 +7333,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2839.7689999999993,
+      "lcp_value_ms": 3034.063,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6944,7 +7343,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14740,
+          "Google Analytics": 463366
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -6960,7 +7363,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 89,
+        "performance": 88,
         "accessibility": 100,
         "best_practices": 73,
         "seo": 91,
@@ -6978,7 +7381,7 @@
       "findings_count": 5,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 37695.268500000006,
+      "lcp_value_ms": 43346.344999999994,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -6989,7 +7392,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Ads"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 470048,
+          "Digital Analytics Program": 14738,
+          "Google Ads": 547
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -7012,7 +7420,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 49,
+        "performance": 47,
         "accessibility": 79,
         "best_practices": 77,
         "seo": 54,
@@ -7183,7 +7591,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6760.129550000001,
+      "lcp_value_ms": 7008.195,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7193,7 +7601,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 10137,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -7210,9 +7622,9 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 62,
+        "performance": 66,
         "accessibility": 100,
-        "best_practices": 58,
+        "best_practices": 77,
         "seo": 100,
         "pwa": 0
       },
@@ -7228,7 +7640,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3815.4804999999997,
+      "lcp_value_ms": 2266.1229999999996,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7239,7 +7651,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 610255,
+          "Digital Analytics Program": 14238,
+          "Google Tag Manager": 115649
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -7253,7 +7670,7 @@
         "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 80,
+        "performance": 86,
         "accessibility": 100,
         "best_practices": 100,
         "seo": 92,
@@ -7271,7 +7688,7 @@
       "findings_count": 8,
       "severe_findings_count": 7,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7249.772500000003,
+      "lcp_value_ms": 10969.3855,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7282,7 +7699,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Twitter / X Widgets"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 455350,
+          "Twitter / X Widgets": 136960,
+          "Digital Analytics Program": 14240
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -7454,13 +7876,13 @@
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/new/images/SPC-final-spanish-sm.png\" height=\"174\" width=\"280\">",
+              "snippet": "<img src=\"/new/images/SPC_outlook_final_updated-sm.png?1774613578090\" height=\"174\" width=\"280\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
             {
               "selector": "div.slides_control > div.slide > a > img",
-              "snippet": "<img src=\"/new/images/SPC_SREF.png\" width=\"300\" height=\"212\">",
+              "snippet": "<img src=\"/new/images/href_sm.png?1774613578095\" width=\"300\" height=\"212\">",
               "node_label": "div.slides_control > div.slide > a > img",
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
             },
@@ -7544,12 +7966,6 @@
               "selector": "tbody > tr > td > a",
               "snippet": "<a href=\"/wcm/2026_torww_to_date.png\">",
               "node_label": "tbody > tr > td > a",
-              "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            },
-            {
-              "selector": "div.slides_container > div.slides_control > div.slide > a",
-              "snippet": "<a href=\"/exper/sref/\" target=\"_blank\">",
-              "node_label": "div.slides_container > div.slides_control > div.slide > a",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
             },
             {
@@ -7689,13 +8105,13 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (38.5px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 7.4px instead of at least 24px."
             },
             {
-              "selector": "div#slides > ul.pagination > li > a",
+              "selector": "div#slides > ul.pagination > li.current > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides > ul.pagination > li.current > a",
+              "selector": "div#slides > ul.pagination > li > a",
               "snippet": "<a href=\"#1\">",
               "node_label": "2",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -7710,13 +8126,13 @@
               "selector": "div#slides > ul.pagination > li > a",
               "snippet": "<a href=\"#3\">",
               "node_label": "4",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
             },
             {
               "selector": "div#slides > ul.pagination > li > a",
               "snippet": "<a href=\"#4\">",
               "node_label": "5",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
+              "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
             },
             {
               "selector": "div#slides > ul.pagination > li > a",
@@ -7737,13 +8153,13 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides1 > ul.pagination > li > a",
+              "selector": "div#slides1 > ul.pagination > li.current > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides1 > ul.pagination > li.current > a",
+              "selector": "div#slides1 > ul.pagination > li > a",
               "snippet": "<a href=\"#1\">",
               "node_label": "2",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -7773,13 +8189,13 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides2 > ul.pagination > li > a",
+              "selector": "div#slides2 > ul.pagination > li.current > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides2 > ul.pagination > li.current > a",
+              "selector": "div#slides2 > ul.pagination > li > a",
               "snippet": "<a href=\"#1\">",
               "node_label": "2",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
@@ -7809,13 +8225,13 @@
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides3 > ul.pagination > li > a",
+              "selector": "div#slides3 > ul.pagination > li.current > a",
               "snippet": "<a href=\"#0\">",
               "node_label": "1",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 4px instead of at least 24px."
             },
             {
-              "selector": "div#slides3 > ul.pagination > li.current > a",
+              "selector": "div#slides3 > ul.pagination > li > a",
               "snippet": "<a href=\"#1\">",
               "node_label": "2",
               "explanation": "Fix any of the following:\n  Target has insufficient size (12px by 12px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
@@ -7932,7 +8348,7 @@
       "findings_count": 6,
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4864.0595,
+      "lcp_value_ms": 4793.720499999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -7945,7 +8361,14 @@
           "Digital Analytics Program",
           "Google Ads",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 74836,
+          "Google Analytics": 629041,
+          "Google Tag Manager": 180130,
+          "Digital Analytics Program": 14240,
+          "Google Ads": 22937
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -7964,9 +8387,9 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 55,
+        "performance": 51,
         "accessibility": 85,
-        "best_practices": 54,
+        "best_practices": 50,
         "seo": 100,
         "pwa": 0
       },
@@ -8097,7 +8520,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8529.040500000001,
+      "lcp_value_ms": 7502.77,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8107,7 +8530,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14739,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8125,7 +8552,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 41,
+        "performance": 42,
         "accessibility": 90,
         "best_practices": 92,
         "seo": 82,
@@ -8192,7 +8619,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 4341.504999999999,
+      "lcp_value_ms": 4140.148,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8201,7 +8628,10 @@
         },
         "third_party_services": [
           "Google Analytics"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 453298
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8217,7 +8647,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 76,
+        "performance": 78,
         "accessibility": 69,
         "best_practices": 96,
         "seo": 100,
@@ -8324,7 +8754,7 @@
       "findings_count": 4,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7859.802000000002,
+      "lcp_value_ms": 7943.333500000001,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -8340,7 +8770,17 @@
           "YouTube",
           "cdnjs",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 125576,
+          "cdnjs": 17746,
+          "Digital Analytics Program": 14240,
+          "Google Analytics": 575440,
+          "Google Tag Manager": 288594,
+          "YouTube": 527,
+          "Facebook / Meta Pixel": 150336,
+          "Google Ads": 30152
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8455,7 +8895,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 1637.5865000000001,
+      "lcp_value_ms": 1374.2685000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8466,7 +8906,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 24330,
+          "Google Tag Manager": 137272,
+          "Google Analytics": 456843
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8480,7 +8925,7 @@
         "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 71,
         "accessibility": 94,
         "best_practices": 96,
         "seo": 91,
@@ -8531,7 +8976,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 11533.624,
+      "lcp_value_ms": 10702.857999999998,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8545,7 +8990,15 @@
           "Google Ads",
           "Google Fonts",
           "Adobe Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Adobe Fonts": 57759,
+          "Google Fonts": 128714,
+          "Google Tag Manager": 132545,
+          "Google Analytics": 602248,
+          "Digital Analytics Program": 14739,
+          "Google Ads": 547
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8562,7 +9015,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 37,
         "accessibility": 93,
         "best_practices": 73,
         "seo": 92,
@@ -8625,7 +9078,7 @@
       "findings_count": 1,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7556.9745,
+      "lcp_value_ms": 8857.681499999999,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8637,7 +9090,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Ads"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 129137,
+          "Google Analytics": 454943,
+          "Digital Analytics Program": 14240,
+          "Google Ads": 22389
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8654,7 +9113,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 58,
+        "performance": 60,
         "accessibility": 99,
         "best_practices": 96,
         "seo": 92,
@@ -8695,7 +9154,7 @@
       "findings_count": 4,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10179.7775,
+      "lcp_value_ms": 9763.6725,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -8709,7 +9168,15 @@
           "Google Ads",
           "Facebook / Meta Pixel",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 29086,
+          "Digital Analytics Program": 14213,
+          "Google Tag Manager": 168607,
+          "Google Analytics": 606469,
+          "Facebook / Meta Pixel": 133842,
+          "Google Ads": 3348
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8728,7 +9195,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 45,
         "accessibility": 85,
         "best_practices": 50,
         "seo": 92,
@@ -8811,7 +9278,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9157.6265,
+      "lcp_value_ms": 9699.331499999998,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -8823,7 +9290,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 1060316,
+          "Google Fonts": 78317,
+          "Digital Analytics Program": 14212,
+          "Google Tag Manager": 124345
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8841,7 +9314,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 44,
         "accessibility": 93,
         "best_practices": 81,
         "seo": 100,
@@ -8905,7 +9378,8 @@
           "detected": false,
           "version": null
         },
-        "third_party_services": []
+        "third_party_services": [],
+        "third_party_service_sizes": {}
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -8937,7 +9411,7 @@
       "findings_count": 4,
       "severe_findings_count": 4,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 27400.528499999997,
+      "lcp_value_ms": 27431.978240000008,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -8951,7 +9425,15 @@
           "jsDelivr CDN",
           "cdnjs",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 135065,
+          "jsDelivr CDN": 52737,
+          "cdnjs": 20016,
+          "Digital Analytics Program": 14739,
+          "Google Analytics": 309416,
+          "Google Ads": 547
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9180,7 +9662,8 @@
           "detected": false,
           "version": null
         },
-        "third_party_services": []
+        "third_party_services": [],
+        "third_party_service_sizes": {}
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9212,7 +9695,7 @@
       "findings_count": 5,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7477.197,
+      "lcp_value_ms": 8579.374,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -9223,7 +9706,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 74874,
+          "Google Analytics": 457531,
+          "Digital Analytics Program": 14241
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9240,7 +9728,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 40,
+        "performance": 39,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 100,
@@ -9351,7 +9839,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2164.937,
+      "lcp_value_ms": 2257.7615000000005,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -9363,13 +9851,19 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 272255,
+          "Google Analytics": 636492,
+          "Digital Analytics Program": 14211,
+          "YouTube": 526
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
-        "errors_in_console_passing": true,
-        "errors_in_console_count": 0,
+        "errors_in_console_passing": false,
+        "errors_in_console_count": 1,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
@@ -9379,9 +9873,9 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 83,
+        "performance": 82,
         "accessibility": 94,
-        "best_practices": 92,
+        "best_practices": 88,
         "seo": 100,
         "pwa": 0
       },
@@ -9443,10 +9937,10 @@
       "page_load_count": 135692,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 6,
-      "severe_findings_count": 5,
+      "findings_count": 3,
+      "severe_findings_count": 2,
       "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 3163.3991,
+      "lcp_value_ms": 3975.1339399999997,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -9454,10 +9948,11 @@
           "version": null
         },
         "third_party_services": [
-          "Google Analytics",
-          "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 116903
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9468,36 +9963,16 @@
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
         "vulnerable_library_names": [],
-        "js_libraries": [
-          "Bootstrap",
-          "jQuery",
-          "jQuery UI"
-        ]
+        "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 78,
-        "accessibility": 79,
+        "performance": 80,
+        "accessibility": 89,
         "best_practices": 100,
-        "seo": 83,
+        "seo": 54,
         "pwa": 0
       },
       "axe_findings": [
-        {
-          "id": "aria-allowed-attr",
-          "title": "`[aria-*]` attributes do not match their roles",
-          "description": "Each ARIA `role` supports a specific subset of `aria-*` attributes. Mismatching these invalidates the `aria-*` attributes. [Learn how to match ARIA attributes to their roles](https://dequeuniversity.com/rules/axe/4.11/aria-allowed-attr).",
-          "score": 0,
-          "impact": "critical",
-          "tags": [],
-          "items": [
-            {
-              "selector": "main > div#main > div > div#suggestions",
-              "snippet": "<div id=\"suggestions\" class=\"\" data-controller=\"suggestions autocomplete\" data-autocomplete-url-value=\"/suggestions\" data-autocomplete-delay-value=\"300\" aria-expanded=\"false\" data-autocomplete-ready-value=\"true\">",
-              "node_label": "\n                \n                    \n                \n              ",
-              "explanation": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
-            }
-          ]
-        },
         {
           "id": "color-contrast",
           "title": "Background and foreground colors do not have a sufficient contrast ratio.",
@@ -9507,188 +9982,42 @@
           "tags": [],
           "items": [
             {
-              "selector": "div.homepage-grid > div#embedded-search-area > form#embedded_entry_search_form > span#expected_result_count",
-              "snippet": "<span id=\"expected_result_count\" class=\"search-result-count\">",
-              "node_label": "995,939 documents",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.02 (foreground color: #b88659, background color: #f9f9f9, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "div.section > ul.fr-list > li > span.fr-doc-date",
-              "snippet": "<span class=\"fr-doc-date\">",
-              "node_label": "Wednesday, March 25, 2026",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.12 (foreground color: #b2b2b2, background color: #ffffff, font size: 10.7pt (14.2222px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "div.section > ul.fr-list > li > span.fr-doc-date",
-              "snippet": "<span class=\"fr-doc-date\">",
-              "node_label": "Thursday, March 5, 2026",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.12 (foreground color: #b2b2b2, background color: #ffffff, font size: 10.7pt (14.2222px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "selector": "div.section > ul.fr-list > li > span.fr-doc-date",
-              "snippet": "<span class=\"fr-doc-date\">",
-              "node_label": "Tuesday, March 17, 2026",
-              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.12 (foreground color: #b2b2b2, background color: #ffffff, font size: 10.7pt (14.2222px), font weight: normal). Expected contrast ratio of 4.5:1"
+              "selector": "div.container > div#main > div.main-title-bar > h1",
+              "snippet": "<h1 class=\"\">",
+              "node_label": "Request Access",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.12 (foreground color: #5797ce, background color: #ffffff, font size: 15.2pt (20.2496px), font weight: normal). Expected contrast ratio of 4.5:1"
             }
           ]
         },
         {
-          "id": "heading-order",
-          "title": "Heading elements are not in a sequentially-descending order",
-          "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+          "id": "html-has-lang",
+          "title": "`<html>` element does not have a `[lang]` attribute",
+          "description": "If a page doesn't specify a `lang` attribute, a screen reader assumes that the page is in the default language that the user chose when setting up the screen reader. If the page isn't actually in the default language, then the screen reader might not announce the page's text correctly. [Learn more about the `lang` attribute](https://dequeuniversity.com/rules/axe/4.11/html-has-lang).",
+          "score": 0,
+          "impact": "serious",
+          "tags": [],
+          "items": [
+            {
+              "selector": "html",
+              "snippet": "<html>",
+              "node_label": "html",
+              "explanation": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        },
+        {
+          "id": "landmark-one-main",
+          "title": "Document does not have a main landmark.",
+          "description": "One main landmark helps screen reader users navigate a web page. [Learn more about landmarks](https://dequeuniversity.com/rules/axe/4.11/landmark-one-main).",
           "score": 0,
           "impact": "moderate",
           "tags": [],
           "items": [
             {
-              "selector": "div.fr-head-metadata-bar > div.fr-head-meta-label-holder > div.fr-head-meta-label > h4",
-              "snippet": "<h4>",
-              "node_label": " Current Issue",
-              "explanation": "Fix any of the following:\n  Heading order invalid"
-            }
-          ]
-        },
-        {
-          "id": "link-in-text-block",
-          "title": "Links rely on color to be distinguishable.",
-          "description": "Low-contrast text is difficult or impossible for many users to read. Link text that is discernible improves the experience for users with low vision. [Learn how to make links distinguishable](https://dequeuniversity.com/rules/axe/4.11/link-in-text-block).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "div.fr-head-meta-counts > ul.fr-list > li > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpublication_date%5D%5Bis%5D=2026-03-26\">",
-              "node_label": "91 documents",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.78:1 with the surrounding text. (Minimum contrast is 3:1, link text: #4d5e30, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "li > div.public-inspection-list-stats > div.filings-summary > a",
-              "snippet": "<a href=\"/public-inspection/search?conditions%5Bspecial_filing%5D=1\">",
-              "node_label": "12 documents",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.46:1 with the surrounding text. (Minimum contrast is 3:1, link text: #803333, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "li > div.public-inspection-list-stats > div.filings-summary > a",
-              "snippet": "<a href=\"/public-inspection/search?conditions%5Bspecial_filing%5D=0\">",
-              "node_label": "86 documents",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.46:1 with the surrounding text. (Minimum contrast is 3:1, link text: #803333, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "div.content-block > div#home-aid-tagline > p > a",
-              "snippet": "<a href=\"/reader-aids\">",
-              "node_label": "here",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 1.66:1 with the surrounding text. (Minimum contrast is 3:1, link text: #245784, surrounding text: #333333)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            }
-          ]
-        },
-        {
-          "id": "target-size",
-          "title": "Touch targets do not have sufficient size or spacing.",
-          "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=executi…\">",
-              "node_label": "11",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (15.8px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 13.2px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=executi…\">",
-              "node_label": "Executive Orders",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (104.3px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=memoran…\">",
-              "node_label": "1",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (7.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=memoran…\">",
-              "node_label": "Memorandum",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (87.6px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=notice&amp;…\">",
-              "node_label": "5",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (7.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=notice&amp;…\">",
-              "node_label": "Notices",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (47.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 20.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=proclam…\">",
-              "node_label": "8",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (7.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=proclam…\">",
-              "node_label": "Proclamations",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (90.6px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 20.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=executi…\">",
-              "node_label": "7",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (7.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 17.8px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=notice&amp;…\">",
-              "node_label": "1",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (7.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=notice&amp;…\">",
-              "node_label": "Notice",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (40.7px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 20.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td.count > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=proclam…\">",
-              "node_label": "4",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (7.9px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 12.4px instead of at least 24px."
-            },
-            {
-              "selector": "tbody > tr > td > a",
-              "snippet": "<a href=\"/documents/search?conditions%5Bpresidential_document_type%5D%5B%5D=proclam…\">",
-              "node_label": "Proclamations",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (90.6px by 16px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.4px instead of at least 24px."
-            }
-          ]
-        },
-        {
-          "id": "table-fake-caption",
-          "title": "Tables do not use `<caption>` instead of cells with the `[colspan]` attribute to indicate a caption.",
-          "description": "Screen readers have features to make navigating tables easier. Ensuring that tables use the actual caption element instead of cells with the `[colspan]` attribute may improve the experience for screen reader users. [Learn more about captions](https://dequeuniversity.com/rules/axe/4.11/table-fake-caption).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "div#popular-and-presdoc-container > div.section > div#monthly-document-counts > table.fr-table",
-              "snippet": "<table class=\"fr-table fr-monthly-overview\">",
-              "node_label": "February 2026\n0\tDeterminations\n11\tExecutive Orders\n1\tMemorandum\n5\tNotices\n8\tPro…",
-              "explanation": "Fix all of the following:\n  The first child of the table should be a caption instead of a table cell"
-            },
-            {
-              "selector": "div#popular-and-presdoc-container > div.section > div#monthly-document-counts > table.fr-table",
-              "snippet": "<table class=\"fr-table fr-monthly-overview\">",
-              "node_label": "March 2026\n0\tDeterminations\n7\tExecutive Orders\n0\tMemorandums\n1\tNotice\n4\tProclam…",
-              "explanation": "Fix all of the following:\n  The first child of the table should be a caption instead of a table cell"
+              "selector": "html",
+              "snippet": "<html>",
+              "node_label": "html",
+              "explanation": "Fix all of the following:\n  Document does not have a main landmark"
             }
           ]
         }
@@ -9704,7 +10033,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8926.3485,
+      "lcp_value_ms": 7337.60276360321,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -9717,7 +10046,14 @@
           "Digital Analytics Program",
           "jsDelivr CDN",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 69105,
+          "Digital Analytics Program": 14241,
+          "jsDelivr CDN": 1633,
+          "Google Analytics": 446067,
+          "Google Tag Manager": 127523
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9735,7 +10071,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 36,
+        "performance": 39,
         "accessibility": 96,
         "best_practices": 92,
         "seo": 100,
@@ -9776,7 +10112,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 7649.126,
+      "lcp_value_ms": 7633.388,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -9786,7 +10122,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 10133,
+          "Google Analytics": 148600
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9824,7 +10164,7 @@
       "findings_count": 6,
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 12736.231499999998,
+      "lcp_value_ms": 8387.273000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -9836,7 +10176,13 @@
           "Digital Analytics Program",
           "Adobe Analytics",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Adobe Analytics": 144002,
+          "Google Fonts": 41314,
+          "Google Analytics": 456577,
+          "Digital Analytics Program": 14241
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -9858,7 +10204,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 46,
+        "performance": 51,
         "accessibility": 84,
         "best_practices": 46,
         "seo": 85,
@@ -10093,7 +10439,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6803.8215,
+      "lcp_value_ms": 4189.205000000001,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -10105,7 +10451,13 @@
           "Digital Analytics Program",
           "Adobe Analytics",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Adobe Analytics": 64873,
+          "Google Fonts": 62459,
+          "Digital Analytics Program": 14741,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -10119,7 +10471,7 @@
         "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 70,
+        "performance": 76,
         "accessibility": 97,
         "best_practices": 100,
         "seo": 92,
@@ -10290,7 +10642,7 @@
       "findings_count": 4,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 10970.837499999998,
+      "lcp_value_ms": 9551.202,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -10302,7 +10654,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 612797,
+          "Digital Analytics Program": 14241,
+          "Google Tag Manager": 111561,
+          "YouTube": 527
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -10320,7 +10678,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 47,
         "accessibility": 90,
         "best_practices": 96,
         "seo": 91,
@@ -10553,7 +10911,7 @@
       "findings_count": 5,
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 16519.546219999993,
+      "lcp_value_ms": 14930.303500000002,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -10566,7 +10924,14 @@
           "Adobe Analytics",
           "Google Ads",
           "jsDelivr CDN"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14735,
+          "Google Analytics": 434617,
+          "jsDelivr CDN": 1628,
+          "Google Ads": 2274,
+          "Adobe Analytics": 862
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -10585,7 +10950,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 36,
+        "performance": 39,
         "accessibility": 82,
         "best_practices": 54,
         "seo": 92,
@@ -10762,7 +11127,7 @@
       "findings_count": 2,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 8215.639499999997,
+      "lcp_value_ms": 20070.6905,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -10775,7 +11140,14 @@
           "Digital Analytics Program",
           "Google Ads",
           "Facebook / Meta Pixel"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14751,
+          "Google Tag Manager": 159046,
+          "Google Analytics": 609216,
+          "Facebook / Meta Pixel": 133771,
+          "Google Ads": 2280
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -10793,7 +11165,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 28,
+        "performance": 25,
         "accessibility": 92,
         "best_practices": 58,
         "seo": 100,
@@ -10868,7 +11240,7 @@
       "findings_count": 3,
       "severe_findings_count": 3,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 20497.78500000001,
+      "lcp_value_ms": 15100.56100000002,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -10881,7 +11253,14 @@
           "Digital Analytics Program",
           "YouTube",
           "jsDelivr CDN"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "jsDelivr CDN": 1334,
+          "Google Tag Manager": 143483,
+          "Google Analytics": 452178,
+          "Digital Analytics Program": 4606,
+          "YouTube": 526
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -10901,7 +11280,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 48,
+        "performance": 53,
         "accessibility": 88,
         "best_practices": 77,
         "seo": 92,
@@ -10998,7 +11377,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 15108.5445,
+      "lcp_value_ms": 7242.284999999999,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -11010,7 +11389,13 @@
           "Google Tag Manager",
           "Digital Analytics Program",
           "Google Maps"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14740,
+          "Google Tag Manager": 146348,
+          "Google Maps": 88381,
+          "Google Analytics": 453118
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11033,7 +11418,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 45,
+        "performance": 37,
         "accessibility": 100,
         "best_practices": 92,
         "seo": 92,
@@ -11074,7 +11459,7 @@
       "findings_count": 0,
       "severe_findings_count": 0,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 3622.092,
+      "lcp_value_ms": 3216.9365,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -11085,7 +11470,12 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Analytics": 806161,
+          "Google Tag Manager": 495542,
+          "Digital Analytics Program": 14213
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11102,7 +11492,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 62,
+        "performance": 65,
         "accessibility": 100,
         "best_practices": 88,
         "seo": 100,
@@ -11120,7 +11510,7 @@
       "findings_count": 1,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 23486.798325892334,
+      "lcp_value_ms": 24274.719964775388,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -11131,13 +11521,18 @@
           "Google Analytics",
           "Google Tag Manager",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Tag Manager": 211335,
+          "Google Analytics": 628480,
+          "Digital Analytics Program": 14213
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
         "errors_in_console_passing": false,
-        "errors_in_console_count": 5,
+        "errors_in_console_count": 7,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
@@ -11148,9 +11543,9 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 7,
+        "performance": 5,
         "accessibility": 96,
-        "best_practices": 73,
+        "best_practices": 92,
         "seo": 54,
         "pwa": 0
       },
@@ -11204,192 +11599,38 @@
       "page_load_count": 119340,
       "scan_status": "success",
       "failure_reason": null,
-      "findings_count": 5,
-      "severe_findings_count": 5,
-      "core_web_vitals_status": "poor",
-      "lcp_value_ms": 6017.437999999999,
+      "findings_count": 0,
+      "severe_findings_count": 0,
+      "core_web_vitals_status": "unknown",
+      "lcp_value_ms": null,
       "detected_technologies": {
         "cms": null,
         "uswds": {
           "detected": false,
           "version": null
         },
-        "third_party_services": [
-          "Google Analytics",
-          "Google Tag Manager",
-          "Digital Analytics Program",
-          "Google Fonts"
-        ]
+        "third_party_services": [],
+        "third_party_service_sizes": {}
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
         "deprecated_apis_count": 0,
-        "errors_in_console_passing": false,
-        "errors_in_console_count": 3,
+        "errors_in_console_passing": null,
+        "errors_in_console_count": 0,
         "no_document_write_passing": null,
         "vulnerable_libraries_passing": null,
         "vulnerable_libraries_count": 0,
         "vulnerable_library_names": [],
-        "js_libraries": [
-          "Bootstrap",
-          "jQuery"
-        ]
+        "js_libraries": []
       },
       "lighthouse_scores": {
-        "performance": 41,
-        "accessibility": 85,
-        "best_practices": 85,
-        "seo": 91,
+        "performance": 0,
+        "accessibility": 0,
+        "best_practices": 0,
+        "seo": 0,
         "pwa": 0
       },
-      "axe_findings": [
-        {
-          "id": "aria-allowed-attr",
-          "title": "`[aria-*]` attributes do not match their roles",
-          "description": "Each ARIA `role` supports a specific subset of `aria-*` attributes. Mismatching these invalidates the `aria-*` attributes. [Learn how to match ARIA attributes to their roles](https://dequeuniversity.com/rules/axe/4.11/aria-allowed-attr).",
-          "score": 0,
-          "impact": "critical",
-          "tags": [],
-          "items": [
-            {
-              "selector": "body.modal-open > div#wra-info-header > div.banner-header > span#wra-dropdown",
-              "snippet": "<span id=\"wra-dropdown\" data-toggle=\"collapse\" data-target=\"#wra-collapse-wrapper\" aria-expanded=\"false\">",
-              "node_label": "Collapse here's how you know dropdown.\nHere's how you know ⌵︎\nDropdown",
-              "explanation": "Fix all of the following:\n  ARIA attribute is not allowed: aria-expanded=\"false\""
-            }
-          ]
-        },
-        {
-          "id": "frame-title",
-          "title": "`<frame>` or `<iframe>` elements do not have a title",
-          "description": "Screen reader users rely on frame titles to describe the contents of frames. [Learn more about frame titles](https://dequeuniversity.com/rules/axe/4.11/frame-title).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "body.modal-open > iframe#embeddedMessagingSiteContextFrame",
-              "snippet": "<iframe class=\"embeddedMessagingSiteContextFrame\" id=\"embeddedMessagingSiteContextFrame\" name=\"embeddedMessagingSiteContextFrame\" src=\"https://navynpcremovethistoputbuttonback.experience.crmforce.mil/ESWMNCCEn…\">",
-              "node_label": "body.modal-open > iframe#embeddedMessagingSiteContextFrame",
-              "explanation": "Fix any of the following:\n  Element has no title attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        },
-        {
-          "id": "link-in-text-block",
-          "title": "Links rely on color to be distinguishable.",
-          "description": "Low-contrast text is difficult or impossible for many users to read. Link text that is discernible improves the experience for users with low vision. [Learn how to make links distinguishable](https://dequeuniversity.com/rules/axe/4.11/link-in-text-block).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "div#alert-container > div#alert-message-box-2 > div#alert-message mnp-font > a",
-              "snippet": "<a href=\"mailto:askmncc.fct@navy.mil\" target=\"_blank\">",
-              "node_label": "askmncc.fct@navy.mil",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 2.68:1 with the surrounding text. (Minimum contrast is 3:1, link text: #1565c0, surrounding text: #212529)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "div#alert-container > div#alert-message-box-3 > div#alert-message mnp-font > a",
-              "snippet": "<a href=\"https://www.mn3p.navy.mil/documents/d/guest/mynavy_hr_security_policy_upda…\" target=\"_self\">",
-              "node_label": "here",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 2.68:1 with the surrounding text. (Minimum contrast is 3:1, link text: #1565c0, surrounding text: #212529)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "div#alert-container > div#alert-message-box-4 > div#alert-message mnp-font > a",
-              "snippet": "<a href=\"https://www.mynavyhr.navy.mil/Portals/55/Messages/NAVADMIN/NAV2025/NAV2515…\" target=\"_blank\">",
-              "node_label": "NAVADMIN 159/25",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 2.68:1 with the surrounding text. (Minimum contrast is 3:1, link text: #1565c0, surrounding text: #212529)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            },
-            {
-              "selector": "div#alert-container > div#alert-message-box-4 > div#alert-message mnp-font > a",
-              "snippet": "<a href=\"https://www.mn3p.navy.mil/web/performance/overview?utm_source=dev%20mnp%20…\" target=\"_self\">",
-              "node_label": "Performance Overview",
-              "explanation": "Fix any of the following:\n  The link has insufficient color contrast of 2.68:1 with the surrounding text. (Minimum contrast is 3:1, link text: #1565c0, surrounding text: #212529)\n  The link has no styling (such as underline) to distinguish it from the surrounding text"
-            }
-          ]
-        },
-        {
-          "id": "target-size",
-          "title": "Touch targets do not have sufficient size or spacing.",
-          "description": "Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. [Learn more about touch targets](https://dequeuniversity.com/rules/axe/4.11/target-size).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-0",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-0\" class=\"nav justify-content-center\" href=\"https://www.usa.gov/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://www.usa.gov/&quot;); return false;\">",
-              "node_label": "USA.gov",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (60.1px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            },
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-1",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-1\" class=\"nav justify-content-center\" href=\"https://www.navy.mil/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://www.navy.mil/&quot;); return false;\">",
-              "node_label": "Navy.mil",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (64.3px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            },
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-2",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-2\" class=\"nav justify-content-center\" href=\"https://www.navyreserve.navy.mil/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://www.navyreserve.navy.mil/&quot;); return false;\">",
-              "node_label": "Navy Reserve",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (97.1px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            },
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-3",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-3\" class=\"nav justify-content-center\" href=\"https://nrh.navyreserve.navy.mil/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://nrh.navyreserve.navy.mil/&quot;); return false;\">",
-              "node_label": "Navy Reserve Homeport",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (171.9px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            },
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-4",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-4\" class=\"nav justify-content-center\" href=\"https://www.mynavyhr.navy.mil/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://www.mynavyhr.navy.mil/&quot;); return false;\">",
-              "node_label": "MyNavy HR",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (86.1px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            },
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-6",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-6\" class=\"nav justify-content-center\" href=\"https://www.cnrc.navy.mil/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://www.cnrc.navy.mil/&quot;); return false;\">",
-              "node_label": "CNRC",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (40.7px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            },
-            {
-              "selector": "footer.page-footer > div#footer-navy-links-row > div.text-nowrap > a#footer-navy-links-row-image-link-7",
-              "snippet": "<a id=\"footer-navy-links-row-image-link-7\" class=\"nav justify-content-center\" href=\"https://www.navy.com/?utm_source=mnp%20public\" target=\"_blank\" rel=\"noopener noreferrer\" onclick=\"trackOutboundLink(&quot;https://www.navy.com/&quot;); return false;\">",
-              "node_label": "Navy Recruiting",
-              "explanation": "Fix any of the following:\n  Target has insufficient size (115.7px by 22.5px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px."
-            }
-          ]
-        },
-        {
-          "id": "label-content-name-mismatch",
-          "title": "Elements with visible text labels do not have matching accessible names.",
-          "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
-          "score": 0,
-          "impact": "serious",
-          "tags": [],
-          "items": [
-            {
-              "selector": "nav.navbar-top > div#header-links > div#navbarSupportedContent > button#login-toggler",
-              "snippet": "<button id=\"login-toggler\" class=\"account-toggler mobile-view-only\" type=\"button\" data-toggle=\"collapse\" data-target=\"#bottomLoginMenu\" aria-controls=\"bottomLoginMenu\" aria-expanded=\"false\" aria-label=\"Toggle login menu\">",
-              "node_label": "LOG IN ",
-              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
-            },
-            {
-              "selector": "nav.navbar-top > div#header-links > div#navbarSupportedContent > button#navbar-toggler",
-              "snippet": "<button id=\"navbar-toggler\" type=\"button\" class=\"navbar-toggler waves-effect waves-light\" data-toggle=\"collapse\" data-target=\"#bottomMainMenu\" aria-controls=\"bottomMainMenu\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">",
-              "node_label": "MENU ",
-              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
-            },
-            {
-              "selector": "div.modal-dialog > div.modal-content > div.modal-footer > button.btn",
-              "snippet": "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" aria-label=\"Close\">",
-              "node_label": "OKAY",
-              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
-            }
-          ]
-        }
-      ]
+      "axe_findings": []
     },
     {
       "url": "https://ipps-a.army.mil",
@@ -11401,7 +11642,7 @@
       "findings_count": 6,
       "severe_findings_count": 5,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 5470.9220000000005,
+      "lcp_value_ms": 5475.905,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -11412,7 +11653,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "Google Fonts"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Google Fonts": 2198,
+          "Digital Analytics Program": 4605,
+          "Google Analytics": 306726
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11430,7 +11676,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 65,
+        "performance": 63,
         "accessibility": 79,
         "best_practices": 81,
         "seo": 100,
@@ -11616,8 +11862,8 @@
       "failure_reason": null,
       "findings_count": 3,
       "severe_findings_count": 2,
-      "core_web_vitals_status": "needs_improvement",
-      "lcp_value_ms": 2288.553,
+      "core_web_vitals_status": "poor",
+      "lcp_value_ms": 4446.6895,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -11627,7 +11873,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14742,
+          "Google Analytics": 148482
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11643,7 +11893,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 94,
+        "performance": 72,
         "accessibility": 92,
         "best_practices": 100,
         "seo": 100,
@@ -11746,7 +11996,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9764.673999999999,
+      "lcp_value_ms": 8524.7805,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -11756,7 +12006,11 @@
         "third_party_services": [
           "Google Analytics",
           "Digital Analytics Program"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14739,
+          "Google Analytics": 148479
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11841,7 +12095,7 @@
       "findings_count": 3,
       "severe_findings_count": 2,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 9745.796499999997,
+      "lcp_value_ms": 9217.993500000002,
       "detected_technologies": {
         "cms": null,
         "uswds": {
@@ -11852,7 +12106,12 @@
           "Google Analytics",
           "Digital Analytics Program",
           "YouTube"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "Digital Analytics Program": 14209,
+          "Google Analytics": 454014,
+          "YouTube": 526
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11868,7 +12127,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 42,
+        "performance": 49,
         "accessibility": 87,
         "best_practices": 77,
         "seo": 100,
@@ -11959,7 +12218,7 @@
       "findings_count": 2,
       "severe_findings_count": 1,
       "core_web_vitals_status": "poor",
-      "lcp_value_ms": 13666.598999999998,
+      "lcp_value_ms": 20192.22425,
       "detected_technologies": {
         "cms": "Drupal",
         "uswds": {
@@ -11973,7 +12232,15 @@
           "Hotjar",
           "YouTube",
           "jsDelivr CDN"
-        ]
+        ],
+        "third_party_service_sizes": {
+          "jsDelivr CDN": 257586,
+          "Google Tag Manager": 136031,
+          "Hotjar": 6475,
+          "Digital Analytics Program": 14738,
+          "Google Analytics": 454754,
+          "YouTube": 526
+        }
       },
       "code_quality_summary": {
         "deprecated_apis_passing": null,
@@ -11991,7 +12258,7 @@
         ]
       },
       "lighthouse_scores": {
-        "performance": 43,
+        "performance": 42,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 92,
@@ -12155,12 +12422,12 @@
     },
     "total_scanned": 100,
     "third_party_service_counts": {
-      "Google Analytics": 95,
-      "Google Tag Manager": 57,
-      "Digital Analytics Program": 92,
+      "Google Analytics": 92,
+      "Google Tag Manager": 56,
+      "Digital Analytics Program": 89,
       "Google Ads": 27,
       "Facebook / Meta Pixel": 7,
-      "Google Fonts": 36,
+      "Google Fonts": 35,
       "Login.gov": 1,
       "YouTube": 25,
       "jsDelivr CDN": 11,
@@ -12212,7 +12479,6 @@
         "https://medicare.gov",
         "https://tsp.gov",
         "https://dhs.gov",
-        "https://ecfr.gov",
         "https://ncei.noaa.gov",
         "https://consumerfinance.gov",
         "https://bls.gov",
@@ -12251,7 +12517,6 @@
         "https://osha.gov",
         "https://i94.cbp.dhs.gov",
         "https://itis.gov",
-        "https://federalregister.gov",
         "https://noaa.gov",
         "https://portal.cms.gov",
         "https://census.gov",
@@ -12263,7 +12528,6 @@
         "https://gsa.gov",
         "https://about.usps.com",
         "https://cnsb.usps.com",
-        "https://my.navy.mil",
         "https://ipps-a.army.mil",
         "https://aviationweather.gov",
         "https://ttp.dhs.gov",
@@ -12326,7 +12590,6 @@
         "https://gsa.gov",
         "https://about.usps.com",
         "https://cnsb.usps.com",
-        "https://my.navy.mil",
         "https://usgs.gov"
       ],
       "Digital Analytics Program": [
@@ -12367,7 +12630,6 @@
         "https://medicare.gov",
         "https://tsp.gov",
         "https://dhs.gov",
-        "https://ecfr.gov",
         "https://ncei.noaa.gov",
         "https://consumerfinance.gov",
         "https://bls.gov",
@@ -12404,7 +12666,6 @@
         "https://osha.gov",
         "https://i94.cbp.dhs.gov",
         "https://itis.gov",
-        "https://federalregister.gov",
         "https://noaa.gov",
         "https://portal.cms.gov",
         "https://census.gov",
@@ -12416,7 +12677,6 @@
         "https://gsa.gov",
         "https://about.usps.com",
         "https://cnsb.usps.com",
-        "https://my.navy.mil",
         "https://ipps-a.army.mil",
         "https://aviationweather.gov",
         "https://ttp.dhs.gov",
@@ -12496,7 +12756,6 @@
         "https://noaa.gov",
         "https://census.gov",
         "https://cancer.gov",
-        "https://my.navy.mil",
         "https://ipps-a.army.mil"
       ],
       "Login.gov": [
@@ -12571,10 +12830,28 @@
         "https://usgs.gov"
       ]
     },
+    "third_party_service_total_bytes": {
+      "Google Tag Manager": 10086690,
+      "Google Analytics": 43694792,
+      "Digital Analytics Program": 1221172,
+      "Facebook / Meta Pixel": 1075906,
+      "Google Ads": 192878,
+      "Login.gov": 102454,
+      "Google Fonts": 2444302,
+      "YouTube": 1435145,
+      "jsDelivr CDN": 383419,
+      "unpkg CDN": 10865,
+      "cdnjs": 42580,
+      "Adobe Analytics": 278758,
+      "Twitter / X Widgets": 273920,
+      "Adobe Fonts": 57759,
+      "Google Maps": 88381,
+      "Hotjar": 6475
+    },
     "accessibility_statement_summary": {
       "domains_checked": 100,
-      "domains_with_statement": 63,
-      "statement_rate_percent": 63,
+      "domains_with_statement": 62,
+      "statement_rate_percent": 62,
       "domains_without_statement": [
         "about.usps.com",
         "accessdata.fda.gov",
@@ -12604,6 +12881,7 @@
         "pubchem.ncbi.nlm.nih.gov",
         "radar.weather.gov",
         "reg.usps.com",
+        "science.nasa.gov",
         "sec.gov",
         "secure.login.gov",
         "store.usps.com",
@@ -12655,7 +12933,6 @@
         "https://pmc.ncbi.nlm.nih.gov/about/accessibility",
         "https://pubmed.ncbi.nlm.nih.gov/508",
         "https://sam.gov/about/accessibility",
-        "https://science.nasa.gov/accessibility-statement",
         "https://search.usa.gov/accessibility",
         "https://secure.ssa.gov/accessibility",
         "https://spc.noaa.gov/accessibility",
@@ -12684,8 +12961,8 @@
       "domains_checked": 100,
       "by_type": {
         "privacy": {
-          "domains_with_link": 64,
-          "rate_percent": 64,
+          "domains_with_link": 63,
+          "rate_percent": 63,
           "missing_domains": [
             "about.usps.com",
             "accessdata.fda.gov",
@@ -12715,6 +12992,7 @@
             "radar.weather.gov",
             "reg.usps.com",
             "sam.gov",
+            "science.nasa.gov",
             "sec.gov",
             "secure.login.gov",
             "store.usps.com",
@@ -12765,7 +13043,6 @@
             "https://opm.gov/privacy",
             "https://osha.gov/privacy",
             "https://pmc.ncbi.nlm.nih.gov/about/privacy",
-            "https://science.nasa.gov/privacy",
             "https://search.usa.gov/privacy",
             "https://secure.ssa.gov/privacy",
             "https://spc.noaa.gov/privacy",
@@ -13019,25 +13296,24 @@
     "urls_with_document_write": 0,
     "urls_with_vulnerable_libraries": 0,
     "js_library_counts": {
-      "Bootstrap": 21,
-      "jQuery": 74,
-      "jQuery UI": 29,
-      "Modernizr": 9,
-      "Underscore": 6,
+      "Bootstrap": 17,
+      "jQuery": 70,
+      "jQuery UI": 28,
+      "Modernizr": 8,
+      "Underscore": 5,
       "core-js": 28,
       "Drupal": 36,
       "boomerang.js": 8,
       "React": 6,
       "Lo-Dash": 8,
       "Angular": 8,
-      "yepnope": 4,
+      "yepnope": 3,
       "LitElement": 3,
       "lit-html": 3,
-      "Moment.js": 5,
+      "Moment.js": 4,
       "Create React App": 1,
       "WordPress": 2,
       "Zurb": 1,
-      "AmplifyJS": 1,
       "jQuery Tools": 1,
       "Material Design Lite": 1,
       "Gatsby": 2,
@@ -13090,13 +13366,13 @@
         "https://opm.gov",
         "https://tsaenrollmentbyidemia.tsa.dhs.gov",
         "https://osha.gov",
+        "https://itis.gov",
         "https://noaa.gov",
         "https://portal.cms.gov",
         "https://census.gov",
         "https://gsa.gov",
         "https://about.usps.com",
-        "https://cnsb.usps.com",
-        "https://my.navy.mil"
+        "https://cnsb.usps.com"
       ],
       "document_write": [],
       "vulnerable_libraries": []
@@ -13407,22 +13683,22 @@
     {
       "date": "2026-03-27",
       "aggregate_scores": {
-        "performance": 0,
-        "accessibility": 0,
-        "best_practices": 0,
-        "seo": 0,
+        "performance": 54,
+        "accessibility": 91.8,
+        "best_practices": 83.41,
+        "seo": 89.48,
         "pwa": 0
       }
     }
   ],
-  "generated_at": "2026-03-27T09:37:40.435Z",
+  "generated_at": "2026-03-27T11:57:59.911Z",
   "report_status": "success",
   "slow_risk_summary": {
     "successful_url_count": 100,
-    "slow_risk_url_count": 83,
+    "slow_risk_url_count": 84,
     "successful_page_load_count": 68741000,
-    "slow_risk_page_load_count": 45348631,
-    "slow_risk_traffic_share_percent": 65.97
+    "slow_risk_page_load_count": 45569040,
+    "slow_risk_traffic_share_percent": 66.29
   },
   "warning_events": [],
   "scan_diagnostics": {

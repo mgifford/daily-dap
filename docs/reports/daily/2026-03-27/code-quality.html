@@ -775,6 +775,13 @@
     :root:not([data-color-scheme="light"]) .privacy-concern { color: hsl(30 80% 70%); }
     html[data-color-scheme="dark"]         .privacy-concern { color: hsl(30 80% 70%); }
     html[data-color-scheme="light"]        .privacy-concern { color: hsl(30 80% 35%); }
+    /* Size sub-label inside third-party service size column */
+    .tp-size-total {
+      font-size: 0.8em;
+      opacity: 0.75;
+      white-space: nowrap;
+    }
+    .tp-size-unknown { opacity: 0.4; }
 
     /* ---------- URL cells ---------- */
     .url-cell {
@@ -1115,7 +1122,7 @@
       <div class="score-grid">
         <div class="score-card">
           <div class="score-label">Best Practices Score</div>
-          <div class="score-value">83.41</div>
+          <div class="score-value">83.91</div>
           <div class="score-note">Lighthouse aggregate (0&ndash;100)</div>
         </div>
 <div class="score-card">
@@ -1142,19 +1149,19 @@
       <div class="table-scroll"><table>
         <caption>JavaScript libraries detected across 100 successfully scanned URLs</caption>
         <thead><tr><th scope="col">Library</th><th scope="col">URLs</th><th scope="col">Share</th></tr></thead>
-        <tbody><tr><td data-label="Library">jQuery</td><td data-label="URLs">74</td><td data-label="Share">74%</td></tr>
+        <tbody><tr><td data-label="Library">jQuery</td><td data-label="URLs">70</td><td data-label="Share">70%</td></tr>
 <tr><td data-label="Library">Drupal</td><td data-label="URLs">36</td><td data-label="Share">36%</td></tr>
-<tr><td data-label="Library">jQuery UI</td><td data-label="URLs">29</td><td data-label="Share">29%</td></tr>
+<tr><td data-label="Library">jQuery UI</td><td data-label="URLs">28</td><td data-label="Share">28%</td></tr>
 <tr><td data-label="Library">core-js</td><td data-label="URLs">28</td><td data-label="Share">28%</td></tr>
-<tr><td data-label="Library">Bootstrap</td><td data-label="URLs">21</td><td data-label="Share">21%</td></tr>
-<tr><td data-label="Library">Modernizr</td><td data-label="URLs">9</td><td data-label="Share">9%</td></tr>
+<tr><td data-label="Library">Bootstrap</td><td data-label="URLs">17</td><td data-label="Share">17%</td></tr>
+<tr><td data-label="Library">Modernizr</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
 <tr><td data-label="Library">boomerang.js</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
 <tr><td data-label="Library">Lo-Dash</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
 <tr><td data-label="Library">Angular</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
-<tr><td data-label="Library">Underscore</td><td data-label="URLs">6</td><td data-label="Share">6%</td></tr>
 <tr><td data-label="Library">React</td><td data-label="URLs">6</td><td data-label="Share">6%</td></tr>
-<tr><td data-label="Library">Moment.js</td><td data-label="URLs">5</td><td data-label="Share">5%</td></tr>
-<tr><td data-label="Library">yepnope</td><td data-label="URLs">4</td><td data-label="Share">4%</td></tr>
+<tr><td data-label="Library">Underscore</td><td data-label="URLs">5</td><td data-label="Share">5%</td></tr>
+<tr><td data-label="Library">Moment.js</td><td data-label="URLs">4</td><td data-label="Share">4%</td></tr>
+<tr><td data-label="Library">yepnope</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
 <tr><td data-label="Library">LitElement</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
 <tr><td data-label="Library">lit-html</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
 <tr><td data-label="Library">Preact</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
@@ -1165,7 +1172,6 @@
 <tr><td data-label="Library">Leaflet</td><td data-label="URLs">2</td><td data-label="Share">2%</td></tr>
 <tr><td data-label="Library">Create React App</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
 <tr><td data-label="Library">Zurb</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
-<tr><td data-label="Library">AmplifyJS</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
 <tr><td data-label="Library">jQuery Tools</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
 <tr><td data-label="Library">Material Design Lite</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
 <tr><td data-label="Library">Dojo</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
@@ -1207,7 +1213,7 @@
         <tbody>
           <tr>
           <td data-label="URL"><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></td>
-          <td data-label="Best Practices">77</td>
+          <td data-label="Best Practices">96</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
@@ -1317,7 +1323,7 @@
           <td data-label="URL"><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></td>
           <td data-label="Best Practices">54</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (172)</td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (334)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"><span class="tech-badge">Lo-Dash</span> <span class="tech-badge">Angular</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
@@ -1353,7 +1359,7 @@
           <td data-label="URL"><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></td>
           <td data-label="Best Practices">50</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (3)</td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">LitElement</span> <span class="tech-badge">lit-html</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Lo-Dash</span> <span class="tech-badge">core-js</span></td>
@@ -1389,7 +1395,7 @@
           <td data-label="URL"><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></td>
           <td data-label="Best Practices">73</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (3)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
@@ -1515,7 +1521,7 @@
           <td data-label="URL"><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></td>
           <td data-label="Best Practices">46</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (36)</td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (38)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"></td>
@@ -1572,7 +1578,7 @@
           <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">yepnope</span> <span class="tech-badge">AmplifyJS</span> <span class="tech-badge">Moment.js</span></td>
+          <td data-label="JS Libraries"></td>
         </tr>
 <tr>
           <td data-label="URL"><a href="https://ncei.noaa.gov" target="_blank" rel="noreferrer">https://ncei.noaa.gov</a></td>
@@ -1734,7 +1740,7 @@
           <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Dojo</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">RequireJS</span> <span class="tech-badge">core-js</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Dojo</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">RequireJS</span> <span class="tech-badge">core-js</span></td>
         </tr>
 <tr>
           <td data-label="URL"><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></td>
@@ -1792,7 +1798,7 @@
         </tr>
 <tr>
           <td data-label="URL"><a href="https://acis.eoir.justice.gov" target="_blank" rel="noreferrer">https://acis.eoir.justice.gov</a></td>
-          <td data-label="Best Practices">58</td>
+          <td data-label="Best Practices">77</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
@@ -1819,7 +1825,7 @@
         </tr>
 <tr>
           <td data-label="URL"><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></td>
-          <td data-label="Best Practices">54</td>
+          <td data-label="Best Practices">50</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
@@ -1936,9 +1942,9 @@
         </tr>
 <tr>
           <td data-label="URL"><a href="https://itis.gov" target="_blank" rel="noreferrer">https://itis.gov</a></td>
-          <td data-label="Best Practices">92</td>
+          <td data-label="Best Practices">88</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"><span class="tech-badge">jQuery</span></td>
@@ -1950,7 +1956,7 @@
           <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span></td>
+          <td data-label="JS Libraries"></td>
         </tr>
 <tr>
           <td data-label="URL"><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></td>
@@ -2044,21 +2050,21 @@
         </tr>
 <tr>
           <td data-label="URL"><a href="https://cnsb.usps.com" target="_blank" rel="noreferrer">https://cnsb.usps.com</a></td>
-          <td data-label="Best Practices">73</td>
+          <td data-label="Best Practices">92</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (5)</td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (7)</td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="JS Libraries"><span class="tech-badge">Lo-Dash</span> <span class="tech-badge">core-js</span></td>
         </tr>
 <tr>
           <td data-label="URL"><a href="https://my.navy.mil" target="_blank" rel="noreferrer">https://my.navy.mil</a></td>
-          <td data-label="Best Practices">85</td>
+          <td data-label="Best Practices">0</td>
           <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (3)</td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
           <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
-          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span></td>
+          <td data-label="JS Libraries"></td>
         </tr>
 <tr>
           <td data-label="URL"><a href="https://ipps-a.army.mil" target="_blank" rel="noreferrer">https://ipps-a.army.mil</a></td>
