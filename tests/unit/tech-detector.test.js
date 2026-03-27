@@ -590,3 +590,80 @@ test('buildTechSummary handles results with no third_party_service_sizes field',
   assert.equal(summary.third_party_service_counts['Google Analytics'], 1);
   assert.deepEqual(summary.third_party_service_total_bytes, {});
 });
+
+// ---------------------------------------------------------------------------
+// third_party_service_page_load_totals – buildTechSummary
+// ---------------------------------------------------------------------------
+
+test('buildTechSummary returns empty third_party_service_page_load_totals for empty results', () => {
+  const summary = buildTechSummary([]);
+  assert.deepEqual(summary.third_party_service_page_load_totals, {});
+});
+
+test('buildTechSummary accumulates page_load_count per service across successful results', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      page_load_count: 5000000,
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics', 'Google Fonts'],
+        third_party_service_sizes: { 'Google Analytics': 30720, 'Google Fonts': 5120 }
+      }
+    },
+    {
+      url: 'https://site2.gov/',
+      page_load_count: 2000000,
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics'],
+        third_party_service_sizes: { 'Google Analytics': 20480 }
+      }
+    },
+    {
+      url: 'https://site3.gov/',
+      page_load_count: 999999,
+      scan_status: 'failed',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics'],
+        third_party_service_sizes: { 'Google Analytics': 99999 }
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.third_party_service_page_load_totals['Google Analytics'], 7000000);
+  assert.equal(summary.third_party_service_page_load_totals['Google Fonts'], 5000000);
+  assert.equal(summary.third_party_service_page_load_totals['YouTube'], undefined);
+});
+
+test('buildTechSummary treats missing page_load_count as 0 in page load totals', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics']
+      }
+    },
+    {
+      url: 'https://site2.gov/',
+      page_load_count: 3000000,
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: ['Google Analytics']
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.third_party_service_page_load_totals['Google Analytics'], 3000000);
+});
