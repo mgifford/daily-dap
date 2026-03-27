@@ -3191,3 +3191,45 @@ test('renderDailyReportPage includes link to code quality page', () => {
   assert.ok(html.includes('code-quality.html'), 'Should include link to code quality page');
   assert.ok(html.includes('HTML/CSS/JS Code Quality'), 'Should have descriptive link text for code quality page');
 });
+
+test('renderDailyReportPage third-party badge uses accessible tooltip instead of title attribute', () => {
+  const report = {
+    run_date: '2026-03-27',
+    run_id: 'test-run',
+    url_counts: { processed: 1, succeeded: 1, failed: 0, excluded: 0 },
+    aggregate_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+    estimated_impact: { traffic_window_mode: 'daily', affected_share_percent: 0, categories: [] },
+    history_series: [],
+    top_urls: [
+      {
+        url: 'https://example.gov',
+        page_load_count: 1000,
+        scan_status: 'success',
+        failure_reason: null,
+        findings_count: 0,
+        severe_findings_count: 0,
+        lighthouse_scores: { performance: 80, accessibility: 90, best_practices: 85, seo: 88, pwa: 0 },
+        detected_technologies: {
+          cms: null,
+          uswds: { detected: false },
+          third_party_services: ['Google Analytics', 'Google Tag Manager']
+        }
+      }
+    ],
+    generated_at: '2026-03-27T00:00:00.000Z',
+    report_status: 'success'
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Should use accessible tooltip pattern, NOT a title= attribute
+  assert.ok(!html.includes('title="Third-party services:'), 'Should NOT use title= attribute for 3rd-party badge');
+  assert.ok(html.includes('tech-badge-3p'), 'Should include tech-badge-3p class');
+  assert.ok(html.includes('2 3rd-party'), 'Should show count of third-party services');
+  assert.ok(html.includes('role="tooltip"'), 'Should include role="tooltip" for accessible tooltip');
+  assert.ok(html.includes('aria-describedby="3p-tip-'), 'Should have aria-describedby pointing to tooltip');
+  assert.ok(html.includes('aria-label="2 third-party services"'), 'aria-label should expand abbreviation and pluralize');
+  assert.ok(html.includes('url-count-trigger'), 'Should reuse url-count-trigger CSS class for tooltip trigger');
+  assert.ok(html.includes('url-count-tooltip'), 'Should reuse url-count-tooltip CSS class for tooltip panel');
+  assert.ok(html.includes('Third-party services: Google Analytics, Google Tag Manager'), 'Tooltip content should list service names');
+});
