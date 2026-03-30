@@ -4,23 +4,27 @@ on:
   schedule:
     # Run on the first day of every month at 09:00 UTC
     - cron: '0 9 1 * *'
-  push:
-    branches:
-      - main
-    paths:
-      - 'docs/**'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   issues: write
 
 jobs:
   scan-pages:
     runs-on: ubuntu-latest
     steps:
+      - name: Check for existing open accessibility issues
+        id: check_issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT=$(gh issue list --repo "$GITHUB_REPOSITORY" --label "accessibility" --state open --json number --jq '. | length')
+          echo "open_count=$COUNT" >> "$GITHUB_OUTPUT"
+
       - name: Scan GitHub Pages with axe-core
-        uses: github/accessibility-scanner@v2
+        if: steps.check_issues.outputs.open_count == '0'
+        uses: github/accessibility-scanner@v3
         with:
           urls: |
             https://mgifford.github.io/daily-dap/
@@ -29,3 +33,9 @@ jobs:
           token: ${{ github.token }}
           cache_key: daily-dap-github-pages
           skip_copilot_assignment: true
+
+      - name: Skip scan (open issues exist)
+        if: steps.check_issues.outputs.open_count != '0'
+        run: |
+          echo "Skipping scan: ${{ steps.check_issues.outputs.open_count }} open accessibility issue(s) already exist."
+          echo "Resolve open issues before a new scan is triggered."
