@@ -6,6 +6,9 @@
  *  - USWDS: whether the U.S. Web Design System is present, and which version
  *  - Third-party JavaScript services: analytics, advertising, social media,
  *    CDN, fonts, maps, government identity, and support tools
+ *  - Accessibility overlays: commercial widgets that claim to fix accessibility
+ *    automatically (see https://overlayfactsheet.com/en/ for why these are
+ *    problematic)
  *
  * Detection relies on URL patterns in the network-requests audit, which lists
  * every resource the browser loaded while rendering the page. This works well
@@ -243,6 +246,97 @@ const THIRD_PARTY_SERVICES = [
 ];
 
 /**
+ * Known accessibility overlay vendors detected from network request URLs.
+ *
+ * Accessibility overlays are commercial products that inject JavaScript into
+ * a page and claim to automatically fix accessibility issues. Research and
+ * the accessibility community broadly agree that overlays do not make
+ * inaccessible sites accessible, may introduce new barriers, and conflict
+ * with assistive technologies. See https://overlayfactsheet.com/en/ for details.
+ *
+ * Each entry describes:
+ *  - name:     Display name of the overlay vendor
+ *  - patterns: Array of RegExp patterns matched against request URLs
+ *
+ * Detection patterns are derived from the Find-Overlays project:
+ * https://github.com/mgifford/Find-Overlays
+ */
+export const OVERLAY_SIGNATURES = [
+  {
+    name: 'AccessiBe',
+    patterns: [/accessibe\.com/i, /acsbapp/i, /acsb\.js/i]
+  },
+  {
+    name: 'Accessibility Adapter',
+    patterns: [/accessibilityadapter\.com/i, /accessibility-adapter/i]
+  },
+  {
+    name: 'Accessiplus',
+    patterns: [/accessiplus/i]
+  },
+  {
+    name: 'Accessiway',
+    patterns: [/accessiway/i]
+  },
+  {
+    name: 'Adally',
+    patterns: [/adally\.com/i, /adally\.js/i]
+  },
+  {
+    name: 'Allyable',
+    patterns: [/allyable\.com/i, /allyable\.js/i]
+  },
+  {
+    name: 'AudioEye',
+    patterns: [/audioeye\.com/i, /audioeye\.js/i]
+  },
+  {
+    name: 'EqualWeb',
+    patterns: [/equalweb\.com/i, /nagishli/i]
+  },
+  {
+    name: 'Eye-Able',
+    patterns: [/eye-able\.com/i, /eye-able-cdn/i]
+  },
+  {
+    name: 'Equally.ai',
+    patterns: [/equally\.ai/i]
+  },
+  {
+    name: "FACIL'iti",
+    patterns: [/facil-iti/i, /facil_iti/i]
+  },
+  {
+    name: 'MaxAccess',
+    patterns: [/maxaccess/i]
+  },
+  {
+    name: 'ReciteME',
+    patterns: [/reciteme\.com/i, /recite\.js/i]
+  },
+  {
+    name: 'TruAbilities',
+    patterns: [/truabilities/i]
+  },
+  {
+    name: 'True Accessibility',
+    patterns: [/trueaccessibility/i]
+  },
+  {
+    name: 'UsableNet (Assistive)',
+    patterns: [/usablenet\.com/i, /usablenet_assistive/i]
+  },
+  {
+    name: 'UserWay',
+    patterns: [/userway\.org/i, /userway\.js/i]
+  },
+  {
+    name: 'WebAbility',
+    patterns: [/webability/i]
+  }
+];
+
+/**
  * Return metadata (category and privacy_concern) for a named third-party service.
  *
  * @param {string} name - Service name as returned by detectThirdPartyServices()
@@ -371,6 +465,23 @@ function extractThirdPartyServiceSizes(items) {
 }
 
 /**
+ * Detect which known accessibility overlay vendors are loaded from a list of
+ * request URLs. Each overlay is reported at most once per page.
+ *
+ * @param {string[]} urls
+ * @returns {string[]} Sorted list of detected overlay vendor names
+ */
+function detectOverlaysFromUrls(urls) {
+  const detected = [];
+  for (const overlay of OVERLAY_SIGNATURES) {
+    if (urls.some((url) => overlay.patterns.some((pattern) => pattern.test(url)))) {
+      detected.push(overlay.name);
+    }
+  }
+  return detected;
+}
+
+/**
  * Detect technologies from a Lighthouse raw result (lhr).
  *
  * @param {object|null} lighthouseRaw - Full Lighthouse result object (lhr)
@@ -378,7 +489,8 @@ function extractThirdPartyServiceSizes(items) {
  *   cms: string|null,
  *   uswds: { detected: boolean, version: string|null },
  *   third_party_services: string[],
- *   third_party_service_sizes: Record<string, number>
+ *   third_party_service_sizes: Record<string, number>,
+ *   overlays: string[]
  * }}
  */
 export function detectTechnologies(lighthouseRaw) {
@@ -387,7 +499,8 @@ export function detectTechnologies(lighthouseRaw) {
       cms: null,
       uswds: { detected: false, version: null },
       third_party_services: [],
-      third_party_service_sizes: {}
+      third_party_service_sizes: {},
+      overlays: []
     };
   }
 
@@ -423,7 +536,8 @@ export function detectTechnologies(lighthouseRaw) {
     cms: detectedCms,
     uswds: { detected: uswdsDetected, version: uswdsVersion },
     third_party_services: detectThirdPartyServices(urls),
-    third_party_service_sizes: extractThirdPartyServiceSizes(items)
+    third_party_service_sizes: extractThirdPartyServiceSizes(items),
+    overlays: detectOverlaysFromUrls(urls)
   };
 }
 
@@ -432,7 +546,8 @@ export function detectTechnologies(lighthouseRaw) {
  *
  * Counts how many successfully-scanned URLs use each detected CMS and/or
  * USWDS. Returns counts and a deduplicated list of observed USWDS versions.
- * Also aggregates third-party service usage and transfer sizes across all scanned URLs.
+ * Also aggregates third-party service usage, transfer sizes, and accessibility
+ * overlay detections across all scanned URLs.
  *
  * @param {Array<{ scan_status: string, detected_technologies?: object, page_load_count?: number }>} urlResults
  * @returns {{
@@ -443,7 +558,9 @@ export function detectTechnologies(lighthouseRaw) {
  *   third_party_service_counts: Record<string, number>,
  *   third_party_service_urls: Record<string, string[]>,
  *   third_party_service_total_bytes: Record<string, number>,
- *   third_party_service_page_load_totals: Record<string, number>
+ *   third_party_service_page_load_totals: Record<string, number>,
+ *   overlay_counts: Record<string, number>,
+ *   overlay_urls: Record<string, string[]>
  * }}
  */
 export function buildTechSummary(urlResults = []) {
@@ -457,6 +574,8 @@ export function buildTechSummary(urlResults = []) {
   const thirdPartyServiceUrls = {};
   const thirdPartyServiceTotalBytes = {};
   const thirdPartyServicePageLoadTotals = {};
+  const overlayCounts = {};
+  const overlayUrls = {};
 
   for (const result of successful) {
     const tech = result.detected_technologies;
@@ -504,6 +623,14 @@ export function buildTechSummary(urlResults = []) {
           (thirdPartyServiceTotalBytes[serviceName] ?? 0) + bytes;
       }
     }
+
+    for (const overlayName of (tech.overlays ?? [])) {
+      overlayCounts[overlayName] = (overlayCounts[overlayName] ?? 0) + 1;
+      if (url) {
+        if (!overlayUrls[overlayName]) overlayUrls[overlayName] = [];
+        overlayUrls[overlayName].push(url);
+      }
+    }
   }
 
   return {
@@ -516,6 +643,8 @@ export function buildTechSummary(urlResults = []) {
     third_party_service_counts: thirdPartyServiceCounts,
     third_party_service_urls: thirdPartyServiceUrls,
     third_party_service_total_bytes: thirdPartyServiceTotalBytes,
-    third_party_service_page_load_totals: thirdPartyServicePageLoadTotals
+    third_party_service_page_load_totals: thirdPartyServicePageLoadTotals,
+    overlay_counts: overlayCounts,
+    overlay_urls: overlayUrls
   };
 }
