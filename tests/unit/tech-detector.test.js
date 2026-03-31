@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { detectTechnologies, buildTechSummary, getThirdPartyServiceMeta } from '../../src/scanners/tech-detector.js';
+import { detectTechnologies, buildTechSummary, getThirdPartyServiceMeta, OVERLAY_SIGNATURES } from '../../src/scanners/tech-detector.js';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -666,4 +666,193 @@ test('buildTechSummary treats missing page_load_count as 0 in page load totals',
   ];
   const summary = buildTechSummary(results);
   assert.equal(summary.third_party_service_page_load_totals['Google Analytics'], 3000000);
+});
+
+// ---------------------------------------------------------------------------
+// OVERLAY_SIGNATURES export
+// ---------------------------------------------------------------------------
+
+test('OVERLAY_SIGNATURES is an array with at least one entry', () => {
+  assert.ok(Array.isArray(OVERLAY_SIGNATURES));
+  assert.ok(OVERLAY_SIGNATURES.length > 0);
+});
+
+test('OVERLAY_SIGNATURES entries each have a name and patterns array', () => {
+  for (const entry of OVERLAY_SIGNATURES) {
+    assert.equal(typeof entry.name, 'string', `${entry.name}: name should be a string`);
+    assert.ok(Array.isArray(entry.patterns), `${entry.name}: patterns should be an array`);
+    assert.ok(entry.patterns.length > 0, `${entry.name}: patterns should be non-empty`);
+  }
+});
+
+test('OVERLAY_SIGNATURES includes AccessiBe', () => {
+  assert.ok(OVERLAY_SIGNATURES.some((o) => o.name === 'AccessiBe'));
+});
+
+test('OVERLAY_SIGNATURES includes AudioEye', () => {
+  assert.ok(OVERLAY_SIGNATURES.some((o) => o.name === 'AudioEye'));
+});
+
+test('OVERLAY_SIGNATURES includes UserWay', () => {
+  assert.ok(OVERLAY_SIGNATURES.some((o) => o.name === 'UserWay'));
+});
+
+// ---------------------------------------------------------------------------
+// detectTechnologies – overlays field
+// ---------------------------------------------------------------------------
+
+test('detectTechnologies returns empty overlays for null input', () => {
+  const result = detectTechnologies(null);
+  assert.deepEqual(result.overlays, []);
+});
+
+test('detectTechnologies returns empty overlays for empty request list', () => {
+  const result = detectTechnologies(makeLhr([]));
+  assert.deepEqual(result.overlays, []);
+});
+
+test('detectTechnologies detects AccessiBe overlay via accessibe.com domain', () => {
+  const lhr = makeLhr(['https://acsbap.com/apps/app/assets/js/acsb.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.overlays.includes('AccessiBe'), 'Should detect AccessiBe via acsb.js pattern');
+});
+
+test('detectTechnologies detects AudioEye overlay via audioeye.com domain', () => {
+  const lhr = makeLhr(['https://ws.audioeye.com/ae.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.overlays.includes('AudioEye'));
+});
+
+test('detectTechnologies detects UserWay overlay via userway.org domain', () => {
+  const lhr = makeLhr(['https://cdn.userway.org/widget.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.overlays.includes('UserWay'));
+});
+
+test('detectTechnologies detects EqualWeb overlay via equalweb.com domain', () => {
+  const lhr = makeLhr(['https://www.equalweb.com/accessibility-widget.js']);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.overlays.includes('EqualWeb'));
+});
+
+test('detectTechnologies does not detect overlays for unrelated URLs', () => {
+  const lhr = makeLhr([
+    'https://example.gov/assets/main.css',
+    'https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js',
+    'https://fonts.googleapis.com/css2?family=Source+Sans+Pro'
+  ]);
+  const result = detectTechnologies(lhr);
+  assert.deepEqual(result.overlays, []);
+});
+
+test('detectTechnologies detects multiple overlays when present', () => {
+  const lhr = makeLhr([
+    'https://cdn.userway.org/widget.js',
+    'https://ws.audioeye.com/ae.js'
+  ]);
+  const result = detectTechnologies(lhr);
+  assert.ok(result.overlays.includes('UserWay'));
+  assert.ok(result.overlays.includes('AudioEye'));
+});
+
+// ---------------------------------------------------------------------------
+// buildTechSummary – overlay aggregation
+// ---------------------------------------------------------------------------
+
+test('buildTechSummary returns empty overlay_counts for empty results', () => {
+  const summary = buildTechSummary([]);
+  assert.deepEqual(summary.overlay_counts, {});
+});
+
+test('buildTechSummary returns empty overlay_urls for empty results', () => {
+  const summary = buildTechSummary([]);
+  assert.deepEqual(summary.overlay_urls, {});
+});
+
+test('buildTechSummary counts overlays across successful results', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: [],
+        third_party_service_sizes: {},
+        overlays: ['UserWay']
+      }
+    },
+    {
+      url: 'https://site2.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: [],
+        third_party_service_sizes: {},
+        overlays: ['UserWay', 'AudioEye']
+      }
+    },
+    {
+      url: 'https://site3.gov/',
+      scan_status: 'failed',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: [],
+        third_party_service_sizes: {},
+        overlays: ['UserWay']
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.overlay_counts['UserWay'], 2, 'UserWay found on 2 successful URLs');
+  assert.equal(summary.overlay_counts['AudioEye'], 1);
+  assert.equal(summary.overlay_counts['AccessiBe'], undefined);
+});
+
+test('buildTechSummary tracks overlay_urls per vendor', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: [],
+        third_party_service_sizes: {},
+        overlays: ['UserWay']
+      }
+    },
+    {
+      url: 'https://site2.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: [],
+        third_party_service_sizes: {},
+        overlays: ['UserWay']
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.overlay_urls['UserWay'], ['https://site1.gov/', 'https://site2.gov/']);
+});
+
+test('buildTechSummary handles results with no overlays field', () => {
+  const results = [
+    {
+      url: 'https://site1.gov/',
+      scan_status: 'success',
+      detected_technologies: {
+        cms: null,
+        uswds: { detected: false, version: null },
+        third_party_services: []
+      }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.overlay_counts, {});
+  assert.deepEqual(summary.overlay_urls, {});
 });

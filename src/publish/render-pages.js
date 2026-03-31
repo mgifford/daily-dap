@@ -2,7 +2,7 @@ import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-
 import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
 import { getPolicyNarrative, getHeuristicsForAxeRule } from '../data/axe-impact-loader.js';
 import { NNG_HEURISTICS } from '../data/nng-heuristics.js';
-import { getThirdPartyServiceMeta } from '../scanners/tech-detector.js';
+import { getThirdPartyServiceMeta, OVERLAY_SIGNATURES } from '../scanners/tech-detector.js';
 import { REQUIRED_LINK_META } from '../scanners/required-links-checker.js';
 
 const GITHUB_URL = 'https://github.com/mgifford/daily-dap';
@@ -1959,17 +1959,21 @@ function renderTechSummarySection(report) {
     third_party_service_total_bytes = {},
     third_party_service_page_load_totals = {},
     accessibility_statement_summary = null,
-    required_links_summary = null
+    required_links_summary = null,
+    overlay_counts = {},
+    overlay_urls = {}
   } = summary;
   const cmsEntries = Object.entries(cms_counts).sort((a, b) => b[1] - a[1]);
   const thirdPartyEntries = Object.entries(third_party_service_counts).sort((a, b) => b[1] - a[1]);
+  const overlayEntries = Object.entries(overlay_counts).sort((a, b) => b[1] - a[1]);
 
   if (
     cmsEntries.length === 0 &&
     uswds_count === 0 &&
     thirdPartyEntries.length === 0 &&
     !accessibility_statement_summary &&
-    !required_links_summary
+    !required_links_summary &&
+    overlayEntries.length === 0
   ) {
     return '';
   }
@@ -2165,6 +2169,41 @@ function renderTechSummarySection(report) {
     </table>`)}`;
   })();
 
+  const overlaySection = (() => {
+    if (overlayEntries.length === 0) {
+      return '';
+    }
+
+    const rows = overlayEntries
+      .map(([name, count]) => {
+        const urls = overlay_urls[name] ?? [];
+        const countCell = renderTechUrlTooltip(String(count), urls, `${count} URL${count !== 1 ? 's' : ''} using ${escapeHtml(name)}`);
+        const shareCell = `${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%`;
+        return `<tr>
+          <td data-label="Overlay">${escapeHtml(name)}</td>
+          <td data-label="URLs">${countCell}</td>
+          <td data-label="Share">${shareCell}</td>
+        </tr>`;
+      })
+      .join('\n');
+
+    const totalOverlayUrls = new Set(overlayEntries.flatMap(([name]) => overlay_urls[name] ?? [])).size;
+
+    return `
+    <h3 id="accessibility-overlays-heading">Accessibility Overlays${renderAnchorLink('accessibility-overlays-heading', 'Accessibility Overlays')}</h3>
+    <p><strong class="score-poor">${overlayEntries.length} accessibility overlay vendor${overlayEntries.length !== 1 ? 's' : ''} detected across ${totalOverlayUrls} URL${totalOverlayUrls !== 1 ? 's' : ''}.</strong></p>
+    <p>Accessibility overlays are commercial products that inject JavaScript claiming to automatically fix accessibility issues. Research and the accessibility community broadly agree that overlays do <strong>not</strong> make inaccessible sites accessible, may introduce new barriers for people using assistive technologies, and do not satisfy legal compliance requirements. See the <a href="https://overlayfactsheet.com/en/" target="_blank" rel="noreferrer">Overlay Fact Sheet</a> for a detailed explanation of the concerns with these products. Detection is based on network requests matched against known overlay vendor patterns from <a href="https://github.com/mgifford/Find-Overlays" target="_blank" rel="noreferrer">Find-Overlays</a>.</p>
+    ${wrapTable(`<table>
+      <caption>Accessibility overlay vendors detected across ${total_scanned} successfully scanned URLs</caption>
+      <thead><tr>
+        <th scope="col">Overlay</th>
+        <th scope="col">URLs</th>
+        <th scope="col">Share</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`)}`;
+  })();
+
   return `
   <section aria-labelledby="tech-summary-heading">
     <h2 id="tech-summary-heading">Detected Technologies${renderAnchorLink('tech-summary-heading', 'Detected Technologies')}</h2>
@@ -2179,6 +2218,7 @@ function renderTechSummarySection(report) {
     ${thirdPartySection}
     ${accessibilityStatementSection}
     ${requiredLinksSection}
+    ${overlaySection}
   </section>`;
 }
 
