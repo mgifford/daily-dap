@@ -854,6 +854,16 @@ function renderSharedStyles() {
     .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
     .score-cwv-poor         { background-color: hsl(50 50% 92%); }
 
+    /* ---------- Content density badges ---------- */
+    .density-low    { background-color: hsl(0 70% 92%); }
+    .density-medium { background-color: hsl(50 75% 90%); }
+    :root:not([data-color-scheme="light"]) .density-low    { background-color: hsl(0 40% 22%); }
+    :root:not([data-color-scheme="light"]) .density-medium { background-color: hsl(50 40% 18%); }
+    html[data-color-scheme="dark"] .density-low    { background-color: hsl(0 40% 22%); }
+    html[data-color-scheme="dark"] .density-medium { background-color: hsl(50 40% 18%); }
+    html[data-color-scheme="light"] .density-low    { background-color: hsl(0 70% 92%); }
+    html[data-color-scheme="light"] .density-medium { background-color: hsl(50 75% 90%); }
+
     /* ---------- Technology badges ---------- */
     .tech-badge {
       display: inline-block;
@@ -1419,6 +1429,86 @@ function renderPerformanceImpactSection(report) {
       </tbody>
     </table>`)}
     <p><small>Extra time is calculated as: for each scanned URL, <em>max(0, actual LCP &minus; ${benchmarkLcpSec}s) &times; page loads</em>. Extra data is calculated as: <em>max(0, actual page weight &minus; ${benchmarkWeightMb} MB) &times; page loads</em>. LCP and page weight are measured by Lighthouse. Wikipedia copy count uses a size of 24.05 GB per <a href="https://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia" target="_blank" rel="noreferrer">Wikipedia:Size of Wikipedia</a>. These are rough estimates based on a sample of the top government URLs by traffic.</small></p>
+  </section>`;
+}
+
+/**
+ * Render the Content Density (Words-per-Megabyte) section.
+ *
+ * @param {object} report
+ * @returns {string} HTML section or empty string when data is unavailable.
+ */
+function renderContentDensitySection(report) {
+  const summary = report.readability_summary;
+  if (!summary || summary.url_count_with_metrics === 0) {
+    return '';
+  }
+
+  const scanDate = escapeHtml(formatScanDate(report.run_date));
+  const urlCount = Number(summary.url_count_with_metrics).toLocaleString('en-US');
+  const meanWords =
+    summary.mean_word_count != null
+      ? Number(summary.mean_word_count).toLocaleString('en-US')
+      : '—';
+  const meanWpm =
+    summary.mean_words_per_mb != null
+      ? Number(summary.mean_words_per_mb).toLocaleString('en-US')
+      : '—';
+  const lowDensityCount = Number(summary.url_count_low_density).toLocaleString('en-US');
+
+  const rows = (report.top_urls ?? [])
+    .filter(
+      (entry) =>
+        entry.readability_metrics?.word_count != null
+    )
+    .slice(0, 10)
+    .map((entry) => {
+      const wpm = entry.readability_metrics.words_per_mb;
+      const wpmDisplay =
+        wpm != null ? Number(wpm).toLocaleString('en-US') : '—';
+      const wpmClass =
+        wpm != null && wpm < 200
+          ? ' class="density-low"'
+          : wpm != null && wpm < 500
+          ? ' class="density-medium"'
+          : '';
+      const wordDisplay = Number(entry.readability_metrics.word_count).toLocaleString('en-US');
+      return `<tr>
+        <td data-label="URL"><a href="${escapeHtml(entry.url)}" target="_blank" rel="noreferrer">${escapeHtml(entry.url)}</a></td>
+        <td data-label="Word Count">${wordDisplay}</td>
+        <td data-label="Words/MB"${wpmClass}>${wpmDisplay}</td>
+      </tr>`;
+    })
+    .join('\n');
+
+  if (!rows) {
+    return '';
+  }
+
+  return `
+  <section aria-labelledby="content-density-heading">
+    <h2 id="content-density-heading">Content Density (Words per Megabyte)${renderAnchorLink('content-density-heading', 'Content Density (Words per Megabyte)')}</h2>
+    <p>Words-per-Megabyte (WpM) measures how efficiently a page delivers readable content relative to its total download size. A low ratio indicates <strong>Digital Bloat</strong>&mdash;the page transfers far more data than the text it contains. Pages below <strong>200 WpM</strong> are flagged for optimization review.</p>
+    <ul>
+      <li>URLs with content metrics: <strong>${urlCount}</strong></li>
+      <li>Average word count: <strong>${meanWords}</strong></li>
+      <li>Average Words/MB: <strong>${meanWpm}</strong></li>
+      <li>URLs below 200 WpM threshold: <strong>${lowDensityCount}</strong></li>
+    </ul>
+    ${wrapTable(`<table>
+      <caption>Content density for top URLs scanned on ${scanDate} (up to 10 shown)</caption>
+      <thead>
+        <tr>
+          <th scope="col">URL</th>
+          <th scope="col">Word Count</th>
+          <th scope="col">Words/MB</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>`)}
+    <p><small>Word counts are extracted from the page&rsquo;s main article content using <a href="https://github.com/mozilla/readability" target="_blank" rel="noreferrer">Mozilla Readability</a>, which strips navigation, sidebars, and ads. Page weight is the total resource size measured by Lighthouse. Pages below 200 WpM may impose unnecessary data costs on users on metered connections.</small></p>
   </section>`;
 }
 
@@ -2834,6 +2924,8 @@ export function renderDailyReportPage(report) {
     ${renderFpcExclusionSection(report)}
 
     ${renderPerformanceImpactSection(report)}
+
+    ${renderContentDensitySection(report)}
 
     <section aria-labelledby="history-heading">
       <h2 id="history-heading">History${renderAnchorLink('history-heading', 'History')}</h2>

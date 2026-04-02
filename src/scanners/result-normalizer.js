@@ -1,6 +1,7 @@
 import { classifyScanStatus } from './status-classifier.js';
 import { normalizeSeverity } from './scangov-runner.js';
 import { extractAxeFindings } from './axe-extractor.js';
+import { computeWordsPerMb } from './readability-extractor.js';
 
 function normalizeFindings(url, findings = []) {
   return findings.map((finding) => ({
@@ -10,11 +11,21 @@ function normalizeFindings(url, findings = []) {
   }));
 }
 
+function normalizeReadabilityMetrics(readabilityResult, totalByteWeight) {
+  if (!readabilityResult) return null;
+  return {
+    word_count: readabilityResult.word_count ?? null,
+    char_count: readabilityResult.char_count ?? null,
+    words_per_mb: computeWordsPerMb(readabilityResult.word_count, totalByteWeight)
+  };
+}
+
 export function normalizeUrlScanResult({
   runId,
   urlRecord,
   lighthouseResult,
   scanGovResult,
+  readabilityResult,
   excludedReason,
   failureReason,
   diagnostics = {}
@@ -38,6 +49,10 @@ export function normalizeUrlScanResult({
     total_byte_weight: lighthouseResult?.total_byte_weight ?? null,
     detected_technologies: lighthouseResult?.detected_technologies ?? null,
     code_quality_audits: lighthouseResult?.code_quality_audits ?? null,
+    readability_metrics: normalizeReadabilityMetrics(
+      readabilityResult ?? null,
+      lighthouseResult?.total_byte_weight ?? null
+    ),
     accessibility_findings: normalizeFindings(urlRecord.url, scanGovResult?.accessibility_findings),
     axe_findings: extractAxeFindings(lighthouseResult?.raw),
     scan_diagnostics: {

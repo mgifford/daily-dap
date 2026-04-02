@@ -126,6 +126,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.6 | Created STYLES.md: design and content standards aligned with CivicActions brand, colors, typography, and style guide conventions; added STYLES.md link to README documentation section |
 | Claude (Anthropic) | claude-sonnet-4.6 | CivicActions brand alignment: updated CSS color tokens (primary red #D83933, dark blue #162E51, secondary blue #1A4480), font stack (Public Sans), footer attribution, and tests in render-pages.js and index.html |
 | Claude (Anthropic) | claude-sonnet-4.6 | CI/CD improvements: added dedicated CI workflow for tests on PRs, upgraded accessibility scanner to v3, removed redundant push trigger from scan-github-pages workflow, added open-issues gate to prevent alert fatigue |
+| Claude (Anthropic) | claude-sonnet-4.6 | Added content density (Words-per-Megabyte) feature: integrated @mozilla/readability and jsdom to extract main-content word counts, compute WpM efficiency ratio, flag low-density pages (<200 WpM), and render a Content Density section in daily reports |
 
 ### Runtime operation
 
