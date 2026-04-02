@@ -1017,6 +1017,14 @@ test('renderDailyReportPage fpc exclusion heading has anchor link', () => {
   assert.ok(html.includes('id="fpc-exclusion-heading"'), 'FPC Exclusion heading should have an id');
 });
 
+test('renderDailyReportPage links first DAP mention to digital.gov/guides/dap', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(
+    html.includes('href="https://digital.gov/guides/dap"'),
+    'First mention of DAP should link to digital.gov/guides/dap'
+  );
+});
+
 test('renderDailyReportPage axe patterns heading has anchor link', () => {
   const reportWithAxe = {
     ...minimalReport,
@@ -1032,6 +1040,14 @@ test('renderDailyReportPage axe patterns heading has anchor link', () => {
   const html = renderDailyReportPage(reportWithAxe);
   assert.ok(html.includes('href="#axe-patterns-heading"'), 'Axe patterns heading should have anchor link');
   assert.ok(html.includes('aria-label="Link to Common Accessibility Issues (Top 1)"'), 'Axe patterns anchor should have descriptive aria-label');
+});
+
+test('renderDashboardPage links first DAP mention to digital.gov/guides/dap', () => {
+  const html = renderDashboardPage({ latestReport: minimalReport, historyIndex: [] });
+  assert.ok(
+    html.includes('href="https://digital.gov/guides/dap"'),
+    'First mention of DAP should link to digital.gov/guides/dap'
+  );
 });
 
 test('renderDashboardPage includes anchor links on all section headings', () => {
