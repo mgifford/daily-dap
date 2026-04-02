@@ -2252,7 +2252,7 @@ function renderDapContextSection() {
   return `
   <section aria-labelledby="dap-context-heading">
     <h2 id="dap-context-heading">About These Reports${renderAnchorLink('dap-context-heading', 'About These Reports')}</h2>
-    <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
+    <p>The <a href="https://digital.gov/guides/dap" target="_blank" rel="noreferrer"><strong>Digital Analytics Program (DAP)</strong></a> is a U.S. government analytics service that collects website traffic data across participating federal agencies. DAP tracks page views, visitor counts, and usage patterns for hundreds of government websites, providing transparency into how the public engages with federal digital services.</p>
     <p>This report measures the <strong>quality and accessibility</strong> of the top 100 most-visited U.S. government URLs as reported by DAP. Each day, Lighthouse scans are run against these URLs to measure:</p>
     <ul>
       <li><strong>Performance</strong> - How fast pages load for users (scores 0-100, higher is better)</li>
@@ -3060,7 +3060,7 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
 
     <section aria-labelledby="about-heading">
       <h2 id="about-heading">What is DAP?${renderAnchorLink('about-heading', 'What is DAP?')}</h2>
-      <p>The <strong>Digital Analytics Program (DAP)</strong> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services.</p>
+      <p>The <a href="https://digital.gov/guides/dap" target="_blank" rel="noreferrer"><strong>Digital Analytics Program (DAP)</strong></a> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services.</p>
       <p>This dashboard uses DAP traffic data to identify the <strong>most-visited government URLs</strong> and measures their quality daily. Each scan covers:</p>
       <ul>
         <li><strong>Accessibility</strong> &mdash; WCAG compliance measured by Lighthouse and axe-core (0&ndash;100, higher is better)</li>
