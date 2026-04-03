@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, renderCodeQualityPage, buildFindingCopyText, plainTextDescription, buildUsabilityHeuristicsCounts } from '../../src/publish/render-pages.js';
+import { renderDailyReportPage, renderDashboardPage, renderArchiveIndexPage, renderArchiveRedirectStub, render404Page, renderCodeQualityPage, buildFindingCopyText, plainTextDescription, buildUsabilityHeuristicsCounts, generateViolationId } from '../../src/publish/render-pages.js';
 import { renderFailurePage } from '../../src/publish/failure-report.js';
 
 test('renderDailyReportPage filters out zero-score history entries', () => {
@@ -741,6 +741,48 @@ test('plainTextDescription converts markdown links to plain text', () => {
   assert.ok(!result.includes('[Learn more]'), 'Should not contain raw markdown link syntax');
 });
 
+test('generateViolationId returns a stable DAP- prefixed identifier', () => {
+  const id = generateViolationId('https://fdic.gov', 'tabindex', 'body.acquia-cms-toolbar > a.skipheader');
+  assert.ok(id.startsWith('DAP-'), 'Should have DAP- prefix');
+  assert.match(id, /^DAP-[0-9a-f]{8}$/, 'Should be DAP- followed by 8 hex characters');
+});
+
+test('generateViolationId produces the same ID for the same inputs', () => {
+  const id1 = generateViolationId('https://fdic.gov', 'tabindex', 'body > a.skip');
+  const id2 = generateViolationId('https://fdic.gov', 'tabindex', 'body > a.skip');
+  assert.equal(id1, id2, 'Same inputs should produce the same ID');
+});
+
+test('generateViolationId produces different IDs for different selectors', () => {
+  const id1 = generateViolationId('https://fdic.gov', 'tabindex', 'body > a.skip');
+  const id2 = generateViolationId('https://fdic.gov', 'tabindex', 'div > button#other');
+  assert.notEqual(id1, id2, 'Different selectors should produce different IDs');
+});
+
+test('generateViolationId produces different IDs for different rule IDs', () => {
+  const id1 = generateViolationId('https://fdic.gov', 'tabindex', 'body > a.skip');
+  const id2 = generateViolationId('https://fdic.gov', 'color-contrast', 'body > a.skip');
+  assert.notEqual(id1, id2, 'Different rule IDs should produce different IDs');
+});
+
+test('generateViolationId normalizes URL protocol and trailing slash', () => {
+  const id1 = generateViolationId('https://fdic.gov', 'tabindex', 'a.skip');
+  const id2 = generateViolationId('http://fdic.gov/', 'tabindex', 'a.skip');
+  assert.equal(id1, id2, 'http/https and trailing slash differences should not affect the ID');
+});
+
+test('generateViolationId produces finding-level ID when selector is empty', () => {
+  const id = generateViolationId('https://fdic.gov', 'tabindex', '');
+  assert.ok(id.startsWith('DAP-'), 'Finding-level ID should have DAP- prefix');
+  assert.match(id, /^DAP-[0-9a-f]{8}$/, 'Should be DAP- followed by 8 hex characters');
+});
+
+test('generateViolationId handles non-string inputs gracefully', () => {
+  const id = generateViolationId(null, undefined, 42);
+  assert.ok(id.startsWith('DAP-'), 'Should still return a DAP-prefixed ID with non-string inputs');
+  assert.match(id, /^DAP-[0-9a-f]{8}$/, 'Should be DAP- followed by 8 hex characters');
+});
+
 test('buildFindingCopyText includes page URL and finding details', () => {
   const pageUrl = 'https://informeddelivery.usps.com';
   const finding = {
@@ -769,6 +811,8 @@ test('buildFindingCopyText includes page URL and finding details', () => {
   assert.ok(text.includes('<h4>'), 'Should include element snippet');
   assert.ok(text.includes('What is Informed Delivery?'), 'Should include node label');
   assert.ok(text.includes('Heading order invalid'), 'Should include how-to-fix text');
+  assert.ok(text.includes('**Violation ID:** DAP-'), 'Should include a finding-level violation ID');
+  assert.ok(text.includes('(ID: DAP-'), 'Should include an element-level violation ID');
 });
 
 test('buildFindingCopyText handles finding with no items', () => {
