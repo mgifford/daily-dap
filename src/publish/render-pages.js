@@ -1434,8 +1434,8 @@ function renderPerformanceImpactSection(report) {
   const timeDuration = formatDuration(extraHours);
   const totalSeconds = Number(impact.total_extra_load_time_seconds).toLocaleString('en-US');
   const timeTipId = `perf-impact-tip-${_perfTimeTooltipSeq++}`;
-  const timeTooltipText = `Extra time is calculated as: for each scanned URL, max(0, actual LCP \u2212 ${benchmarkLcpSec}s) \u00d7 page loads. Total: ${totalSeconds} seconds.`;
-  const timeValueHtml = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(timeDuration)}" aria-describedby="${timeTipId}">${escapeHtml(timeDuration)}<span id="${timeTipId}" role="tooltip" class="perf-time-tooltip">${escapeHtml(timeTooltipText)}</span></span>`;
+  const timeTooltipText = `Extra time is calculated as: for each scanned URL, max(0, actual LCP \u2212 ${escapeHtml(benchmarkLcpSec)}s) \u00d7 page loads. Total: ${escapeHtml(totalSeconds)} seconds.`;
+  const timeValueHtml = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(timeDuration)}" aria-describedby="${timeTipId}">${escapeHtml(timeDuration)}<span id="${timeTipId}" role="tooltip" class="perf-time-tooltip">${timeTooltipText}</span></span>`;
 
   const timeRow = `<tr>
       <td data-label="Metric">Extra time waiting (vs ${benchmarkLcpSec}s LCP benchmark)</td>
@@ -1447,8 +1447,8 @@ function renderPerformanceImpactSection(report) {
   if (impact.url_count_with_weight > 0) {
     const dataSizeStr = formatDataSize(extraGb);
     const weightTipId = `perf-impact-tip-${_perfTimeTooltipSeq++}`;
-    const weightTooltipText = `Extra data is calculated as: for each scanned URL, max(0, actual page weight \u2212 ${benchmarkWeightMb} MB) \u00d7 page loads.`;
-    const weightValueHtml = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(dataSizeStr)}" aria-describedby="${weightTipId}">${escapeHtml(dataSizeStr)}<span id="${weightTipId}" role="tooltip" class="perf-time-tooltip">${escapeHtml(weightTooltipText)}</span></span>`;
+    const weightTooltipText = `Extra data is calculated as: for each scanned URL, max(0, actual page weight \u2212 ${escapeHtml(benchmarkWeightMb)} MB) \u00d7 page loads.`;
+    const weightValueHtml = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(dataSizeStr)}" aria-describedby="${weightTipId}">${escapeHtml(dataSizeStr)}<span id="${weightTipId}" role="tooltip" class="perf-time-tooltip">${weightTooltipText}</span></span>`;
     weightRow = `<tr>
       <td data-label="Metric">Extra data transferred (vs ${benchmarkWeightMb} MB page weight benchmark)</td>
       <td data-label="Estimated total">${weightValueHtml}</td>
