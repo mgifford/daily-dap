@@ -128,6 +128,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.6 | CI/CD improvements: added dedicated CI workflow for tests on PRs, upgraded accessibility scanner to v3, removed redundant push trigger from scan-github-pages workflow, added open-issues gate to prevent alert fatigue |
 | Claude (Anthropic) | claude-sonnet-4.6 | Added content density (Words-per-Megabyte) feature: integrated @mozilla/readability and jsdom to extract main-content word counts, compute WpM efficiency ratio, flag low-density pages (<200 WpM), and render a Content Density section in daily reports |
 | Claude (Anthropic) | claude-sonnet-4.6 | Improved test coverage: added 119 tests across 5 new test files for previously untested modules (slow-risk, logging, axe-fpc-mapping, build-daily-report, archive-writer); exported 3 helper functions from archive-writer.js for testability |
+| Claude (Anthropic) | claude-sonnet-4.6 | Added axe-core WCAG 2.2 AA accessibility tests for generated HTML: new tests/unit/axe-html-accessibility.test.js checks every render function using a minimal fixture report; fixed aria-prohibited-attr violations (aria-label on role-less spans) in render-pages.js |
 
 ### Runtime operation
 

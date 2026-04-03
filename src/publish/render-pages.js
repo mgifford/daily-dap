@@ -1744,7 +1744,7 @@ function renderPerformanceCell(entry) {
   const tooltipId = `perf-tip-${_perfTimeTooltipSeq++}`;
   const lcpSeconds = (entry.lcp_value_ms / 1000).toFixed(1);
   const tooltipText = `Total time users spent waiting for this page to load: ${lcpSeconds}s LCP \u00d7 ${entry.page_load_count.toLocaleString()} page loads.`;
-  const timeSpan = `<span class="perf-time-trigger" tabindex="0" aria-label="${escapeHtml(timeLabel)} of total page-load time" aria-describedby="${tooltipId}">${escapeHtml(timeLabel)}<span id="${tooltipId}" role="tooltip" class="perf-time-tooltip">${escapeHtml(tooltipText)}</span></span>`;
+  const timeSpan = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(timeLabel)} of total page-load time" aria-describedby="${tooltipId}">${escapeHtml(timeLabel)}<span id="${tooltipId}" role="tooltip" class="perf-time-tooltip">${escapeHtml(tooltipText)}</span></span>`;
   return `<td${labelAttr} class="score-performance" style="--score:${value}" data-sort-value="${value}">${value}&thinsp;/&thinsp;${timeSpan}</td>`;
 }
 
@@ -2031,7 +2031,7 @@ function renderTechUrlTooltip(visibleText, urls, ariaLabel, preEscaped = false) 
     try { return new URL(u).hostname; } catch { return ''; } // skip malformed URLs
   }).filter(Boolean).sort();
   const tooltipText = `Sites: ${domains.join(', ')}`;
-  return `<span class="url-count-trigger" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" aria-describedby="${tooltipId}">${safeText}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
+  return `<span class="url-count-trigger" role="button" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" aria-describedby="${tooltipId}">${safeText}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
 }
 
 /**
@@ -2064,7 +2064,7 @@ function renderTechBadges(tech) {
     const label = `${services.length} 3rd-party`;
     const ariaLabel = `${services.length} third-party ${services.length === 1 ? 'service' : 'services'}`;
     const tooltipText = `Third-party services: ${services.map(escapeHtml).join(', ')}`;
-    parts.push(`<span class="tech-badge tech-badge-3p url-count-trigger" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" aria-describedby="${tooltipId}">${escapeHtml(label)}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${tooltipText}</span></span>`);
+    parts.push(`<span class="tech-badge tech-badge-3p url-count-trigger" role="button" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" aria-describedby="${tooltipId}">${escapeHtml(label)}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${tooltipText}</span></span>`);
   }
 
   return parts.join(' ');
@@ -2501,7 +2501,7 @@ function renderUrlCountCell(p) {
     try { return new URL(u).hostname; } catch { return ''; }
   }).filter(Boolean);
   const tooltipText = `Affected sites: ${domains.join(', ')}`;
-  return `<span class="url-count-trigger" tabindex="0" aria-label="${escapeHtml(String(count))} URLs affected" aria-describedby="${tooltipId}">${escapeHtml(String(count))}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
+  return `<span class="url-count-trigger" role="button" tabindex="0" aria-label="${escapeHtml(String(count))} URLs affected" aria-describedby="${tooltipId}">${escapeHtml(String(count))}<span id="${tooltipId}" role="tooltip" class="url-count-tooltip">${escapeHtml(tooltipText)}</span></span>`;
 }
 
 function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
@@ -2535,7 +2535,7 @@ function renderFpcCodes(ruleId, totalPageLoads = 0, prevalenceRates = {}) {
           ? `<span id="${tooltipId}" role="tooltip" class="disability-tooltip">${escapeHtml(tooltipContent)}</span>`
           : '';
         const describedBy = tooltipContent ? ` aria-describedby="${tooltipId}"` : '';
-        return `<span class="disability-badge" tabindex="0" aria-label="${escapeHtml(label)}"${describedBy}>${decorativeSvg}${estimateHtml}${tooltipSpan}</span>`;
+        return `<span class="disability-badge" role="button" tabindex="0" aria-label="${escapeHtml(label)}"${describedBy}>${decorativeSvg}${estimateHtml}${tooltipSpan}</span>`;
       }
       const abbr_tooltip = [label, description].filter(Boolean).join('. ');
       return `<abbr title="${escapeHtml(abbr_tooltip)}">${escapeHtml(code)}${estimateHtml}</abbr>`;
@@ -2998,7 +2998,7 @@ export function renderDailyReportPage(report) {
             <th scope="col" data-sort-col="1" aria-sort="none"><button class="sort-btn">Traffic</button></th>
             <th scope="col" data-sort-col="2" aria-sort="none"><button class="sort-btn">CWV</button></th>
             <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">Performance</button></th>
-            <th scope="col" data-sort-col="4" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
+            <th scope="col" data-sort-col="4" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" role="button" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
             <th scope="col">Axe details</th>
             <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
             <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
