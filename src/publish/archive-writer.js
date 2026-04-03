@@ -24,7 +24,7 @@ function csvEscape(value) {
  * @param {Array} historySeries - Array of { date, aggregate_scores } objects from report.history_series
  * @returns {string} CSV content with header row and one data row per history entry
  */
-function buildHistoryCsv(historySeries = []) {
+export function buildHistoryCsv(historySeries = []) {
   const headers = ['date', 'performance', 'accessibility', 'best_practices', 'seo'];
   const rows = [headers.join(',')];
 
@@ -45,7 +45,7 @@ function buildHistoryCsv(historySeries = []) {
   return `${rows.join('\n')}\n`;
 }
 
-function buildAxeFindingsCsv(axeFindingsReport) {
+export function buildAxeFindingsCsv(axeFindingsReport) {
   const headers = [
     'url',
     'scan_status',
@@ -97,7 +97,7 @@ function buildAxeFindingsCsv(axeFindingsReport) {
   return `${rows.join('\n')}\n`;
 }
 
-function buildAxeFindingsReport(report) {
+export function buildAxeFindingsReport(report) {
   const urls = (report.top_urls ?? []).map((entry) => ({
     url: entry.url,
     scan_status: entry.scan_status,
