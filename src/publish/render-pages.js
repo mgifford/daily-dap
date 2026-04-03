@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { AXE_TO_FPC, FPC_LABELS, FPC_SVGS, FPC_DESCRIPTIONS } from '../data/axe-fpc-mapping.js';
 import { getFpcPrevalenceRates, CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
 import { getPolicyNarrative, getHeuristicsForAxeRule } from '../data/axe-impact-loader.js';
@@ -21,6 +22,27 @@ function formatCompact(n) {
   if (n >= 1_000_000) return `${(Math.floor(n / 100_000) / 10).toFixed(1)}M`;
   if (n >= 1_000) return `${Math.floor(n / 1_000)}K`;
   return String(n);
+}
+
+/**
+ * Generates a stable unique identifier for an accessibility violation.
+ * The ID is based on the normalized URL, rule ID, and element selector so that
+ * the same violation on the same element produces the same ID across scans,
+ * enabling tracking of how long an issue has persisted.
+ *
+ * @param {string} pageUrl - The URL of the scanned page
+ * @param {string} ruleId  - The axe rule ID (e.g. "color-contrast")
+ * @param {string} [selector] - The CSS selector of the affected element (empty string for finding-level ID)
+ * @returns {string} A short stable identifier, e.g. "DAP-a1b2c3d4"
+ */
+export function generateViolationId(pageUrl, ruleId, selector = '') {
+  const normalizedUrl = pageUrl
+    .replace(/^https?:\/\//i, '')
+    .replace(/\/+$/, '')
+    .toLowerCase();
+  const seed = `${normalizedUrl}|${ruleId}|${selector}`;
+  const hash = createHash('sha256').update(seed).digest('hex').slice(0, 8);
+  return `DAP-${hash}`;
 }
 
 /**
@@ -605,6 +627,17 @@ function renderSharedStyles() {
       padding: 0.5rem;
       overflow-x: auto;
       font-size: 0.85em;
+    }
+    .violation-id {
+      font-size: 0.75em;
+      font-family: monospace;
+      color: var(--color-muted, #6b7280);
+      background: var(--color-code-bg, #f3f4f6);
+      border: 1px solid var(--color-border, #d1d5db);
+      border-radius: 3px;
+      padding: 0.1em 0.35em;
+      vertical-align: middle;
+      user-select: all;
     }
     .finding-detail {
       padding: 0.5rem 1rem;
@@ -1794,21 +1827,24 @@ function renderWcagTags(tags = []) {
   return `<p class="wcag-tags"><strong>WCAG criteria:</strong> ${wcagLabels.map((l) => escapeHtml(l)).join(', ')}</p>`;
 }
 
-function renderAxeFindingItems(items = []) {
+function renderAxeFindingItems(items = [], pageUrl = '', ruleId = '') {
   if (items.length === 0) {
     return '<p><em>No specific element details available.</em></p>';
   }
 
   return items
     .map(
-      (item, index) => `
+      (item, index) => {
+        const elementId = pageUrl && ruleId ? generateViolationId(pageUrl, ruleId, item.selector ?? '') : '';
+        return `
       <div class="axe-item">
-        <p><strong>Element ${index + 1}</strong></p>
+        <p><strong>Element ${index + 1}</strong>${elementId ? ` <code class="violation-id" title="Stable identifier for this accessibility violation">${escapeHtml(elementId)}</code>` : ''}</p>
         ${item.selector ? `<p><strong>Element path:</strong> <code>${escapeHtml(item.selector)}</code></p>` : ''}
         ${item.snippet ? `<p><strong>Snippet:</strong></p><pre><code>${escapeHtml(item.snippet)}</code></pre>` : ''}
         ${item.node_label && item.node_label !== item.selector ? `<p><strong>Label:</strong> ${escapeHtml(item.node_label)}</p>` : ''}
         ${renderExplanationHtml(item.explanation)}
-      </div>`
+      </div>`;
+      }
     )
     .join('\n');
 }
@@ -1853,10 +1889,12 @@ function formatImpactList(items) {
 export function buildFindingCopyText(pageUrl, finding, pageLoadCount = 0, scanDate = '') {
   const wcagLabels = (finding.tags ?? []).map(formatWcagTag).filter(Boolean);
   const fpcCodes = AXE_TO_FPC.get(finding.id) ?? [];
+  const findingId = generateViolationId(pageUrl, finding.id, '');
   const lines = [
     `**URL:** ${pageUrl}`,
     '',
     `**${finding.title}** (rule: \`${finding.id}\`)`,
+    `**Violation ID:** ${findingId}`,
     '',
     plainTextDescription(finding.description ?? ''),
   ];
@@ -1891,7 +1929,8 @@ export function buildFindingCopyText(pageUrl, finding, pageLoadCount = 0, scanDa
   lines.push('', `**Affected elements (${items.length}):**`);
 
   items.forEach((item, index) => {
-    lines.push('', `**Element ${index + 1}**`);
+    const elementId = generateViolationId(pageUrl, finding.id, item.selector ?? '');
+    lines.push('', `**Element ${index + 1}** (ID: ${elementId})`);
     if (item.selector) {
       lines.push(`Element path: \`${item.selector}\``);
     }
@@ -1922,15 +1961,16 @@ function renderAxeFindingsList(axeFindings = [], pageUrl = '', pageLoadCount = 0
         fpcCodes && fpcCodes.length > 0
           ? `<p><strong>Disabilities affected:</strong> ${renderFpcCodes(finding.id, pageLoadCount, prevalenceRates)}</p>`
           : '';
+      const findingId = generateViolationId(pageUrl, finding.id, '');
       return `
       <details>
-        <summary><strong>${escapeHtml(finding.title)}</strong> (rule: <code>${escapeHtml(finding.id)}</code>)</summary>
+        <summary><strong>${escapeHtml(finding.title)}</strong> (rule: <code>${escapeHtml(finding.id)}</code>) <code class="violation-id" title="Stable identifier for this accessibility finding">${escapeHtml(findingId)}</code></summary>
         <div class="finding-detail">
           <p>${renderDescriptionHtml(finding.description)}</p>
           ${renderWcagTags(finding.tags)}
           ${fpcHtml}
           <p><strong>Affected elements (${finding.items.length}):</strong></p>
-          ${renderAxeFindingItems(finding.items)}
+          ${renderAxeFindingItems(finding.items, pageUrl, finding.id)}
           <button class="copy-finding-btn" data-copy-text="${escapeHtml(buildFindingCopyText(pageUrl, finding, pageLoadCount, scanDate))}" aria-label="Copy finding to clipboard">Copy finding</button>
         </div>
       </details>`;
