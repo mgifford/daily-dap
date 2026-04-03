@@ -105,11 +105,15 @@ export async function fetchDapRecords({ endpoint, fetchImpl = fetch }) {
   return extractArrayPayload(payload);
 }
 
-function buildDapEndpoint(endpoint, apiKey) {
+function buildDapEndpoint(endpoint, apiKey, { limit } = {}) {
   const url = new URL(endpoint);
 
   if (apiKey && !url.searchParams.has('api_key')) {
     url.searchParams.set('api_key', apiKey);
+  }
+
+  if (limit != null && !url.searchParams.has('limit')) {
+    url.searchParams.set('limit', String(limit));
   }
 
   return url.toString();
@@ -133,7 +137,7 @@ export async function getNormalizedTopPages({
   if (sourceFile) {
     rawRecords = await readDapRecordsFromFile(sourceFile);
   } else {
-    const resolvedEndpoint = buildDapEndpoint(endpoint, dapApiKey);
+    const resolvedEndpoint = buildDapEndpoint(endpoint, dapApiKey, { limit });
     rawRecords = await fetchDapRecords({ endpoint: resolvedEndpoint, fetchImpl });
   }
 
