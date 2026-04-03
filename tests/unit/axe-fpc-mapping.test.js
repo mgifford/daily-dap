@@ -31,7 +31,9 @@ test('FPC_LABELS WV label is "Without Vision"', () => {
 });
 
 test('FPC_LABELS LLCLA label mentions Language, Cognitive, and Learning', () => {
-  assert.ok(FPC_LABELS.LLCLA.includes('Language') && FPC_LABELS.LLCLA.includes('Cognitive') && FPC_LABELS.LLCLA.includes('Learning'));
+  assert.ok(FPC_LABELS.LLCLA.includes('Language'), 'LLCLA label should mention Language');
+  assert.ok(FPC_LABELS.LLCLA.includes('Cognitive'), 'LLCLA label should mention Cognitive');
+  assert.ok(FPC_LABELS.LLCLA.includes('Learning'), 'LLCLA label should mention Learning');
 });
 
 // FPC_DESCRIPTIONS

@@ -174,7 +174,7 @@ test('buildAxeFindingsCsv adds a row with empty findings for URL with no finding
   });
   const lines = csv.trim().split('\n');
   assert.equal(lines.length, 2, 'header + one data row for URL with no findings');
-  assert.ok(lines[1].startsWith('https://a.gov/'));
+  assert.equal(lines[1].split(',')[0], 'https://a.gov/');
 });
 
 test('buildAxeFindingsCsv adds a row per finding item', () => {
@@ -193,7 +193,8 @@ test('buildAxeFindingsCsv adds a row per finding item', () => {
   // header + 1 item row
   assert.equal(lines.length, 2);
   assert.ok(lines[1].includes('color-contrast'));
-  assert.ok(lines[1].includes('https://a.gov/'));
+  // Check the URL is in the first CSV column
+  assert.equal(lines[1].split(',')[0], 'https://a.gov/');
 });
 
 test('buildAxeFindingsCsv adds one row per finding when finding has no items', () => {
@@ -273,10 +274,12 @@ test('writeCommittedSnapshot creates expected output files', async () => {
     assert.ok('press_release_path' in result);
 
     // Verify files were actually written
-    for (const key of ['report_json_path', 'report_page_path', 'history_index_path', 'dashboard_page_path']) {
+    for (const key of Object.keys(result)) {
       const filePath = result[key];
-      const stat = await fs.stat(filePath).catch(() => null);
-      assert.ok(stat !== null, `${key} file should exist at ${filePath}`);
+      if (typeof filePath === 'string') {
+        const stat = await fs.stat(filePath).catch(() => null);
+        assert.ok(stat !== null, `${key} file should exist at ${filePath}`);
+      }
     }
 
     // Verify report.json content

@@ -104,7 +104,7 @@ test('buildSlowRiskRollup returns 0% share when no successful pages have traffic
 
 test('buildSlowRiskRollup treats NaN page_load_count as 0', () => {
   const rollup = buildSlowRiskRollup([
-    { scan_status: 'success', page_load_count: Number.NaN, core_web_vitals_status: 'poor' }
+    { scan_status: 'success', page_load_count: NaN, core_web_vitals_status: 'poor' }
   ]);
   assert.equal(rollup.summary.successful_page_load_count, 0);
   assert.equal(rollup.summary.slow_risk_page_load_count, 0);
