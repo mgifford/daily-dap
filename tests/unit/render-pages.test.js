@@ -777,6 +777,12 @@ test('generateViolationId produces finding-level ID when selector is empty', () 
   assert.match(id, /^DAP-[0-9a-f]{8}$/, 'Should be DAP- followed by 8 hex characters');
 });
 
+test('generateViolationId handles non-string inputs gracefully', () => {
+  const id = generateViolationId(null, undefined, 42);
+  assert.ok(id.startsWith('DAP-'), 'Should still return a DAP-prefixed ID with non-string inputs');
+  assert.match(id, /^DAP-[0-9a-f]{8}$/, 'Should be DAP- followed by 8 hex characters');
+});
+
 test('buildFindingCopyText includes page URL and finding details', () => {
   const pageUrl = 'https://informeddelivery.usps.com';
   const finding = {

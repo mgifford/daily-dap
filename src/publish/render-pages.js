@@ -36,11 +36,14 @@ function formatCompact(n) {
  * @returns {string} A short stable identifier, e.g. "DAP-a1b2c3d4"
  */
 export function generateViolationId(pageUrl, ruleId, selector = '') {
-  const normalizedUrl = pageUrl
+  const safeUrl = typeof pageUrl === 'string' ? pageUrl : '';
+  const safeRuleId = typeof ruleId === 'string' ? ruleId : '';
+  const safeSelector = typeof selector === 'string' ? selector : '';
+  const normalizedUrl = safeUrl
     .replace(/^https?:\/\//i, '')
     .replace(/\/+$/, '')
     .toLowerCase();
-  const seed = `${normalizedUrl}|${ruleId}|${selector}`;
+  const seed = `${normalizedUrl}|${safeRuleId}|${safeSelector}`;
   const hash = createHash('sha256').update(seed).digest('hex').slice(0, 8);
   return `DAP-${hash}`;
 }
@@ -1835,7 +1838,9 @@ function renderAxeFindingItems(items = [], pageUrl = '', ruleId = '') {
   return items
     .map(
       (item, index) => {
-        const elementId = pageUrl && ruleId ? generateViolationId(pageUrl, ruleId, item.selector ?? '') : '';
+        const elementId = typeof pageUrl === 'string' && pageUrl.length > 0 && typeof ruleId === 'string' && ruleId.length > 0
+          ? generateViolationId(pageUrl, ruleId, item.selector ?? '')
+          : '';
         return `
       <div class="axe-item">
         <p><strong>Element ${index + 1}</strong>${elementId ? ` <code class="violation-id" title="Stable identifier for this accessibility violation">${escapeHtml(elementId)}</code>` : ''}</p>
