@@ -1431,20 +1431,30 @@ function renderPerformanceImpactSection(report) {
   const urlCount = impact.url_count_with_timing;
   const scanDate = escapeHtml(formatScanDate(report.run_date));
 
+  const timeDuration = formatDuration(extraHours);
+  const totalSeconds = Number(impact.total_extra_load_time_seconds).toLocaleString('en-US');
+  const timeTipId = `perf-impact-tip-${_perfTimeTooltipSeq++}`;
+  const timeTooltipText = `Extra time is calculated as: for each scanned URL, max(0, actual LCP \u2212 ${escapeHtml(benchmarkLcpSec)}s) \u00d7 page loads. Total: ${escapeHtml(totalSeconds)} seconds.`;
+  const timeValueHtml = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(timeDuration)}" aria-describedby="${timeTipId}">${escapeHtml(timeDuration)}<span id="${timeTipId}" role="tooltip" class="perf-time-tooltip">${timeTooltipText}</span></span>`;
+
   const timeRow = `<tr>
       <td data-label="Metric">Extra time waiting (vs ${benchmarkLcpSec}s LCP benchmark)</td>
-      <td data-label="Estimated total">${formatDuration(extraHours)}</td>
-      <td data-label="Notes">${Number(impact.total_extra_load_time_seconds).toLocaleString('en-US')} seconds</td>
+      <td data-label="Estimated total">${timeValueHtml}</td>
+      <td data-label="Notes">${totalSeconds} seconds</td>
     </tr>`;
 
-  const weightRow =
-    impact.url_count_with_weight > 0
-      ? `<tr>
+  let weightRow = '';
+  if (impact.url_count_with_weight > 0) {
+    const dataSizeStr = formatDataSize(extraGb);
+    const weightTipId = `perf-impact-tip-${_perfTimeTooltipSeq++}`;
+    const weightTooltipText = `Extra data is calculated as: for each scanned URL, max(0, actual page weight \u2212 ${escapeHtml(benchmarkWeightMb)} MB) \u00d7 page loads.`;
+    const weightValueHtml = `<span class="perf-time-trigger" role="button" tabindex="0" aria-label="${escapeHtml(dataSizeStr)}" aria-describedby="${weightTipId}">${escapeHtml(dataSizeStr)}<span id="${weightTipId}" role="tooltip" class="perf-time-tooltip">${weightTooltipText}</span></span>`;
+    weightRow = `<tr>
       <td data-label="Metric">Extra data transferred (vs ${benchmarkWeightMb} MB page weight benchmark)</td>
-      <td data-label="Estimated total">${formatDataSize(extraGb)}</td>
+      <td data-label="Estimated total">${weightValueHtml}</td>
       <td data-label="Notes">Across ${Number(impact.url_count_with_weight).toLocaleString('en-US')} URLs with weight data</td>
-    </tr>`
-      : '';
+    </tr>`;
+  }
 
   return `
   <section aria-labelledby="performance-impact-heading">
@@ -1464,7 +1474,7 @@ function renderPerformanceImpactSection(report) {
         ${weightRow}
       </tbody>
     </table>`)}
-    <p><small>Extra time is calculated as: for each scanned URL, <em>max(0, actual LCP &minus; ${benchmarkLcpSec}s) &times; page loads</em>. Extra data is calculated as: <em>max(0, actual page weight &minus; ${benchmarkWeightMb} MB) &times; page loads</em>. LCP and page weight are measured by Lighthouse. Wikipedia copy count uses a size of 24.05 GB per <a href="https://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia" target="_blank" rel="noreferrer">Wikipedia:Size of Wikipedia</a>. These are rough estimates based on a sample of the top government URLs by traffic.</small></p>
+    <p><small>LCP and page weight are measured by Lighthouse. Wikipedia copy count uses a size of 24.05 GB per <a href="https://en.wikipedia.org/wiki/Wikipedia:Size_of_Wikipedia" target="_blank" rel="noreferrer">Wikipedia:Size of Wikipedia</a>. These are rough estimates based on a sample of the top government URLs by traffic. Hover or focus the estimated totals for calculation details.</small></p>
   </section>`;
 }
 
