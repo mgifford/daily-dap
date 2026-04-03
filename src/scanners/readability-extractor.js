@@ -31,7 +31,7 @@ function extractDomTextMetrics(document) {
   if (!body) return null;
 
   // Clone the body so we can safely remove non-visible elements without
-  // mutating the original document (Readability may have already parsed it).
+  // mutating the passed document.
   const clone = body.cloneNode(true);
 
   // Strip elements that do not contribute to visible text.
@@ -70,7 +70,10 @@ export function extractReadabilityMetrics(html, url) {
   }
 
   // --- Readability pass ---
-  const reader = new Readability(dom.window.document.cloneNode(true));
+  // Readability mutates the document it receives; that is acceptable here
+  // because we only re-use the original HTML string (not the DOM) if the
+  // DOM fallback is needed.
+  const reader = new Readability(dom.window.document);
   let article;
   try {
     article = reader.parse();
@@ -87,9 +90,19 @@ export function extractReadabilityMetrics(html, url) {
   // Use the full-body extraction when Readability fails completely or returns
   // very few words.  This covers portal pages, dashboards, and homepages where
   // Readability finds no "article" but the page still has substantial text.
+  // Re-parse the original HTML so the fallback sees an unmodified document
+  // (Readability mutated the one above).
   let domMetrics = null;
   if (readabilityWordCount < MIN_READABILITY_WORDS) {
-    domMetrics = extractDomTextMetrics(dom.window.document);
+    let fallbackDom;
+    try {
+      fallbackDom = new JSDOM(html, { url });
+    } catch {
+      fallbackDom = null;
+    }
+    if (fallbackDom) {
+      domMetrics = extractDomTextMetrics(fallbackDom.window.document);
+    }
   }
 
   // Choose the best available result.

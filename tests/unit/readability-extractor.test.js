@@ -178,7 +178,7 @@ test('extractReadabilityMetrics DOM fallback: returns null for page with only sc
 });
 
 test('extractReadabilityMetrics DOM fallback: script and style content excluded', () => {
-  const words = Array.from({ length: 60 }, (_, i) => `word${i}`).join(' ');
+  const words = 'visible content text '.repeat(15).trim(); // 60 words
   const html = `<!DOCTYPE html>
 <html>
 <head><title>Test</title></head>
