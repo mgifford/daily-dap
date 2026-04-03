@@ -11,11 +11,51 @@ import { Readability } from '@mozilla/readability';
 export const LOW_DENSITY_THRESHOLD_WPM = 200;
 
 /**
- * Extract main-content word and character counts from raw HTML using
- * @mozilla/readability to strip navigation, sidebars, and ads.
+ * Minimum word count from Readability below which a DOM-based full-body
+ * extraction is used as a fallback.  Portal and homepage-style pages often
+ * have meaningful content that Readability (designed for article pages) misses
+ * entirely, returning only a handful of words instead of the full visible text.
+ */
+const MIN_READABILITY_WORDS = 50;
+
+/**
+ * Extract all visible text from the DOM by removing script/style/template
+ * elements and reading body.textContent.  Used as a fallback when Readability
+ * cannot identify enough article content on a page.
  *
- * Returns null when Readability cannot identify article content
- * (e.g. very short or login-gated pages).
+ * @param {Document} document - A JSDOM Document.
+ * @returns {{ word_count: number, char_count: number } | null}
+ */
+function extractDomTextMetrics(document) {
+  const body = document.body;
+  if (!body) return null;
+
+  // Clone the body so we can safely remove non-visible elements without
+  // mutating the passed document.
+  const clone = body.cloneNode(true);
+
+  // Strip elements that do not contribute to visible text.
+  for (const tag of ['script', 'style', 'noscript', 'template']) {
+    for (const el of clone.querySelectorAll(tag)) {
+      el.remove();
+    }
+  }
+
+  const rawText = clone.textContent ?? '';
+  const cleanText = rawText.replace(/\s+/g, ' ').trim();
+  if (!cleanText) return null;
+
+  const wordCount = cleanText.split(' ').filter((w) => w.length > 0).length;
+  return { word_count: wordCount, char_count: cleanText.length };
+}
+
+/**
+ * Extract main-content word and character counts from raw HTML.
+ *
+ * First attempts @mozilla/readability (best for article/blog pages).
+ * Falls back to full DOM-based extraction when Readability cannot identify
+ * sufficient content (e.g. portal pages, homepages, or login-gated pages)
+ * so that word counts are not artificially low.
  *
  * @param {string} html - Raw HTML string for the page.
  * @param {string} url  - Source URL; used by Readability to resolve relative links.
@@ -29,29 +69,60 @@ export function extractReadabilityMetrics(html, url) {
     return null;
   }
 
+  // --- Readability pass ---
+  // Readability mutates the document it receives; that is acceptable here
+  // because we only re-use the original HTML string (not the DOM) if the
+  // DOM fallback is needed.
   const reader = new Readability(dom.window.document);
   let article;
   try {
     article = reader.parse();
   } catch {
-    return null;
+    article = null;
   }
 
-  if (!article || !article.textContent) {
-    return null;
+  const readabilityText = article?.textContent?.trim() ?? '';
+  const readabilityWordCount = readabilityText
+    ? readabilityText.split(/\s+/).filter((w) => w.length > 0).length
+    : 0;
+
+  // --- DOM fallback pass ---
+  // Use the full-body extraction when Readability fails completely or returns
+  // very few words.  This covers portal pages, dashboards, and homepages where
+  // Readability finds no "article" but the page still has substantial text.
+  // Re-parse the original HTML so the fallback sees an unmodified document
+  // (Readability mutated the one above).
+  let domMetrics = null;
+  if (readabilityWordCount < MIN_READABILITY_WORDS) {
+    let fallbackDom;
+    try {
+      fallbackDom = new JSDOM(html, { url });
+    } catch {
+      fallbackDom = null;
+    }
+    if (fallbackDom) {
+      domMetrics = extractDomTextMetrics(fallbackDom.window.document);
+    }
   }
 
-  const cleanText = article.textContent.trim();
-  if (!cleanText) {
-    return null;
+  // Choose the best available result.
+  const domWordCount = domMetrics?.word_count ?? 0;
+  if (domWordCount > readabilityWordCount) {
+    return {
+      title: article?.title ?? '',
+      word_count: domMetrics.word_count,
+      char_count: domMetrics.char_count
+    };
   }
 
-  const wordCount = cleanText.split(/\s+/).filter((word) => word.length > 0).length;
+  if (readabilityWordCount === 0) {
+    return null;
+  }
 
   return {
-    title: article.title ?? '',
-    word_count: wordCount,
-    char_count: cleanText.length
+    title: article?.title ?? '',
+    word_count: readabilityWordCount,
+    char_count: readabilityText.length
   };
 }
 
