@@ -738,6 +738,16 @@
     .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
     .score-cwv-poor         { background-color: hsl(50 50% 92%); }
 
+    /* ---------- Content density badges ---------- */
+    .density-low    { background-color: hsl(0 70% 92%); }
+    .density-medium { background-color: hsl(50 75% 90%); }
+    :root:not([data-color-scheme="light"]) .density-low    { background-color: hsl(0 40% 22%); }
+    :root:not([data-color-scheme="light"]) .density-medium { background-color: hsl(50 40% 18%); }
+    html[data-color-scheme="dark"] .density-low    { background-color: hsl(0 40% 22%); }
+    html[data-color-scheme="dark"] .density-medium { background-color: hsl(50 40% 18%); }
+    html[data-color-scheme="light"] .density-low    { background-color: hsl(0 70% 92%); }
+    html[data-color-scheme="light"] .density-medium { background-color: hsl(50 75% 90%); }
+
     /* ---------- Technology badges ---------- */
     .tech-badge {
       display: inline-block;
