@@ -114,6 +114,10 @@ test('executeUrlScans retries timeout and marks excluded records', async () => {
     runImpl: async () => ({ issues: [] })
   };
 
+  const readabilityRunner = {
+    runImpl: async () => ({})
+  };
+
   const { results, diagnostics } = await executeUrlScans(
     [
       { url: 'https://example.gov/a', page_load_count: 100 },
@@ -126,6 +130,7 @@ test('executeUrlScans retries timeout and marks excluded records', async () => {
       maxRetries: 1,
       lighthouseRunner,
       scanGovRunner,
+      readabilityRunner,
       excludePredicate: (record) => (record.url.endsWith('/b') ? FAILURE_REASON_CATALOG.EXCLUDED_BY_LIMIT : null)
     }
   );
