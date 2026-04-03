@@ -2381,6 +2381,60 @@ test('renderDailyReportPage: performance impact shows GB and Wikipedia copies fo
   assert.ok(html.includes('copies of Wikipedia'), 'Should show Wikipedia copy count for moderate data');
 });
 
+test('renderDailyReportPage: performance impact time value has tooltip with formula and seconds', () => {
+  const report = {
+    ...minimalReport,
+    run_date: '2026-03-20',
+    performance_impact: {
+      benchmark_lcp_ms: 2500,
+      benchmark_page_weight_bytes: 1_600_000,
+      url_count_with_timing: 5,
+      url_count_with_weight: 0,
+      total_extra_load_time_seconds: 310_216_405,
+      total_extra_load_time_hours: 86171,
+      total_extra_bytes: 0,
+      total_extra_gigabytes: 0
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Duration value should be wrapped in a perf-time-trigger tooltip span
+  assert.ok(html.includes('class="perf-time-trigger"'), 'Duration value should use perf-time-trigger');
+  assert.ok(html.includes('class="perf-time-tooltip"'), 'Duration value should have a perf-time-tooltip');
+  assert.ok(html.includes('role="tooltip"'), 'Tooltip should have role=tooltip');
+  // Tooltip should contain the formula and total seconds
+  assert.ok(html.includes('310,216,405 seconds'), 'Tooltip should show total seconds');
+  assert.ok(html.includes('Extra time is calculated as'), 'Tooltip should contain the LCP formula');
+  assert.ok(html.includes('max(0, actual LCP'), 'Tooltip should include max(0, actual LCP formula text');
+});
+
+test('renderDailyReportPage: performance impact data value has tooltip with formula', () => {
+  const report = {
+    ...minimalReport,
+    run_date: '2026-03-20',
+    performance_impact: {
+      benchmark_lcp_ms: 2500,
+      benchmark_page_weight_bytes: 1_600_000,
+      url_count_with_timing: 5,
+      url_count_with_weight: 97,
+      total_extra_load_time_seconds: 1000,
+      total_extra_load_time_hours: 0.28,
+      total_extra_bytes: 72_748_199_470_000,
+      total_extra_gigabytes: 67728.43
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // Data size value should also have a tooltip
+  // Both time and data rows have perf-time-trigger tooltips
+  const triggerMatches = (html.match(/class="perf-time-trigger"/g) || []).length;
+  assert.ok(triggerMatches >= 2, 'Both time and data rows should have perf-time-trigger tooltips');
+  assert.ok(html.includes('Extra data is calculated as'), 'Data tooltip should contain the page weight formula');
+  assert.ok(html.includes('max(0, actual page weight'), 'Data tooltip should include max(0, actual page weight formula text');
+});
+
 test('renderDailyReportPage URL count cell has tooltip with affected hostnames', () => {
   const report = {
     ...minimalReport,
