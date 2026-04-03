@@ -107,6 +107,96 @@ test('extractReadabilityMetrics excludes nav/header/footer boilerplate', () => {
 });
 
 // ---------------------------------------------------------------------------
+// extractReadabilityMetrics – DOM fallback for portal / homepage pages
+// ---------------------------------------------------------------------------
+
+test('extractReadabilityMetrics DOM fallback: portal page with many short sections', () => {
+  // Simulate a portal page like ncbi.nlm.nih.gov: lots of meaningful text but
+  // no single <article> block that Readability can latch onto.
+  const html = `<!DOCTYPE html>
+<html>
+<head><title>Portal Home</title></head>
+<body>
+  <header><nav><a href="/about">About</a> <a href="/contact">Contact</a></nav></header>
+  <main>
+    <h1>Welcome to the Portal</h1>
+    <p>The National Center for Biotechnology Information advances science and health by
+       providing access to biomedical and genomic information.</p>
+    <section>
+      <h2>Submit</h2>
+      <p>Deposit data or manuscripts into NCBI databases</p>
+    </section>
+    <section>
+      <h2>Download</h2>
+      <p>Transfer NCBI data to your computer</p>
+    </section>
+    <section>
+      <h2>Learn</h2>
+      <p>Find help documents, attend a class or watch a tutorial</p>
+    </section>
+    <section>
+      <h2>Develop</h2>
+      <p>Use NCBI APIs and code libraries to build applications</p>
+    </section>
+    <section>
+      <h2>Analyze</h2>
+      <p>Identify an NCBI tool for your data analysis task</p>
+    </section>
+    <section>
+      <h2>Research</h2>
+      <p>Explore NCBI research and collaborative projects</p>
+    </section>
+  </main>
+  <script>var x = "this should not be counted";</script>
+  <style>.body { color: red; }</style>
+</body>
+</html>`;
+  const result = extractReadabilityMetrics(html, 'https://example.ncbi.nlm.nih.gov/');
+  assert.ok(result !== null, 'Expected non-null result for portal page');
+  // Should find substantially more than a handful of words via DOM fallback
+  assert.ok(result.word_count >= 30, `Expected >= 30 words from DOM fallback, got ${result.word_count}`);
+  // Script and style text must not be included
+  assert.ok(!JSON.stringify(result).includes('this should not be counted'), 'Script text must be excluded');
+  assert.ok(!JSON.stringify(result).includes('color: red'), 'Style text must be excluded');
+});
+
+test('extractReadabilityMetrics DOM fallback: returns null for page with only scripts', () => {
+  const html = `<!DOCTYPE html>
+<html>
+<head><title>Empty</title></head>
+<body>
+  <script>var x = 1;</script>
+  <noscript>Please enable JavaScript.</noscript>
+</body>
+</html>`;
+  const result = extractReadabilityMetrics(html, 'https://example.gov/');
+  // Either null or a very small count -- page has no meaningful visible text
+  assert.ok(
+    result === null || result.word_count <= 5,
+    `Expected null or <= 5 words for script-only body, got ${result?.word_count}`
+  );
+});
+
+test('extractReadabilityMetrics DOM fallback: script and style content excluded', () => {
+  const words = Array.from({ length: 60 }, (_, i) => `word${i}`).join(' ');
+  const html = `<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+  <p>${words}</p>
+  <script>var injected = "secret script content alpha beta gamma";</script>
+  <style>body { font-family: injected-style-content; }</style>
+  <noscript>noscript-text-here</noscript>
+</body>
+</html>`;
+  const result = extractReadabilityMetrics(html, 'https://example.gov/page');
+  assert.ok(result !== null);
+  // Script/style/noscript content must not appear in char_count inflation
+  const resultStr = JSON.stringify(result);
+  assert.ok(!resultStr.includes('injected'), 'Script/style text must be excluded from DOM fallback');
+});
+
+// ---------------------------------------------------------------------------
 // computeWordsPerMb
 // ---------------------------------------------------------------------------
 
