@@ -5,6 +5,7 @@ import { normalizeUrlScanResult } from './result-normalizer.js';
 import { buildRunDiagnostics } from './diagnostics.js';
 import { FAILURE_REASON_CATALOG } from './status-classifier.js';
 import { logProgress } from '../lib/logging.js';
+import { fetchAndExtractReadability } from './readability-extractor.js';
 
 class TimeoutError extends Error {
   constructor(message) {
@@ -45,6 +46,7 @@ async function executeSingleRecord(record, options) {
     timeoutMs,
     lighthouseRunner,
     scanGovRunner,
+    readabilityRunner,
     retryDelayMs,
     excludePredicate
   } = options;
@@ -64,10 +66,16 @@ async function executeSingleRecord(record, options) {
 
   for (let attempt = 1; attempt <= maxRetries + 1; attempt += 1) {
     try {
-      const [lighthouseResult, scanGovResult] = await withTimeout(
+      const runReadability =
+        typeof readabilityRunner?.runImpl === 'function'
+          ? readabilityRunner.runImpl(record.url)
+          : fetchAndExtractReadability(record.url);
+
+      const [lighthouseResult, scanGovResult, readabilityResult] = await withTimeout(
         Promise.all([
           runLighthouseScan(record.url, lighthouseRunner),
-          runScanGovScan(record.url, scanGovRunner)
+          runScanGovScan(record.url, scanGovRunner),
+          runReadability.catch(() => null)
         ]),
         timeoutMs
       );
@@ -77,6 +85,7 @@ async function executeSingleRecord(record, options) {
         urlRecord: record,
         lighthouseResult,
         scanGovResult,
+        readabilityResult,
         diagnostics: {
           attempt_count: attempt,
           retry_count: attempt - 1,
@@ -117,7 +126,8 @@ export async function executeUrlScans(urlRecords, options = {}) {
     interScanDelayMs = 1000,
     excludePredicate,
     lighthouseRunner = {},
-    scanGovRunner = {}
+    scanGovRunner = {},
+    readabilityRunner = {}
   } = options;
 
   if (!runId) {
@@ -151,7 +161,8 @@ export async function executeUrlScans(urlRecords, options = {}) {
         retryDelayMs,
         excludePredicate,
         lighthouseRunner,
-        scanGovRunner
+        scanGovRunner,
+        readabilityRunner
       });
       
       completedCount += 1;

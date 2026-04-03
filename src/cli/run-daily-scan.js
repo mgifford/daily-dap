@@ -313,6 +313,25 @@ function createMockScannerRunners(failNeedles = []) {
 
         return { issues: findings };
       }
+    },
+    readabilityRunner: {
+      runImpl: async (url) => {
+        if (shouldFail(url)) {
+          return null;
+        }
+
+        const seed = scoreFromUrl(url, 0);
+        // Deterministic mock: vary word count and efficiency based on URL seed.
+        // seed % 4 === 0: content-rich page
+        // seed % 4 === 1: average page
+        // seed % 4 === 2: sparse landing page
+        // seed % 4 === 3: below low-density threshold (digital bloat)
+        const buckets = [1200, 600, 150, 80];
+        const wordCount = buckets[seed % 4];
+        const charCount = Math.round(wordCount * 5.2);
+        const title = `Mock Page: ${url.replace('https://', '')}`;
+        return { title, word_count: wordCount, char_count: charCount };
+      }
     }
   };
 }
@@ -324,7 +343,8 @@ function createLiveScannerRunners() {
     },
     scanGovRunner: {
       runImpl: async () => ({ issues: [] })
-    }
+    },
+    readabilityRunner: {}
   };
 }
 
@@ -520,7 +540,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       interScanDelayMs: args.interScanDelayMs
     });
 
-    const { lighthouseRunner, scanGovRunner } =
+    const { lighthouseRunner, scanGovRunner, readabilityRunner } =
       args.scanMode === 'mock' ? createMockScannerRunners(args.mockFailUrl) : createLiveScannerRunners();
     const scanExecution = await executeUrlScans(normalized.records, {
       runId: runMetadata.run_id,
@@ -531,6 +551,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       interScanDelayMs: args.interScanDelayMs,
       lighthouseRunner,
       scanGovRunner,
+      readabilityRunner,
       excludePredicate: (record) => (record.page_load_count === null ? 'excluded_missing_page_load_count' : null)
     });
 

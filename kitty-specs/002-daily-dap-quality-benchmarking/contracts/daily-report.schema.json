@@ -146,6 +146,25 @@
           "additionalProperties": false
         }
       ]
+    },
+    "readability_summary": {
+      "description": "Aggregated content density metrics derived from Mozilla Readability extraction across all successfully scanned URLs.",
+      "type": "object",
+      "required": [
+        "url_count_with_metrics",
+        "url_count_low_density",
+        "mean_word_count",
+        "mean_words_per_mb",
+        "low_density_urls"
+      ],
+      "properties": {
+        "url_count_with_metrics": { "type": "integer", "minimum": 0 },
+        "url_count_low_density": { "type": "integer", "minimum": 0 },
+        "mean_word_count": { "oneOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "mean_words_per_mb": { "oneOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
+        "low_density_urls": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": true

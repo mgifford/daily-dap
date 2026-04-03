@@ -2,6 +2,7 @@ import { buildTechSummary } from '../scanners/tech-detector.js';
 import { buildAccessibilityStatementSummary } from '../scanners/accessibility-statement-checker.js';
 import { buildRequiredLinksSummary } from '../scanners/required-links-checker.js';
 import { lookupDomain, hostnameFromUrl } from '../data/dotgov-lookup.js';
+import { buildReadabilitySummary } from '../scanners/readability-extractor.js';
 
 function coerceScore(value) {
   if (typeof value === 'number' && Number.isFinite(value)) {
@@ -127,7 +128,8 @@ function normalizeTopUrls(urlResults = [], dotgovLookup = null) {
               pwa: coerceScore(result.lighthouse_pwa)
             }
           : null,
-      axe_findings: Array.isArray(result.axe_findings) ? result.axe_findings : []
+      axe_findings: Array.isArray(result.axe_findings) ? result.axe_findings : [],
+      readability_metrics: result.readability_metrics ?? null
       };
     })
     .sort((left, right) => right.page_load_count - left.page_load_count);
@@ -175,6 +177,7 @@ export function buildDailyReport({
   techSummary.required_links_summary = buildRequiredLinksSummary(requiredLinks ?? {});
 
   const codeQualitySummary = buildCodeQualitySummary(urlResults);
+  const readabilitySummary = buildReadabilitySummary(urlResults);
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;
@@ -212,6 +215,7 @@ export function buildDailyReport({
     top_urls: topUrls,
     tech_summary: techSummary,
     code_quality_summary: codeQualitySummary,
+    readability_summary: readabilitySummary,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,
