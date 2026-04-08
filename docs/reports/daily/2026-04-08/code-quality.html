@@ -1,0 +1,2215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML/CSS/JS Code Quality - Daily DAP - 2026-04-08</title>
+  <meta name="description" content="HTML, CSS, and JavaScript code quality audit results for the top U.S. government URLs on 2026-04-08, including deprecated APIs, console errors, and vulnerable library detection." />
+  
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    (function () {
+      var s = localStorage.getItem('color-scheme');
+      if (s === 'dark' || s === 'light') {
+        document.documentElement.setAttribute('data-color-scheme', s);
+      }
+    }());
+  </script>
+  <style>
+    .audit-pass { color: var(--color-score-good, #2e7d32); font-weight: 700; }
+    .audit-fail { color: var(--color-score-poor, #c62828); font-weight: 700; }
+    .audit-na { color: var(--color-text-muted, #666); }
+    .audit-cell { text-align: center; white-space: nowrap; }
+    .score-note { font-size: 0.8rem; color: var(--color-text-muted, #666); margin-top: 0.25rem; }
+  </style>
+  
+  <style>
+    /* ---------- Color tokens ---------- */
+    /* CivicActions brand palette. See STYLES.md section 3.1 for full token reference. */
+    :root {
+      color-scheme: light dark;
+      --color-bg: #ffffff;
+      --color-surface: #ffffff;
+      --color-text: #171717;
+      --color-text-muted: #454545;
+      --color-primary: #D83933;
+      --color-primary-hover: #8B0A03;
+      --color-link: #1A4480;
+      --color-link-hover: #162E51;
+      --color-focus-ring: #D83933;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --color-header-bg: #162E51;
+      --color-header-text: #ffffff;
+      --color-header-nav: #73B3E7;
+      --color-footer-bg: #162E51;
+      --color-footer-text: #d4e4f7;
+      --color-footer-link: #73B3E7;
+      --color-table-header-bg: #f0f0f0;
+      --color-table-border: #e6e6e6;
+      --color-table-row-alt: #fafafa;
+      --color-table-row-hover: #f0f0f0;
+      --color-table-row-monthly: #f5f5f5;
+      --color-table-row-monthly-hover: #e6e6e6;
+      --color-table-row-sep: #e6e6e6;
+      --color-score-bg: #f0f0f0;
+      --color-score-border: #e6e6e6;
+      --color-score-value: #D83933;
+      --color-score-label: #454545;
+      --color-code-bg: #f0f0f0;
+      --color-modal-border: #e6e6e6;
+      --color-axe-item-bg: #fef9f9;
+      --color-axe-item-border: #D83933;
+      --color-axe-pre-bg: #f5f5f5;
+      --color-finding-border: #e6e6e6;
+      --color-wcag-text: #454545;
+      --color-badge-bg: #f0f0f0;
+      --color-badge-border: #e6e6e6;
+      --color-badge-text: #1A4480;
+      --color-badge-hover: #e6e6e6;
+      --color-tooltip-bg: #162E51;
+      --color-tooltip-text: #f0f0f0;
+      --color-tooltip-border: #454545;
+      --color-copy-btn-bg: #f0f0f0;
+      --color-copy-btn-border: #e6e6e6;
+      --color-copy-btn-text: #1A4480;
+      --color-copy-btn-hover: #e6e6e6;
+      --color-copied-bg: #d4edda;
+      --color-copied-border: #28a745;
+      --color-copied-text: #155724;
+      --color-warning: #FA9441;
+    }
+
+    /* ---------- Dark mode (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) {
+        color-scheme: dark;
+        --color-bg: #0d1117;
+        --color-surface: #161b22;
+        --color-text: #e6edf3;
+        --color-text-muted: #8b949e;
+        --color-primary: #58a6ff;
+        --color-primary-hover: #79b8ff;
+        --color-link: #58a6ff;
+        --color-link-hover: #79b8ff;
+        --color-shadow: rgba(0, 0, 0, 0.3);
+        --color-header-bg: #161b22;
+        --color-header-text: #e6edf3;
+        --color-header-nav: #8b949e;
+        --color-footer-bg: #0d1117;
+        --color-footer-text: #8b949e;
+        --color-footer-link: #58a6ff;
+        --color-table-header-bg: #21262d;
+        --color-table-border: #30363d;
+        --color-table-row-alt: #161b22;
+        --color-table-row-hover: #1c2128;
+        --color-table-row-monthly: #1c2128;
+        --color-table-row-monthly-hover: #21262d;
+        --color-table-row-sep: #21262d;
+        --color-score-bg: #1c2128;
+        --color-score-border: #30363d;
+        --color-score-value: #58a6ff;
+        --color-score-label: #8b949e;
+        --color-code-bg: #21262d;
+        --color-modal-border: #30363d;
+        --color-axe-item-bg: #1a0d0d;
+        --color-axe-item-border: #f85149;
+        --color-axe-pre-bg: #161b22;
+        --color-finding-border: #30363d;
+        --color-wcag-text: #8b949e;
+        --color-badge-bg: #1c2128;
+        --color-badge-border: #30363d;
+        --color-badge-text: #58a6ff;
+        --color-badge-hover: #21262d;
+        --color-tooltip-bg: #f0f3f8;
+        --color-tooltip-text: #1b1b1b;
+        --color-tooltip-border: #8b949e;
+        --color-copy-btn-bg: #1c2128;
+        --color-copy-btn-border: #30363d;
+        --color-copy-btn-text: #58a6ff;
+        --color-copy-btn-hover: #21262d;
+        --color-copied-bg: #1a3728;
+        --color-copied-border: #2ea043;
+        --color-copied-text: #56d364;
+      }
+    }
+
+    /* ---------- Dark mode (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] {
+      color-scheme: dark;
+      --color-bg: #0d1117;
+      --color-surface: #161b22;
+      --color-text: #e6edf3;
+      --color-text-muted: #8b949e;
+      --color-primary: #58a6ff;
+      --color-primary-hover: #79b8ff;
+      --color-link: #58a6ff;
+      --color-link-hover: #79b8ff;
+      --color-shadow: rgba(0, 0, 0, 0.3);
+      --color-header-bg: #161b22;
+      --color-header-text: #e6edf3;
+      --color-header-nav: #8b949e;
+      --color-footer-bg: #0d1117;
+      --color-footer-text: #8b949e;
+      --color-footer-link: #58a6ff;
+      --color-table-header-bg: #21262d;
+      --color-table-border: #30363d;
+      --color-table-row-alt: #161b22;
+      --color-table-row-hover: #1c2128;
+      --color-table-row-monthly: #1c2128;
+      --color-table-row-monthly-hover: #21262d;
+      --color-table-row-sep: #21262d;
+      --color-score-bg: #1c2128;
+      --color-score-border: #30363d;
+      --color-score-value: #58a6ff;
+      --color-score-label: #8b949e;
+      --color-code-bg: #21262d;
+      --color-modal-border: #30363d;
+      --color-axe-item-bg: #1a0d0d;
+      --color-axe-item-border: #f85149;
+      --color-axe-pre-bg: #161b22;
+      --color-finding-border: #30363d;
+      --color-wcag-text: #8b949e;
+      --color-badge-bg: #1c2128;
+      --color-badge-border: #30363d;
+      --color-badge-text: #58a6ff;
+      --color-badge-hover: #21262d;
+      --color-tooltip-bg: #f0f3f8;
+      --color-tooltip-text: #1b1b1b;
+      --color-tooltip-border: #8b949e;
+      --color-copy-btn-bg: #1c2128;
+      --color-copy-btn-border: #30363d;
+      --color-copy-btn-text: #58a6ff;
+      --color-copy-btn-hover: #21262d;
+      --color-copied-bg: #1a3728;
+      --color-copied-border: #2ea043;
+      --color-copied-text: #56d364;
+    }
+
+    /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-color-scheme="light"]) .score-performance {
+        background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-accessibility {
+        background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-best-practices {
+        background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-seo {
+        background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+      }
+      :root:not([data-color-scheme="light"]) .score-cwv-good         { background-color: hsl(50 60% 22%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+      :root:not([data-color-scheme="light"]) .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+    }
+
+    /* ---------- Dark mode score color gradient overrides (explicit user preference) ---------- */
+    html[data-color-scheme="dark"] .score-performance {
+      background-color: hsl(270 50% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-accessibility {
+      background-color: hsl(140 45% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-best-practices {
+      background-color: hsl(210 55% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-seo {
+      background-color: hsl(28 70% calc((8 + var(--score, 0) * 0.22) * 1%));
+    }
+    html[data-color-scheme="dark"] .score-cwv-good         { background-color: hsl(50 60% 22%); }
+    html[data-color-scheme="dark"] .score-cwv-needs-improvement { background-color: hsl(50 50% 15%); }
+    html[data-color-scheme="dark"] .score-cwv-poor         { background-color: hsl(50 35% 10%); }
+
+    /* ---------- Light mode (explicit user preference, overrides dark OS) ---------- */
+    html[data-color-scheme="light"] { color-scheme: light; }
+
+    /* ---------- Reset / base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Public Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+    a { color: var(--color-link); text-decoration: underline; }
+    a:hover { color: var(--color-link-hover); }
+    /* Explicit inherit prevents any injected theme CSS (e.g. legacy GitHub Pages Jekyll Minima
+       color: #797979) from producing insufficient contrast on bold/strong text. */
+    strong, b { color: inherit; }
+    h1, h2, h3 { line-height: 1.25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+
+    /* ---------- Heading anchor links ---------- */
+    .heading-anchor {
+      opacity: 0;
+      font-size: 0.75em;
+      text-decoration: none;
+      margin-left: 0.4em;
+      vertical-align: middle;
+      color: inherit;
+    }
+    h1:hover .heading-anchor,
+    h2:hover .heading-anchor,
+    h3:hover .heading-anchor,
+    h1:focus-within .heading-anchor,
+    h2:focus-within .heading-anchor,
+    h3:focus-within .heading-anchor,
+    .heading-anchor:focus { opacity: 1; }
+
+    ul { padding-left: 1.5rem; }
+    code { font-size: 0.875em; background: var(--color-code-bg); padding: 0.1em 0.35em; border-radius: 3px; }
+    pre code { background: none; padding: 0; }
+
+    /* ---------- Screen-reader only utility ---------- */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---------- Skip link ---------- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: var(--color-primary);
+      color: var(--color-header-text);
+      padding: 0.5rem 1rem;
+      z-index: 9999;
+      font-weight: bold;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ---------- Site header ---------- */
+    .site-header {
+      background: var(--color-header-bg);
+      color: var(--color-header-text);
+      padding: 0.75rem 1rem;
+    }
+    .site-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .site-header .site-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-header-text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .site-header .site-title:hover { text-decoration: underline; }
+    .site-header nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .site-header nav a { color: var(--color-header-nav); text-decoration: none; font-size: 0.9rem; }
+    .site-header nav a:hover { color: var(--color-header-text); text-decoration: underline; }
+    .github-link::before { content: ""; }
+
+    /* ---------- Theme toggle ---------- */
+    .theme-toggle,
+    .print-btn {
+      background: transparent;
+      border: 1px solid var(--color-header-nav);
+      border-radius: 4px;
+      color: var(--color-header-nav);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.6rem;
+      min-height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover,
+    .theme-toggle[aria-pressed="true"],
+    .print-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--color-header-text);
+      border-color: var(--color-header-text);
+    }
+    .theme-toggle:focus-visible,
+    .print-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+
+    /* ---------- Main wrapper ---------- */
+    .site-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .page-intro {
+      background: var(--color-surface);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--color-primary);
+      box-shadow: 0 1px 3px var(--color-shadow);
+    }
+    .page-intro h1 { margin-top: 0; }
+
+    /* ---------- Content cards ---------- */
+    section {
+      background: var(--color-surface);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px var(--color-shadow);
+    }
+    section > h2:first-of-type { margin-top: 0; }
+
+    /* ---------- Score badges ---------- */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .score-card {
+      background: var(--color-score-bg);
+      border: 1px solid var(--color-score-border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .score-card .score-label { font-size: 0.78rem; color: var(--color-score-label); text-transform: uppercase; letter-spacing: 0.05em; }
+    .score-card .score-value { font-size: 2rem; font-weight: 700; color: var(--color-score-value); line-height: 1.1; }
+
+    /* ---------- Tables ---------- */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--color-table-border);
+      vertical-align: top;
+    }
+    th {
+      background: var(--color-table-header-bg);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    th.wrap-header { white-space: normal; min-width: 5rem; overflow-wrap: anywhere; }
+    tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+    tbody tr:hover { background: var(--color-table-row-hover); }
+    tr.monthly-avg { background: var(--color-table-row-monthly); font-weight: 600; }
+    tr.monthly-avg:hover { background: var(--color-table-row-monthly-hover); }
+
+    /* ---------- Sortable column headers ---------- */
+    .sort-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: inherit;
+      color: inherit;
+      padding: 0;
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 0.3em;
+      white-space: inherit;
+    }
+    .sort-btn::after { content: '⇅'; font-size: 0.75em; opacity: 0.45; }
+    th[aria-sort="ascending"] .sort-btn::after { content: '↑'; opacity: 1; }
+    th[aria-sort="descending"] .sort-btn::after { content: '↓'; opacity: 1; }
+    .sort-btn:hover { text-decoration: underline; }
+    .sort-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; border-radius: 2px; }
+
+    /* ---------- Buttons ---------- */
+    .details-btn {
+      background: var(--color-primary);
+      border: none;
+      border-radius: 4px;
+      color: var(--color-header-text);
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+    .details-btn:hover { background: var(--color-primary-hover); }
+    .details-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+
+    /* ---------- Modals ---------- */
+    .axe-modal {
+      border: 1px solid var(--color-modal-border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      max-width: 800px;
+      width: 90vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+    .axe-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .modal-header h2 { margin: 0; }
+    .modal-close {
+      background: none;
+      border: 1px solid var(--color-modal-border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-text);
+    }
+    .modal-close:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .modal-footer { margin-top: 1rem; text-align: right; }
+    .axe-item {
+      border-left: 3px solid var(--color-axe-item-border);
+      margin: 0.5rem 0;
+      padding: 0.5rem 0.75rem;
+      background: var(--color-axe-item-bg);
+    }
+    .axe-item pre {
+      background: var(--color-axe-pre-bg);
+      padding: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.85em;
+    }
+    .violation-id {
+      font-size: 0.75em;
+      font-family: monospace;
+      color: var(--color-muted, #6b7280);
+      background: var(--color-code-bg, #f3f4f6);
+      border: 1px solid var(--color-border, #d1d5db);
+      border-radius: 3px;
+      padding: 0.1em 0.35em;
+      vertical-align: middle;
+      user-select: all;
+    }
+    .finding-detail {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--color-finding-border);
+      margin-top: 0.25rem;
+    }
+    .fix-list { margin: 0.25rem 0 0.5rem 1.5rem; padding: 0; }
+    .fix-list li { margin: 0.2rem 0; }
+    .wcag-tags { margin: 0.25rem 0; font-size: 0.9em; color: var(--color-wcag-text); }
+    /* Disability icon badges (replacing FPC abbreviation codes) */
+    .disability-badges { display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center; }
+    .disability-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      padding: 0.15rem 0.3rem;
+      border-radius: 4px;
+      background: var(--color-badge-bg);
+      border: 1px solid var(--color-badge-border);
+      color: var(--color-badge-text);
+      line-height: 1;
+      cursor: help;
+      text-decoration: none;
+      position: relative;
+    }
+    .disability-badge:hover { background: var(--color-badge-hover); }
+    .disability-badge:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .disability-icon { display: block; vertical-align: middle; }
+    .disability-estimate {
+      font-size: 0.65rem;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    /* ARIA tooltip for disability badges */
+    .disability-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 280px;
+      min-width: 160px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .disability-badge:hover .disability-tooltip,
+    .disability-badge:focus-within .disability-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .disability-badge[data-tooltip-dismissed] .disability-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .disability-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* URL count tooltip (URLs affected column in axe patterns table) */
+    .url-count-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .url-count-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .url-count-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .url-count-trigger:hover .url-count-tooltip,
+    .url-count-trigger:focus-within .url-count-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .url-count-trigger[data-tooltip-dismissed] .url-count-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .url-count-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Performance load-time tooltip (Performance column in top-URLs table) */
+    .perf-time-trigger {
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+      text-decoration: underline dotted;
+      position: relative;
+    }
+    .perf-time-trigger:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .perf-time-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 320px;
+      min-width: 200px;
+      z-index: 100;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+    .perf-time-trigger:hover .perf-time-tooltip,
+    .perf-time-trigger:focus-within .perf-time-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .perf-time-trigger[data-tooltip-dismissed] .perf-time-tooltip {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .perf-time-tooltip { transition: opacity 0.15s ease; }
+    }
+    .disability-legend {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.4rem 0.75rem;
+      align-items: center;
+      margin: 0.5rem 0;
+    }
+    .disability-legend dt { display: flex; align-items: center; justify-content: center; }
+    .disability-legend dd { margin: 0; }
+    .fpc-prevalence { font-size: 0.85em; color: var(--color-text-muted); white-space: nowrap; }
+    details summary { cursor: pointer; padding: 0.4rem 0; }
+
+    /* ---------- History chart ---------- */
+    .history-chart-figure { margin: 0.5rem 0 1rem; overflow-x: auto; }
+    .history-chart-figure svg { min-width: 320px; }
+
+    /* ---------- Axe policy narratives ---------- */
+    .axe-narratives-details { margin: 1rem 0; }
+    .axe-narratives-details > summary { font-weight: 600; }
+    .axe-narrative {
+      border-left: 4px solid var(--color-focus-ring);
+      margin: 1rem 0;
+      padding: 0.5rem 0 0.5rem 1rem;
+    }
+    .axe-narrative-title { margin: 0 0 0.4rem; font-size: 1rem; }
+    .axe-narrative-body { margin: 0 0 0.5rem; }
+    .axe-demographics { margin: 0.25rem 0 0; padding-left: 1.25rem; }
+    .axe-demographics li { margin-bottom: 0.15rem; }
+
+    /* ---------- Compliance context section ---------- */
+    .compliance-context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compliance-card {
+      border: 1px solid var(--color-table-border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .compliance-card h3 { margin: 0 0 0.5rem; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .compliance-card--legal { border-top: 4px solid var(--color-primary); }
+    .compliance-card--legal .compliance-icon { color: var(--color-primary); }
+    .compliance-card--best-practices { border-top: 4px solid var(--color-warning); }
+    .compliance-card--best-practices .compliance-icon { color: var(--color-warning); }
+    .compliance-card ul { margin: 0.5rem 0; padding-left: 1.25rem; }
+    .compliance-card li { margin-bottom: 0.25rem; }
+    .compliance-card p { margin: 0.4rem 0; }
+
+    /* ---------- Copy finding button ---------- */
+    .copy-finding-btn {
+      background: var(--color-copy-btn-bg);
+      border: 1px solid var(--color-copy-btn-border);
+      border-radius: 4px;
+      color: var(--color-copy-btn-text);
+      cursor: pointer;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      min-height: 2.75rem;
+      margin-top: 0.5rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+    .copy-finding-btn:hover { background: var(--color-copy-btn-hover); border-color: var(--color-primary); }
+    .copy-finding-btn:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+    .copy-finding-btn.copied { background: var(--color-copied-bg); border-color: var(--color-copied-border); color: var(--color-copied-text); }
+
+    /* ---------- Score color gradient cells ---------- */
+    /* Numeric score columns: background lightness driven by --score (0–100) */
+    /* Light mode: near-white at 0, vivid tint at 100 */
+    .score-performance {
+      background-color: hsl(270 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-accessibility {
+      background-color: hsl(140 50% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-best-practices {
+      background-color: hsl(210 60% calc((93 - var(--score, 0) * 0.18) * 1%));
+    }
+    .score-seo {
+      background-color: hsl(28 80% calc((93 - var(--score, 0) * 0.15) * 1%));
+    }
+
+    /* CWV column: three fixed yellow tints (good → needs improvement → poor) */
+    .score-cwv-good         { background-color: hsl(50 75% 78%); }
+    .score-cwv-needs-improvement { background-color: hsl(50 65% 86%); }
+    .score-cwv-poor         { background-color: hsl(50 50% 92%); }
+
+    /* ---------- Content density badges ---------- */
+    .density-low    { background-color: hsl(0 70% 92%); }
+    .density-medium { background-color: hsl(50 75% 90%); }
+    :root:not([data-color-scheme="light"]) .density-low    { background-color: hsl(0 40% 22%); }
+    :root:not([data-color-scheme="light"]) .density-medium { background-color: hsl(50 40% 18%); }
+    html[data-color-scheme="dark"] .density-low    { background-color: hsl(0 40% 22%); }
+    html[data-color-scheme="dark"] .density-medium { background-color: hsl(50 40% 18%); }
+    html[data-color-scheme="light"] .density-low    { background-color: hsl(0 70% 92%); }
+    html[data-color-scheme="light"] .density-medium { background-color: hsl(50 75% 90%); }
+
+    /* ---------- Technology badges ---------- */
+    .tech-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.1em 0.4em;
+      border-radius: 0.25em;
+      white-space: nowrap;
+    }
+    .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    .tech-badge-3p    { background-color: hsl(0 0% 88%);    color: hsl(0 0% 25%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    :root:not([data-color-scheme="light"]) .tech-badge-3p    { background-color: hsl(0 0% 25%);    color: hsl(0 0% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-cms   { background-color: hsl(200 40% 25%); color: hsl(200 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-uswds { background-color: hsl(225 40% 25%); color: hsl(225 40% 85%); }
+    html[data-color-scheme="dark"] .tech-badge-3p    { background-color: hsl(0 0% 25%);    color: hsl(0 0% 85%); }
+    html[data-color-scheme="light"] .tech-badge-cms   { background-color: hsl(200 60% 88%); color: hsl(200 60% 25%); }
+    html[data-color-scheme="light"] .tech-badge-uswds { background-color: hsl(225 70% 88%); color: hsl(225 70% 25%); }
+    html[data-color-scheme="light"] .tech-badge-3p    { background-color: hsl(0 0% 88%);    color: hsl(0 0% 25%); }
+    /* Privacy-concern indicator inside third-party service table */
+    .privacy-concern {
+      font-size: 0.75em;
+      font-weight: 600;
+      color: hsl(30 80% 35%);
+    }
+    :root:not([data-color-scheme="light"]) .privacy-concern { color: hsl(30 80% 70%); }
+    html[data-color-scheme="dark"]         .privacy-concern { color: hsl(30 80% 70%); }
+    html[data-color-scheme="light"]        .privacy-concern { color: hsl(30 80% 35%); }
+    /* Size sub-label inside third-party service size column */
+    .tp-size-total {
+      font-size: 0.8em;
+      opacity: 0.75;
+      white-space: nowrap;
+    }
+    .tp-size-unknown { opacity: 0.4; }
+
+    /* ---------- URL cells ---------- */
+    .url-cell {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+      position: relative;
+    }
+    .url-cell:hover,
+    .url-cell:focus-within {
+      overflow: visible;
+      position: relative;
+      z-index: 2;
+    }
+    .url-cell:hover a,
+    .url-cell:focus-within a {
+      background: var(--color-table-row-hover);
+      padding-right: 0.25rem;
+      box-shadow: 2px 0 4px var(--color-shadow);
+    }
+    .url-org {
+      display: block;
+      font-size: 0.78em;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.15em;
+    }
+
+    /* ---------- Column header info tooltips ---------- */
+    .col-has-info { position: relative; }
+    .col-info-anchor {
+      display: inline-block;
+      position: relative;
+      margin-left: 0.25rem;
+      color: var(--color-text-muted);
+      font-size: 0.85em;
+      cursor: help;
+      vertical-align: middle;
+    }
+    .col-info-anchor:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; border-radius: 50%; }
+    .col-info-icon { font-style: normal; }
+    .col-subhead { font-size: 0.85em; font-weight: normal; white-space: nowrap; }
+    .col-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-tooltip-bg);
+      color: var(--color-tooltip-text);
+      border: 1px solid var(--color-tooltip-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+      white-space: normal;
+      max-width: 260px;
+      min-width: 160px;
+      z-index: 200;
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .col-info-anchor:hover .col-tooltip,
+    .col-info-anchor:focus-within .col-tooltip {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .col-tooltip { transition: opacity 0.15s ease; }
+    }
+    /* Severe count styling inside accessibility cell */
+    .severe-count { color: var(--color-text-muted); font-size: 0.9em; }
+
+    /* ---------- Site footer ---------- */
+    .site-footer {
+      background: var(--color-footer-bg);
+      color: var(--color-footer-text);
+      padding: 1.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-footer a { color: var(--color-footer-link); text-decoration: underline; }
+    .site-footer a:hover { color: var(--color-header-text); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 640px) {
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.1rem; }
+      .site-header-inner { flex-direction: column; align-items: flex-start; }
+      .score-card .score-value { font-size: 1.5rem; }
+      th, td { padding: 0.4rem 0.5rem; }
+      .axe-modal {
+        position: fixed;
+        inset: 0;
+        max-width: 100%;
+        width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        margin: 0;
+      }
+      .site-main { padding: 1rem 0.75rem 2rem; }
+      section { padding: 1rem; }
+
+      /* Stacked card layout for all scrollable tables */
+      .table-scroll table thead { display: none; }
+      .table-scroll table tbody tr {
+        display: block;
+        border: 1px solid var(--color-table-border);
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        padding: 0.25rem 0;
+        background: var(--color-surface);
+      }
+      .table-scroll table tbody tr:nth-child(even) { background: var(--color-table-row-alt); }
+      .table-scroll table td {
+        display: flex;
+        border: none;
+        border-bottom: 1px solid var(--color-table-row-sep);
+        padding: 0.4rem 0.75rem;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+      .table-scroll table td:last-child { border-bottom: none; }
+      .table-scroll table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--color-text-muted);
+        min-width: 8.5rem;
+        flex-shrink: 0;
+        font-size: 0.8rem;
+      }
+      .table-scroll .url-cell {
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+    }
+
+    /* ---------- Print / Save as PDF ---------- */
+    .print-only { display: none; }
+    .print-dashboard-notice {
+      background: #f0f0f0;
+      border: 1px solid #e6e6e6;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+
+    @media print {
+      /* Hide interactive / navigational chrome */
+      .skip-link,
+      .site-header nav,
+      .theme-toggle,
+      .print-btn,
+      .details-btn,
+      .sort-btn,
+      .copy-finding-btn,
+      dialog,
+      .axe-modal,
+      .anchor-link { display: none !important; }
+
+      /* Show print-only elements (e.g., dashboard URL notice) */
+      .print-only { display: block !important; }
+
+      /* Hide elements that are redundant in print (e.g., repeated dates) */
+      .print-hide { display: none !important; }
+
+      /* Page setup with generous margins for binding and annotation */
+      @page { margin: 2cm; }
+      @page :first { margin-top: 3cm; }
+
+      /* Typography optimised for print readability */
+      body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        background: #fff;
+        color: #000;
+      }
+
+      h1 { font-size: 22pt; }
+      h2 { font-size: 18pt; }
+      h3 { font-size: 14pt; }
+
+      /* Prevent orphaned lines at page boundaries */
+      p, li { orphans: 3; widows: 3; }
+
+      /* Page break control: keep headings with following content */
+      h1, h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      figure, img, table {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* Avoid page breaks inside key content blocks */
+      .score-grid, .page-intro { break-inside: avoid; }
+
+      /* Images: scale to fit the page without overflowing */
+      img { max-width: 100% !important; height: auto; }
+
+      /* Make the header readable in black-and-white */
+      .site-header {
+        background: #000 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Keep score cards readable; force text to black for grayscale legibility */
+      .score-card {
+        border: 1px solid #ccc;
+        background: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .score-label,
+      .score-value { color: #000 !important; }
+
+      /* Compact score grid for print: 4 columns side-by-side, smaller text */
+      .score-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.3rem;
+        margin: 0.4rem 0;
+      }
+      .score-card {
+        padding: 0.3rem 0.5rem;
+      }
+      .score-card .score-value { font-size: 1.1rem; }
+
+      /* Tables: repeat header row on every page; use explicit borders for print */
+      thead { display: table-header-group; }
+      tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      th, td { border: 1pt solid #333 !important; }
+      th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      tbody tr:nth-child(even) {
+        background: #f9f9f9 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Remove table hover styles that rely on color */
+      tr:hover { background: inherit !important; }
+
+      /* Expand truncated URL cells for print */
+      .url-cell {
+        max-width: none !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+      }
+
+      /* Reveal external link destinations after link text */
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.875em;
+        color: #333;
+        word-break: break-all;
+      }
+
+      /* Suppress URL display for fragment links, JS pseudo-links, and in-table/header links */
+      a[href^="#"]::after,
+      a[href^="javascript:"]::after,
+      table a[href]::after,
+      .site-header a[href]::after { content: ""; }
+
+      /* Print dashboard notice: plain border, no color background */
+      .print-dashboard-notice {
+        background: #fff !important;
+        border: 1pt solid #333 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <a class="site-title" href="../../index.html">Daily DAP</a>
+    <nav aria-label="Site navigation">
+      <a href="../../index.html">Dashboard</a>
+      <a class="github-link" href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">GitHub</a>
+      <button class="print-btn" type="button" onclick="window.print()" aria-label="Print or save as PDF">
+        <span aria-hidden="true">&#128424;</span> Print / Save as PDF
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Enable dark mode">
+        <span aria-hidden="true">&#127769;</span> Dark mode
+      </button>
+    </nav>
+  </div>
+</header>
+  <main id="main-content" class="site-main">
+    <div class="page-intro">
+      <h1 id="page-title">HTML/CSS/JS Code Quality &mdash; 2026-04-08<a href="#page-title" class="heading-anchor" aria-label="Link to HTML/CSS/JS Code Quality — 2026-04-08"><span aria-hidden="true">#</span></a></h1>
+      <p>Run ID: run-2026-04-08-31ffb56ff4 &middot; Status: success &middot; <a href="index.html">&larr; Back to full report</a></p>
+    </div>
+
+    <section aria-labelledby="cq-about-heading">
+      <h2 id="cq-about-heading">About Code Quality<a href="#cq-about-heading" class="heading-anchor" aria-label="Link to About Code Quality"><span aria-hidden="true">#</span></a></h2>
+      <p>This page surfaces HTML, CSS, and JavaScript code quality signals from Google Lighthouse's <strong>Best Practices</strong> category. These audits help identify technical debt, browser compatibility risks, and security vulnerabilities across the most-visited U.S. government websites.</p>
+      <ul>
+        <li><strong>Deprecated APIs</strong> &mdash; Use of browser features (HTML/CSS/JS) that have been removed or scheduled for removal. These can break in current or future browsers and may indicate outdated code that relies on legacy browser behaviour.</li>
+        <li><strong>Console Errors</strong> &mdash; JavaScript runtime errors logged to the browser console during page load. These often indicate broken functionality or incompatible scripts.</li>
+        <li><strong>document.write</strong> &mdash; Use of the synchronous <code>document.write()</code> API. This API blocks HTML parsing, harms performance, and is blocked in certain browser contexts (e.g. HTTP/2 push, cross-origin scripts).</li>
+        <li><strong>Vulnerable Libraries</strong> &mdash; Front-end JavaScript libraries (e.g. jQuery, Bootstrap) with known <a href="https://nvd.nist.gov/" target="_blank" rel="noreferrer">CVE security vulnerabilities</a>. Outdated libraries are a common vector for web security issues.</li>
+        <li><strong>JS Library Inventory</strong> &mdash; All client-side JavaScript libraries detected. Useful for understanding browser compatibility requirements: libraries with wide browser support indicate polyfills may be in use; newer APIs without polyfills may exclude users on older browsers.</li>
+      </ul>
+      <p>All audits come from Lighthouse scanning 100 successfully scanned URLs on 2026-04-08.</p>
+    </section>
+
+    <section aria-labelledby="cq-summary-heading">
+      <h2 id="cq-summary-heading">Summary<a href="#cq-summary-heading" class="heading-anchor" aria-label="Link to Summary"><span aria-hidden="true">#</span></a></h2>
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-label">Best Practices Score</div>
+          <div class="score-value">83.34</div>
+          <div class="score-note">Lighthouse aggregate (0&ndash;100)</div>
+        </div>
+<div class="score-card">
+          <div class="score-label">Deprecated APIs</div>
+          <div class="score-value">0 / 100</div>
+          <div class="score-note">0% of scanned URLs</div>
+        </div>
+<div class="score-card">
+          <div class="score-label">Console Errors</div>
+          <div class="score-value">38 / 100</div>
+          <div class="score-note">38% of scanned URLs</div>
+        </div>
+<div class="score-card">
+          <div class="score-label">Vulnerable Libraries</div>
+          <div class="score-value">0 / 100</div>
+          <div class="score-note">0% of scanned URLs</div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="cq-libs-heading">
+      <h2 id="cq-libs-heading">Detected JavaScript Libraries<a href="#cq-libs-heading" class="heading-anchor" aria-label="Link to Detected JavaScript Libraries"><span aria-hidden="true">#</span></a></h2>
+      <p>JavaScript libraries detected from network requests during Lighthouse scans. Library version data helps identify whether sites depend on libraries that require polyfills for older browsers, or conversely, rely on browser features that are not yet widely supported.</p>
+      <div class="table-scroll"><table>
+        <caption>JavaScript libraries detected across 100 successfully scanned URLs</caption>
+        <thead><tr><th scope="col">Library</th><th scope="col">URLs</th><th scope="col">Share</th></tr></thead>
+        <tbody><tr><td data-label="Library">jQuery</td><td data-label="URLs">75</td><td data-label="Share">75%</td></tr>
+<tr><td data-label="Library">Drupal</td><td data-label="URLs">34</td><td data-label="Share">34%</td></tr>
+<tr><td data-label="Library">core-js</td><td data-label="URLs">29</td><td data-label="Share">29%</td></tr>
+<tr><td data-label="Library">jQuery UI</td><td data-label="URLs">28</td><td data-label="Share">28%</td></tr>
+<tr><td data-label="Library">Bootstrap</td><td data-label="URLs">20</td><td data-label="Share">20%</td></tr>
+<tr><td data-label="Library">Modernizr</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
+<tr><td data-label="Library">Underscore</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
+<tr><td data-label="Library">Lo-Dash</td><td data-label="URLs">8</td><td data-label="Share">8%</td></tr>
+<tr><td data-label="Library">WordPress</td><td data-label="URLs">7</td><td data-label="Share">7%</td></tr>
+<tr><td data-label="Library">boomerang.js</td><td data-label="URLs">7</td><td data-label="Share">7%</td></tr>
+<tr><td data-label="Library">Angular</td><td data-label="URLs">7</td><td data-label="Share">7%</td></tr>
+<tr><td data-label="Library">React</td><td data-label="URLs">6</td><td data-label="Share">6%</td></tr>
+<tr><td data-label="Library">Moment.js</td><td data-label="URLs">6</td><td data-label="Share">6%</td></tr>
+<tr><td data-label="Library">LitElement</td><td data-label="URLs">4</td><td data-label="Share">4%</td></tr>
+<tr><td data-label="Library">lit-html</td><td data-label="URLs">4</td><td data-label="Share">4%</td></tr>
+<tr><td data-label="Library">Vue</td><td data-label="URLs">4</td><td data-label="Share">4%</td></tr>
+<tr><td data-label="Library">yepnope</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
+<tr><td data-label="Library">Preact</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
+<tr><td data-label="Library">Backbone</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
+<tr><td data-label="Library">Leaflet</td><td data-label="URLs">3</td><td data-label="Share">3%</td></tr>
+<tr><td data-label="Library">Gatsby</td><td data-label="URLs">2</td><td data-label="Share">2%</td></tr>
+<tr><td data-label="Library">RequireJS</td><td data-label="URLs">2</td><td data-label="Share">2%</td></tr>
+<tr><td data-label="Library">Google Maps</td><td data-label="URLs">2</td><td data-label="Share">2%</td></tr>
+<tr><td data-label="Library">Create React App</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Zurb</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">AmplifyJS</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Material Design Lite</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">jQuery Tools</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Dojo</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Prototype</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Mustache</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Hammer.js</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">YUI 3</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">FlexSlider</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">Handlebars</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">D3</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr>
+<tr><td data-label="Library">SWFObject</td><td data-label="URLs">1</td><td data-label="Share">1%</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section aria-labelledby="cq-vuln-heading">
+      <h2 id="cq-vuln-heading">Vulnerable Libraries<a href="#cq-vuln-heading" class="heading-anchor" aria-label="Link to Vulnerable Libraries"><span aria-hidden="true">#</span></a></h2>
+      <p>Libraries with known security vulnerabilities as reported by Lighthouse's <em>no-vulnerable-libraries</em> audit (powered by <a href="https://snyk.io/" target="_blank" rel="noreferrer">Snyk</a>). Upgrading these libraries reduces security risk and may also improve browser compatibility and access to modern APIs.</p>
+      <p>No libraries with known vulnerabilities were detected.</p>
+    </section>
+
+    <section aria-labelledby="cq-urls-heading">
+      <h2 id="cq-urls-heading">Per-URL Code Quality Results<a href="#cq-urls-heading" class="heading-anchor" aria-label="Link to Per-URL Code Quality Results"><span aria-hidden="true">#</span></a></h2>
+      <p>Code quality audit results for each scanned URL. Columns show the Lighthouse Best Practices score and pass &#10003; / fail &#10007; for each audit. Click any URL to open the live page.</p>
+      <div class="table-scroll"><table id="cq-urls-table">
+        <caption>Code quality audit results for the top 100 government URLs by traffic</caption>
+        <thead>
+          <tr>
+            <th scope="col">URL</th>
+            <th scope="col">Best Practices</th>
+            <th scope="col">Deprecated APIs</th>
+            <th scope="col">Console Errors</th>
+            <th scope="col">document.write</th>
+            <th scope="col">Vulnerable Libs</th>
+            <th scope="col">JS Libraries</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td data-label="URL"><a href="https://tools.usps.com" target="_blank" rel="noreferrer">https://tools.usps.com</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Modernizr</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://nasa.gov" target="_blank" rel="noreferrer">https://nasa.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">WordPress</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://pmc.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pmc.ncbi.nlm.nih.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://irs.gov" target="_blank" rel="noreferrer">https://irs.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://ncbi.nlm.nih.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubmed.ncbi.nlm.nih.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://usps.com" target="_blank" rel="noreferrer">https://usps.com</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (3)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://secure.login.gov" target="_blank" rel="noreferrer">https://secure.login.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://informeddelivery.usps.com" target="_blank" rel="noreferrer">https://informeddelivery.usps.com</a></td>
+          <td data-label="Best Practices">50</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://forecast.weather.gov" target="_blank" rel="noreferrer">https://forecast.weather.gov</a></td>
+          <td data-label="Best Practices">85</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ssa.gov" target="_blank" rel="noreferrer">https://ssa.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://va.gov" target="_blank" rel="noreferrer">https://va.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">React</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://secure.ssa.gov" target="_blank" rel="noreferrer">https://secure.ssa.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://studentaid.gov" target="_blank" rel="noreferrer">https://studentaid.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (265)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Lo-Dash</span> <span class="tech-badge">Angular</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://cdc.gov" target="_blank" rel="noreferrer">https://cdc.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://weather.gov" target="_blank" rel="noreferrer">https://weather.gov</a></td>
+          <td data-label="Best Practices">85</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://travel.state.gov" target="_blank" rel="noreferrer">https://travel.state.gov</a></td>
+          <td data-label="Best Practices">50</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">LitElement</span> <span class="tech-badge">lit-html</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Lo-Dash</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://urs.earthdata.nasa.gov" target="_blank" rel="noreferrer">https://urs.earthdata.nasa.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (3)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">yepnope</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://uscis.gov" target="_blank" rel="noreferrer">https://uscis.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noreferrer">https://pubchem.ncbi.nlm.nih.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">React</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://nps.gov" target="_blank" rel="noreferrer">https://nps.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://usajobs.gov" target="_blank" rel="noreferrer">https://usajobs.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://medlineplus.gov" target="_blank" rel="noreferrer">https://medlineplus.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://plus.nasa.gov" target="_blank" rel="noreferrer">https://plus.nasa.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">WordPress</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://myaccount.uscis.gov" target="_blank" rel="noreferrer">https://myaccount.uscis.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Create React App</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://sec.gov" target="_blank" rel="noreferrer">https://sec.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Moment.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://science.nasa.gov" target="_blank" rel="noreferrer">https://science.nasa.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">React</span> <span class="tech-badge">WordPress</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://justice.gov" target="_blank" rel="noreferrer">https://justice.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://egov.uscis.gov" target="_blank" rel="noreferrer">https://egov.uscis.gov</a></td>
+          <td data-label="Best Practices">0</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://reg.usps.com" target="_blank" rel="noreferrer">https://reg.usps.com</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://www.va.gov" target="_blank" rel="noreferrer">https://www.va.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">React</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://webbook.nist.gov" target="_blank" rel="noreferrer">https://webbook.nist.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ofac.treasury.gov" target="_blank" rel="noreferrer">https://ofac.treasury.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://mobile.arc.nasa.gov" target="_blank" rel="noreferrer">https://mobile.arc.nasa.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">WordPress</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ais.usvisa-info.com" target="_blank" rel="noreferrer">https://ais.usvisa-info.com</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Zurb</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Moment.js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://fda.gov" target="_blank" rel="noreferrer">https://fda.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://founders3.upress.virginia.edu" target="_blank" rel="noreferrer">https://founders3.upress.virginia.edu</a></td>
+          <td data-label="Best Practices">0</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ceac.state.gov" target="_blank" rel="noreferrer">https://ceac.state.gov</a></td>
+          <td data-label="Best Practices">46</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (38)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://medicare.gov" target="_blank" rel="noreferrer">https://medicare.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">core-js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://tsp.gov" target="_blank" rel="noreferrer">https://tsp.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://radar.weather.gov" target="_blank" rel="noreferrer">https://radar.weather.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Lo-Dash</span> <span class="tech-badge">Vue</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://my.uscis.gov" target="_blank" rel="noreferrer">https://my.uscis.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://tsa.gov" target="_blank" rel="noreferrer">https://tsa.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ecfr.gov" target="_blank" rel="noreferrer">https://ecfr.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">yepnope</span> <span class="tech-badge">AmplifyJS</span> <span class="tech-badge">Moment.js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://consumerfinance.gov" target="_blank" rel="noreferrer">https://consumerfinance.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">LitElement</span> <span class="tech-badge">lit-html</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://nhlbi.nih.gov" target="_blank" rel="noreferrer">https://nhlbi.nih.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://esta.cbp.dhs.gov" target="_blank" rel="noreferrer">https://esta.cbp.dhs.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Angular</span> <span class="tech-badge">Material Design Lite</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://fs.usda.gov" target="_blank" rel="noreferrer">https://fs.usda.gov</a></td>
+          <td data-label="Best Practices">88</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://cms.gov" target="_blank" rel="noreferrer">https://cms.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Preact</span> <span class="tech-badge">core-js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://clinicaltrials.gov" target="_blank" rel="noreferrer">https://clinicaltrials.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Angular</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://cisa.gov" target="_blank" rel="noreferrer">https://cisa.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://bls.gov" target="_blank" rel="noreferrer">https://bls.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery Tools</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://eyes.nasa.gov" target="_blank" rel="noreferrer">https://eyes.nasa.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">React</span> <span class="tech-badge">WordPress</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://healthcare.gov" target="_blank" rel="noreferrer">https://healthcare.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Gatsby</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://www.usajobs.gov" target="_blank" rel="noreferrer">https://www.usajobs.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://store.usps.com" target="_blank" rel="noreferrer">https://store.usps.com</a></td>
+          <td data-label="Best Practices">50</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Dojo</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">RequireJS</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://usa.gov" target="_blank" rel="noreferrer">https://usa.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://home.treasury.gov" target="_blank" rel="noreferrer">https://home.treasury.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://dea.gov" target="_blank" rel="noreferrer">https://dea.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">Lo-Dash</span> <span class="tech-badge">core-js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://login.gov" target="_blank" rel="noreferrer">https://login.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://acquisition.gov" target="_blank" rel="noreferrer">https://acquisition.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://nhtsa.gov" target="_blank" rel="noreferrer">https://nhtsa.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">core-js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://sam.gov" target="_blank" rel="noreferrer">https://sam.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Lo-Dash</span> <span class="tech-badge">Angular</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://epa.gov" target="_blank" rel="noreferrer">https://epa.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">core-js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://nsopw.gov" target="_blank" rel="noreferrer">https://nsopw.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://acis.eoir.justice.gov" target="_blank" rel="noreferrer">https://acis.eoir.justice.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">React</span> <span class="tech-badge">Gatsby</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://spc.noaa.gov" target="_blank" rel="noreferrer">https://spc.noaa.gov</a></td>
+          <td data-label="Best Practices">65</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Prototype</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://cbp.gov" target="_blank" rel="noreferrer">https://cbp.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://fsa.usda.gov" target="_blank" rel="noreferrer">https://fsa.usda.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">core-js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://opm.gov" target="_blank" rel="noreferrer">https://opm.gov</a></td>
+          <td data-label="Best Practices">73</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ttp.cbp.dhs.gov" target="_blank" rel="noreferrer">https://ttp.cbp.dhs.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Angular</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://earthquake.usgs.gov" target="_blank" rel="noreferrer">https://earthquake.usgs.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://i94.cbp.dhs.gov" target="_blank" rel="noreferrer">https://i94.cbp.dhs.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Angular</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://accessdata.fda.gov" target="_blank" rel="noreferrer">https://accessdata.fda.gov</a></td>
+          <td data-label="Best Practices">0</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://archives.gov" target="_blank" rel="noreferrer">https://archives.gov</a></td>
+          <td data-label="Best Practices">81</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ustraveldocs.com" target="_blank" rel="noreferrer">https://ustraveldocs.com</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Lo-Dash</span> <span class="tech-badge">Vue</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://federalregister.gov" target="_blank" rel="noreferrer">https://federalregister.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://faa.gov" target="_blank" rel="noreferrer">https://faa.gov</a></td>
+          <td data-label="Best Practices">81</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://cnsb.usps.com" target="_blank" rel="noreferrer">https://cnsb.usps.com</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (5)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Lo-Dash</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://eric.ed.gov" target="_blank" rel="noreferrer">https://eric.ed.gov</a></td>
+          <td data-label="Best Practices">96</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://gsa.gov" target="_blank" rel="noreferrer">https://gsa.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">LitElement</span> <span class="tech-badge">lit-html</span> <span class="tech-badge">Google Maps</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Preact</span> <span class="tech-badge">Mustache</span> <span class="tech-badge">Moment.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://dhs.gov" target="_blank" rel="noreferrer">https://dhs.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://portal.cms.gov" target="_blank" rel="noreferrer">https://portal.cms.gov</a></td>
+          <td data-label="Best Practices">69</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Angular</span> <span class="tech-badge">Hammer.js</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://about.usps.com" target="_blank" rel="noreferrer">https://about.usps.com</a></td>
+          <td data-label="Best Practices">88</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://uspto.gov" target="_blank" rel="noreferrer">https://uspto.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Preact</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://ve.usembassy.gov" target="_blank" rel="noreferrer">https://ve.usembassy.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (5)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Backbone</span> <span class="tech-badge">Leaflet</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">Vue</span> <span class="tech-badge">WordPress</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://tsaenrollmentbyidemia.tsa.dhs.gov" target="_blank" rel="noreferrer">https://tsaenrollmentbyidemia.tsa.dhs.gov</a></td>
+          <td data-label="Best Practices">50</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (16)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://globe.gov" target="_blank" rel="noreferrer">https://globe.gov</a></td>
+          <td data-label="Best Practices">88</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">LitElement</span> <span class="tech-badge">lit-html</span> <span class="tech-badge">Google Maps</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">YUI 3</span> <span class="tech-badge">Moment.js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://fbi.gov" target="_blank" rel="noreferrer">https://fbi.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">Backbone</span> <span class="tech-badge">Leaflet</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">RequireJS</span> <span class="tech-badge">FlexSlider</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://fdic.gov" target="_blank" rel="noreferrer">https://fdic.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Moment.js</span> <span class="tech-badge">boomerang.js</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://aviationweather.gov" target="_blank" rel="noreferrer">https://aviationweather.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Leaflet</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://army.mil" target="_blank" rel="noreferrer">https://army.mil</a></td>
+          <td data-label="Best Practices">0</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://osha.gov" target="_blank" rel="noreferrer">https://osha.gov</a></td>
+          <td data-label="Best Practices">88</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (5)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">yepnope</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://state.gov" target="_blank" rel="noreferrer">https://state.gov</a></td>
+          <td data-label="Best Practices">54</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (2)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Backbone</span> <span class="tech-badge">Underscore</span> <span class="tech-badge">Vue</span> <span class="tech-badge">WordPress</span> <span class="tech-badge">core-js</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://my.navy.mil" target="_blank" rel="noreferrer">https://my.navy.mil</a></td>
+          <td data-label="Best Practices">85</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (3)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://usgs.gov" target="_blank" rel="noreferrer">https://usgs.gov</a></td>
+          <td data-label="Best Practices">100</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://noaa.gov" target="_blank" rel="noreferrer">https://noaa.gov</a></td>
+          <td data-label="Best Practices">92</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span> <span class="tech-badge">Handlebars</span> <span class="tech-badge">Drupal</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://census.gov" target="_blank" rel="noreferrer">https://census.gov</a></td>
+          <td data-label="Best Practices">46</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-fail" aria-label="Audit failing">&#10007;</span> (1)</td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">Bootstrap</span> <span class="tech-badge">jQuery</span> <span class="tech-badge">jQuery UI</span> <span class="tech-badge">Modernizr</span> <span class="tech-badge">Lo-Dash</span> <span class="tech-badge">D3</span> <span class="tech-badge">SWFObject</span></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://faq.usps.com" target="_blank" rel="noreferrer">https://faq.usps.com</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"></td>
+        </tr>
+<tr>
+          <td data-label="URL"><a href="https://time.gov" target="_blank" rel="noreferrer">https://time.gov</a></td>
+          <td data-label="Best Practices">77</td>
+          <td data-label="Deprecated APIs" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Console Errors" class="audit-cell"><span class="audit-pass" aria-label="Audit passing">&#10003;</span></td>
+          <td data-label="document.write" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="Vulnerable Libraries" class="audit-cell"><span class="audit-na" aria-label="Not available">&mdash;</span></td>
+          <td data-label="JS Libraries"><span class="tech-badge">jQuery</span></td>
+        </tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section aria-labelledby="cq-compat-heading">
+      <h2 id="cq-compat-heading">Browser Compatibility Context<a href="#cq-compat-heading" class="heading-anchor" aria-label="Link to Browser Compatibility Context"><span aria-hidden="true">#</span></a></h2>
+      <p>U.S. government websites should support the broadest possible range of users. This means:</p>
+      <ul>
+        <li><strong>Avoid too-new APIs</strong> without polyfills &mdash; features only available in recent browser versions exclude users on older hardware or enterprise environments with locked browser versions.</li>
+        <li><strong>Avoid too-old APIs</strong> &mdash; deprecated or removed browser features may fail silently or cause errors in modern browsers.</li>
+        <li><strong>Use polyfills strategically</strong> &mdash; polyfills allow use of modern features with graceful fallback for older browsers, but unused polyfills add unnecessary page weight. <a href="https://caniuse.com/" target="_blank" rel="noreferrer">Can I Use</a> provides browser support data to determine when a polyfill can be removed.</li>
+        <li><strong>Keep libraries updated</strong> &mdash; updated libraries often include browser compatibility improvements and security patches.</li>
+      </ul>
+      <p>The <strong>Deprecated APIs</strong> and <strong>Vulnerable Libraries</strong> audits above are the most actionable signals for improving browser compatibility and security on government websites.</p>
+    </section>
+  </main>
+
+  
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <p>Daily DAP &mdash; U.S. government website quality benchmarks powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>. A <a href="https://civicactions.com/" target="_blank" rel="noreferrer">CivicActions</a> project.</p>
+    <p><a href="https://github.com/mgifford/daily-dap" target="_blank" rel="noreferrer">View source on GitHub</a> &middot; <a href="https://github.com/mgifford/daily-dap/issues" target="_blank" rel="noreferrer">Report an issue</a></p>
+  </div>
+</footer>
+  
+  <div id="theme-announcement" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <script>
+    (function () {
+      var html = document.documentElement;
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) { return; }
+      function isDark() {
+        var scheme = html.getAttribute('data-color-scheme');
+        if (scheme === 'dark') { return true; }
+        if (scheme === 'light') { return false; }
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      function updateButton() {
+        var dark = isDark();
+        btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+        btn.setAttribute('aria-label', dark ? 'Disable dark mode' : 'Enable dark mode');
+      }
+      updateButton();
+      btn.addEventListener('click', function () {
+        var next = isDark() ? 'light' : 'dark';
+        html.setAttribute('data-color-scheme', next);
+        localStorage.setItem('color-scheme', next);
+        updateButton();
+        var announcement = document.getElementById('theme-announcement');
+        if (announcement) {
+          announcement.textContent = next === 'dark' ? 'Dark mode enabled.' : 'Light mode enabled.';
+        }
+      });
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+          if (!html.hasAttribute('data-color-scheme')) { updateButton(); }
+        });
+      }
+    }());
+  </script>
+  <script>
+    (function () {
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var el = document.activeElement;
+          if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
+            el.dataset.tooltipDismissed = 'true';
+          }
+        }
+      });
+      document.addEventListener('focusout', function (e) {
+        var el = e.target;
+        if (el && (el.classList.contains('disability-badge') || el.classList.contains('url-count-trigger') || el.classList.contains('perf-time-trigger'))) {
+          delete el.dataset.tooltipDismissed;
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
