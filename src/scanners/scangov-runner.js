@@ -54,4 +54,32 @@ export async function runScanGovScan(url, options = {}) {
   };
 }
 
+/**
+ * Creates a live HTTP runImpl that fetches ScanGov accessibility findings for a URL.
+ *
+ * Calls: GET {apiBaseUrl}?url={encodeURIComponent(url)}
+ *
+ * The API is expected to return one of:
+ *   - { issues: [...] }
+ *   - { findings: [...] }
+ *   - a plain array of issue objects
+ *
+ * @param {string} apiBaseUrl - Base URL of the ScanGov API (e.g. https://api.scangov.org/scan)
+ * @returns {(url: string) => Promise<object>}
+ */
+export function createHttpRunImpl(apiBaseUrl) {
+  return async function fetchFromScanGov(url) {
+    const endpoint = new URL(apiBaseUrl);
+    endpoint.searchParams.set('url', url);
+    const response = await fetch(endpoint.toString(), {
+      headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(30_000)
+    });
+    if (!response.ok) {
+      throw new Error(`ScanGov API responded ${response.status} ${response.statusText} for ${url}`);
+    }
+    return response.json();
+  };
+}
+
 export { normalizeSeverity, normalizeFinding, extractIssues };

@@ -137,3 +137,59 @@ test('normalizeFinding defaults message to "No message provided" when absent', (
   const finding = normalizeFinding('https://example.gov', { code: 'x' });
   assert.equal(finding.message, 'No message provided');
 });
+
+// createHttpRunImpl tests
+import { createHttpRunImpl } from '../../src/scanners/scangov-runner.js';
+import { mock } from 'node:test';
+
+test('createHttpRunImpl returns a function', () => {
+  const runImpl = createHttpRunImpl('https://api.example.gov/scan');
+  assert.equal(typeof runImpl, 'function');
+});
+
+test('createHttpRunImpl sends GET request with url query param', async (t) => {
+  const captured = {};
+  t.mock.method(globalThis, 'fetch', async (url, opts) => {
+    captured.url = url.toString();
+    captured.opts = opts;
+    return {
+      ok: true,
+      json: async () => ({ issues: [{ code: 'color-contrast', severity: 'serious' }] })
+    };
+  });
+
+  const runImpl = createHttpRunImpl('https://api.example.gov/scan');
+  const result = await runImpl('https://www.example.gov/');
+
+  assert.ok(captured.url.startsWith('https://api.example.gov/scan?'));
+  assert.ok(captured.url.includes(encodeURIComponent('https://www.example.gov/')));
+  assert.ok(captured.opts?.signal instanceof AbortSignal, 'signal should be an AbortSignal');
+  assert.deepEqual(result, { issues: [{ code: 'color-contrast', severity: 'serious' }] });
+});
+
+test('createHttpRunImpl throws on non-ok HTTP response', async (t) => {
+  t.mock.method(globalThis, 'fetch', async () => ({
+    ok: false,
+    status: 503,
+    statusText: 'Service Unavailable'
+  }));
+
+  const runImpl = createHttpRunImpl('https://api.example.gov/scan');
+  await assert.rejects(
+    () => runImpl('https://www.example.gov/'),
+    /503/
+  );
+});
+
+test('createHttpRunImpl sets Accept: application/json header', async (t) => {
+  let capturedHeaders;
+  t.mock.method(globalThis, 'fetch', async (_url, opts) => {
+    capturedHeaders = opts?.headers ?? {};
+    return { ok: true, json: async () => ({ issues: [] }) };
+  });
+
+  const runImpl = createHttpRunImpl('https://api.example.gov/scan');
+  await runImpl('https://www.example.gov/');
+
+  assert.equal(capturedHeaders['Accept'], 'application/json');
+});
