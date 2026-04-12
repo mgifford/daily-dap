@@ -25,6 +25,7 @@ import { buildArtifactManifest } from '../publish/artifact-manifest.js';
 import { buildFailureReport, writeFailureSnapshot } from '../publish/failure-report.js';
 import { checkAccessibilityStatements } from '../scanners/accessibility-statement-checker.js';
 import { checkRequiredLinks } from '../scanners/required-links-checker.js';
+import { createHttpRunImpl } from '../scanners/scangov-runner.js';
 
 function parseArgs(argv) {
   const args = {
@@ -337,12 +338,23 @@ function createMockScannerRunners(failNeedles = []) {
 }
 
 function createLiveScannerRunners() {
+  const scanGovApiUrl = process.env.SCANGOV_API_URL;
+
+  let scanGovRunImpl;
+  if (scanGovApiUrl) {
+    scanGovRunImpl = createHttpRunImpl(scanGovApiUrl);
+    logProgress('SCANGOV_INIT', 'ScanGov live HTTP runner configured', { api_url: scanGovApiUrl });
+  } else {
+    scanGovRunImpl = async () => ({ issues: [] });
+    logProgress('SCANGOV_SKIP', 'SCANGOV_API_URL not set; ScanGov findings will be empty for this run');
+  }
+
   return {
     lighthouseRunner: {
       executionOptions: {}
     },
     scanGovRunner: {
-      runImpl: async () => ({ issues: [] })
+      runImpl: scanGovRunImpl
     },
     readabilityRunner: {}
   };
@@ -665,9 +677,12 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     report.scan_diagnostics = scanExecution.diagnostics;
     report.scan_mode = args.scanMode;
     if (args.scanMode === 'live') {
+      const scanGovActive = Boolean(process.env.SCANGOV_API_URL);
       report.scanner_notes = [
         'Lighthouse scans are live per URL.',
-        'ScanGov integration currently uses placeholder findings and will be wired to a live backend next.'
+        scanGovActive
+          ? 'ScanGov findings fetched live via SCANGOV_API_URL.'
+          : 'ScanGov findings are empty: set SCANGOV_API_URL to enable live ScanGov scanning.'
       ];
     }
 

@@ -134,6 +134,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.6 | Added analytics.usa.gov links and references to README.md and report pages (renderDapContextSection and dashboard "What is DAP?" section) to better surface the public-facing traffic data site alongside the Digital Analytics Program documentation |
 | Claude (Anthropic) | claude-sonnet-4.6 | Improved test coverage: added 119 tests across 5 new test files for previously untested modules (slow-risk, logging, axe-fpc-mapping, build-daily-report, archive-writer); exported 3 helper functions from archive-writer.js for testability |
 | Claude (Anthropic) | claude-sonnet-4.6 | Added axe-core WCAG 2.2 AA accessibility tests for generated HTML: new tests/unit/axe-html-accessibility.test.js checks every render function using a minimal fixture report; fixed aria-prohibited-attr violations (aria-label on role-less spans) in render-pages.js |
+| Claude (Anthropic) | claude-sonnet-4.6 | Wired ScanGov live HTTP integration: added createHttpRunImpl() factory to scangov-runner.js, updated createLiveScannerRunners() to use SCANGOV_API_URL env var when set, added SCANGOV_SKIP log when not configured, and updated scanner notes to reflect actual state |
 
 ### Runtime operation
 
