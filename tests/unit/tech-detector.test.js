@@ -856,3 +856,124 @@ test('buildTechSummary handles results with no overlays field', () => {
   assert.deepEqual(summary.overlay_counts, {});
   assert.deepEqual(summary.overlay_urls, {});
 });
+
+// ---------------------------------------------------------------------------
+// New CMS pattern detection
+// ---------------------------------------------------------------------------
+
+test('detectTechnologies detects ASP.NET via WebResource.axd', () => {
+  const lhr = makeLhr(['https://example.gov/WebResource.axd?d=abc123']);
+  assert.equal(detectTechnologies(lhr).cms, 'ASP.NET');
+});
+
+test('detectTechnologies detects ASP.NET via ScriptResource.axd', () => {
+  const lhr = makeLhr(['https://example.gov/ScriptResource.axd?d=xyz']);
+  assert.equal(detectTechnologies(lhr).cms, 'ASP.NET');
+});
+
+test('detectTechnologies detects ASP.NET via aspnetcdn.com', () => {
+  const lhr = makeLhr(['https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js']);
+  assert.equal(detectTechnologies(lhr).cms, 'ASP.NET');
+});
+
+test('detectTechnologies detects SharePoint via /_layouts/15/', () => {
+  const lhr = makeLhr(['https://example.gov/_layouts/15/init.js']);
+  assert.equal(detectTechnologies(lhr).cms, 'SharePoint');
+});
+
+test('detectTechnologies detects SharePoint via /_vti_bin/', () => {
+  const lhr = makeLhr(['https://example.gov/_vti_bin/ListData.svc']);
+  assert.equal(detectTechnologies(lhr).cms, 'SharePoint');
+});
+
+test('detectTechnologies detects Squarespace via static.squarespace.com', () => {
+  const lhr = makeLhr(['https://static.squarespace.com/static/abc/styles.css']);
+  assert.equal(detectTechnologies(lhr).cms, 'Squarespace');
+});
+
+test('detectTechnologies detects Adobe Experience Manager via /etc.clientlibs/', () => {
+  const lhr = makeLhr(['https://example.gov/etc.clientlibs/site/clientlibs/main.css']);
+  assert.equal(detectTechnologies(lhr).cms, 'Adobe Experience Manager');
+});
+
+test('detectTechnologies detects TYPO3 via /typo3conf/', () => {
+  const lhr = makeLhr(['https://example.gov/typo3conf/ext/fe_login/Resources/Public/JavaScript/login.js']);
+  assert.equal(detectTechnologies(lhr).cms, 'TYPO3');
+});
+
+// ---------------------------------------------------------------------------
+// buildTechSummary – cms_avg_scores
+// ---------------------------------------------------------------------------
+
+test('buildTechSummary returns empty cms_avg_scores for empty results', () => {
+  const summary = buildTechSummary([]);
+  assert.deepEqual(summary.cms_avg_scores, {});
+});
+
+test('buildTechSummary computes cms_avg_scores from lighthouse scores', () => {
+  const results = [
+    {
+      url: 'https://wp1.gov/',
+      scan_status: 'success',
+      lighthouse_performance: 80,
+      lighthouse_accessibility: 90,
+      lighthouse_best_practices: 75,
+      lighthouse_seo: 85,
+      detected_technologies: { cms: 'WordPress', uswds: { detected: false, version: null } }
+    },
+    {
+      url: 'https://wp2.gov/',
+      scan_status: 'success',
+      lighthouse_performance: 60,
+      lighthouse_accessibility: 70,
+      lighthouse_best_practices: 65,
+      lighthouse_seo: 75,
+      detected_technologies: { cms: 'WordPress', uswds: { detected: false, version: null } }
+    },
+    {
+      url: 'https://drupal1.gov/',
+      scan_status: 'success',
+      lighthouse_performance: 55,
+      lighthouse_accessibility: 95,
+      lighthouse_best_practices: 80,
+      lighthouse_seo: 90,
+      detected_technologies: { cms: 'Drupal', uswds: { detected: false, version: null } }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.cms_avg_scores.WordPress.performance, 70, 'avg performance for WordPress');
+  assert.equal(summary.cms_avg_scores.WordPress.accessibility, 80, 'avg accessibility for WordPress');
+  assert.equal(summary.cms_avg_scores.WordPress.best_practices, 70, 'avg best_practices for WordPress');
+  assert.equal(summary.cms_avg_scores.WordPress.seo, 80, 'avg seo for WordPress');
+  assert.equal(summary.cms_avg_scores.Drupal.performance, 55, 'single Drupal result');
+  assert.equal(summary.cms_avg_scores.Drupal.accessibility, 95, 'single Drupal result accessibility');
+});
+
+test('buildTechSummary cms_avg_scores returns null for missing score fields', () => {
+  const results = [
+    {
+      url: 'https://wp1.gov/',
+      scan_status: 'success',
+      detected_technologies: { cms: 'WordPress', uswds: { detected: false, version: null } }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.equal(summary.cms_avg_scores.WordPress.performance, null);
+  assert.equal(summary.cms_avg_scores.WordPress.accessibility, null);
+});
+
+test('buildTechSummary cms_avg_scores not set for failed scan results', () => {
+  const results = [
+    {
+      url: 'https://wp1.gov/',
+      scan_status: 'failed',
+      lighthouse_performance: 80,
+      lighthouse_accessibility: 90,
+      lighthouse_best_practices: 75,
+      lighthouse_seo: 85,
+      detected_technologies: { cms: 'WordPress', uswds: { detected: false, version: null } }
+    }
+  ];
+  const summary = buildTechSummary(results);
+  assert.deepEqual(summary.cms_avg_scores, {});
+});

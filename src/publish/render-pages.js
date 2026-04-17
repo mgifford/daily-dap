@@ -2095,6 +2095,7 @@ function renderTechSummarySection(report) {
   const {
     cms_counts = {},
     cms_urls = {},
+    cms_avg_scores = {},
     uswds_count = 0,
     uswds_versions = [],
     uswds_version_urls = {},
@@ -2123,11 +2124,34 @@ function renderTechSummarySection(report) {
     return '';
   }
 
+  const hasCmsScores = Object.keys(cms_avg_scores).length > 0;
+
   const cmsRows = cmsEntries
     .map(([name, count]) => {
       const urls = cms_urls[name] ?? [];
       const countCell = renderTechUrlTooltip(String(count), urls, `${count} ${name} URL${count !== 1 ? 's' : ''}`);
-      return `<tr><td data-label="CMS">${escapeHtml(name)}</td><td data-label="URLs">${countCell}</td><td data-label="Share">${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%</td></tr>`;
+      const shareCell = `${total_scanned > 0 ? Math.round((count / total_scanned) * 100) : 0}%`;
+      if (!hasCmsScores) {
+        return `<tr><td data-label="CMS">${escapeHtml(name)}</td><td data-label="URLs">${countCell}</td><td data-label="Share">${shareCell}</td></tr>`;
+      }
+      const avg = cms_avg_scores[name] ?? {};
+      const renderScore = (val) => {
+        if (val == null) return '<span class="score-na" aria-label="Not available">N/A</span>';
+        let cls;
+        if (val >= 90) cls = 'score-good';
+        else if (val >= 50) cls = 'score-moderate';
+        else cls = 'score-poor';
+        return `<span class="${cls}">${val}</span>`;
+      };
+      return `<tr>
+        <td data-label="CMS">${escapeHtml(name)}</td>
+        <td data-label="URLs">${countCell}</td>
+        <td data-label="Share">${shareCell}</td>
+        <td data-label="Avg Accessibility">${renderScore(avg.accessibility)}</td>
+        <td data-label="Avg Performance">${renderScore(avg.performance)}</td>
+        <td data-label="Avg Best Practices">${renderScore(avg.best_practices)}</td>
+        <td data-label="Avg SEO">${renderScore(avg.seo)}</td>
+      </tr>`;
     })
     .join('\n');
 
@@ -2352,10 +2376,15 @@ function renderTechSummarySection(report) {
   return `
   <section aria-labelledby="tech-summary-heading">
     <h2 id="tech-summary-heading">Detected Technologies${renderAnchorLink('tech-summary-heading', 'Detected Technologies')}</h2>
-    <p>Technology signals detected from the network requests loaded by each scanned URL. CMS detection identifies WordPress, Drupal, and Joomla from characteristic asset paths. USWDS detection identifies use of the <a href="https://designsystem.digital.gov/" target="_blank" rel="noreferrer">U.S. Web Design System</a>.</p>
+    <p>Technology signals detected from the network requests loaded by each scanned URL. CMS detection identifies WordPress, Drupal, Joomla, ASP.NET, SharePoint, Squarespace, Adobe Experience Manager, and TYPO3 from characteristic asset paths. USWDS detection identifies use of the <a href="https://designsystem.digital.gov/" target="_blank" rel="noreferrer">U.S. Web Design System</a>.</p>
     ${cmsEntries.length > 0 ? wrapTable(`<table>
-      <caption>CMS platform counts across ${total_scanned} successfully scanned URLs</caption>
-      <thead><tr><th scope="col">CMS</th><th scope="col">URLs</th><th scope="col">Share</th></tr></thead>
+      <caption>CMS platform counts and average Lighthouse scores (where available) across ${total_scanned} successfully scanned URLs</caption>
+      <thead><tr>
+        <th scope="col">CMS</th>
+        <th scope="col">URLs</th>
+        <th scope="col">Share</th>
+        ${hasCmsScores ? '<th scope="col">Avg Accessibility</th><th scope="col">Avg Performance</th><th scope="col">Avg Best Practices</th><th scope="col">Avg SEO</th>' : ''}
+      </tr></thead>
       <tbody>${cmsRows}</tbody>
     </table>`) : ''}
     <p>USWDS detected on <strong>${uswds_count}</strong> of <strong>${total_scanned}</strong> scanned URL${total_scanned !== 1 ? 's' : ''}${total_scanned > 0 ? ` (${Math.round((uswds_count / total_scanned) * 100)}%)` : ''}.</p>
