@@ -27,6 +27,8 @@ import { checkAccessibilityStatements } from '../scanners/accessibility-statemen
 import { checkRequiredLinks } from '../scanners/required-links-checker.js';
 import { createHttpRunImpl } from '../scanners/scangov-runner.js';
 
+const DEFAULT_PAUSE_AFTER_LOAD_MS = 2000;
+
 function parseArgs(argv) {
   const args = {
     dryRun: false,
@@ -339,7 +341,7 @@ function createMockScannerRunners(failNeedles = []) {
 
 function createLiveScannerRunners(config = {}) {
   const scanGovApiUrl = process.env.SCANGOV_API_URL;
-  const pauseAfterLoadMs = config?.scan?.pause_after_load_ms ?? 2000;
+  const pauseAfterLoadMs = config?.scan?.pause_after_load_ms ?? DEFAULT_PAUSE_AFTER_LOAD_MS;
 
   let scanGovRunImpl;
   if (scanGovApiUrl) {
@@ -553,7 +555,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       maxRetries: args.maxRetries,
       retryDelayMs: args.retryDelayMs,
       interScanDelayMs: args.interScanDelayMs,
-      pauseAfterLoadMs: runtimeConfig.scan.pause_after_load_ms ?? 2000
+      pauseAfterLoadMs: runtimeConfig.scan.pause_after_load_ms ?? DEFAULT_PAUSE_AFTER_LOAD_MS
     });
 
     const { lighthouseRunner, scanGovRunner, readabilityRunner } =
