@@ -23,12 +23,18 @@
  *   /accessibility.html
  *   /accessibility-statement.html
  *   /about/accessibility
+ *   /about/accessibility-statement
+ *   /accessibility-at-va
+ *   /digital-accessibility
  *   /section-508
  *   /508
  */
 
 import https from 'node:https';
 import http from 'node:http';
+
+/** Maximum number of redirects to follow per HEAD request. */
+const MAX_REDIRECTS = 5;
 
 /**
  * Common URL paths where federal accessibility statements are published.
@@ -40,19 +46,28 @@ export const ACCESSIBILITY_STATEMENT_PATHS = [
   '/accessibility.html',
   '/accessibility-statement.html',
   '/about/accessibility',
+  '/about/accessibility-statement',
+  '/accessibility-at-va',
+  '/digital-accessibility',
   '/section-508',
   '/508'
 ];
 
 /**
  * Make a HEAD request to a URL and return true if the server responds with
- * a 2xx or 3xx status (the page exists or redirects to something that does).
+ * a 2xx status after following up to MAX_REDIRECTS redirect responses.
+ * Returns false for 4xx/5xx responses, network errors, timeouts, or when
+ * the redirect chain exceeds MAX_REDIRECTS.
  *
  * @param {string} urlString
  * @param {number} [timeoutMs=5000]
+ * @param {number} [redirectsLeft]
  * @returns {Promise<boolean>}
  */
-function headRequest(urlString, timeoutMs = 5000) {
+function headRequest(urlString, timeoutMs = 5000, redirectsLeft = MAX_REDIRECTS) {
+  if (redirectsLeft < 0) {
+    return Promise.resolve(false);
+  }
   return new Promise((resolve) => {
     try {
       const parsed = new URL(urlString);
@@ -68,8 +83,22 @@ function headRequest(urlString, timeoutMs = 5000) {
       };
       const req = client.request(options, (res) => {
         const code = res.statusCode ?? 0;
-        // Accept 2xx (success) and 3xx (redirect – the path exists even if moved)
-        resolve(code >= 200 && code < 400);
+        if (code >= 200 && code < 300) {
+          // 2xx – page exists at this URL
+          resolve(true);
+        } else if (code >= 300 && code < 400 && res.headers.location) {
+          // 3xx – follow the redirect instead of treating it as success
+          let nextUrl;
+          try {
+            nextUrl = new URL(res.headers.location, urlString).toString();
+          } catch {
+            resolve(false);
+            return;
+          }
+          headRequest(nextUrl, timeoutMs, redirectsLeft - 1).then(resolve);
+        } else {
+          resolve(false);
+        }
       });
       req.setTimeout(timeoutMs, () => {
         req.destroy();
@@ -151,6 +180,22 @@ export async function checkAccessibilityStatements(urlResults, options = {}) {
   for (const [hostname, baseUrl] of domainMap) {
     // eslint-disable-next-line no-await-in-loop
     statements[hostname] = await checkAccessibilityStatement(baseUrl, options);
+  }
+
+  // Propagate positive results between www/non-www pairs of the same domain.
+  // e.g. if va.gov finds a statement, copy that result to www.va.gov and vice versa.
+  for (const hostname of Object.keys(statements)) {
+    const counterpart = hostname.startsWith('www.')
+      ? hostname.slice(4) // www.example.gov → example.gov
+      : `www.${hostname}`; // example.gov → www.example.gov
+    if (
+      statements[counterpart] !== undefined &&
+      statements[hostname].has_statement !== statements[counterpart].has_statement
+    ) {
+      const positive = statements[hostname].has_statement ? statements[hostname] : statements[counterpart];
+      statements[hostname] = { ...positive };
+      statements[counterpart] = { ...positive };
+    }
   }
 
   return statements;
