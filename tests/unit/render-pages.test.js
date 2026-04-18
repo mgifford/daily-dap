@@ -3347,3 +3347,28 @@ test('renderDailyReportPage third-party badge uses accessible tooltip instead of
   assert.ok(html.includes('url-count-tooltip'), 'Should reuse url-count-tooltip CSS class for tooltip panel');
   assert.ok(html.includes('Third-party services: Google Analytics, Google Tag Manager'), 'Tooltip content should list service names');
 });
+
+test('renderDailyReportPage: third-party JS size shows TB for large totals (not raw GB)', () => {
+  // Google Analytics: 500 KB avg, used on 39,095,000 page loads
+  // weighted total = ~512_000 * 39_095_000 = ~20,016,640,000,000 bytes (~18.2 TB)
+  const perPageBytes = 512_000; // ~500 KB
+  const pageLoadTotal = 39_095_000;
+  const totalBytes = perPageBytes * pageLoadTotal; // ~20 TB worth of bytes
+
+  const report = {
+    ...minimalReport,
+    tech_summary: {
+      total_scanned: 1,
+      third_party_service_counts: { 'Google Analytics': 1 },
+      third_party_service_urls: { 'Google Analytics': ['https://example.gov'] },
+      third_party_service_total_bytes: { 'Google Analytics': perPageBytes },
+      third_party_service_page_load_totals: { 'Google Analytics': pageLoadTotal }
+    }
+  };
+
+  const html = renderDailyReportPage(report);
+
+  // The total size should be shown in TB, not as raw GB
+  assert.ok(html.includes(' TB'), 'Should show TB for large third-party data totals');
+  assert.ok(!html.includes(' GB'), 'Must not show GB when total exceeds 1 TB');
+});

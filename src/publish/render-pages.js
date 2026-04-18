@@ -49,12 +49,14 @@ export function generateViolationId(pageUrl, ruleId, selector = '') {
 }
 
 /**
- * Format a byte count as a human-readable string (B / KB / MB / GB).
+ * Format a byte count as a human-readable string (B / KB / MB / GB / TB / PB).
  *
  * @param {number} bytes - Non-negative integer number of bytes
- * @returns {string} Formatted string, e.g. "30 KB" or "1.4 MB"
+ * @returns {string} Formatted string, e.g. "30 KB", "1.4 MB", "2.3 TB"
  */
 function formatBytes(bytes) {
+  if (bytes >= 1_125_899_906_842_624) return `${(bytes / 1_125_899_906_842_624).toFixed(1)} PB`;
+  if (bytes >= 1_099_511_627_776) return `${(bytes / 1_099_511_627_776).toFixed(1)} TB`;
   if (bytes >= 1_073_741_824) return `${(bytes / 1_073_741_824).toFixed(1)} GB`;
   if (bytes >= 1_048_576) return `${(bytes / 1_048_576).toFixed(1)} MB`;
   if (bytes >= 1_024) return `${Math.round(bytes / 1_024)} KB`;
