@@ -337,8 +337,9 @@ function createMockScannerRunners(failNeedles = []) {
   };
 }
 
-function createLiveScannerRunners() {
+function createLiveScannerRunners(config = {}) {
   const scanGovApiUrl = process.env.SCANGOV_API_URL;
+  const pauseAfterLoadMs = config?.scan?.pause_after_load_ms ?? 2000;
 
   let scanGovRunImpl;
   if (scanGovApiUrl) {
@@ -351,7 +352,9 @@ function createLiveScannerRunners() {
 
   return {
     lighthouseRunner: {
-      executionOptions: {}
+      executionOptions: {
+        settings: { pauseAfterLoadMs }
+      }
     },
     scanGovRunner: {
       runImpl: scanGovRunImpl
@@ -549,11 +552,12 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       timeoutMs: args.timeoutMs,
       maxRetries: args.maxRetries,
       retryDelayMs: args.retryDelayMs,
-      interScanDelayMs: args.interScanDelayMs
+      interScanDelayMs: args.interScanDelayMs,
+      pauseAfterLoadMs: runtimeConfig.scan.pause_after_load_ms ?? 2000
     });
 
     const { lighthouseRunner, scanGovRunner, readabilityRunner } =
-      args.scanMode === 'mock' ? createMockScannerRunners(args.mockFailUrl) : createLiveScannerRunners();
+      args.scanMode === 'mock' ? createMockScannerRunners(args.mockFailUrl) : createLiveScannerRunners(runtimeConfig);
     const scanExecution = await executeUrlScans(normalized.records, {
       runId: runMetadata.run_id,
       concurrency: args.concurrency,
