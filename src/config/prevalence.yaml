@@ -3,6 +3,7 @@ scan:
   history_lookback_days: 31
   dashboard_display_days: 14
   traffic_window_mode: daily
+  pause_after_load_ms: 2000
 
 impact:
   # Section 508 FPC-aligned prevalence rates derived from U.S. Census Bureau ACS 2023.
