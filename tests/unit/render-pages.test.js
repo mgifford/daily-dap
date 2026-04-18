@@ -121,7 +121,7 @@ test('renderDailyReportPage shows Lighthouse scores for top URLs with successful
   // Table should include Lighthouse score column headers (without "LH " prefix)
   assert.ok(html.includes('>Performance<'), 'Should have Performance column header');
   assert.ok(html.includes('>Accessibility<'), 'Should have Accessibility column header');
-  assert.ok(html.includes('>Best Practices<'), 'Should have Best Practices column header');
+  assert.ok(html.includes('>Best<br>Practices<'), 'Should have Best Practices column header');
   assert.ok(html.includes('>SEO<'), 'Should have SEO column header');
 
   // Scores for first URL should appear
@@ -263,7 +263,7 @@ test('renderDailyReportPage includes Details button and modal dialog for each UR
   const axeDetailsPos = tableHeaderSection.indexOf('>Axe details<');
   const accessibilityPos = tableHeaderSection.indexOf('Accessibility');
   const importantPos = tableHeaderSection.indexOf('>Important<');
-  const bestPracticesPos = tableHeaderSection.indexOf('>Best Practices<');
+  const bestPracticesPos = tableHeaderSection.indexOf('>Best<br>Practices<');
   assert.ok(accessibilityPos < axeDetailsPos, 'Accessibility header should appear before Axe details header in table');
   assert.ok(importantPos < axeDetailsPos, 'Important sub-heading should appear before Axe details header in table');
   assert.ok(axeDetailsPos < bestPracticesPos, 'Axe details header should appear before Best Practices header in table');

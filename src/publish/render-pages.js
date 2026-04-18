@@ -556,12 +556,11 @@ function renderSharedStyles() {
       font-size: inherit;
       color: inherit;
       padding: 0;
-      display: inline-flex;
-      align-items: flex-start;
-      gap: 0.3em;
+      display: inline-block;
+      vertical-align: top;
       white-space: inherit;
     }
-    .sort-btn::after { content: '\u21C5'; font-size: 0.75em; opacity: 0.45; }
+    .sort-btn::after { content: '\u21C5'; font-size: 0.75em; opacity: 0.45; margin-left: 0.3em; }
     th[aria-sort="ascending"] .sort-btn::after { content: '\u2191'; opacity: 1; }
     th[aria-sort="descending"] .sort-btn::after { content: '\u2193'; opacity: 1; }
     .sort-btn:hover { text-decoration: underline; }
@@ -3058,7 +3057,7 @@ export function renderDailyReportPage(report) {
             <th scope="col" data-sort-col="3" aria-sort="none"><button class="sort-btn">Performance</button></th>
             <th scope="col" data-sort-col="4" aria-sort="none" class="col-has-info"><button class="sort-btn">Accessibility /<br><span class="col-subhead">Important</span></button><span class="col-info-anchor" role="button" tabindex="0" aria-describedby="tip-acc-important" aria-label="More information about this column"><span aria-hidden="true" class="col-info-icon">&#9432;</span><span role="tooltip" id="tip-acc-important" class="col-tooltip">Lighthouse accessibility score (0&ndash;100). If any Critical or Serious axe findings exist, the count is shown after the slash&nbsp;(e.g.&nbsp;94&thinsp;/&thinsp;2).</span></span></th>
             <th scope="col">Axe details</th>
-            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best Practices</button></th>
+            <th scope="col" data-sort-col="6" aria-sort="none"><button class="sort-btn">Best<br>Practices</button></th>
             <th scope="col" data-sort-col="7" aria-sort="none"><button class="sort-btn">SEO</button></th>
             <th scope="col">Technologies</th>
           </tr>
