@@ -1296,7 +1296,7 @@ function renderSiteFooter() {
 }
 
 function wrapTable(tableHtml) {
-  return `<div class="table-scroll">${tableHtml}</div>`;
+  return `<div class="table-scroll" tabindex="0">${tableHtml}</div>`;
 }
 
 
