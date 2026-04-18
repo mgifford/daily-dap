@@ -1036,6 +1036,16 @@ function renderSharedStyles() {
     .site-footer a { color: var(--color-footer-link); text-decoration: underline; }
     .site-footer a:hover { color: var(--color-header-text); }
 
+    /* ---------- No-statement domain list (3-column alphabetical) ---------- */
+    .no-statement-list {
+      column-count: 3;
+      column-gap: 1.5rem;
+      padding-left: 1.25rem;
+      margin: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+    .no-statement-list li { break-inside: avoid; }
+
     /* ---------- Responsive ---------- */
     @media (max-width: 640px) {
       h1 { font-size: 1.3rem; }
@@ -1043,6 +1053,7 @@ function renderSharedStyles() {
       .site-header-inner { flex-direction: column; align-items: flex-start; }
       .score-card .score-value { font-size: 1.5rem; }
       th, td { padding: 0.4rem 0.5rem; }
+      .no-statement-list { column-count: 1; }
       .axe-modal {
         position: fixed;
         inset: 0;
@@ -2253,33 +2264,39 @@ function renderTechSummarySection(report) {
         }
         return `<tr>
           <td data-label="Domain">${escapeHtml(hostname)}</td>
-          <td data-label="Status"><span class="score-good">&#10003; Found</span></td>
           <td data-label="Statement URL"><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(url)}</a></td>
         </tr>`;
       })
       .join('\n');
 
-    const missingRows = withoutStatement
-      .map((hostname) => `<tr>
-          <td data-label="Domain">${escapeHtml(hostname)}</td>
-          <td data-label="Status"><span class="score-poor">&#10007; Not found</span></td>
-          <td data-label="Statement URL"></td>
-        </tr>`)
+    const sortedMissing = [...withoutStatement].sort((a, b) => a.localeCompare(b));
+    const missingListItems = sortedMissing
+      .map((hostname) => `<li>${escapeHtml(hostname)}</li>`)
       .join('\n');
+    const missingSection = sortedMissing.length > 0
+      ? `<p><strong>${sortedMissing.length} domain${sortedMissing.length !== 1 ? 's' : ''} without a detectable accessibility statement:</strong></p>
+    <ul class="no-statement-list">
+      ${missingListItems}
+    </ul>`
+      : '';
+
+    const foundTable = statementUrlRows
+      ? wrapTable(`<table>
+      <caption>Domains with a detectable accessibility statement (${statementUrls.length} of ${domains_checked})</caption>
+      <thead><tr>
+        <th scope="col">Domain</th>
+        <th scope="col">Statement URL</th>
+      </tr></thead>
+      <tbody>${statementUrlRows}</tbody>
+    </table>`)
+      : '';
 
     return `
     <h3 id="accessibility-statements-heading">Accessibility Statements (M-24-08)${renderAnchorLink('accessibility-statements-heading', 'Accessibility Statements')}</h3>
     <p>OMB Memorandum <a href="https://www.whitehouse.gov/wp-content/uploads/2023/12/M-24-08-Strengthening-Digital-Accessibility-and-the-Management-of-Section-508-of-the-Rehabilitation-Act.pdf" target="_blank" rel="noreferrer">M-24-08</a> requires each federal agency to publish a digital accessibility statement that includes contact information for accessibility issues, known limitations, and a link to the agency Section 508 program page.</p>
     <p><strong class="${statusClass}">${domains_with_statement} of ${domains_checked} domain${domains_checked !== 1 ? 's' : ''} (${statement_rate_percent}%)</strong> checked have a detectable accessibility statement at a standard URL path.</p>
-    ${wrapTable(`<table>
-      <caption>Accessibility statement detection results for ${domains_checked} checked domain${domains_checked !== 1 ? 's' : ''}</caption>
-      <thead><tr>
-        <th scope="col">Domain</th>
-        <th scope="col">Status</th>
-        <th scope="col">Statement URL</th>
-      </tr></thead>
-      <tbody>${statementUrlRows}${missingRows}</tbody>
-    </table>`)}`;
+    ${foundTable}
+    ${missingSection}`;
   })();
 
   const requiredLinksSection = (() => {
