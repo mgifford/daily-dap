@@ -23,6 +23,18 @@ test('ACCESSIBILITY_STATEMENT_PATHS includes /accessibility-statement', () => {
   assert.ok(ACCESSIBILITY_STATEMENT_PATHS.includes('/accessibility-statement'));
 });
 
+test('ACCESSIBILITY_STATEMENT_PATHS includes /about/accessibility-statement', () => {
+  assert.ok(ACCESSIBILITY_STATEMENT_PATHS.includes('/about/accessibility-statement'));
+});
+
+test('ACCESSIBILITY_STATEMENT_PATHS includes /accessibility-at-va', () => {
+  assert.ok(ACCESSIBILITY_STATEMENT_PATHS.includes('/accessibility-at-va'));
+});
+
+test('ACCESSIBILITY_STATEMENT_PATHS includes /digital-accessibility', () => {
+  assert.ok(ACCESSIBILITY_STATEMENT_PATHS.includes('/digital-accessibility'));
+});
+
 // ---------------------------------------------------------------------------
 // checkAccessibilityStatement – mock mode
 // ---------------------------------------------------------------------------
@@ -257,4 +269,71 @@ test('buildAccessibilityStatementSummary sorts statement_urls alphabetically', (
     'https://a.gov/accessibility',
     'https://z.gov/accessibility'
   ]);
+});
+
+// ---------------------------------------------------------------------------
+// www/non-www result propagation
+// ---------------------------------------------------------------------------
+
+test('checkAccessibilityStatements propagates statement found on www to non-www', async () => {
+  const urlResults = [
+    { url: 'https://va.gov/', scan_status: 'success' },
+    { url: 'https://www.va.gov/', scan_status: 'success' }
+  ];
+  const result = await checkAccessibilityStatements(urlResults, {
+    runImpl: async (baseUrl) => {
+      // www.va.gov finds a statement; va.gov does not
+      if (baseUrl === 'https://www.va.gov') {
+        return { has_statement: true, statement_url: 'https://www.va.gov/accessibility-at-va' };
+      }
+      return { has_statement: false, statement_url: null };
+    }
+  });
+  assert.equal(result['va.gov'].has_statement, true, 'non-www should get www result propagated');
+  assert.equal(result['va.gov'].statement_url, 'https://www.va.gov/accessibility-at-va');
+  assert.equal(result['www.va.gov'].has_statement, true);
+});
+
+test('checkAccessibilityStatements propagates statement found on non-www to www', async () => {
+  const urlResults = [
+    { url: 'https://example.gov/', scan_status: 'success' },
+    { url: 'https://www.example.gov/', scan_status: 'success' }
+  ];
+  const result = await checkAccessibilityStatements(urlResults, {
+    runImpl: async (baseUrl) => {
+      // example.gov finds a statement; www.example.gov does not
+      if (baseUrl === 'https://example.gov') {
+        return { has_statement: true, statement_url: 'https://example.gov/accessibility' };
+      }
+      return { has_statement: false, statement_url: null };
+    }
+  });
+  assert.equal(result['www.example.gov'].has_statement, true, 'www should get non-www result propagated');
+  assert.equal(result['www.example.gov'].statement_url, 'https://example.gov/accessibility');
+  assert.equal(result['example.gov'].has_statement, true);
+});
+
+test('checkAccessibilityStatements does not propagate when www counterpart not in results', async () => {
+  const urlResults = [{ url: 'https://only.gov/', scan_status: 'success' }];
+  const result = await checkAccessibilityStatements(urlResults, {
+    runImpl: async () => ({ has_statement: false, statement_url: null })
+  });
+  assert.equal(Object.keys(result).length, 1, 'no extra entries added for missing counterpart');
+  assert.equal(result['only.gov'].has_statement, false);
+});
+
+test('checkAccessibilityStatements does not overwrite when both have statements', async () => {
+  const urlResults = [
+    { url: 'https://agency.gov/', scan_status: 'success' },
+    { url: 'https://www.agency.gov/', scan_status: 'success' }
+  ];
+  const result = await checkAccessibilityStatements(urlResults, {
+    runImpl: async (baseUrl) => ({
+      has_statement: true,
+      statement_url: `${baseUrl}/accessibility`
+    })
+  });
+  // Both already had statements; each keeps its own URL
+  assert.equal(result['agency.gov'].has_statement, true);
+  assert.equal(result['www.agency.gov'].has_statement, true);
 });
