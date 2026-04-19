@@ -413,12 +413,11 @@
       font-size: inherit;
       color: inherit;
       padding: 0;
-      display: inline-flex;
-      align-items: flex-start;
-      gap: 0.3em;
+      display: inline-block;
+      vertical-align: top;
       white-space: inherit;
     }
-    .sort-btn::after { content: '⇅'; font-size: 0.75em; opacity: 0.45; }
+    .sort-btn::after { content: '⇅'; font-size: 0.75em; opacity: 0.45; margin-left: 0.3em; }
     th[aria-sort="ascending"] .sort-btn::after { content: '↑'; opacity: 1; }
     th[aria-sort="descending"] .sort-btn::after { content: '↓'; opacity: 1; }
     .sort-btn:hover { text-decoration: underline; }
@@ -893,6 +892,16 @@
     .site-footer a { color: var(--color-footer-link); text-decoration: underline; }
     .site-footer a:hover { color: var(--color-header-text); }
 
+    /* ---------- No-statement domain list (3-column alphabetical) ---------- */
+    .no-statement-list {
+      column-count: 3;
+      column-gap: 1.5rem;
+      padding-left: 1.25rem;
+      margin: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+    .no-statement-list li { break-inside: avoid; }
+
     /* ---------- Responsive ---------- */
     @media (max-width: 640px) {
       h1 { font-size: 1.3rem; }
@@ -900,6 +909,7 @@
       .site-header-inner { flex-direction: column; align-items: flex-start; }
       .score-card .score-value { font-size: 1.5rem; }
       th, td { padding: 0.4rem 0.5rem; }
+      .no-statement-list { column-count: 1; }
       .axe-modal {
         position: fixed;
         inset: 0;
