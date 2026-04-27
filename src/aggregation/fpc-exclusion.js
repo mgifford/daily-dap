@@ -1,9 +1,6 @@
 import { AXE_TO_FPC, FPC_LABELS } from '../data/axe-fpc-mapping.js';
 import { CENSUS_DISABILITY_STATS } from '../data/census-disability-stats.js';
-
-function roundToTwo(value) {
-  return Math.round(value * 100) / 100;
-}
+import { roundToTwo } from '../lib/math-utils.js';
 
 /**
  * For a single URL result, return the set of FPC codes affected by its axe findings.

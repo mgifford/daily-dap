@@ -1,19 +1,10 @@
+import { roundToTwo, normalizeTraffic } from '../lib/math-utils.js';
+
 // Google's published performance benchmarks used for comparison.
 // LCP: https://web.dev/articles/lcp — "good" threshold is 2.5 s
 // Page weight: https://web.dev/articles/performance-budgets-101 — recommended under 1.6 MB
 export const GOOD_LCP_MS = 2500;
 export const RECOMMENDED_PAGE_WEIGHT_BYTES = 1_600_000;
-
-function roundToTwo(value) {
-  return Math.round(value * 100) / 100;
-}
-
-function normalizeTraffic(value) {
-  if (typeof value !== 'number' || Number.isNaN(value) || value < 0) {
-    return 0;
-  }
-  return value;
-}
 
 /**
  * Computes how much extra time Americans spend waiting for slow government
