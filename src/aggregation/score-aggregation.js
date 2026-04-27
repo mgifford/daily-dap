@@ -1,3 +1,5 @@
+import { roundToTwo } from '../lib/math-utils.js';
+
 const SCORE_FIELDS = {
   performance: 'lighthouse_performance',
   accessibility: 'lighthouse_accessibility',
@@ -5,10 +7,6 @@ const SCORE_FIELDS = {
   seo: 'lighthouse_seo',
   pwa: 'lighthouse_pwa'
 };
-
-function roundToTwo(value) {
-  return Math.round(value * 100) / 100;
-}
 
 function isFiniteNumber(value) {
   return typeof value === 'number' && Number.isFinite(value);

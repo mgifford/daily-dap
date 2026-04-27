@@ -1,13 +1,4 @@
-function roundToTwo(value) {
-  return Math.round(value * 100) / 100;
-}
-
-function normalizeTraffic(value) {
-  if (typeof value !== 'number' || Number.isNaN(value) || value < 0) {
-    return 0;
-  }
-  return value;
-}
+import { roundToTwo, normalizeTraffic } from '../lib/math-utils.js';
 
 export function isSlowRiskStatus(coreWebVitalsStatus) {
   return coreWebVitalsStatus === 'poor';

@@ -1,0 +1,102 @@
+name: Code Simplifier
+
+on:
+  schedule:
+    # Runs daily at 10:00 UTC, after the main daily scan
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+    inputs:
+      since_hours:
+        description: 'Look back this many hours for recent changes (default: 24)'
+        required: false
+        default: '24'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: code-simplifier
+  cancel-in-progress: true
+
+jobs:
+  simplify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Find recently changed source files
+        id: changed-files
+        shell: bash
+        run: |
+          SINCE_HOURS="${{ inputs.since_hours || '24' }}"
+          SINCE=$(date -u -d "${SINCE_HOURS} hours ago" '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null \
+            || date -u -v-${SINCE_HOURS}H '+%Y-%m-%dT%H:%M:%SZ')
+
+          echo "Looking for changes since: $SINCE"
+
+          CHANGED=$(git log --since="$SINCE" --pretty=format: --name-only --no-merges \
+            | sort -u \
+            | grep -E '\.(js|mjs|cjs)$' \
+            | grep -v -E '^(node_modules|docs|tests/fixtures)' \
+            || true)
+
+          if [[ -z "$CHANGED" ]]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No source files changed in the last ${SINCE_HOURS} hours."
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "changed_files<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$CHANGED" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "Changed files:"
+            echo "$CHANGED"
+          fi
+
+      - name: Detect duplicate utility functions
+        id: detect-duplicates
+        if: steps.changed-files.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          # Use grep to find function declarations and detect names appearing in
+          # multiple files — a simple, reliable heuristic for obvious duplication.
+          DUPES=$(grep -rn --include='*.js' -h 'function ' src/ \
+            | grep -oE '\bfunction\s+\w+' \
+            | sort | uniq -d || true)
+
+          if [[ -n "$DUPES" ]]; then
+            echo "duplicates_found=true" >> "$GITHUB_OUTPUT"
+            echo "Possible duplicate function names across src/:"
+            while IFS= read -r fn; do
+              echo "  $fn — defined in:"
+              grep -rn --include='*.js' -l "$(echo "$fn" | sed 's/function //')" src/ \
+                | sed 's/^/    /'
+            done <<< "$DUPES"
+          else
+            echo "duplicates_found=false" >> "$GITHUB_OUTPUT"
+            echo "No duplicate function names detected."
+          fi
+
+      - name: Run tests after analysis
+        if: steps.changed-files.outputs.has_changes == 'true'
+        run: npm test
+
+      - name: Report status
+        if: steps.changed-files.outputs.has_changes == 'false'
+        run: |
+          echo "No source file changes in the last ${{ inputs.since_hours || '24' }} hours."
+          echo "Code simplifier has nothing to process today."
