@@ -200,3 +200,89 @@ test('normalizeUrlScanResult page_load_count is null when absent from urlRecord'
   assert.equal(result.page_load_count, null);
   assert.equal(result.source_date, null);
 });
+
+test('normalizeUrlScanResult marks as failed when all primary Lighthouse scores are 0', () => {
+  const lighthouseResult = {
+    lighthouse_performance: 0,
+    lighthouse_accessibility: 0,
+    lighthouse_best_practices: 0,
+    lighthouse_seo: 0,
+    lighthouse_pwa: 0
+  };
+
+  const result = normalizeUrlScanResult({
+    runId: 'run-2024-11-15-abc123',
+    urlRecord: BASE_URL_RECORD,
+    lighthouseResult
+  });
+
+  assert.equal(result.scan_status, 'failed');
+  assert.equal(result.failure_reason, 'all_scores_zero');
+});
+
+test('normalizeUrlScanResult marks as failed when all primary Lighthouse scores are null', () => {
+  const lighthouseResult = {
+    lighthouse_performance: null,
+    lighthouse_accessibility: null,
+    lighthouse_best_practices: null,
+    lighthouse_seo: null,
+    lighthouse_pwa: 0
+  };
+
+  const result = normalizeUrlScanResult({
+    runId: 'run-2024-11-15-abc123',
+    urlRecord: BASE_URL_RECORD,
+    lighthouseResult
+  });
+
+  assert.equal(result.scan_status, 'failed');
+  assert.equal(result.failure_reason, 'all_scores_zero');
+});
+
+test('normalizeUrlScanResult stays success when at least one primary score is non-zero', () => {
+  const lighthouseResult = {
+    lighthouse_performance: 0,
+    lighthouse_accessibility: 72,
+    lighthouse_best_practices: 0,
+    lighthouse_seo: 0,
+    lighthouse_pwa: 0
+  };
+
+  const result = normalizeUrlScanResult({
+    runId: 'run-2024-11-15-abc123',
+    urlRecord: BASE_URL_RECORD,
+    lighthouseResult
+  });
+
+  assert.equal(result.scan_status, 'success');
+  assert.equal(result.failure_reason, null);
+});
+
+test('normalizeUrlScanResult does not apply zero-score check when no lighthouseResult', () => {
+  const result = normalizeUrlScanResult({
+    runId: 'run-2024-11-15-abc123',
+    urlRecord: BASE_URL_RECORD
+  });
+
+  assert.equal(result.scan_status, 'success');
+  assert.equal(result.failure_reason, null);
+});
+
+test('normalizeUrlScanResult zero-score check does not override existing failureReason', () => {
+  const lighthouseResult = {
+    lighthouse_performance: 0,
+    lighthouse_accessibility: 0,
+    lighthouse_best_practices: 0,
+    lighthouse_seo: 0
+  };
+
+  const result = normalizeUrlScanResult({
+    runId: 'run-2024-11-15-abc123',
+    urlRecord: BASE_URL_RECORD,
+    lighthouseResult,
+    failureReason: 'timeout'
+  });
+
+  assert.equal(result.scan_status, 'failed');
+  assert.equal(result.failure_reason, 'timeout');
+});

@@ -1,4 +1,4 @@
-import { classifyScanStatus } from './status-classifier.js';
+import { classifyScanStatus, FAILURE_REASON_CATALOG } from './status-classifier.js';
 import { normalizeSeverity } from './scangov-runner.js';
 import { extractAxeFindings } from './axe-extractor.js';
 import { computeWordsPerMb } from './readability-extractor.js';
@@ -31,6 +31,22 @@ export function normalizeUrlScanResult({
   diagnostics = {}
 }) {
   const status = classifyScanStatus({ excludedReason, failureReason });
+
+  // Detect zero-score scans: if the scan appears successful but Lighthouse produced
+  // no meaningful scores (all primary categories are null or 0), treat as failed.
+  if (
+    status.scan_status === 'success' &&
+    lighthouseResult != null &&
+    [
+      lighthouseResult.lighthouse_performance,
+      lighthouseResult.lighthouse_accessibility,
+      lighthouseResult.lighthouse_best_practices,
+      lighthouseResult.lighthouse_seo
+    ].every((score) => score === null || score === 0)
+  ) {
+    status.scan_status = 'failed';
+    status.failure_reason = FAILURE_REASON_CATALOG.ALL_SCORES_ZERO;
+  }
 
   return {
     run_id: runId,
