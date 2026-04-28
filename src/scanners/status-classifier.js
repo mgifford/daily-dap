@@ -5,7 +5,8 @@ export const FAILURE_REASON_CATALOG = Object.freeze({
   EXECUTION_ERROR: 'execution_error',
   MALFORMED_OUTPUT: 'malformed_output',
   EXCLUDED_MISSING_URL: 'excluded_missing_url',
-  EXCLUDED_BY_LIMIT: 'excluded_by_limit'
+  EXCLUDED_BY_LIMIT: 'excluded_by_limit',
+  ALL_SCORES_ZERO: 'all_scores_zero'
 });
 
 export function classifyScanStatus({

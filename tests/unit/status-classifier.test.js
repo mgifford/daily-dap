@@ -80,4 +80,5 @@ test('FAILURE_REASON_CATALOG is frozen and contains expected codes', () => {
   assert.equal(FAILURE_REASON_CATALOG.MALFORMED_OUTPUT, 'malformed_output');
   assert.equal(FAILURE_REASON_CATALOG.EXCLUDED_MISSING_URL, 'excluded_missing_url');
   assert.equal(FAILURE_REASON_CATALOG.EXCLUDED_BY_LIMIT, 'excluded_by_limit');
+  assert.equal(FAILURE_REASON_CATALOG.ALL_SCORES_ZERO, 'all_scores_zero');
 });
