@@ -26,6 +26,7 @@ import { buildFailureReport, writeFailureSnapshot } from '../publish/failure-rep
 import { checkAccessibilityStatements } from '../scanners/accessibility-statement-checker.js';
 import { checkRequiredLinks } from '../scanners/required-links-checker.js';
 import { createHttpRunImpl } from '../scanners/scangov-runner.js';
+import { fetchEnvironmentalConditions } from '../scanners/environmental-scanner.js';
 
 const DEFAULT_PAUSE_AFTER_LOAD_MS = 2000;
 
@@ -640,6 +641,29 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
 
     logStageComplete('REQUIRED_LINKS');
 
+    logStageStart('ENVIRONMENTAL_CONDITIONS');
+
+    let environmentalConditions = null;
+    try {
+      environmentalConditions = await fetchEnvironmentalConditions({
+        airnowApiKey: process.env.AIRNOW_API_KEY,
+        googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+        date: runMetadata.run_date
+      });
+      logProgress('ENVIRONMENTAL_CONDITIONS', 'Environmental conditions fetched', {
+        overallLevel: environmentalConditions.overallLevel,
+        pollutionMetroCount: environmentalConditions.pollutionMetroCount,
+        particleMetroCount: environmentalConditions.particleMetroCount,
+        pollenMetroCount: environmentalConditions.pollen?.pollenMetroCount ?? 0
+      });
+    } catch (envError) {
+      logProgress('ENVIRONMENTAL_CONDITIONS', 'Environmental conditions fetch failed (non-fatal)', {
+        error: envError.message
+      });
+    }
+
+    logStageComplete('ENVIRONMENTAL_CONDITIONS');
+
     logStageStart('HISTORY_LOADING', { 
       lookbackDays: runtimeConfig.scan.history_lookback_days 
     });
@@ -675,7 +699,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       performanceImpact,
       dotgovLookup,
       accessibilityStatements,
-      requiredLinks
+      requiredLinks,
+      environmentalConditions
     });
 
     report.slow_risk_summary = slowRisk.summary;

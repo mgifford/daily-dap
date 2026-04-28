@@ -165,6 +165,52 @@
         "low_density_urls": { "type": "array", "items": { "type": "string" } }
       },
       "additionalProperties": false
+    },
+    "environmental_conditions": {
+      "description": "Heuristic environmental signal for air quality and pollen conditions across major U.S. metro areas that may create situational disabilities.",
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["date", "overallLevel", "pollutionMetroCount", "particleMetroCount", "pollen"],
+          "properties": {
+            "date": { "type": "string", "format": "date" },
+            "overallLevel": { "type": "string", "enum": ["low", "moderate", "high"] },
+            "pollutionMetroCount": { "type": "integer", "minimum": 0 },
+            "particleMetroCount": { "type": "integer", "minimum": 0 },
+            "affectedMetros": { "type": "array", "items": { "type": "string" } },
+            "pollen": {
+              "type": "object",
+              "required": ["provider", "pollenMetroCount"],
+              "properties": {
+                "provider": {
+                  "type": "string",
+                  "enum": ["google-pollen", "seasonal-estimate", "unavailable"]
+                },
+                "pollenMetroCount": { "type": "integer", "minimum": 0 },
+                "affectedMetros": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "metro": { "type": "string" },
+                      "pollenTypes": { "type": "array", "items": { "type": "string" } },
+                      "category": { "type": "string" },
+                      "dataType": { "type": "string" }
+                    }
+                  }
+                },
+                "sourceNote": { "type": "string" },
+                "limitations": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "sourceNotes": { "type": "array", "items": { "type": "string" } },
+            "limitations": { "type": "array", "items": { "type": "string" } },
+            "airQualityFetched": { "type": "boolean" },
+            "pollenDataFetched": { "type": "boolean" }
+          }
+        }
+      ]
     }
   },
   "additionalProperties": true
