@@ -146,7 +146,8 @@ export function buildDailyReport({
   performanceImpact = null,
   dotgovLookup = null,
   accessibilityStatements = null,
-  requiredLinks = null
+  requiredLinks = null,
+  environmentalConditions = null
 }) {
   const succeeded = urlResults.filter((result) => result?.scan_status === 'success').length;
   const failed = urlResults.filter((result) => result?.scan_status === 'failed').length;
@@ -216,6 +217,7 @@ export function buildDailyReport({
     tech_summary: techSummary,
     code_quality_summary: codeQualitySummary,
     readability_summary: readabilitySummary,
+    environmental_conditions: environmentalConditions ?? null,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
     generated_at: runMetadata.generated_at,

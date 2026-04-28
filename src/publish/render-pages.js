@@ -1491,6 +1491,80 @@ function renderPerformanceImpactSection(report) {
 }
 
 /**
+ * Render the Environmental Conditions and Situational Disability section.
+ *
+ * Shows air quality and pollen signals that may create situational disabilities
+ * across major U.S. metro areas.
+ *
+ * @param {object} report
+ * @returns {string} HTML section or empty string when data is unavailable.
+ */
+function renderEnvironmentalConditionsSection(report) {
+  const env = report.environmental_conditions;
+  if (!env) return '';
+
+  const level = env.overallLevel ?? 'low';
+  const levelMessages = {
+    low: 'No widespread environmental accessibility signal was detected across major U.S. metro areas.',
+    moderate: 'Environmental conditions may be affecting people in several major U.S. metro areas.',
+    high: 'Environmental conditions are likely affecting people across many major U.S. metro areas.'
+  };
+  const statusMessage = levelMessages[level] ?? levelMessages.low;
+
+  const levelBadgeClass = `env-level-${escapeHtml(level)}`;
+
+  const pollutionCount = env.pollutionMetroCount ?? 0;
+  const particleCount = env.particleMetroCount ?? 0;
+  const pollenData = env.pollen ?? {};
+  const pollenCount = pollenData.pollenMetroCount ?? 0;
+  const pollenProvider = pollenData.provider ?? 'unavailable';
+
+  const pollenProviderLabels = {
+    'google-pollen': 'Google Pollen API',
+    'seasonal-estimate': 'Seasonal estimate (not live data)',
+    'unavailable': 'Unavailable'
+  };
+  const pollenProviderLabel = escapeHtml(pollenProviderLabels[pollenProvider] ?? pollenProvider);
+
+  const airMetroList = Array.isArray(env.affectedMetros) && env.affectedMetros.length > 0
+    ? `<p>Metro areas with elevated air quality concerns: ${escapeHtml(env.affectedMetros.join(', '))}</p>`
+    : '';
+
+  const pollenMetroEntries = Array.isArray(pollenData.affectedMetros) && pollenData.affectedMetros.length > 0
+    ? pollenData.affectedMetros.slice(0, 10).map((m) =>
+        `<li>${escapeHtml(m.metro)}: ${escapeHtml((m.pollenTypes ?? []).join(', '))} (${escapeHtml(m.dataType ?? 'unknown')})</li>`
+      ).join('\n')
+    : null;
+
+  const pollenMetroSection = pollenMetroEntries
+    ? `<details>
+        <summary>Pollen-affected metro areas (up to 10 shown)</summary>
+        <ul>${pollenMetroEntries}</ul>
+      </details>`
+    : '';
+
+  const sourceNotesList = Array.isArray(env.sourceNotes) && env.sourceNotes.length > 0
+    ? `<ul>${env.sourceNotes.map((n) => `<li>${escapeHtml(n)}</li>`).join('\n')}</ul>`
+    : '';
+
+  return `
+  <section aria-labelledby="environmental-conditions-heading">
+    <h2 id="environmental-conditions-heading">Environmental conditions and situational disability${renderAnchorLink('environmental-conditions-heading', 'Environmental conditions and situational disability')}</h2>
+    <p>Environmental conditions can create temporary or situational disabilities. High pollen, particle pollution, and poor air quality can cause irritated eyes, blurred vision, headaches, fatigue, and reduced concentration. On days like this, people may rely more heavily on zoom, contrast, clear headings, plain language, keyboard navigation, and error-tolerant forms.</p>
+    <p class="${levelBadgeClass}"><strong>Signal level: ${escapeHtml(level.charAt(0).toUpperCase() + level.slice(1))}</strong> &mdash; ${escapeHtml(statusMessage)}</p>
+    <ul>
+      <li>Metro areas with AQI &ge; 101 (air pollution): <strong>${pollutionCount}</strong></li>
+      <li>Metro areas with PM2.5 AQI &ge; 101 (particle pollution, which may include smoke): <strong>${particleCount}</strong></li>
+      <li>Metro areas with high or very high pollen: <strong>${pollenCount}</strong> (source: ${pollenProviderLabel})</li>
+    </ul>
+    ${airMetroList}
+    ${pollenMetroSection}
+    <p><small>Pollen conditions are based on Google Pollen data when available. When live data is unavailable, a seasonal estimate is used. This is a situational signal, not a medical or exposure model.</small></p>
+    ${sourceNotesList ? `<details><summary>Data source notes</summary>${sourceNotesList}</details>` : ''}
+  </section>`;
+}
+
+/**
  * Render the Content Density (Words-per-Megabyte) section.
  *
  * @param {object} report
@@ -3028,6 +3102,8 @@ export function renderDailyReportPage(report) {
     ${renderPerformanceImpactSection(report)}
 
     ${renderContentDensitySection(report)}
+
+    ${renderEnvironmentalConditionsSection(report)}
 
     <section aria-labelledby="history-heading">
       <h2 id="history-heading">History${renderAnchorLink('history-heading', 'History')}</h2>

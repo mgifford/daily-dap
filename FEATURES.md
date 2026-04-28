@@ -338,6 +338,72 @@ required by the underlying statutes and OMB policy cited above.
 
 ---
 
+### `src/scanners/environmental-scanner.js`
+
+Fetches air quality and pollen data for 41 major U.S. metro areas to produce a lightweight
+national signal for environmental conditions that may create situational disabilities.
+
+**Purpose:**
+High air pollution, particle matter (PM2.5), and elevated pollen can cause irritated eyes,
+blurred vision, headaches, fatigue, and reduced concentration. On affected days, people may
+rely more heavily on zoom, contrast, clear headings, plain language, keyboard navigation,
+and error-tolerant forms. This feature provides a daily contextual signal alongside the
+accessibility scan results.
+
+**Data Sources:**
+
+| Source | Condition | API Key Required |
+|--------|-----------|-----------------|
+| AirNow API | AQI >= 101 (unhealthy for sensitive groups) | `AIRNOW_API_KEY` |
+| AirNow API | PM2.5 AQI >= 101 (particle pollution proxy) | `AIRNOW_API_KEY` |
+| Google Pollen API | TREE / GRASS / WEED pollen HIGH or VERY_HIGH | `GOOGLE_MAPS_API_KEY` |
+| Seasonal estimate | Month-based tree/grass/weed windows | None (fallback) |
+
+Seasonal pollen windows:
+- Tree: March-June
+- Grass: May-July
+- Weed: August-October
+
+**Scoring Model:**
+
+Three metro-level counts are computed:
+- `pollutionMetroCount` - metros with any AQI >= 101
+- `particleMetroCount` - metros with PM2.5 AQI >= 101
+- `pollenMetroCount` - metros with HIGH or VERY_HIGH pollen
+
+Overall level = `computeOverallLevel(pollutionMetroCount + particleMetroCount + pollenMetroCount)`:
+- **low**: 0-2 total signals
+- **moderate**: 3-5 total signals
+- **high**: 6+ total signals
+
+**Exports:**
+- `METRO_LIST` - 41 U.S. metro areas with ZIP, lat, lon
+- `isAqiAffected(aqi)` - returns true if AQI >= 101
+- `isPollenAffected(category)` - returns true for HIGH or VERY_HIGH
+- `getSeasonalPollenTypes(month)` - returns in-season pollen types for a 1-indexed month
+- `computeOverallLevel(totalSignals)` - returns 'low' | 'moderate' | 'high'
+- `parseAirNowObservations(observations)` - extracts max AQI and PM2.5 AQI from AirNow response
+- `parsePollenResponse(response)` - extracts pollen type info from Google Pollen API response
+- `fetchAirNowForMetro(metro, apiKey, fetchImpl)` - queries AirNow for a single metro
+- `fetchPollenForMetro(metro, apiKey, fetchImpl)` - queries Google Pollen for a single metro
+- `fetchEnvironmentalConditions(options)` - main entry point; returns full `environmentalConditions` payload
+
+**Resilience:**
+The feature is fully optional. Build does not fail if API keys are absent. Degrades gracefully:
+1. Full data (AirNow + Google Pollen) when both API keys present
+2. Pollution-only (no pollen) when only `AIRNOW_API_KEY` set
+3. Seasonal pollen + no air quality when only `GOOGLE_MAPS_API_KEY` absent
+4. Seasonal pollen only (no air quality) when no API keys configured
+5. `null` environmental_conditions if the function throws unexpectedly
+
+**Limitations:**
+- Not a scientific exposure model; does not claim medical accuracy
+- PM2.5 is labeled as "particle pollution" not "wildfire smoke" (specific cause not identified)
+- Population exposure percentages are not claimed
+- Google Pollen data is forecast-based; may not reflect real-time conditions
+
+---
+
 ## 5. Aggregation & Metrics
 
 ### `src/aggregation/score-aggregation.js`

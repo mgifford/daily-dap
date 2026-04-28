@@ -135,6 +135,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.6 | Improved test coverage: added 119 tests across 5 new test files for previously untested modules (slow-risk, logging, axe-fpc-mapping, build-daily-report, archive-writer); exported 3 helper functions from archive-writer.js for testability |
 | Claude (Anthropic) | claude-sonnet-4.6 | Added axe-core WCAG 2.2 AA accessibility tests for generated HTML: new tests/unit/axe-html-accessibility.test.js checks every render function using a minimal fixture report; fixed aria-prohibited-attr violations (aria-label on role-less spans) in render-pages.js |
 | Claude (Anthropic) | claude-sonnet-4.6 | Wired ScanGov live HTTP integration: added createHttpRunImpl() factory to scangov-runner.js, updated createLiveScannerRunners() to use SCANGOV_API_URL env var when set, added SCANGOV_SKIP log when not configured, and updated scanner notes to reflect actual state |
+| Claude (Anthropic) | claude-sonnet-4.6 | Added Environmental Conditions and Situational Disability feature: new src/scanners/environmental-scanner.js integrates AirNow API (air quality/PM2.5) and Google Pollen API with seasonal fallback, computes overallLevel signal across 41 major U.S. metro areas, and renders a new section in daily reports; 76 unit tests added |
 
 ### Runtime operation
 
@@ -188,3 +189,50 @@ U.S. resident population base: ~335.9 million (2022 estimate). Data is reviewed 
 - [National Institute on Deafness and Other Communication Disorders (NIDCD)](https://www.nidcd.nih.gov/health/statistics/quick-statistics-hearing)
 - [American Foundation for the Blind (AFB) statistical snapshots](https://www.afb.org/research-and-initiatives/statistics)
 - [National Eye Institute / NIH color vision deficiency estimates](https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness)
+
+## Environmental conditions and situational disability
+
+Daily DAP includes a lightweight national signal for environmental conditions that may create
+situational disabilities. High air pollution, particle matter (PM2.5), and elevated pollen can
+cause irritated eyes, blurred vision, headaches, fatigue, and reduced concentration, making
+people more reliant on accessibility features such as zoom, high contrast, clear headings,
+plain language, keyboard navigation, and error-tolerant forms.
+
+### Data sources
+
+- **AirNow API** (optional, requires `AIRNOW_API_KEY` environment variable): provides real-time
+  AQI and PM2.5 readings for major U.S. metro areas. AQI >= 101 indicates conditions unhealthy
+  for sensitive groups.
+- **Google Pollen API** (optional, requires `GOOGLE_MAPS_API_KEY` environment variable): provides
+  daily pollen forecast data for TREE, GRASS, and WEED pollen. HIGH or VERY_HIGH pollen counts
+  are treated as an affected signal.
+- **Seasonal pollen estimate** (fallback, no API key required): when the Google Pollen API is
+  unavailable, the feature applies a conservative seasonal estimate based on the month:
+  - Tree pollen: March-June
+  - Grass pollen: May-July
+  - Weed pollen: August-October
+
+### Signal model
+
+For each day, the feature counts the number of major metro areas (out of 41 tracked cities)
+where conditions exceed thresholds:
+
+- `pollutionMetroCount`: metros with AQI >= 101
+- `particleMetroCount`: metros with PM2.5 AQI >= 101 (particle pollution, which may include smoke)
+- `pollenMetroCount`: metros with HIGH or VERY_HIGH pollen
+
+An `overallLevel` is computed from the total signal count:
+- **low**: 0-2 total affected signals
+- **moderate**: 3-5 total affected signals
+- **high**: 6+ total affected signals
+
+### Limitations and constraints
+
+- This is a **heuristic signal**, not a scientific exposure model.
+- Particle pollution (PM2.5) is **not** labeled as wildfire smoke unless explicitly sourced.
+- Population exposure percentages are **not** claimed.
+- Pollen data is **forecast-based** when sourced from Google Pollen API.
+- Seasonal estimates apply uniformly across all tracked metros regardless of local conditions.
+- The feature degrades gracefully when API keys are missing or API calls fail.
+
+Configure optional API keys via environment variables: `AIRNOW_API_KEY` and `GOOGLE_MAPS_API_KEY`.
