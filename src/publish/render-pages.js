@@ -901,6 +901,25 @@ function renderSharedStyles() {
     html[data-color-scheme="light"] .density-low    { background-color: hsl(0 70% 92%); }
     html[data-color-scheme="light"] .density-medium { background-color: hsl(50 75% 90%); }
 
+    /* ---------- Experimental feature badge ---------- */
+    .experimental-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15em 0.45em;
+      border-radius: 0.25em;
+      vertical-align: middle;
+      background-color: hsl(40 90% 88%);
+      color: hsl(40 80% 25%);
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-left: 0.4em;
+    }
+    :root:not([data-color-scheme="light"]) .experimental-badge { background-color: hsl(40 50% 25%); color: hsl(40 70% 80%); }
+    html[data-color-scheme="dark"] .experimental-badge { background-color: hsl(40 50% 25%); color: hsl(40 70% 80%); }
+    html[data-color-scheme="light"] .experimental-badge { background-color: hsl(40 90% 88%); color: hsl(40 80% 25%); }
+
     /* ---------- Technology badges ---------- */
     .tech-badge {
       display: inline-block;
@@ -1619,7 +1638,7 @@ function renderContentDensitySection(report) {
 
   return `
   <section aria-labelledby="content-density-heading">
-    <h2 id="content-density-heading">Content Density (Words per Megabyte)${renderAnchorLink('content-density-heading', 'Content Density (Words per Megabyte)')}</h2>
+    <h2 id="content-density-heading">Content Density (Words per Megabyte)<span class="experimental-badge" title="This metric is experimental; thresholds and methodology are still being refined">Experimental</span>${renderAnchorLink('content-density-heading', 'Content Density (Words per Megabyte)')}</h2>
     <p>Words-per-Megabyte (WpM) measures how efficiently a page delivers readable content relative to its total download size. A low ratio indicates <strong>Digital Bloat</strong>&mdash;the page transfers far more data than the text it contains. Pages below <strong>200 WpM</strong> are flagged for optimization review.</p>
     <ul>
       <li>URLs with content metrics: <strong>${urlCount}</strong></li>
@@ -1640,7 +1659,7 @@ function renderContentDensitySection(report) {
         ${rows}
       </tbody>
     </table>`)}
-    <p><small>Word counts are extracted from the page&rsquo;s main article content using <a href="https://github.com/mozilla/readability" target="_blank" rel="noreferrer">Mozilla Readability</a>, which strips navigation, sidebars, and ads. Page weight is the total resource size measured by Lighthouse. Pages below 200 WpM may impose unnecessary data costs on users on metered connections.</small></p>
+    <p><small><strong>How this is calculated:</strong> Word counts are extracted from the page&rsquo;s main article content using <a href="https://github.com/mozilla/readability" target="_blank" rel="noreferrer">Mozilla Readability</a>, which strips navigation, sidebars, and ads (falling back to full visible body text for pages with fewer than 50 readable words). Page weight is the total resource size in bytes measured by Lighthouse across all network requests, converted to megabytes (1&nbsp;MB&nbsp;=&nbsp;1,000,000&nbsp;bytes). The ratio is computed as <em>word count divided by total MB</em>, rounded to the nearest integer. Pages below 200 WpM may impose unnecessary data costs on users on metered connections. <strong>Note:</strong> This metric is experimental&mdash;the 200 WpM threshold and overall methodology are still being refined and may change in future reports.</small></p>
   </section>`;
 }
 
