@@ -1355,7 +1355,7 @@ function renderFpcExclusionSection(report) {
         : 'N/A';
       const rate = `${(data.prevalence_rate * 100).toFixed(1)}%`;
       const affectedLoads = roundDownConservatively(data.affected_page_loads).toLocaleString('en-US');
-      const excluded = roundDownConservatively(data.estimated_excluded_users).toLocaleString('en-US');
+      const excluded = `~${roundDownConservatively(data.estimated_excluded_users).toLocaleString('en-US')}`;
       return `<tr>
       <td data-label="Icon">${icon}</td>
       <td data-label="Disability Group">${label}</td>
@@ -1370,7 +1370,8 @@ function renderFpcExclusionSection(report) {
   return `
   <section aria-labelledby="fpc-exclusion-heading">
     <h2 id="fpc-exclusion-heading">Americans Excluded by Disability Today${renderAnchorLink('fpc-exclusion-heading', 'Americans Excluded by Disability Today')}</h2>
-    <p>Based on <strong>${Number(totalPageLoads).toLocaleString('en-US')}</strong> page loads across successfully scanned government URLs and U.S. disability prevalence rates from the <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(source)}</a> (${escapeHtml(String(vintageYear))}), an estimated <strong>${roundDownConservatively(totalExcluded).toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on a government website today.</p>
+    <p>These are rough estimates of Americans excluded from accessing just the 100 most-visited U.S. government home pages.</p>
+    <p>Based on <strong>${Number(totalPageLoads).toLocaleString('en-US')}</strong> page loads across successfully scanned government URLs and U.S. disability prevalence rates from the <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(source)}</a> (${escapeHtml(String(vintageYear))}), an estimated <strong>~${roundDownConservatively(totalExcluded).toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on a government website today.</p>
     <p>Each row shows the number of people in a disability group who visited a page with at least one accessibility issue that affects their group. Prevalence rates and U.S. population estimates are derived from the American Community Survey (ACS) and supplemental sources. These figures are rough estimates intended to illustrate the scale of accessibility barriers.</p>
     ${wrapTable(`<table>
       <caption>Estimated Americans excluded today by disability category (${escapeHtml(String(vintageYear))} Census data)</caption>
@@ -3037,7 +3038,7 @@ function renderCallToActionSection(report) {
 
   const statsIntro =
     totalExcluded !== null && totalExcluded > 0
-      ? `<p>Today's scan identified <strong>${totalFindings.toLocaleString('en-US')} accessibility barrier${totalFindings !== 1 ? 's' : ''}</strong> across the most-visited U.S. government websites, affecting an estimated <strong>${totalExcluded.toLocaleString('en-US')} Americans with disabilities</strong>. Here is how you can help.</p>`
+      ? `<p>Today's scan identified <strong>${totalFindings.toLocaleString('en-US')} accessibility barrier${totalFindings !== 1 ? 's' : ''}</strong> across the most-visited U.S. government websites, affecting an estimated <strong>~${totalExcluded.toLocaleString('en-US')} Americans with disabilities</strong>. Here is how you can help.</p>`
       : `<p>Here is how you can help improve accessibility on U.S. government websites.</p>`;
 
   return `
