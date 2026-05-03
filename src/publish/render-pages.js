@@ -2845,7 +2845,7 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
         <td data-label="#">${escapeHtml(String(h.id))}</td>
         <td data-label="Heuristic"><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
         <td data-label="Issue patterns">${escapeHtml(String(entry.pattern_count))}</td>
-        <td data-label="URL violations">${escapeHtml(String(entry.url_count))}</td>
+        <td data-label="URLs affected">${escapeHtml(String(entry.url_count))}</td>
         <td data-label="Related axe rules">${ruleList}</td>
       </tr>`;
     })
@@ -2858,7 +2858,7 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
       <td data-label="#">${escapeHtml(String(h.id))}</td>
       <td data-label="Heuristic"><a href="${escapeHtml(h.url)}" target="_blank" rel="noreferrer">${escapeHtml(h.name)}</a></td>
       <td data-label="Issue patterns">0</td>
-      <td data-label="URL violations">0</td>
+      <td data-label="URLs affected">0</td>
       <td data-label="Related axe rules">&#x2014;</td>
     </tr>`;
   }).filter(Boolean).join('\n');
@@ -2874,7 +2874,7 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
           <th scope="col">#</th>
           <th scope="col">Heuristic</th>
           <th scope="col">Issue patterns</th>
-          <th scope="col">URL violations</th>
+          <th scope="col">URLs affected</th>
           <th scope="col">Related axe rules</th>
         </tr>
       </thead>
@@ -2891,7 +2891,7 @@ function renderUsabilityHeuristicsSection(topUrls = []) {
             <th scope="col">#</th>
             <th scope="col">Heuristic</th>
             <th scope="col">Issue patterns</th>
-            <th scope="col">URL violations</th>
+            <th scope="col">URLs affected</th>
             <th scope="col">Related axe rules</th>
           </tr>
         </thead>
