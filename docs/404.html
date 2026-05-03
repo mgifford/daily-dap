@@ -758,6 +758,25 @@
     html[data-color-scheme="light"] .density-low    { background-color: hsl(0 70% 92%); }
     html[data-color-scheme="light"] .density-medium { background-color: hsl(50 75% 90%); }
 
+    /* ---------- Experimental feature badge ---------- */
+    .experimental-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15em 0.45em;
+      border-radius: 0.25em;
+      vertical-align: middle;
+      background-color: hsl(40 90% 88%);
+      color: hsl(40 80% 25%);
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-left: 0.4em;
+    }
+    :root:not([data-color-scheme="light"]) .experimental-badge { background-color: hsl(40 50% 25%); color: hsl(40 70% 80%); }
+    html[data-color-scheme="dark"] .experimental-badge { background-color: hsl(40 50% 25%); color: hsl(40 70% 80%); }
+    html[data-color-scheme="light"] .experimental-badge { background-color: hsl(40 90% 88%); color: hsl(40 80% 25%); }
+
     /* ---------- Technology badges ---------- */
     .tech-badge {
       display: inline-block;
