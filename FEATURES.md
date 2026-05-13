@@ -183,7 +183,7 @@ Fetches and normalizes top-pages traffic data from the
 | `normalizeDapRecords(records)` | Handles flexible field names, deduplicates, filters invalid/placeholder URLs |
 | `fetchDapRecords(endpoint, apiKey)` | HTTP fetch from DAP API with optional API key auth |
 | `readDapRecordsFromFile(filePath)` | Load records from local JSON file (for testing and dry-runs) |
-| `buildDapEndpoint(baseUrl, window)` | Constructs endpoint URL with traffic window parameter |
+| `buildDapEndpoint(baseUrl, limit)` | Constructs endpoint URL with API key and limit parameters |
 
 **Flexible Field Mapping:**
 
@@ -191,13 +191,21 @@ The normalizer accepts data from a variety of analytics APIs by mapping common f
 
 - URL field names: `url`, `page`, `page_url`, `hostname`, `domain`
 - Count field names: `page_load_count`, `pageviews`, `views`, `hits`, `page_loads`, `visits`
+- Window count field names: `page_load_count_daily`, `page_load_count_rolling_7d`, `page_load_count_rolling_30d`, and `page_load_by_window`
 
 This flexibility makes it easy to swap in a different analytics data provider.
+
+**Traffic Window Behavior:**
+
+- Daily runs target the **previous calendar day's** DAP data by default.
+- If the requested source date is unavailable, ingest falls back to the latest available DAP date and emits a warning.
+- When dated history is present, `rolling_7d` and `rolling_30d` compute trailing averages from the available daily observations ending on the effective source date.
+- The selected traffic window becomes the canonical `page_load_count` used for sorting the top URL set and for downstream impact calculations.
 
 **Filtering:**
 - Removes synthetic DAP placeholders (e.g., `(other)`)
 - Skips malformed or non-HTTP URLs
-- Deduplicates by selecting latest-date records when multiple exist
+- Selects the effective source date and preserves per-URL traffic-window values for downstream consumers
 - Applies configurable `url_limit`
 
 **Auth Support:**

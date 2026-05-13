@@ -1,0 +1,8 @@
+[
+  { "url": "https://example.gov/a", "page_load_count": 100, "date": "2026-02-18" },
+  { "url": "https://example.gov/a", "page_load_count": 200, "date": "2026-02-19" },
+  { "url": "https://example.gov/a", "page_load_count": 300, "date": "2026-02-20" },
+  { "url": "https://example.gov/b", "page_load_count": 30, "date": "2026-02-18" },
+  { "url": "https://example.gov/b", "page_load_count": 90, "date": "2026-02-20" },
+  { "url": "https://example.gov/c", "page_load_count": 50, "date": "2026-02-20" }
+]
