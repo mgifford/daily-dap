@@ -153,3 +153,33 @@ test('runDailyScan mock mode without outputRoot writes to temp directory', async
   const prodExists = await fs.access(prodReportPath).then(() => true).catch(() => false);
   assert.equal(prodExists, false, 'Mock scan without outputRoot should NOT write to production docs directory');
 });
+
+test('runDailyScan uses previous-calendar-day traffic data and rolling averages when requested', async () => {
+  const outputRoot = await createTempWorkspace();
+
+  const summary = await runDailyScan({
+    dryRun: false,
+    configPath: null,
+    sourceFile: fixturePath('dap-multiday.json'),
+    urlLimit: 3,
+    trafficWindowMode: 'rolling_7d',
+    runDate: '2026-02-21',
+    scanMode: 'mock',
+    mockFailUrl: [],
+    outputRoot,
+    concurrency: 2,
+    timeoutMs: 20000,
+    maxRetries: 0
+  });
+
+  assert.equal(summary.status, 'success');
+
+  const reportPath = path.join(outputRoot, 'docs', 'reports', 'daily', '2026-02-21', 'report.json');
+  const report = JSON.parse(await fs.readFile(reportPath, 'utf8'));
+
+  assert.equal(report.source_data_date, '2026-02-20');
+  assert.equal(report.estimated_impact.traffic_window_mode, 'rolling_7d');
+  assert.equal(report.top_urls[0].url, 'https://example.gov/a');
+  assert.equal(report.top_urls[0].page_load_count, 200);
+  assert.equal(report.top_urls[1].page_load_count, 60);
+});

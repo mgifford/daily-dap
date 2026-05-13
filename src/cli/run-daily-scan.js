@@ -30,6 +30,16 @@ import { fetchEnvironmentalConditions } from '../scanners/environmental-scanner.
 
 const DEFAULT_PAUSE_AFTER_LOAD_MS = 2000;
 
+function getPreviousCalendarDate(dateString) {
+  const parsed = new Date(`${dateString}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) {
+    return dateString;
+  }
+
+  parsed.setUTCDate(parsed.getUTCDate() - 1);
+  return parsed.toISOString().slice(0, 10);
+}
+
 function parseArgs(argv) {
   const args = {
     dryRun: false,
@@ -516,6 +526,8 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       sourceFile: args.sourceFile,
       limit: runtimeConfig.scan.url_limit,
       sourceDate: runMetadata.run_date,
+      targetDate: getPreviousCalendarDate(runMetadata.run_date),
+      trafficWindowMode: runtimeConfig.scan.traffic_window_mode,
       dapApiKey
     });
 

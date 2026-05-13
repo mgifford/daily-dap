@@ -29,8 +29,7 @@ The aggregated results are publicly available at [analytics.usa.gov](https://ana
 
 ## Current implementation status
 
-- WP01–WP04 are implemented through report payload generation, static rendering, archive writing, and schema contract tests.
-- WP05 will finalize end-to-end CLI orchestration and scheduled CI automation for the full production run.
+- WP01-WP05 are implemented through ingest normalization, scanner orchestration, report payload generation, static rendering, archive writing, scheduled workflow automation, and test coverage across unit, contract, and integration suites.
 
 ## Expected end-to-end action (ingest → scan → report)
 
@@ -71,6 +70,12 @@ The `run-daily-scan.js` CLI supports the following options to control scan behav
 - `--dap-api-key <key>` - DAP API key (can also use DAP_API_KEY environment variable)
 - `--limit <number>` - Override URL limit from config
 - `--traffic-window <mode>` - Traffic window mode: daily, rolling_7d, or rolling_30d
+
+By default, each run uses the previous calendar day's DAP counts for weighting. When dated
+traffic history is available in the source payload, `rolling_7d` and `rolling_30d` average the
+available daily observations within that trailing window ending on the expected source date.
+If the expected source date is unavailable, the pipeline falls back to the latest available DAP
+date and records a warning in run diagnostics instead of failing silently.
 
 ### Execution modes
 - `--scan-mode <mode>` - Scanner mode: live or mock (default: live)
@@ -136,6 +141,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.6 | Added axe-core WCAG 2.2 AA accessibility tests for generated HTML: new tests/unit/axe-html-accessibility.test.js checks every render function using a minimal fixture report; fixed aria-prohibited-attr violations (aria-label on role-less spans) in render-pages.js |
 | Claude (Anthropic) | claude-sonnet-4.6 | Wired ScanGov live HTTP integration: added createHttpRunImpl() factory to scangov-runner.js, updated createLiveScannerRunners() to use SCANGOV_API_URL env var when set, added SCANGOV_SKIP log when not configured, and updated scanner notes to reflect actual state |
 | Claude (Anthropic) | claude-sonnet-4.6 | Added Environmental Conditions and Situational Disability feature: new src/scanners/environmental-scanner.js integrates AirNow API (air quality/PM2.5) and Google Pollen API with seasonal fallback, computes overallLevel signal across 41 major U.S. metro areas, and renders a new section in daily reports; 76 unit tests added |
+| OpenAI | gpt-5 | Implemented previous-calendar-day DAP source-date selection plus rolling 7-day and 30-day traffic-window normalization, added ingest and smoke-test coverage, and updated traffic-window documentation |
 
 ### Runtime operation
 
