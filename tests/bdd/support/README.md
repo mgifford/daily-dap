@@ -11,6 +11,6 @@ Use this directory for shared BDD support code (world/setup/helpers).
 
 ## Suggested files
 
-- `tests/bdd/support/world.js` - shared world and state container
-- `tests/bdd/support/fixtures.js` - fixture loading helpers
-- `tests/bdd/support/assertions.js` - reusable behavior assertions
+- tests/bdd/support/world.js - shared world and state container
+- tests/bdd/support/fixtures.js - fixture loading helpers
+- tests/bdd/support/assertions.js - reusable behavior assertions

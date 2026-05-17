@@ -11,5 +11,5 @@ Use this directory for reusable step definitions.
 
 ## Suggested organization
 
-- `tests/bdd/steps/common/` for cross-domain steps
-- `tests/bdd/steps/<domain>/` for domain-specific steps
+- tests/bdd/steps/common/ for cross-domain steps
+- tests/bdd/steps/<domain>/ for domain-specific steps
