@@ -104,13 +104,13 @@ export const CENSUS_DISABILITY_STATS = {
     },
     WPC: {
       rate: 0.043,
-      estimated_population: 14_500_000,
+      estimated_population: 14_600_000,
       source_note: 'NIH/NEI: ~8% of males and ~0.5% of females have color vision deficiency'
     },
     WH: {
       rate: 0.003,
       estimated_population: 1_000_000,
-      source_note: 'NIDCD: ~1.1 million Americans with functional deafness'
+      source_note: 'NIDCD: ~1.0 million Americans with functional deafness'
     },
     LH: {
       rate: 0.034,
