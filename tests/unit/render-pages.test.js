@@ -3146,6 +3146,14 @@ test('renderDailyReportPage axe patterns section shows total findings and scanne
     html.includes('across 3 scanned URLs'),
     'Summary should show total scanned URL count (3)'
   );
+  assert.ok(
+    html.includes('estimates based on U.S. Census disability prevalence data'),
+    'Axe patterns section should clarify estimates are based on U.S. Census disability prevalence data'
+  );
+  assert.ok(
+    html.includes('may include bot traffic'),
+    'Axe patterns section should clarify page-load counts may include bot traffic'
+  );
 });
 
 test('renderDailyReportPage buildAxePatternCounts deduplicates duplicate rule IDs per URL', () => {

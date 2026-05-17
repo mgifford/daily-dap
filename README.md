@@ -144,6 +144,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | Claude (Anthropic) | claude-sonnet-4.6 | Added Environmental Conditions and Situational Disability feature: new src/scanners/environmental-scanner.js integrates AirNow API (air quality/PM2.5) and Google Pollen API with seasonal fallback, computes overallLevel signal across 41 major U.S. metro areas, and renders a new section in daily reports; 76 unit tests added |
 | OpenAI | gpt-5 | Implemented previous-calendar-day DAP source-date selection plus rolling 7-day and 30-day traffic-window normalization, added ingest and smoke-test coverage, and updated traffic-window documentation |
 | OpenAI | gpt-5 | Added a dedicated BDD behavior layer under tests/bdd with curated domain Gherkin features, traceability and ownership docs, step/world guidance, and a pull request checklist for behavior-change governance |
+| OpenAI | gpt-5 (Copilot Coding Agent) | Clarified the Common Accessibility Issues section to state disability-impact values are Census-based estimates and that page-load totals may include bot traffic; added unit-test coverage for the updated language |
 
 ### Runtime operation
 
