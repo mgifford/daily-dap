@@ -127,6 +127,7 @@ This project is transparent about how AI tools have been used throughout its dev
 
 | LLM / AI Tool | Version | Role |
 |---------------|---------|------|
+| OpenAI | gpt-5.5 (Copilot Coding Agent) | Annual Census disability prevalence refresh: updated `src/data/census-disability-stats.js` to ACS 2024 vintage values and review date, updated `src/config/prevalence.yaml` review metadata, and adjusted related unit tests |
 | GitHub Copilot | (current) | Primary implementation agent: wrote source code, tests, and documentation for all work packages (WP01-WP05) via the spec-kitty workflow |
 | Claude (Anthropic) | claude-sonnet-4.5 | Code review, documentation updates, and incremental feature implementation via GitHub Copilot coding agent; added NN/g usability heuristics alignment feature |
 | Claude (Anthropic) | claude-sonnet-4-5 | Added Call to Action section to daily reports with Section 508 links, Open Scans promotion, tool recommendations, USWDS adoption, and disability hiring messaging |

@@ -1508,12 +1508,12 @@ test('renderDailyReportPage disability badges show estimated impact when page_lo
 
   const html = renderDailyReportPage(report);
 
-  // target-size maps to LM (2.2%) and LRS (5.8%)
+  // target-size maps to LM (2.3%) and LRS (5.8%)
   // Total page loads = 1,500,000
-  // LM estimate: 1,500,000 * 0.022 = 33,000
+  // LM estimate: 1,500,000 * 0.023 = 34,500
   // LRS estimate: 1,500,000 * 0.058 = 87,000
   assert.ok(html.includes('disability-estimate'), 'Should include disability-estimate elements');
-  assert.ok(html.includes('~33'), 'Should show LM estimated impact (~33K)');
+  assert.ok(html.includes('~34'), 'Should show LM estimated impact (~34.5K)');
   assert.ok(html.includes('~87'), 'Should show LRS estimated impact (~87K)');
   // Tooltip should mention estimated excluded people
   assert.ok(html.includes('potentially excluded'), 'Tooltip should mention people potentially excluded');
@@ -1589,14 +1589,14 @@ test('renderDailyReportPage URL modal shows per-URL disability impact estimates'
 
   const html = renderDailyReportPage(report);
 
-  // color-contrast maps to LV (2.4%) and WPC (4.3%)
+  // color-contrast maps to LV (2.3%) and WPC (4.3%)
   // Page loads = 500,000
-  // LV estimate: 500,000 * 0.024 = 12,000 → ~12.0K
+  // LV estimate: 500,000 * 0.023 = 11,500 -> ~11.5K
   // WPC estimate: 500,000 * 0.043 = 21,500 → ~21.5K
   const modalMatch = html.match(/<dialog id="modal-url-0"[\s\S]*?<\/dialog>/);
   assert.ok(modalMatch, 'Modal should be present for the URL');
   assert.ok(modalMatch[0].includes('disability-estimate'), 'Modal should show disability impact estimates');
-  assert.ok(modalMatch[0].includes('~12'), 'Modal should show LV estimate (~12K)');
+  assert.ok(modalMatch[0].includes('~11'), 'Modal should show LV estimate (~11.5K)');
   assert.ok(modalMatch[0].includes('~21'), 'Modal should show WPC estimate (~21.5K)');
 });
 
@@ -1655,12 +1655,12 @@ test('disability icon key legend includes prevalence rates and source citations'
 
   // Legend should include prevalence percentages for FPC categories
   assert.ok(html.includes('1.0% of U.S. population'), 'Legend should include WV prevalence rate');
-  assert.ok(html.includes('4.7% of U.S. population'), 'Legend should include LLCLA prevalence rate');
+  assert.ok(html.includes('4.9% of U.S. population'), 'Legend should include LLCLA prevalence rate');
   assert.ok(html.includes('4.3% of U.S. population'), 'Legend should include WPC prevalence rate');
 
   // Legend should include estimated population counts
   assert.ok(html.includes('3,400,000 Americans'), 'Legend should include WV estimated population');
-  assert.ok(html.includes('15,900,000 Americans'), 'Legend should include LLCLA estimated population');
+  assert.ok(html.includes('16,700,000 Americans'), 'Legend should include LLCLA estimated population');
 
   // Legend should include census source link
   assert.match(html, /href="https:\/\/www\.census\.gov/, 'Legend should link to census.gov source');

@@ -1,10 +1,10 @@
 // U.S. disability prevalence data mapped to Section 508 Functional Performance Criteria (FPC) codes.
 //
 // Primary source:
-//   U.S. Census Bureau - American Community Survey (ACS) 2023 1-Year Estimates
+//   U.S. Census Bureau - American Community Survey (ACS) 2024 1-Year Estimates
 //   https://www.census.gov/topics/health/disability.html
 //   Table: B18101 - Sex by Age by Disability Status (civilian noninstitutionalized population)
-//   https://data.census.gov/table/ACSDT1Y2023.B18101
+//   https://data.census.gov/table/ACSDT1Y2024.B18101
 //
 // FPC reference:
 //   Section 508 Functional Performance Criteria (FPC):
@@ -24,16 +24,16 @@
 //
 // FPS prevalence estimates (aligned to Section 508 Functional Performance Specification):
 //   Without Vision:              3.4 million  (1.0%)  - AFB estimate, severe visual impairment/blindness
-//   Limited Vision:              8.1 million  (2.4%)  - ACS + supplemental vision difficulty estimates
-//   Without Perception of Color: 14.5 million (4.3%)  - NIH/NEI color vision deficiency
-//   Without Hearing:             1.1 million  (0.3%)  - NIDCD functional deafness estimate
-//   Limited Hearing:             11.9 million (3.5%)  - NIDCD/ACS hearing difficulty estimates
+//   Limited Vision:              7.8 million  (2.3%)  - ACS + supplemental vision difficulty estimates
+//   Without Perception of Color: 14.6 million (4.3%)  - NIH/NEI color vision deficiency
+//   Without Hearing:             1.0 million  (0.3%)  - NIDCD functional deafness estimate
+//   Limited Hearing:             11.6 million (3.4%)  - NIDCD/ACS hearing difficulty estimates
 //   Without Speech:              1.7 million  (0.5%)  - NIDCD severe non-verbal estimate
-//   Limited Manipulation:        7.6 million  (2.2%)  - ACS self-care + dexterity estimates
-//   Limited Reach and Strength:  19.6 million (5.8%)  - ACS ambulatory difficulty
-//   LLCLA:                       15.9 million (4.7%)  - ACS/CDC cognitive difficulty estimates
+//   Limited Manipulation:        7.8 million  (2.3%)  - ACS self-care + dexterity estimates
+//   Limited Reach and Strength:  19.7 million (5.8%)  - ACS ambulatory difficulty
+//   LLCLA:                       16.7 million (4.9%)  - ACS/CDC cognitive difficulty estimates
 //
-// U.S. resident population (2023 ACS estimate): ~336.5 million
+// U.S. resident population (2024 ACS estimate): ~340.1 million
 //
 // Notes on FPC mapping:
 //   - WV  (Without Vision): severe/total blindness; subset of ACS vision difficulty.
@@ -62,27 +62,27 @@
 //
 // Review schedule: This data should be checked annually.
 // ACS 1-year estimates are typically released each September for the prior calendar year.
-// Current vintage: 2023  |  Next review: 2027-01-01
+// Current vintage: 2024  |  Next review: 2027-05-17
 
 /** @readonly */
 export const CENSUS_DISABILITY_STATS = {
   /** Calendar year of the underlying Census / ACS dataset. */
-  vintage_year: 2023,
+  vintage_year: 2024,
 
   /** ISO-8601 date after which this data should be reviewed and potentially updated. */
-  next_review_date: '2027-01-01',
+  next_review_date: '2027-05-17',
 
   /** Human-readable citation for the primary data source. */
-  source: 'U.S. Census Bureau, American Community Survey (ACS) 2023 1-Year Estimates, Table B18101',
+  source: 'U.S. Census Bureau, American Community Survey (ACS) 2024 1-Year Estimates, Table B18101',
 
   /** Source URL for the primary data. Points to the ACS disability topic page. */
   source_url: 'https://www.census.gov/topics/health/disability.html',
 
   /** Direct URL to the ACS B18101 data table. */
-  source_table_url: 'https://data.census.gov/table/ACSDT1Y2023.B18101',
+  source_table_url: 'https://data.census.gov/table/ACSDT1Y2024.B18101',
 
-  /** U.S. resident population estimate for the vintage year (ACS 2023). */
-  us_population: 336_500_000,
+  /** U.S. resident population estimate for the vintage year (ACS 2024). */
+  us_population: 340_100_000,
 
   /**
    * Disability prevalence rates per Section 508 FPC code.
@@ -98,9 +98,9 @@ export const CENSUS_DISABILITY_STATS = {
       source_note: 'AFB: ~3.4 million Americans with severe visual impairment or blindness'
     },
     LV: {
-      rate: 0.024,
-      estimated_population: 8_100_000,
-      source_note: 'ACS 2023 + supplemental estimates: vision difficulty (all severity levels); ~2.4% of U.S. population'
+      rate: 0.023,
+      estimated_population: 7_800_000,
+      source_note: 'ACS 2024 + supplemental estimates: vision difficulty (all severity levels); ~2.3% of U.S. population'
     },
     WPC: {
       rate: 0.043,
@@ -109,13 +109,13 @@ export const CENSUS_DISABILITY_STATS = {
     },
     WH: {
       rate: 0.003,
-      estimated_population: 1_100_000,
+      estimated_population: 1_000_000,
       source_note: 'NIDCD: ~1.1 million Americans with functional deafness'
     },
     LH: {
-      rate: 0.035,
-      estimated_population: 11_900_000,
-      source_note: 'NIDCD/ACS combined hearing difficulty estimates: ~3.5% of U.S. population'
+      rate: 0.034,
+      estimated_population: 11_600_000,
+      source_note: 'NIDCD/ACS combined hearing difficulty estimates: ~3.4% of U.S. population'
     },
     WS: {
       rate: 0.005,
@@ -123,19 +123,19 @@ export const CENSUS_DISABILITY_STATS = {
       source_note: 'NIDCD estimate: severe non-verbal or speech-absent population'
     },
     LM: {
-      rate: 0.022,
-      estimated_population: 7_600_000,
-      source_note: 'ACS 2023 self-care difficulty + dexterity estimates: ~2.2% of U.S. population'
+      rate: 0.023,
+      estimated_population: 7_800_000,
+      source_note: 'ACS 2024 self-care difficulty + dexterity estimates: ~2.3% of U.S. population'
     },
     LRS: {
       rate: 0.058,
-      estimated_population: 19_600_000,
-      source_note: 'ACS 2023: ambulatory difficulty; ~5.8% of U.S. population'
+      estimated_population: 19_700_000,
+      source_note: 'ACS 2024: ambulatory difficulty; ~5.8% of U.S. population'
     },
     LLCLA: {
-      rate: 0.047,
-      estimated_population: 15_900_000,
-      source_note: 'ACS 2023/CDC combined cognitive and learning disability estimates: ~4.7% of U.S. population'
+      rate: 0.049,
+      estimated_population: 16_700_000,
+      source_note: 'ACS 2024/CDC combined cognitive and learning disability estimates: ~4.9% of U.S. population'
     }
   }
 };

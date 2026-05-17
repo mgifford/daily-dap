@@ -6,9 +6,9 @@ scan:
   pause_after_load_ms: 2000
 
 impact:
-  # Section 508 FPC-aligned prevalence rates derived from U.S. Census Bureau ACS 2023.
+  # Section 508 FPC-aligned prevalence rates derived from U.S. Census Bureau ACS 2024.
   # See src/data/census-disability-stats.js for full citations and per-category notes.
-  # Review annually; next review: 2027-01-01
+  # Review annually; next review: 2027-05-17
   prevalence_rates:
     WV: 0.010
     LV: 0.023
