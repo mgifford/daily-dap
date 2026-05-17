@@ -26,7 +26,7 @@ function extractTopIssues(rawResult, limit = 5) {
       issue_id: id,
       title: audit?.title ?? id,
       description: audit?.description ?? null,
-      savings_ms: toFiniteNumber(audit?.details?.overallSavingsMs) ?? 0
+      savings_ms: toFiniteNumber(audit?.details?.overallSavingsMs) || 0
     }))
     .filter((issue) => issue.savings_ms > 0)
     .sort((left, right) => right.savings_ms - left.savings_ms)

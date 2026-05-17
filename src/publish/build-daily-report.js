@@ -37,7 +37,7 @@ export function buildWebPageTestSummary(urlResults = []) {
         };
       }
       issueRollup[issue.issue_id].affected_urls += 1;
-      issueRollup[issue.issue_id].total_savings_ms += Number(issue.savings_ms ?? 0) || 0;
+      issueRollup[issue.issue_id].total_savings_ms += Number(issue.savings_ms ?? 0);
     }
   }
 
