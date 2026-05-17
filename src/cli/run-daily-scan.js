@@ -406,11 +406,14 @@ function createLiveScannerRunners(config = {}) {
 
   let webPageTestRunImpl;
   if (webpagetestApiKey) {
-    webPageTestRunImpl = createWebPageTestRunImpl({
-      apiBaseUrl: webpagetestApiUrl,
-      resultApiUrl: webpagetestResultApiUrl,
-      apiKey: webpagetestApiKey
-    });
+    const webPageTestOptions = { apiKey: webpagetestApiKey };
+    if (webpagetestApiUrl) {
+      webPageTestOptions.apiBaseUrl = webpagetestApiUrl;
+    }
+    if (webpagetestResultApiUrl) {
+      webPageTestOptions.resultApiUrl = webpagetestResultApiUrl;
+    }
+    webPageTestRunImpl = createWebPageTestRunImpl(webPageTestOptions);
     logProgress('WEBPAGETEST_INIT', 'WebPageTest live HTTP runner configured');
   } else {
     webPageTestRunImpl = async () => null;
