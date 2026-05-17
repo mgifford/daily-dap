@@ -223,7 +223,7 @@ export function buildDailyReport({
 
   const codeQualitySummary = buildCodeQualitySummary(urlResults);
   const readabilitySummary = buildReadabilitySummary(urlResults);
-  const webpagetestSummary = buildWebPageTestSummary(urlResults);
+  const webPageTestSummary = buildWebPageTestSummary(urlResults);
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;
@@ -262,7 +262,7 @@ export function buildDailyReport({
     tech_summary: techSummary,
     code_quality_summary: codeQualitySummary,
     readability_summary: readabilitySummary,
-    webpagetest_summary: webpagetestSummary,
+    webpagetest_summary: webPageTestSummary,
     environmental_conditions: environmentalConditions ?? null,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
