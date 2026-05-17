@@ -1,8 +1,8 @@
 @ingest
 Feature: DAP ingestion behavior
   # Source references:
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 3, Data Ingestion)
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 7, CLI options for source data and traffic window)
+  # - FEATURES.md (Section 3, Data Ingestion)
+  # - FEATURES.md (Section 7, CLI options for source data and traffic window)
 
   Rule: Input source and date windows are explicit and predictable
 

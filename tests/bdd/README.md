@@ -2,7 +2,7 @@
 
 This directory contains curated, human-readable behavior specifications for Daily DAP.
 
-`/home/runner/work/daily-dap/daily-dap/FEATURES.md` remains the technical catalog and architecture reference.
+`FEATURES.md` remains the technical catalog and architecture reference.
 The files here are living behavior contracts focused on user-visible outcomes.
 
 ## Directory layout
@@ -41,7 +41,7 @@ Recommended execution policy:
 
 Each feature file must include comment references back to relevant sections in:
 
-- `/home/runner/work/daily-dap/daily-dap/FEATURES.md`
+- `FEATURES.md`
 
 Cross-file scenario mapping is maintained in:
 
@@ -50,7 +50,7 @@ Cross-file scenario mapping is maintained in:
 ## Step definition and world conventions
 
 - Keep steps thin and reusable.
-- Reuse fixtures from `/home/runner/work/daily-dap/daily-dap/tests/fixtures/`.
+- Reuse fixtures from `tests/fixtures/`.
 - Keep wording UI-agnostic so runner implementations can evolve.
 - Reserve Playwright use for acceptance boundaries and rendered report behavior.
 - Keep core logic checks in existing unit/contract/integration suites (`npm test`).

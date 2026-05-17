@@ -1,8 +1,8 @@
 @aggregation
 Feature: Accessibility impact aggregation behavior
   # Source references:
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 5, Aggregation and metrics)
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 12, Accessibility compliance features)
+  # - FEATURES.md (Section 5, Aggregation and metrics)
+  # - FEATURES.md (Section 12, Accessibility compliance features)
 
   Rule: Impact estimates remain interpretable and stable across runs
 

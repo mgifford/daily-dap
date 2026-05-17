@@ -1,8 +1,8 @@
 @scan
 Feature: Scan execution behavior
   # Source references:
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 4, Scanners)
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 7, Run CLI and rate-limiting controls)
+  # - FEATURES.md (Section 4, Scanners)
+  # - FEATURES.md (Section 7, Run CLI and rate-limiting controls)
 
   Rule: Scan outcomes are visible and classified for downstream reporting
 

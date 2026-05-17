@@ -1,8 +1,8 @@
 @publishing @daily-report
 Feature: Daily report publishing behavior
   # Source references:
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 11.1, Daily Report Page)
-  # - /home/runner/work/daily-dap/daily-dap/FEATURES.md (Section 6, Publishing and report generation)
+  # - FEATURES.md (Section 11.1, Daily Report Page)
+  # - FEATURES.md (Section 6, Publishing and report generation)
 
   Rule: History and score content is trustworthy and readable
 

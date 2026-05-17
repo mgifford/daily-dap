@@ -10,8 +10,8 @@ Describe the user-facing change and the affected areas.
 ## Behavior-driven development impact
 
 - [ ] I reviewed whether this change affects user-visible behavior
-- [ ] I updated `/home/runner/work/daily-dap/daily-dap/tests/bdd/features/` scenarios as needed
-- [ ] I updated `/home/runner/work/daily-dap/daily-dap/tests/bdd/TRACEABILITY.md` for new or changed requirements
+- [ ] I updated `tests/bdd/features/` scenarios as needed
+- [ ] I updated `tests/bdd/TRACEABILITY.md` for new or changed requirements
 
 ## Accessibility and security checks
 
