@@ -1592,7 +1592,7 @@ test('renderDailyReportPage URL modal shows per-URL disability impact estimates'
   // color-contrast maps to LV (2.3%) and WPC (4.3%)
   // Page loads = 500,000
   // LV estimate: 500,000 * 0.023 = 11,500 -> ~11.5K
-  // WPC estimate: 500,000 * 0.043 = 21,500 → ~21.5K
+  // WPC estimate: 500,000 * 0.043 = 21,500 -> ~21.5K
   const modalMatch = html.match(/<dialog id="modal-url-0"[\s\S]*?<\/dialog>/);
   assert.ok(modalMatch, 'Modal should be present for the URL');
   assert.ok(modalMatch[0].includes('disability-estimate'), 'Modal should show disability impact estimates');
