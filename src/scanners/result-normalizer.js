@@ -25,6 +25,7 @@ export function normalizeUrlScanResult({
   urlRecord,
   lighthouseResult,
   scanGovResult,
+  webPageTestResult,
   readabilityResult,
   excludedReason,
   failureReason,
@@ -75,6 +76,10 @@ export function normalizeUrlScanResult({
     ),
     accessibility_findings: normalizeFindings(urlRecord.url, scanGovResult?.accessibility_findings),
     axe_findings: extractAxeFindings(lighthouseResult?.raw),
+    webpagetest_metrics: webPageTestResult?.webpagetest_metrics ?? null,
+    webpagetest_issues: Array.isArray(webPageTestResult?.webpagetest_issues)
+      ? webPageTestResult.webpagetest_issues
+      : [],
     scan_diagnostics: {
       attempt_count: diagnostics.attempt_count ?? 0,
       retry_count: diagnostics.retry_count ?? 0,

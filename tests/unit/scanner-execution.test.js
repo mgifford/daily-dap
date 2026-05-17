@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runLighthouseScan } from '../../src/scanners/lighthouse-runner.js';
 import { runScanGovScan } from '../../src/scanners/scangov-runner.js';
+import { runWebPageTestScan } from '../../src/scanners/webpagetest-runner.js';
 import { normalizeUrlScanResult } from '../../src/scanners/result-normalizer.js';
 import { executeUrlScans } from '../../src/scanners/execution-manager.js';
 import { FAILURE_REASON_CATALOG } from '../../src/scanners/status-classifier.js';
@@ -60,6 +61,38 @@ test('runScanGovScan normalizes findings and unknown severities', async () => {
   assert.equal(result.accessibility_findings[1].source_tool, 'scangov');
 });
 
+test('runWebPageTestScan extracts core metrics and optimization issues', async () => {
+  const result = await runWebPageTestScan('https://example.gov', {
+    runImpl: async () => ({
+      data: {
+        median: {
+          firstView: {
+            SpeedIndex: 1234,
+            firstContentfulPaint: 789,
+            largestContentfulPaint: 1560,
+            TimeToInteractive: 2100,
+            bytesIn: 654321,
+            lighthouse: {
+              audits: {
+                'render-blocking-resources': {
+                  title: 'Eliminate render-blocking resources',
+                  details: { overallSavingsMs: 1500 }
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  });
+
+  assert.equal(result.webpagetest_metrics.speed_index_ms, 1234);
+  assert.equal(result.webpagetest_metrics.largest_contentful_paint_ms, 1560);
+  assert.equal(result.webpagetest_metrics.total_bytes, 654321);
+  assert.equal(result.webpagetest_issues.length, 1);
+  assert.equal(result.webpagetest_issues[0].issue_id, 'render-blocking-resources');
+});
+
 test('normalizeUrlScanResult applies failed status and fallback finding severity', () => {
   const result = normalizeUrlScanResult({
     runId: 'run-2026-02-21-abc123',
@@ -82,6 +115,22 @@ test('normalizeUrlScanResult applies failed status and fallback finding severity
   assert.equal(result.scan_status, 'failed');
   assert.equal(result.failure_reason, FAILURE_REASON_CATALOG.TIMEOUT);
   assert.equal(result.accessibility_findings[0].severity, 'unknown');
+});
+
+test('normalizeUrlScanResult includes webpagetest metrics and issues', () => {
+  const result = normalizeUrlScanResult({
+    runId: 'run-2026-02-21-ghi789',
+    urlRecord: { url: 'https://example.gov', page_load_count: 1000 },
+    lighthouseResult: { lighthouse_performance: 80 },
+    webPageTestResult: {
+      webpagetest_metrics: { speed_index_ms: 1000 },
+      webpagetest_issues: [{ issue_id: 'unused-javascript', title: 'Reduce unused JavaScript', savings_ms: 500 }]
+    }
+  });
+
+  assert.equal(result.webpagetest_metrics.speed_index_ms, 1000);
+  assert.equal(result.webpagetest_issues.length, 1);
+  assert.equal(result.webpagetest_issues[0].issue_id, 'unused-javascript');
 });
 
 test('executeUrlScans retries timeout and marks excluded records', async () => {

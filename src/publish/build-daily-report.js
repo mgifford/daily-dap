@@ -11,6 +11,48 @@ function coerceScore(value) {
   return 0;
 }
 
+export function buildWebPageTestSummary(urlResults = []) {
+  const successful = urlResults.filter((r) => r?.scan_status === 'success');
+  const issueRollup = {};
+  let urlsWithResults = 0;
+
+  for (const result of successful) {
+    const hasMetrics = result?.webpagetest_metrics && typeof result.webpagetest_metrics === 'object';
+    const issues = Array.isArray(result?.webpagetest_issues) ? result.webpagetest_issues : [];
+    if (!hasMetrics && issues.length === 0) {
+      continue;
+    }
+
+    urlsWithResults += 1;
+    for (const issue of issues) {
+      if (!issue?.issue_id) {
+        continue;
+      }
+      if (!issueRollup[issue.issue_id]) {
+        issueRollup[issue.issue_id] = {
+          issue_id: issue.issue_id,
+          title: issue.title ?? issue.issue_id,
+          affected_urls: 0,
+          total_savings_ms: 0
+        };
+      }
+      issueRollup[issue.issue_id].affected_urls += 1;
+      issueRollup[issue.issue_id].total_savings_ms += Number(issue.savings_ms ?? 0) || 0;
+    }
+  }
+
+  return {
+    total_scanned: successful.length,
+    urls_with_results: urlsWithResults,
+    common_pain_points: Object.values(issueRollup)
+      .sort(
+        (left, right) =>
+          right.affected_urls - left.affected_urls || right.total_savings_ms - left.total_savings_ms
+      )
+      .slice(0, 5)
+  };
+}
+
 /**
  * Produce a compact per-URL code quality summary suitable for the top_urls array.
  * Avoids embedding full audit item payloads to keep the report JSON size manageable.
@@ -104,32 +146,34 @@ function normalizeTopUrls(urlResults = [], dotgovLookup = null) {
       const hostname = hostnameFromUrl(result.url);
       const domainInfo = hostname ? lookupDomain(hostname, dotgovLookup) : null;
       return {
-      url: result.url,
-      organization_name: domainInfo?.organization_name ?? null,
-      domain_type: domainInfo?.domain_type ?? null,
-      page_load_count: result.page_load_count ?? 0,
-      scan_status: result.scan_status,
-      failure_reason: result.failure_reason ?? null,
-      findings_count: Array.isArray(result.axe_findings) ? result.axe_findings.length : 0,
-      severe_findings_count: Array.isArray(result.axe_findings)
-        ? result.axe_findings.filter((f) => f.impact === 'critical' || f.impact === 'serious').length
-        : 0,
-      core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
-      lcp_value_ms: typeof result.lcp_value_ms === 'number' ? result.lcp_value_ms : null,
-      detected_technologies: result.detected_technologies ?? null,
-      code_quality_summary: summarizeCodeQualityAudits(result.code_quality_audits),
-      lighthouse_scores:
-        result.scan_status === 'success'
-          ? {
-              performance: coerceScore(result.lighthouse_performance),
-              accessibility: coerceScore(result.lighthouse_accessibility),
-              best_practices: coerceScore(result.lighthouse_best_practices),
-              seo: coerceScore(result.lighthouse_seo),
-              pwa: coerceScore(result.lighthouse_pwa)
-            }
-          : null,
-      axe_findings: Array.isArray(result.axe_findings) ? result.axe_findings : [],
-      readability_metrics: result.readability_metrics ?? null
+        url: result.url,
+        organization_name: domainInfo?.organization_name ?? null,
+        domain_type: domainInfo?.domain_type ?? null,
+        page_load_count: result.page_load_count ?? 0,
+        scan_status: result.scan_status,
+        failure_reason: result.failure_reason ?? null,
+        findings_count: Array.isArray(result.axe_findings) ? result.axe_findings.length : 0,
+        severe_findings_count: Array.isArray(result.axe_findings)
+          ? result.axe_findings.filter((f) => f.impact === 'critical' || f.impact === 'serious').length
+          : 0,
+        core_web_vitals_status: result.core_web_vitals_status ?? 'unknown',
+        lcp_value_ms: typeof result.lcp_value_ms === 'number' ? result.lcp_value_ms : null,
+        detected_technologies: result.detected_technologies ?? null,
+        code_quality_summary: summarizeCodeQualityAudits(result.code_quality_audits),
+        lighthouse_scores:
+          result.scan_status === 'success'
+            ? {
+                performance: coerceScore(result.lighthouse_performance),
+                accessibility: coerceScore(result.lighthouse_accessibility),
+                best_practices: coerceScore(result.lighthouse_best_practices),
+                seo: coerceScore(result.lighthouse_seo),
+                pwa: coerceScore(result.lighthouse_pwa)
+              }
+            : null,
+        axe_findings: Array.isArray(result.axe_findings) ? result.axe_findings : [],
+        readability_metrics: result.readability_metrics ?? null,
+        webpagetest_metrics: result.webpagetest_metrics ?? null,
+        webpagetest_issues: Array.isArray(result.webpagetest_issues) ? result.webpagetest_issues : []
       };
     })
     .sort((left, right) => right.page_load_count - left.page_load_count);
@@ -179,6 +223,7 @@ export function buildDailyReport({
 
   const codeQualitySummary = buildCodeQualitySummary(urlResults);
   const readabilitySummary = buildReadabilitySummary(urlResults);
+  const webpagetestSummary = buildWebPageTestSummary(urlResults);
 
   const sourceDataDate = urlResults.reduce((latest, result) => {
     const candidate = result?.source_date;
@@ -217,6 +262,7 @@ export function buildDailyReport({
     tech_summary: techSummary,
     code_quality_summary: codeQualitySummary,
     readability_summary: readabilitySummary,
+    webpagetest_summary: webpagetestSummary,
     environmental_conditions: environmentalConditions ?? null,
     trend_window_days: historyWindow?.window_days ?? 30,
     history_series: historySeries,
