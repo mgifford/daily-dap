@@ -7,11 +7,11 @@ test('isCensusDataStale returns false for a date before next_review_date', () =>
 });
 
 test('isCensusDataStale returns true for a date equal to next_review_date', () => {
-  assert.equal(isCensusDataStale('2027-01-01'), true);
+  assert.equal(isCensusDataStale('2027-05-17'), true);
 });
 
 test('isCensusDataStale returns true for a date after next_review_date', () => {
-  assert.equal(isCensusDataStale('2028-06-15'), true);
+  assert.equal(isCensusDataStale('2027-06-15'), true);
 });
 
 test('getFpcPrevalenceRates returns an object keyed by FPC code', () => {
