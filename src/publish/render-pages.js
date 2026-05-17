@@ -2744,7 +2744,7 @@ function renderAxePatternsSection(topUrls = []) {
   return `
   <section aria-labelledby="axe-patterns-heading">
     <h2 id="axe-patterns-heading">Common Accessibility Issues (Top ${topPatterns.length})${renderAnchorLink('axe-patterns-heading', `Common Accessibility Issues (Top ${topPatterns.length})`)}</h2>
-    <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites.</p>
+    <p>The following axe-core rules were most frequently violated across scanned URLs today. These patterns indicate systemic accessibility barriers present across multiple government websites. Impact figures in this section are estimates based on U.S. Census disability prevalence data and observed page-load counts, which may include bot traffic.</p>
     <p>Total axe findings today: <strong>${totalFindings.toLocaleString('en-US')}</strong> across ${totalUrlsScanned.toLocaleString('en-US')} scanned URLs.</p>
     ${wrapTable(`<table>
       <caption>Top axe-core accessibility rule violations across scanned URLs</caption>
