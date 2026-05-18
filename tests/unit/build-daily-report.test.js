@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildCodeQualitySummary, buildDailyReport } from '../../src/publish/build-daily-report.js';
+import {
+  buildCodeQualitySummary,
+  buildDailyReport,
+  buildWebPageTestSummary
+} from '../../src/publish/build-daily-report.js';
 
 // ---------------------------------------------------------------------------
 // Fixtures
@@ -156,6 +160,26 @@ test('buildCodeQualitySummary ignores items without library name', () => {
   const summary = buildCodeQualitySummary(results);
   assert.deepEqual(summary.vulnerable_library_counts, {});
   assert.deepEqual(summary.js_library_counts, {});
+});
+
+test('buildWebPageTestSummary surfaces common performance pain points', () => {
+  const summary = buildWebPageTestSummary([
+    makeUrlResult({
+      webpagetest_metrics: { speed_index_ms: 2000 },
+      webpagetest_issues: [{ issue_id: 'unused-javascript', title: 'Reduce unused JavaScript', savings_ms: 1200 }]
+    }),
+    makeUrlResult({
+      url: 'https://b.gov/',
+      webpagetest_metrics: { speed_index_ms: 1800 },
+      webpagetest_issues: [{ issue_id: 'unused-javascript', title: 'Reduce unused JavaScript', savings_ms: 800 }]
+    })
+  ]);
+
+  assert.equal(summary.total_scanned, 2);
+  assert.equal(summary.urls_with_results, 2);
+  assert.equal(summary.common_pain_points[0].issue_id, 'unused-javascript');
+  assert.equal(summary.common_pain_points[0].affected_urls, 2);
+  assert.equal(summary.common_pain_points[0].total_savings_ms, 2000);
 });
 
 // ---------------------------------------------------------------------------
@@ -321,6 +345,21 @@ test('buildDailyReport report_status is "success" when no URLs failed', () => {
   const urlResults = [makeUrlResult({ scan_status: 'success' })];
   const report = buildMinReport({ urlResults });
   assert.equal(report.report_status, 'success');
+});
+
+test('buildDailyReport includes webpagetest summary in output', () => {
+  const report = buildMinReport({
+    urlResults: [
+      makeUrlResult({
+        webpagetest_metrics: { speed_index_ms: 1400 },
+        webpagetest_issues: [{ issue_id: 'render-blocking-resources', title: 'Eliminate render-blocking resources', savings_ms: 900 }]
+      })
+    ]
+  });
+
+  assert.equal(report.webpagetest_summary.total_scanned, 1);
+  assert.equal(report.webpagetest_summary.urls_with_results, 1);
+  assert.equal(report.webpagetest_summary.common_pain_points[0].issue_id, 'render-blocking-resources');
 });
 
 test('buildDailyReport source_data_date is the latest source_date from url results', () => {

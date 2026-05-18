@@ -26,6 +26,7 @@ import { buildFailureReport, writeFailureSnapshot } from '../publish/failure-rep
 import { checkAccessibilityStatements } from '../scanners/accessibility-statement-checker.js';
 import { checkRequiredLinks } from '../scanners/required-links-checker.js';
 import { createHttpRunImpl } from '../scanners/scangov-runner.js';
+import { createHttpRunImpl as createWebPageTestRunImpl } from '../scanners/webpagetest-runner.js';
 import { fetchEnvironmentalConditions } from '../scanners/environmental-scanner.js';
 
 const DEFAULT_PAUSE_AFTER_LOAD_MS = 2000;
@@ -328,6 +329,43 @@ function createMockScannerRunners(failNeedles = []) {
         return { issues: findings };
       }
     },
+    webPageTestRunner: {
+      runImpl: async (url) => {
+        if (shouldFail(url)) {
+          throw new Error(`Mock WebPageTest failure for ${url}`);
+        }
+
+        const seed = scoreFromUrl(url, 0);
+        const audits = {};
+        if (seed % 2 === 0) {
+          audits['render-blocking-resources'] = {
+            title: 'Eliminate render-blocking resources',
+            details: { overallSavingsMs: 1400 + seed }
+          };
+        }
+        if (seed % 3 === 0) {
+          audits['unused-javascript'] = {
+            title: 'Reduce unused JavaScript',
+            details: { overallSavingsMs: 900 + seed }
+          };
+        }
+
+        return {
+          data: {
+            median: {
+              firstView: {
+                SpeedIndex: 1800 + seed * 10,
+                firstContentfulPaint: 1200 + seed * 8,
+                largestContentfulPaint: 2200 + seed * 12,
+                TimeToInteractive: 2600 + seed * 9,
+                bytesIn: 900000 + seed * 1000,
+                lighthouse: { audits }
+              }
+            }
+          }
+        };
+      }
+    },
     readabilityRunner: {
       runImpl: async (url) => {
         if (shouldFail(url)) {
@@ -352,6 +390,9 @@ function createMockScannerRunners(failNeedles = []) {
 
 function createLiveScannerRunners(config = {}) {
   const scanGovApiUrl = process.env.SCANGOV_API_URL;
+  const webpagetestApiKey = process.env.WEBPAGETEST_API_KEY;
+  const webpagetestApiUrl = process.env.WEBPAGETEST_API_URL;
+  const webpagetestResultApiUrl = process.env.WEBPAGETEST_RESULT_API_URL;
   const pauseAfterLoadMs = config?.scan?.pause_after_load_ms ?? DEFAULT_PAUSE_AFTER_LOAD_MS;
 
   let scanGovRunImpl;
@@ -363,6 +404,25 @@ function createLiveScannerRunners(config = {}) {
     logProgress('SCANGOV_SKIP', 'SCANGOV_API_URL not set; ScanGov findings will be empty for this run');
   }
 
+  let webPageTestRunImpl;
+  if (webpagetestApiKey) {
+    const webPageTestOptions = { apiKey: webpagetestApiKey };
+    if (webpagetestApiUrl) {
+      webPageTestOptions.apiBaseUrl = webpagetestApiUrl;
+    }
+    if (webpagetestResultApiUrl) {
+      webPageTestOptions.resultApiUrl = webpagetestResultApiUrl;
+    }
+    webPageTestRunImpl = createWebPageTestRunImpl(webPageTestOptions);
+    logProgress('WEBPAGETEST_INIT', 'WebPageTest live HTTP runner configured');
+  } else {
+    webPageTestRunImpl = async () => null;
+    logProgress(
+      'WEBPAGETEST_SKIP',
+      'WEBPAGETEST_API_KEY not set; WebPageTest metrics will be empty for this run'
+    );
+  }
+
   return {
     lighthouseRunner: {
       executionOptions: {
@@ -371,6 +431,9 @@ function createLiveScannerRunners(config = {}) {
     },
     scanGovRunner: {
       runImpl: scanGovRunImpl
+    },
+    webPageTestRunner: {
+      runImpl: webPageTestRunImpl
     },
     readabilityRunner: {}
   };
@@ -571,7 +634,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       pauseAfterLoadMs: runtimeConfig.scan.pause_after_load_ms ?? DEFAULT_PAUSE_AFTER_LOAD_MS
     });
 
-    const { lighthouseRunner, scanGovRunner, readabilityRunner } =
+    const { lighthouseRunner, scanGovRunner, webPageTestRunner, readabilityRunner } =
       args.scanMode === 'mock' ? createMockScannerRunners(args.mockFailUrl) : createLiveScannerRunners(runtimeConfig);
     const scanExecution = await executeUrlScans(normalized.records, {
       runId: runMetadata.run_id,
@@ -582,6 +645,7 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
       interScanDelayMs: args.interScanDelayMs,
       lighthouseRunner,
       scanGovRunner,
+      webPageTestRunner,
       readabilityRunner,
       excludePredicate: (record) => (record.page_load_count === null ? 'excluded_missing_page_load_count' : null)
     });
@@ -721,11 +785,15 @@ export async function runDailyScan(inputArgs = parseArgs(process.argv)) {
     report.scan_mode = args.scanMode;
     if (args.scanMode === 'live') {
       const scanGovActive = Boolean(process.env.SCANGOV_API_URL);
+      const webPageTestActive = Boolean(process.env.WEBPAGETEST_API_KEY);
       report.scanner_notes = [
         'Lighthouse scans are live per URL.',
         scanGovActive
           ? 'ScanGov findings fetched live via SCANGOV_API_URL.'
-          : 'ScanGov findings are empty: set SCANGOV_API_URL to enable live ScanGov scanning.'
+          : 'ScanGov findings are empty: set SCANGOV_API_URL to enable live ScanGov scanning.',
+        webPageTestActive
+          ? 'WebPageTest metrics fetched live via WEBPAGETEST_API_KEY.'
+          : 'WebPageTest metrics are empty: set WEBPAGETEST_API_KEY to enable live WebPageTest scanning.'
       ];
     }
 

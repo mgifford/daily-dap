@@ -1,6 +1,7 @@
 import { setTimeout as delay } from 'node:timers/promises';
 import { runLighthouseScan } from './lighthouse-runner.js';
 import { runScanGovScan } from './scangov-runner.js';
+import { runWebPageTestScan } from './webpagetest-runner.js';
 import { normalizeUrlScanResult } from './result-normalizer.js';
 import { buildRunDiagnostics } from './diagnostics.js';
 import { FAILURE_REASON_CATALOG } from './status-classifier.js';
@@ -46,6 +47,7 @@ async function executeSingleRecord(record, options) {
     timeoutMs,
     lighthouseRunner,
     scanGovRunner,
+    webPageTestRunner,
     readabilityRunner,
     retryDelayMs,
     excludePredicate
@@ -71,10 +73,11 @@ async function executeSingleRecord(record, options) {
           ? readabilityRunner.runImpl(record.url)
           : fetchAndExtractReadability(record.url);
 
-      const [lighthouseResult, scanGovResult, readabilityResult] = await withTimeout(
+      const [lighthouseResult, scanGovResult, webPageTestResult, readabilityResult] = await withTimeout(
         Promise.all([
           runLighthouseScan(record.url, lighthouseRunner),
           runScanGovScan(record.url, scanGovRunner),
+          runWebPageTestScan(record.url, webPageTestRunner).catch(() => null),
           runReadability.catch(() => null)
         ]),
         timeoutMs
@@ -85,6 +88,7 @@ async function executeSingleRecord(record, options) {
         urlRecord: record,
         lighthouseResult,
         scanGovResult,
+        webPageTestResult,
         readabilityResult,
         diagnostics: {
           attempt_count: attempt,
@@ -127,6 +131,7 @@ export async function executeUrlScans(urlRecords, options = {}) {
     excludePredicate,
     lighthouseRunner = {},
     scanGovRunner = {},
+    webPageTestRunner = {},
     readabilityRunner = {}
   } = options;
 
@@ -162,6 +167,7 @@ export async function executeUrlScans(urlRecords, options = {}) {
         excludePredicate,
         lighthouseRunner,
         scanGovRunner,
+        webPageTestRunner,
         readabilityRunner
       });
       
