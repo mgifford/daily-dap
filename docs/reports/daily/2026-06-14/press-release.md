@@ -1,0 +1,113 @@
+FOR IMMEDIATE RELEASE
+
+# U.S. Government Website Accessibility Report: June 14, 2026
+
+*Washington, D.C. -- June 14, 2026* -- A daily scan of 85 of the most-visited U.S. government websites found 197 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Visual Information Access, and Voice Control Activation.
+
+These barriers prevent Americans with disabilities from independently accessing essential government services. This is a single daily snapshot of the most popular ~100 pages in U.S. federal government web properties, as measured by the Digital Analytics Program (DAP).
+
+## Americans Being Left Out
+
+Based on page traffic data and U.S. Census disability prevalence estimates (ACS 2022), today's accessibility barriers are estimated to affect the following groups of Americans:
+
+| Disability Group | Affected Page Loads | Estimated People Affected |
+|-----------------|---------------------|--------------------------|
+| Limited Reach and Strength | 20,575,952 | ~1,193,405 |
+| Limited Manipulation | 30,455,292 | ~700,472 |
+| Without Perception of Color | 11,318,406 | ~486,691 |
+| Limited Vision | 15,557,337 | ~357,819 |
+| Without Vision | 30,706,234 | ~307,062 |
+| Limited Language, Cognitive, and Learning Abilities | 2,677,906 | ~131,217 |
+| Without Hearing | 30,706,234 | ~92,119 |
+
+*Total page loads across all scanned URLs today: 45,044,071*
+
+*Estimates use disability prevalence rates from the U.S. Census Bureau American Community Survey (ACS) 2022, supplemented by CDC, NIDCD, AFB, and NIH/NEI data. These are rough estimates intended to illustrate the scale of accessibility barriers, not precise measurements.*
+
+## Top Accessibility Barriers
+
+The following accessibility issues were most frequently found across today's scanned government websites. Each issue prevents specific groups of Americans from independently accessing government services.
+
+### 1. `target-size`: Digital Motor Access
+
+*Found on 26 government websites today*
+
+Small touch targets act as a digital gatekeeper, excluding individuals with tremors, arthritis, or limited dexterity from accessing essential services independently. These technical failures transform a routine interaction into a source of failure, stripping away the autonomy of citizens who require a frictionless, accessible interface to participate in digital life. The approximately 58 million Americans with ambulatory or self-care disabilities are disproportionately impacted by inadequate touch target sizing on government mobile websites.
+
+**Affected groups:**
+
+- People with Parkinson's disease, arthritis, or hand tremors
+- Older adults with reduced fine motor control
+- People with motor disabilities using alternative pointing devices
+- People in situational impairment contexts (e.g., commuting, holding a child)
+
+### 2. `color-contrast`: Visual Information Access
+
+*Found on 19 government websites today*
+
+Low contrast text is one of the most pervasive barriers on government websites, rendering critical information invisible to the approximately 26 million Americans with low vision or color blindness. When agency announcements, form instructions, error messages, or legal notices are displayed in insufficient contrast, affected citizens are denied equal access to the information they need to exercise their rights and access public services.
+
+**Affected groups:**
+
+- People with low vision including age-related vision loss
+- People who are color blind (approximately 8% of men, 0.5% of women)
+
+### 3. `label-content-name-mismatch`: Voice Control Activation
+
+*Found on 19 government websites today*
+
+When the accessible name of an element does not match its visible text, voice control users cannot activate it using the words they see on screen. Saying "click Submit" to a button whose visual label is "Submit" but whose accessible name is "submitbtn" results in no action. This mismatch silently breaks voice control for citizens with motor disabilities who depend on this input method to interact with government websites.
+
+**Affected groups:**
+
+- People who are blind using screen readers
+- People with low vision relying on screen magnifiers
+- People who are deaf using keyboard navigation
+- People with motor disabilities using voice control software
+
+### 4. `heading-order`: Document Structure Navigation
+
+*Found on 18 government websites today*
+
+Screen reader users navigate complex government websites primarily through heading structure, using headings as a table of contents to jump between sections. Skipped heading levels break the logical document outline, causing confusion about the hierarchy of information and forcing users to re-read sections to understand the relationship between topics, adding significant time and effort to information-gathering tasks.
+
+**Affected groups:**
+
+- People who are blind using screen readers
+- People who are deaf and rely on visual-to-text tools
+- People with motor disabilities using keyboard navigation
+
+### 5. `link-name`: Link Purpose Clarity
+
+*Found on 14 government websites today*
+
+Links without accessible names are completely useless to screen reader users who navigate government pages by jumping between links. An unnamed link could lead anywhere, and activating it unknowingly could trigger downloads, open unexpected pages, or initiate unintended processes. On government websites, unnamed links undermine the informed consent principle by preventing citizens from knowing where a link will take them.
+
+**Affected groups:**
+
+- People who are blind using screen readers
+- People who are deaf and rely on visual-to-text tools
+- People with motor disabilities using keyboard navigation
+
+## Accessibility Scores
+
+Aggregate Lighthouse scores across 85 scanned U.S. government websites today:
+
+| Metric | Score |
+|--------|-------|
+| Accessibility | 91.88 |
+| Performance | 52.31 |
+| Best Practices | 83.26 |
+| SEO | 89.34 |
+
+## About This Report
+
+This report captures a daily snapshot of the most-visited U.S. government web pages as measured by the Digital Analytics Program (DAP). Scans use Lighthouse (Google's automated web quality tool, which includes axe-core for accessibility testing). Reports are published automatically each day.
+
+- [View full interactive report](https://mgifford.github.io/daily-dap/docs/reports/daily/2026-06-14/index.html)
+- [Download accessibility findings (JSON)](https://mgifford.github.io/daily-dap/docs/reports/daily/2026-06-14/axe-findings.json)
+- [Download accessibility findings (CSV)](https://mgifford.github.io/daily-dap/docs/reports/daily/2026-06-14/axe-findings.csv)
+
+---
+
+*Generated by [Daily DAP](https://github.com/mgifford/daily-dap) | Source: Digital Analytics Program | Methodology: Lighthouse + axe-core | Date: 2026-06-14*
