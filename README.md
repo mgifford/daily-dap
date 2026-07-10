@@ -147,6 +147,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | OpenAI | gpt-5 | Added a dedicated BDD behavior layer under tests/bdd with curated domain Gherkin features, traceability and ownership docs, step/world guidance, and a pull request checklist for behavior-change governance |
 | OpenAI | gpt-5 (Copilot Coding Agent) | Clarified the Common Accessibility Issues section to state disability-impact values are Census-based estimates and that page-load totals may include bot traffic; added unit-test coverage for the updated language |
 | OpenAI | gpt-5 (Copilot Coding Agent) | Added optional WebPageTest scanner integration (with `WEBPAGETEST_API_KEY`), normalized per-URL WebPageTest metrics/issues, and report-level common performance pain-point aggregation with focused unit tests |
+| Claude (Anthropic) | (via Claude Code) | Governance documentation for issue #210: authored `.kittify/memory/constitution.md`, `.kittify/memory/review-gates.md`, `.kittify/memory/retrospective-template.md`, and mission artifacts under `kitty-specs/003-spec-kitty-governance-upgrade/`; no code changes |
 
 ### Runtime operation
 
