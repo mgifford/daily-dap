@@ -1028,7 +1028,7 @@ test('renderDailyReportPage includes anchor links on all section headings', () =
   assert.ok(html.includes('href="#dap-context-heading"'), 'About These Reports heading should have anchor link');
   assert.ok(html.includes('href="#narrative-heading"'), 'Narrative heading should have anchor link');
   assert.ok(html.includes('href="#day-comparison-heading"'), 'Day comparison heading should have anchor link');
-  assert.ok(html.includes('href="#scores-heading"'), 'Aggregate Scores heading should have anchor link');
+  assert.ok(html.includes('href="#at-a-glance-heading"'), 'Today at a Glance heading should have anchor link');
   assert.ok(html.includes('href="#history-heading"'), 'History heading should have anchor link');
   assert.ok(html.includes('href="#top-urls-heading"'), 'Top URLs heading should have anchor link');
 });
@@ -1038,7 +1038,7 @@ test('renderDailyReportPage anchor links have accessible aria-labels', () => {
 
   assert.ok(html.includes('aria-label="Link to About These Reports"'), 'About heading anchor should have descriptive aria-label');
   assert.ok(html.includes('aria-label="Link to Accessibility Trend Narrative"'), 'Narrative anchor should have descriptive aria-label');
-  assert.ok(html.includes('aria-label="Link to Aggregate Scores"'), 'Scores anchor should have descriptive aria-label');
+  assert.ok(html.includes('aria-label="Link to Today at a Glance"'), 'At-a-glance anchor should have descriptive aria-label');
   assert.ok(html.includes('aria-label="Link to History"'), 'History anchor should have descriptive aria-label');
   assert.ok(html.includes('aria-label="Link to Top URLs by Traffic (Scanned)"'), 'Top URLs anchor should have descriptive aria-label');
 });
@@ -1059,6 +1059,47 @@ test('renderDailyReportPage fpc exclusion heading has anchor link', () => {
   const html = renderDailyReportPage(minimalReport);
   assert.ok(html.includes('href="#fpc-exclusion-heading"'), 'FPC Exclusion heading should have anchor link');
   assert.ok(html.includes('id="fpc-exclusion-heading"'), 'FPC Exclusion heading should have an id');
+});
+
+test('renderDailyReportPage opens with a Today at a Glance summary section', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('id="at-a-glance-heading"'), 'Should include at-a-glance section');
+  const glanceIdx = html.indexOf('id="at-a-glance-heading"');
+  const narrativeIdx = html.indexOf('id="narrative-heading"');
+  const topUrlsIdx = html.indexOf('id="top-urls-heading"');
+  assert.ok(glanceIdx !== -1 && glanceIdx < narrativeIdx, 'At-a-glance should come before the trend narrative');
+  assert.ok(glanceIdx < topUrlsIdx, 'At-a-glance should come before the top URLs table');
+  assert.ok(html.includes('glance-facts'), 'At-a-glance should include the quick facts list');
+  assert.ok(html.includes('<strong>2</strong> of 2 top government pages scanned successfully'), 'Facts should include scan counts');
+});
+
+test('renderDailyReportPage includes a How to Use This Report section with audience pathways', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('id="how-to-use-heading"'), 'Should include how-to-use section');
+  assert.ok(html.includes('href="press-release.md"'), 'Journalist pathway should link to the daily press release');
+  assert.ok(html.includes('audience-card'), 'Should render audience cards');
+});
+
+test('renderDailyReportPage includes an On this page navigation for rendered sections only', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(html.includes('class="page-toc print-hide"'), 'Should include the page TOC nav');
+  assert.ok(html.includes('id="toc-heading"'), 'TOC should have a labelled heading');
+  const tocStart = html.indexOf('class="page-toc');
+  const tocEnd = html.indexOf('</nav>', tocStart);
+  const toc = html.slice(tocStart, tocEnd);
+  assert.ok(toc.includes('href="#top-urls-heading"'), 'TOC should link to the top URLs section');
+  assert.ok(toc.includes('href="#history-heading"'), 'TOC should link to the history section');
+  // minimalReport has no environmental data, so that section is absent and must not be listed
+  assert.ok(!toc.includes('href="#environmental-conditions-heading"'), 'TOC should omit sections that are not rendered');
+});
+
+test('renderDailyReportPage moves About These Reports below the findings sections', () => {
+  const html = renderDailyReportPage(minimalReport);
+  const aboutIdx = html.indexOf('id="dap-context-heading"');
+  const topUrlsIdx = html.indexOf('id="top-urls-heading"');
+  const ctaIdx = html.indexOf('id="cta-heading"');
+  assert.ok(aboutIdx > topUrlsIdx, 'About These Reports should appear after the top URLs table');
+  assert.ok(aboutIdx < ctaIdx, 'About These Reports should appear before Take Action');
 });
 
 test('renderDailyReportPage links first DAP mention to digital.gov/guides/dap', () => {

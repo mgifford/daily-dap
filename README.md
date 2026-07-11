@@ -147,6 +147,7 @@ This project is transparent about how AI tools have been used throughout its dev
 | OpenAI | gpt-5 | Added a dedicated BDD behavior layer under tests/bdd with curated domain Gherkin features, traceability and ownership docs, step/world guidance, and a pull request checklist for behavior-change governance |
 | OpenAI | gpt-5 (Copilot Coding Agent) | Clarified the Common Accessibility Issues section to state disability-impact values are Census-based estimates and that page-load totals may include bot traffic; added unit-test coverage for the updated language |
 | OpenAI | gpt-5 (Copilot Coding Agent) | Added optional WebPageTest scanner integration (with `WEBPAGETEST_API_KEY`), normalized per-URL WebPageTest metrics/issues, and report-level common performance pain-point aggregation with focused unit tests |
+| Claude (Anthropic) | Claude Code | Reorganized the daily report page for impact and readability: added a Today at a Glance summary with an Americans-excluded headline, a How to Use This Report section with audience pathways (agency staff, journalists, advocates) linking the daily press release, an On This Page navigation, moved Americans Excluded above the fold and About These Reports below the findings; updated and extended unit tests |
 
 ### Runtime operation
 
