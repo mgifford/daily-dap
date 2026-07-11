@@ -107,7 +107,11 @@
         "required": ["date", "aggregate_scores"],
         "properties": {
           "date": { "type": "string", "format": "date" },
-          "aggregate_scores": { "$ref": "#/properties/aggregate_scores" }
+          "aggregate_scores": { "$ref": "#/properties/aggregate_scores" },
+          "severe_findings_pages": {
+            "description": "Number of scanned pages with Critical or Serious axe findings on that day (null when the source report predates this field).",
+            "oneOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }]
+          }
         },
         "additionalProperties": false
       }

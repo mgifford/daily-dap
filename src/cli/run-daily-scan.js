@@ -503,9 +503,11 @@ async function loadHistoryRecords(repoRoot, lookbackDays) {
     try {
       const reportRaw = await fs.readFile(reportPath, 'utf8');
       const report = JSON.parse(reportRaw);
+      const topUrls = Array.isArray(report.top_urls) ? report.top_urls : [];
       records.push({
         run_date: report.run_date,
-        aggregate_scores: report.aggregate_scores
+        aggregate_scores: report.aggregate_scores,
+        severe_findings_pages: topUrls.filter((u) => (u?.severe_findings_count ?? 0) > 0).length
       });
     } catch {
       records.push({
@@ -516,7 +518,8 @@ async function loadHistoryRecords(repoRoot, lookbackDays) {
           best_practices: 0,
           seo: 0,
           pwa: 0
-        }
+        },
+        severe_findings_pages: null
       });
     }
   }

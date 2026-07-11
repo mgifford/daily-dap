@@ -213,6 +213,8 @@ function renderSharedStyles() {
       --color-copied-border: #28a745;
       --color-copied-text: #155724;
       --color-warning: #FA9441;
+      --color-delta-good: #2e7d32;
+      --color-delta-bad: #c62828;
     }
 
     /* ---------- Dark mode (system preference) ---------- */
@@ -266,6 +268,8 @@ function renderSharedStyles() {
         --color-copied-bg: #1a3728;
         --color-copied-border: #2ea043;
         --color-copied-text: #56d364;
+        --color-delta-good: #56d364;
+        --color-delta-bad: #f85149;
       }
     }
 
@@ -319,6 +323,8 @@ function renderSharedStyles() {
       --color-copied-bg: #1a3728;
       --color-copied-border: #2ea043;
       --color-copied-text: #56d364;
+      --color-delta-good: #56d364;
+      --color-delta-bad: #f85149;
     }
 
     /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
@@ -581,6 +587,9 @@ function renderSharedStyles() {
     }
     .score-card .score-label { font-size: 0.78rem; color: var(--color-score-label); text-transform: uppercase; letter-spacing: 0.05em; }
     .score-card .score-value { font-size: 2rem; font-weight: 700; color: var(--color-score-value); line-height: 1.1; }
+    .score-delta { font-size: 0.75rem; margin-top: 0.3rem; color: var(--color-score-label); }
+    .delta-good { color: var(--color-delta-good); font-weight: 600; }
+    .delta-bad { color: var(--color-delta-bad); font-weight: 600; }
 
     /* ---------- Tables ---------- */
     .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -3114,6 +3123,52 @@ function renderCallToActionSection(report) {
   </section>`;
 }
 
+function findPreviousHistoryEntry(report) {
+  const runDate = report.run_date ?? '';
+  const candidates = (report.history_series ?? []).filter(
+    (entry) => entry.date < runDate && hasNonZeroScores(entry)
+  );
+  return candidates.length > 0 ? candidates[candidates.length - 1] : null;
+}
+
+function renderScoreCardDelta(current, previous) {
+  if (
+    typeof current !== 'number' || !Number.isFinite(current) ||
+    typeof previous !== 'number' || !Number.isFinite(previous)
+  ) {
+    return '';
+  }
+  const delta = Math.round((current - previous) * 100) / 100;
+  if (delta === 0) {
+    return '<div class="score-delta">no change vs previous scan</div>';
+  }
+  // Higher Lighthouse scores are better, so an increase is good news.
+  const cls = delta > 0 ? 'delta-good' : 'delta-bad';
+  const arrow = delta > 0 ? '&#9650;' : '&#9660;';
+  const signed = delta > 0 ? `+${delta}` : `${delta}`;
+  return `<div class="score-delta"><span class="${cls}"><span aria-hidden="true">${arrow}</span> ${signed}</span> vs previous scan</div>`;
+}
+
+function renderScoreCardsGrid(scores, previousScores = null) {
+  const cards = [
+    ['Performance', 'performance'],
+    ['Accessibility', 'accessibility'],
+    ['Best Practices', 'best_practices'],
+    ['SEO', 'seo']
+  ]
+    .map(
+      ([label, key]) => `
+        <div class="score-card">
+          <div class="score-label">${label}</div>
+          <div class="score-value">${scores[key]}</div>
+          ${renderScoreCardDelta(scores[key], previousScores?.[key])}
+        </div>`
+    )
+    .join('');
+  return `<div class="score-grid">${cards}
+      </div>`;
+}
+
 function computeTotalExcluded(report) {
   const categories = report.fpc_exclusion?.categories;
   if (!categories) {
@@ -3134,12 +3189,27 @@ function renderAtAGlanceSection(report) {
     ? `<p class="glance-headline">An estimated <strong>~${totalExcluded.toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on the most-visited federal web pages today. <a href="#fpc-exclusion-heading">See who is affected</a>.</p>`
     : '';
 
+  const previousEntry = findPreviousHistoryEntry(report);
+
   const facts = [];
   facts.push(`<li><strong>${counts.succeeded}</strong> of ${counts.processed} top government pages scanned successfully (${counts.failed} failed, ${counts.excluded} excluded). <a href="#top-urls-heading">See every page and its scores</a>.</li>`);
 
   if (topUrls.length > 0) {
     const severePages = topUrls.filter((entry) => (entry.severe_findings_count ?? 0) > 0).length;
-    facts.push(`<li><strong>${severePages}</strong> of ${topUrls.length} scanned pages have Critical or Serious accessibility findings.</li>`);
+    let severeDelta = '';
+    const prevSevere = previousEntry?.severe_findings_pages;
+    if (Number.isInteger(prevSevere)) {
+      const diff = severePages - prevSevere;
+      // More pages with severe findings is bad news, fewer is good news.
+      if (diff > 0) {
+        severeDelta = ` &mdash; <span class="delta-bad">up ${diff} from the previous scan</span>`;
+      } else if (diff < 0) {
+        severeDelta = ` &mdash; <span class="delta-good">down ${Math.abs(diff)} from the previous scan</span>`;
+      } else {
+        severeDelta = ' &mdash; unchanged from the previous scan';
+      }
+    }
+    facts.push(`<li><strong>${severePages}</strong> of ${topUrls.length} scanned pages have Critical or Serious accessibility findings${severeDelta}.</li>`);
   }
 
   const topPattern = buildAxePatternCounts(topUrls)[0];
@@ -3154,25 +3224,8 @@ function renderAtAGlanceSection(report) {
     <h2 id="at-a-glance-heading">Today at a Glance${renderAnchorLink('at-a-glance-heading', 'Today at a Glance')}</h2>
     ${renderExecutionErrorNotice(report)}
     ${headline}
-    <div class="score-grid">
-      <div class="score-card">
-        <div class="score-label">Performance</div>
-        <div class="score-value">${scores.performance}</div>
-      </div>
-      <div class="score-card">
-        <div class="score-label">Accessibility</div>
-        <div class="score-value">${scores.accessibility}</div>
-      </div>
-      <div class="score-card">
-        <div class="score-label">Best Practices</div>
-        <div class="score-value">${scores.best_practices}</div>
-      </div>
-      <div class="score-card">
-        <div class="score-label">SEO</div>
-        <div class="score-value">${scores.seo}</div>
-      </div>
-    </div>
-    <p class="sr-only">Aggregate Lighthouse scores (0–100, higher is better) averaged across all successfully scanned pages.</p>
+    ${renderScoreCardsGrid(scores, previousEntry?.aggregate_scores ?? null)}
+    <p class="sr-only">Aggregate Lighthouse scores (0-100, higher is better) averaged across all successfully scanned pages.</p>
     <ul class="glance-facts">
       ${facts.join('\n      ')}
     </ul>
@@ -3443,31 +3496,23 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
 
   const latestScores = latestReport?.aggregate_scores;
 
-  const scoresSummary = latestScores
-    ? `
+  let scoresSummary = '';
+  if (latestScores) {
+    const latestDate = latestReport.run_date;
+    const totalExcluded = computeTotalExcluded(latestReport);
+    const headline = totalExcluded !== null && totalExcluded > 0
+      ? `<p class="glance-headline">An estimated <strong>~${totalExcluded.toLocaleString('en-US')} Americans</strong> encountered an accessibility barrier on the most-visited federal web pages on ${escapeHtml(latestDate)}. <a href="./daily/${escapeHtml(latestDate)}/index.html#fpc-exclusion-heading">See who is affected</a>.</p>`
+      : '';
+    const previousEntry = findPreviousHistoryEntry(latestReport);
+
+    scoresSummary = `
   <section aria-labelledby="latest-scores-heading">
-    <h2 id="latest-scores-heading">Latest Scores (${escapeHtml(latestReport.run_date)})${renderAnchorLink('latest-scores-heading', `Latest Scores (${latestReport.run_date})`)}</h2>
-    <div class="score-grid">
-      <div class="score-card">
-        <div class="score-label">Performance</div>
-        <div class="score-value">${latestScores.performance}</div>
-      </div>
-      <div class="score-card">
-        <div class="score-label">Accessibility</div>
-        <div class="score-value">${latestScores.accessibility}</div>
-      </div>
-      <div class="score-card">
-        <div class="score-label">Best Practices</div>
-        <div class="score-value">${latestScores.best_practices}</div>
-      </div>
-      <div class="score-card">
-        <div class="score-label">SEO</div>
-        <div class="score-value">${latestScores.seo}</div>
-      </div>
-    </div>
-    <p><a href="./daily/${escapeHtml(latestReport.run_date)}/index.html">Open latest report &rarr;</a></p>
-  </section>`
-    : '';
+    <h2 id="latest-scores-heading">Latest Scores (${escapeHtml(latestDate)})${renderAnchorLink('latest-scores-heading', `Latest Scores (${latestDate})`)}</h2>
+    ${headline}
+    ${renderScoreCardsGrid(latestScores, previousEntry?.aggregate_scores ?? null)}
+    <p><a href="./daily/${escapeHtml(latestDate)}/index.html">Open latest report &rarr;</a> &middot; <a href="./daily/${escapeHtml(latestDate)}/press-release.md">Read the plain-language daily summary</a></p>
+  </section>`;
+  }
 
   const archiveSection = archiveUrl
     ? `
@@ -3496,6 +3541,8 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
       <p>Daily automated accessibility and performance scans of the top 100 most-visited U.S. government URLs, powered by <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noreferrer">Google Lighthouse</a> and <a href="https://www.deque.com/axe/" target="_blank" rel="noreferrer">axe-core</a>.</p>
     </div>
 
+    ${scoresSummary}
+
     <section aria-labelledby="about-heading">
       <h2 id="about-heading">What is DAP?${renderAnchorLink('about-heading', 'What is DAP?')}</h2>
       <p>The <a href="https://digital.gov/guides/dap" target="_blank" rel="noreferrer"><strong>Digital Analytics Program (DAP)</strong></a> is a U.S. government analytics service that tracks website traffic across hundreds of participating federal agencies. It measures page views, visitor counts, and usage patterns for government websites, providing transparency into how the public engages with federal digital services. The traffic data is publicly available at <a href="https://analytics.usa.gov/" target="_blank" rel="noreferrer">analytics.usa.gov</a>.</p>
@@ -3508,8 +3555,6 @@ export function renderDashboardPage({ latestReport, historyIndex = [], archiveUr
       </ul>
       <p>Scans run daily. Click any report date below to see detailed per-URL findings, accessibility patterns, and trend analysis. <a href="${GITHUB_URL}" target="_blank" rel="noreferrer">View the source code on GitHub</a>.</p>
     </section>
-
-    ${scoresSummary}
 
     <section aria-labelledby="recent-reports-heading">
       <h2 id="recent-reports-heading">Recent Reports${renderAnchorLink('recent-reports-heading', 'Recent Reports')}</h2>

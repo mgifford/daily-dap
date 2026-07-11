@@ -1102,6 +1102,51 @@ test('renderDailyReportPage moves About These Reports below the findings section
   assert.ok(aboutIdx < ctaIdx, 'About These Reports should appear before Take Action');
 });
 
+test('renderDailyReportPage shows day-over-day score deltas vs the previous scan', () => {
+  const html = renderDailyReportPage(minimalReport);
+  // minimalReport has a 2026-03-08 entry (performance 58) before run_date 2026-03-09 (performance 60)
+  const glance = html.slice(html.indexOf('id="at-a-glance-heading"'), html.indexOf('id="how-to-use-heading"'));
+  assert.ok(glance.includes('vs previous scan'), 'Score cards should compare against the previous scan');
+  assert.ok(glance.includes('class="delta-good"'), 'An improved score should be marked as good');
+  assert.ok(glance.includes('+2'), 'Performance delta of +2 should be shown');
+});
+
+test('renderDailyReportPage shows severe-findings delta when history carries severe_findings_pages', () => {
+  const report = {
+    ...minimalReport,
+    history_series: [
+      { date: '2026-03-08', aggregate_scores: { performance: 58, accessibility: 68, best_practices: 78, seo: 83 }, severe_findings_pages: 3 },
+      { date: '2026-03-09', aggregate_scores: { performance: 60, accessibility: 70, best_practices: 80, seo: 85 } }
+    ]
+  };
+  const html = renderDailyReportPage(report);
+  // minimalReport has 1 page with severe findings today vs 3 the previous day
+  assert.ok(html.includes('down 2 from the previous scan'), 'Severe-findings fact should show the day-over-day change');
+});
+
+test('renderDailyReportPage omits severe-findings delta when history lacks severe_findings_pages', () => {
+  const html = renderDailyReportPage(minimalReport);
+  assert.ok(!html.includes('from the previous scan'), 'No delta should be shown without historical severe counts');
+});
+
+test('renderDashboardPage leads with impact headline and latest scores before the DAP explainer', () => {
+  const reportWithExclusion = {
+    ...minimalReport,
+    fpc_exclusion: {
+      categories: {
+        VIS: { label: 'Without Vision', prevalence_rate: 0.01, estimated_population: 3400000, affected_page_loads: 1000000, estimated_excluded_users: 250000 }
+      }
+    }
+  };
+  const html = renderDashboardPage({ latestReport: reportWithExclusion, historyIndex: [] });
+  assert.ok(html.includes('glance-headline'), 'Dashboard should show the impact headline');
+  assert.ok(html.includes('~250,000 Americans'), 'Headline should include the excluded-Americans estimate');
+  assert.ok(html.includes('press-release.md'), 'Dashboard should link the plain-language daily summary');
+  const scoresIdx = html.indexOf('id="latest-scores-heading"');
+  const aboutIdx = html.indexOf('id="about-heading"');
+  assert.ok(scoresIdx !== -1 && scoresIdx < aboutIdx, 'Latest Scores should appear before the What is DAP section');
+});
+
 test('renderDailyReportPage links first DAP mention to digital.gov/guides/dap', () => {
   const html = renderDailyReportPage(minimalReport);
   assert.ok(
