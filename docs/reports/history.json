@@ -1,7 +1,63 @@
 {
-  "generated_at": "2026-07-05T10:00:56.975Z",
+  "generated_at": "2026-07-13T10:27:56.889Z",
   "lookback_days": 31,
   "entries": [
+    {
+      "run_date": "2026-07-13",
+      "run_id": "run-2026-07-13-3738df5531",
+      "report_path": "daily/2026-07-13/report.json",
+      "page_path": "daily/2026-07-13/index.html",
+      "generated_at": "2026-07-13T10:27:56.889Z"
+    },
+    {
+      "run_date": "2026-07-12",
+      "run_id": "run-2026-07-12-3c1a02462a",
+      "report_path": "daily/2026-07-12/report.json",
+      "page_path": "daily/2026-07-12/index.html",
+      "generated_at": "2026-07-12T09:57:04.903Z"
+    },
+    {
+      "run_date": "2026-07-11",
+      "run_id": "run-2026-07-11-571cbe882e",
+      "report_path": "daily/2026-07-11/report.json",
+      "page_path": "daily/2026-07-11/index.html",
+      "generated_at": "2026-07-11T09:49:32.171Z"
+    },
+    {
+      "run_date": "2026-07-10",
+      "run_id": "run-2026-07-10-7566f4fe02",
+      "report_path": "daily/2026-07-10/report.json",
+      "page_path": "daily/2026-07-10/index.html",
+      "generated_at": "2026-07-10T10:26:53.227Z"
+    },
+    {
+      "run_date": "2026-07-09",
+      "run_id": "run-2026-07-09-d139e2045f",
+      "report_path": "daily/2026-07-09/report.json",
+      "page_path": "daily/2026-07-09/index.html",
+      "generated_at": "2026-07-09T10:27:27.017Z"
+    },
+    {
+      "run_date": "2026-07-08",
+      "run_id": "run-2026-07-08-f8fbba560e",
+      "report_path": "daily/2026-07-08/report.json",
+      "page_path": "daily/2026-07-08/index.html",
+      "generated_at": "2026-07-08T10:01:01.728Z"
+    },
+    {
+      "run_date": "2026-07-07",
+      "run_id": "run-2026-07-07-dce76cd42f",
+      "report_path": "daily/2026-07-07/report.json",
+      "page_path": "daily/2026-07-07/index.html",
+      "generated_at": "2026-07-07T10:27:38.390Z"
+    },
+    {
+      "run_date": "2026-07-06",
+      "run_id": "run-2026-07-06-3952890d61",
+      "report_path": "daily/2026-07-06/report.json",
+      "page_path": "daily/2026-07-06/index.html",
+      "generated_at": "2026-07-06T10:56:14.298Z"
+    },
     {
       "run_date": "2026-07-05",
       "run_id": "run-2026-07-05-cf70004b73",
@@ -162,62 +218,6 @@
       "report_path": "daily/2026-06-13/report.json",
       "page_path": "daily/2026-06-13/index.html",
       "generated_at": "2026-06-13T10:12:23.067Z"
-    },
-    {
-      "run_date": "2026-06-12",
-      "run_id": "run-2026-06-12-3a5129d6fb",
-      "report_path": "daily/2026-06-12/report.json",
-      "page_path": "daily/2026-06-12/index.html",
-      "generated_at": "2026-06-12T10:45:18.105Z"
-    },
-    {
-      "run_date": "2026-06-11",
-      "run_id": "run-2026-06-11-c07efc74c0",
-      "report_path": "daily/2026-06-11/report.json",
-      "page_path": "daily/2026-06-11/index.html",
-      "generated_at": "2026-06-11T10:55:47.040Z"
-    },
-    {
-      "run_date": "2026-06-10",
-      "run_id": "run-2026-06-10-48fe262095",
-      "report_path": "daily/2026-06-10/report.json",
-      "page_path": "daily/2026-06-10/index.html",
-      "generated_at": "2026-06-10T10:42:12.623Z"
-    },
-    {
-      "run_date": "2026-06-09",
-      "run_id": "run-2026-06-09-47040f0c38",
-      "report_path": "daily/2026-06-09/report.json",
-      "page_path": "daily/2026-06-09/index.html",
-      "generated_at": "2026-06-09T10:29:50.135Z"
-    },
-    {
-      "run_date": "2026-06-08",
-      "run_id": "run-2026-06-08-d31f98e72e",
-      "report_path": "daily/2026-06-08/report.json",
-      "page_path": "daily/2026-06-08/index.html",
-      "generated_at": "2026-06-08T10:58:20.776Z"
-    },
-    {
-      "run_date": "2026-06-07",
-      "run_id": "run-2026-06-07-6e36421b41",
-      "report_path": "daily/2026-06-07/report.json",
-      "page_path": "daily/2026-06-07/index.html",
-      "generated_at": "2026-06-07T10:12:39.664Z"
-    },
-    {
-      "run_date": "2026-06-06",
-      "run_id": "run-2026-06-06-9b300ab30e",
-      "report_path": "daily/2026-06-06/report.json",
-      "page_path": "daily/2026-06-06/index.html",
-      "generated_at": "2026-06-06T09:59:13.924Z"
-    },
-    {
-      "run_date": "2026-06-05",
-      "run_id": "run-2026-06-05-e0b3e5785e",
-      "report_path": "daily/2026-06-05/report.json",
-      "page_path": "daily/2026-06-05/index.html",
-      "generated_at": "2026-06-05T10:35:53.968Z"
     }
   ]
 }
