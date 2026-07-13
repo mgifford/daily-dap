@@ -395,6 +395,19 @@ test('buildDailyReport history_series maps historyWindow entries to {date, aggre
   assert.equal(report.history_series[0].aggregate_scores.performance, 75);
 });
 
+test('buildDailyReport history_series carries severe_findings_pages through, defaulting to null', () => {
+  const historyWindow = {
+    window_days: 30,
+    history_series: [
+      { run_date: '2024-11-13', aggregate_scores: { performance: 70, accessibility: 80, best_practices: 78, seo: 81, pwa: 0 }, severe_findings_pages: 42 },
+      { run_date: '2024-11-14', aggregate_scores: { performance: 75, accessibility: 85, best_practices: 80, seo: 82, pwa: 0 } }
+    ]
+  };
+  const report = buildMinReport({ historyWindow });
+  assert.equal(report.history_series[0].severe_findings_pages, 42);
+  assert.equal(report.history_series[1].severe_findings_pages, null);
+});
+
 test('buildDailyReport fpc_exclusion is null when not provided', () => {
   const report = buildMinReport({ fpcExclusion: null });
   assert.equal(report.fpc_exclusion, null);

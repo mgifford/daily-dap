@@ -211,7 +211,8 @@ export function buildDailyReport({
       best_practices: coerceScore(entry.aggregate_scores?.best_practices),
       seo: coerceScore(entry.aggregate_scores?.seo),
       pwa: coerceScore(entry.aggregate_scores?.pwa)
-    }
+    },
+    severe_findings_pages: Number.isInteger(entry.severe_findings_pages) ? entry.severe_findings_pages : null
   }));
 
   const topUrls = normalizeTopUrls(urlResults, dotgovLookup);
