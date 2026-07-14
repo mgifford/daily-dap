@@ -70,6 +70,8 @@
       --color-copied-border: #28a745;
       --color-copied-text: #155724;
       --color-warning: #FA9441;
+      --color-delta-good: #2e7d32;
+      --color-delta-bad: #c62828;
     }
 
     /* ---------- Dark mode (system preference) ---------- */
@@ -123,6 +125,8 @@
         --color-copied-bg: #1a3728;
         --color-copied-border: #2ea043;
         --color-copied-text: #56d364;
+        --color-delta-good: #56d364;
+        --color-delta-bad: #f85149;
       }
     }
 
@@ -176,6 +180,8 @@
       --color-copied-bg: #1a3728;
       --color-copied-border: #2ea043;
       --color-copied-text: #56d364;
+      --color-delta-good: #56d364;
+      --color-delta-bad: #f85149;
     }
 
     /* ---------- Dark mode score color gradient overrides (system preference) ---------- */
@@ -353,6 +359,65 @@
     }
     .page-intro h1 { margin-top: 0; }
 
+    /* ---------- At-a-glance summary ---------- */
+    .glance-headline { font-size: 1.15rem; margin: 0.5rem 0 1rem; }
+    .glance-facts { margin: 0.75rem 0 0.25rem; padding-left: 1.25rem; }
+    .glance-facts li { margin-bottom: 0.4rem; }
+
+    /* ---------- Audience pathways ---------- */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 0.5rem;
+    }
+    .audience-card {
+      border: 1px solid var(--color-table-border);
+      border-top: 4px solid var(--color-link);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      background: var(--color-score-bg);
+    }
+    .audience-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+    .audience-card ul { margin: 0.5rem 0 0; padding-left: 1.25rem; }
+    .audience-card li { margin-bottom: 0.35rem; }
+
+    /* ---------- "On this page" table of contents ---------- */
+    .page-toc {
+      background: var(--color-surface);
+      border-radius: 6px;
+      padding: 0.9rem 1.5rem 1rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px var(--color-shadow);
+    }
+    .page-toc h2 {
+      margin: 0 0 0.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+    }
+    .page-toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.5rem;
+    }
+    .page-toc a {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--color-badge-border);
+      border-radius: 999px;
+      background: var(--color-badge-bg);
+      color: var(--color-badge-text);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .page-toc a:hover { background: var(--color-badge-hover); text-decoration: underline; }
+    .page-toc a:focus-visible { outline: 3px solid var(--color-focus-ring); outline-offset: 2px; }
+
     /* ---------- Content cards ---------- */
     section {
       background: var(--color-surface);
@@ -379,6 +444,9 @@
     }
     .score-card .score-label { font-size: 0.78rem; color: var(--color-score-label); text-transform: uppercase; letter-spacing: 0.05em; }
     .score-card .score-value { font-size: 2rem; font-weight: 700; color: var(--color-score-value); line-height: 1.1; }
+    .score-delta { font-size: 0.75rem; margin-top: 0.3rem; color: var(--color-score-label); }
+    .delta-good { color: var(--color-delta-good); font-weight: 600; }
+    .delta-bad { color: var(--color-delta-bad); font-weight: 600; }
 
     /* ---------- Tables ---------- */
     .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
