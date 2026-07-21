@@ -18,7 +18,7 @@
     "chrome-launcher": "^1.2.0",
     "js-yaml": "^4.2.0",
     "jsdom": "^29.0.1",
-    "lighthouse": "^13.0.3"
+    "lighthouse": "^13.4.1"
   },
   "devDependencies": {
     "axe-core": "^4.11.2"
