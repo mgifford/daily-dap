@@ -1,12 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 import { validatePrevalenceConfig, TRAFFIC_WINDOW_MODES } from './schema.js';
 
 export async function loadPrevalenceConfig(configPath) {
   const resolvedPath = path.resolve(configPath);
   const raw = await fs.readFile(resolvedPath, 'utf-8');
-  const parsed = yaml.load(raw);
+  const parsed = loadYaml(raw);
   const validation = validatePrevalenceConfig(parsed);
 
   if (!validation.valid) {
