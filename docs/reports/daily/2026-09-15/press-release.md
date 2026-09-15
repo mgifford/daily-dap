@@ -2,7 +2,7 @@ FOR IMMEDIATE RELEASE
 
 # U.S. Government Website Accessibility Report: September 15, 2026
 
-*Washington, D.C. -- September 15, 2026* -- A daily scan of 95 of the most-visited U.S. government websites found 226 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Visual Information Access, and Primary Content Identification.
+*Washington, D.C. -- September 15, 2026* -- A daily scan of 95 of the most-visited U.S. government websites found 230 accessibility barriers across 100 URLs today. The most common issues include Digital Motor Access, Visual Information Access, and Document Structure Navigation.
 
 These barriers prevent Americans with disabilities from independently accessing essential government services. This is a single daily snapshot of the most popular ~100 pages in U.S. federal government web properties, as measured by the Digital Analytics Program (DAP).
 
@@ -12,13 +12,13 @@ Based on page traffic data and U.S. Census disability prevalence estimates (ACS 
 
 | Disability Group | Affected Page Loads | Estimated People Affected |
 |-----------------|---------------------|--------------------------|
-| Limited Reach and Strength | 20,434,316 | ~1,185,190 |
-| Limited Manipulation | 28,140,258 | ~647,226 |
+| Limited Reach and Strength | 20,542,438 | ~1,191,461 |
+| Limited Manipulation | 28,268,109 | ~650,167 |
 | Without Perception of Color | 9,075,324 | ~390,239 |
-| Limited Vision | 13,844,976 | ~318,434 |
-| Without Vision | 27,727,126 | ~277,271 |
-| Limited Language, Cognitive, and Learning Abilities | 4,967,702 | ~243,417 |
-| Without Hearing | 27,727,126 | ~83,181 |
+| Limited Vision | 14,082,342 | ~323,894 |
+| Without Vision | 27,747,519 | ~277,475 |
+| Limited Language, Cognitive, and Learning Abilities | 4,859,580 | ~238,119 |
+| Without Hearing | 27,747,519 | ~83,243 |
 
 *Total page loads across all scanned URLs today: 43,559,440*
 
@@ -30,7 +30,7 @@ The following accessibility issues were most frequently found across today's sca
 
 ### 1. `target-size`: Digital Motor Access
 
-*Found on 32 government websites today*
+*Found on 33 government websites today*
 
 Small touch targets act as a digital gatekeeper, excluding individuals with tremors, arthritis, or limited dexterity from accessing essential services independently. These technical failures transform a routine interaction into a source of failure, stripping away the autonomy of citizens who require a frictionless, accessible interface to participate in digital life. The approximately 58 million Americans with ambulatory or self-care disabilities are disproportionately impacted by inadequate touch target sizing on government mobile websites.
 
@@ -52,11 +52,11 @@ Low contrast text is one of the most pervasive barriers on government websites, 
 - People with low vision including age-related vision loss
 - People who are color blind (approximately 8% of men, 0.5% of women)
 
-### 3. `landmark-one-main`: Primary Content Identification
+### 3. `heading-order`: Document Structure Navigation
 
-*Found on 23 government websites today*
+*Found on 24 government websites today*
 
-Without a main landmark, screen reader users lose their most efficient way to skip to the primary content of a government page. Every page visit requires tabbing through the entire navigation structure to reach the actual content, a significant time and effort burden that accumulates across repeated visits to government websites for citizens managing ongoing benefit cases or legal matters.
+Screen reader users navigate complex government websites primarily through heading structure, using headings as a table of contents to jump between sections. Skipped heading levels break the logical document outline, causing confusion about the hierarchy of information and forcing users to re-read sections to understand the relationship between topics, adding significant time and effort to information-gathering tasks.
 
 **Affected groups:**
 
@@ -64,11 +64,11 @@ Without a main landmark, screen reader users lose their most efficient way to sk
 - People who are deaf and rely on visual-to-text tools
 - People with motor disabilities using keyboard navigation
 
-### 4. `heading-order`: Document Structure Navigation
+### 4. `landmark-one-main`: Primary Content Identification
 
 *Found on 22 government websites today*
 
-Screen reader users navigate complex government websites primarily through heading structure, using headings as a table of contents to jump between sections. Skipped heading levels break the logical document outline, causing confusion about the hierarchy of information and forcing users to re-read sections to understand the relationship between topics, adding significant time and effort to information-gathering tasks.
+Without a main landmark, screen reader users lose their most efficient way to skip to the primary content of a government page. Every page visit requires tabbing through the entire navigation structure to reach the actual content, a significant time and effort burden that accumulates across repeated visits to government websites for citizens managing ongoing benefit cases or legal matters.
 
 **Affected groups:**
 
@@ -94,10 +94,10 @@ Aggregate Lighthouse scores across 95 scanned U.S. government websites today:
 
 | Metric | Score |
 |--------|-------|
-| Accessibility | 91.39 |
-| Performance | 53.2 |
-| Best Practices | 83.64 |
-| SEO | 87.29 |
+| Accessibility | 91.23 |
+| Performance | 46.36 |
+| Best Practices | 84.04 |
+| SEO | 87.58 |
 
 ## About This Report
 
