@@ -1159,7 +1159,7 @@ GitHub Pages. Key changes for a fork:
 | `lighthouse` | ^13.0.3 | Web performance, accessibility, SEO, and best practices auditing |
 | `chrome-launcher` | ^1.2.0 | Launches Chrome for Lighthouse |
 | `axe-core` | bundled with Lighthouse | Accessibility rule-based testing engine (Deque Systems) |
-| `js-yaml` | ^4.1.0 | YAML configuration parsing |
+| `js-yaml` | ^5.2.2 | YAML configuration parsing |
 | `ajv` | ^8.17.1 | JSON Schema validation for config and report contracts |
 | `ajv-formats` | ^3.0.1 | Additional format validators (date, uri, etc.) |
 
