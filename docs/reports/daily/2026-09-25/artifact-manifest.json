@@ -1,0 +1,17 @@
+{
+  "run_id": "run-2026-09-25-7d1915135a",
+  "run_date": "2026-09-25",
+  "generated_at": "2026-09-25T15:13:04.533Z",
+  "files": [
+    {
+      "path": "docs/reports/daily/2026-09-25/report.json",
+      "sha256": "b8d730bb9422b2b3192841c04b38e6d887ec11676ab38e2e86745bbb43081347",
+      "bytes": 691946
+    },
+    {
+      "path": "docs/reports/history.json",
+      "sha256": "98699bf9434f6ab3d6bc7bb0b8350cd12de160b457ddc1efa58bf37062975b6f",
+      "bytes": 7593
+    }
+  ]
+}
