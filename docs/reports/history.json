@@ -1,7 +1,14 @@
 {
-  "generated_at": "2026-10-01T16:28:44.215Z",
+  "generated_at": "2026-10-02T15:51:21.525Z",
   "lookback_days": 31,
   "entries": [
+    {
+      "run_date": "2026-10-02",
+      "run_id": "run-2026-10-02-b50726f6a8",
+      "report_path": "daily/2026-10-02/report.json",
+      "page_path": "daily/2026-10-02/index.html",
+      "generated_at": "2026-10-02T15:51:21.525Z"
+    },
     {
       "run_date": "2026-10-01",
       "run_id": "run-2026-10-01-76e1918ff3",
@@ -211,13 +218,6 @@
       "report_path": "daily/2026-07-15/report.json",
       "page_path": "daily/2026-07-15/index.html",
       "generated_at": "2026-07-15T09:58:57.279Z"
-    },
-    {
-      "run_date": "2026-07-14",
-      "run_id": "run-2026-07-14-36f626ad95",
-      "report_path": "daily/2026-07-14/report.json",
-      "page_path": "daily/2026-07-14/index.html",
-      "generated_at": "2026-07-14T09:58:18.477Z"
     }
   ]
 }
