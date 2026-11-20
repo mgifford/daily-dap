@@ -1,0 +1,17 @@
+{
+  "run_id": "run-2026-11-20-6d8642419c",
+  "run_date": "2026-11-20",
+  "generated_at": "2026-11-20T18:25:22.718Z",
+  "files": [
+    {
+      "path": "docs/reports/daily/2026-11-20/report.json",
+      "sha256": "23b308bb0748f40140cef3f3909f63a00ab85b63baaf3a676c56032663a24c0c",
+      "bytes": 675981
+    },
+    {
+      "path": "docs/reports/history.json",
+      "sha256": "9ba9d429d87b016553e1302a08af0c9b1a8db30dd2acc604c462f93ce9e913ed",
+      "bytes": 7593
+    }
+  ]
+}
